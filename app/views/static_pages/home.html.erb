@@ -1,0 +1,14 @@
+<section id="home-1">
+  <span class="thetitle" style="padding-top : 5vh !important; ">Compass<br><small>centre for self-directed learning</small></span> 
+  <div id="login-signup-container">
+    <%= form_for @user, url: {controller: "sessions", action: "login_authentication"}, html: {method: "post" } do |f| %>
+    <%= f.text_field :username, autofocus: true, placeholder: "Username", class: "login_field", id: 'first' %>
+    <%= f.password_field :password, placeholder: "Password", class: "login_field"%>
+    <%= f.submit "Login", class: "login_button" %>
+    <% end %>
+  </div>
+  <%= render 'layouts/notice' %>
+  <%= link_to "Sign Up", new_user_path , id: "signup-link" %>
+  <%= link_to "Forgot Password", "" , id: "reset-link" %>
+</section>
+
