@@ -6,16 +6,17 @@ class SessionsController < ApplicationController
 
   def login_authentication
 
-    username_email = params[:username]
-    password = params[:password]
+    username_email = params[:user][:username]
+    password = params[:user][:password]
 
     @user = User.authenticate(username_email, password)
 
     if @user
       session[:user_id] = @user.id
-      redirect_to root_path
+      redirect_to user_portfolio_index_path(user_id: @user.id)
     else
-      render :login
+      flash[:alert] = "Something went wrong!"
+      redirect_to root_path
     end
     
   end
