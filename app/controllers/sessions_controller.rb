@@ -6,16 +6,18 @@ class SessionsController < ApplicationController
 
   def login_authentication
 
-    username_email = params[:username]
-    password = params[:password]
+    username_email = params[:user][:username]
+    password = params[:user][:password]
 
     @user = User.authenticate(username_email, password)
+    @user ||= User.new
 
-    if @user
+    unless @user.id.nil?
       session[:user_id] = @user.id
       redirect_to root_path
     else
-      render :login
+      flash.now[:alert] = "Login failed"
+      render "static_pages/home"
     end
     
   end
