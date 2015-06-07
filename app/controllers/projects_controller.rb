@@ -1,4 +1,4 @@
-class ProjectsController < ApplicationController
+class ProjectsController < SessionsController
   before_action :load_project
   before_action :signed_in
   before_action :current_user
@@ -47,6 +47,8 @@ class ProjectsController < ApplicationController
     end
 
     def load_project
-      @project = Project.find(params[:id])
+      if Project.all != []
+        @project = Project.find(params[:id])
+      end
     end
 end
