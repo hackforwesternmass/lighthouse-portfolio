@@ -8,25 +8,10 @@
 
 <section id="goals">
   <div class="add-goal">
-   <%= fa_icon("plus-circle", text: "Add Goal") %> 
+   <%= link_to fa_icon("plus-circle", text: "Add Goal"), new_user_goal_path %> 
   </div> 
 
   <div class="goal-container">
-    <div class="goal-title">Build university direction</div>
-    <div class="goal-description">Register for university courses to register in the fall</div>
-    <div class="goal-container-footer">
-      <div class="goal-inner-container-footer">
-        <label class="goal-label">DATE SET</label>
-        <div class="goal-date-set">March 18 2016</div>
-      </div>
-      <div class="goal-inner-container-footer">
-        <label class="goal-label">DEAD LINE</label>
-        <div class="goal-date-set">Feburary 16 2026</div>
-      </div>
-      <div class="goal-inner-container-footer">
-        <label class="goal-label">MENTOR</label>
-        <div class="goal-date-set">Steven</div>
-      </div>
-    </div>
+    <%= render @goals %>
   </div>
 </section>
