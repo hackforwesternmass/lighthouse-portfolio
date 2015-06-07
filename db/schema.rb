@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20150607002721) do
+=======
+ActiveRecord::Schema.define(version: 20150607004201) do
+>>>>>>> ed38b58fbfe6b6e11dbe1cdff45e39dce658aafe
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,10 +27,15 @@ ActiveRecord::Schema.define(version: 20150607002721) do
     t.string   "category"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+<<<<<<< HEAD
+=======
+    t.string   "topics"
+>>>>>>> ed38b58fbfe6b6e11dbe1cdff45e39dce658aafe
   end
 
   add_index "courses", ["user_id"], name: "index_courses_on_user_id", using: :btree
 
+<<<<<<< HEAD
   create_table "experiences", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "topic_id"
@@ -91,6 +100,21 @@ ActiveRecord::Schema.define(version: 20150607002721) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+=======
+  create_table "portfolios", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+  end
+
+  add_index "portfolios", ["user_id"], name: "index_portfolios_on_user_id", using: :btree
+>>>>>>> ed38b58fbfe6b6e11dbe1cdff45e39dce658aafe
 
   create_table "student2_courses", force: :cascade do |t|
     t.integer  "user_id"
@@ -116,6 +140,7 @@ ActiveRecord::Schema.define(version: 20150607002721) do
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+<<<<<<< HEAD
     t.string   "title"
   end
 
@@ -129,6 +154,10 @@ ActiveRecord::Schema.define(version: 20150607002721) do
   add_index "user2_topics", ["topic_id"], name: "index_user2_topics_on_topic_id", using: :btree
   add_index "user2_topics", ["user_id"], name: "index_user2_topics_on_user_id", using: :btree
 
+=======
+  end
+
+>>>>>>> ed38b58fbfe6b6e11dbe1cdff45e39dce658aafe
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -136,6 +165,7 @@ ActiveRecord::Schema.define(version: 20150607002721) do
     t.string   "email"
     t.string   "password"
     t.string   "role"
+<<<<<<< HEAD
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -147,11 +177,29 @@ ActiveRecord::Schema.define(version: 20150607002721) do
   add_foreign_key "portfolio2_courses", "portfolios"
   add_foreign_key "portfolio2_experiences", "experiences"
   add_foreign_key "portfolio2_experiences", "portfolios"
+=======
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.string   "tumblr"
+    t.string   "twitter"
+    t.string   "instagram"
+    t.text     "description"
+  end
+
+  add_foreign_key "courses", "users"
+>>>>>>> ed38b58fbfe6b6e11dbe1cdff45e39dce658aafe
   add_foreign_key "portfolios", "users"
   add_foreign_key "student2_courses", "courses"
   add_foreign_key "student2_courses", "users"
   add_foreign_key "topic2_courses", "courses"
   add_foreign_key "topic2_courses", "topics"
+<<<<<<< HEAD
   add_foreign_key "user2_topics", "topics"
   add_foreign_key "user2_topics", "users"
+=======
+>>>>>>> ed38b58fbfe6b6e11dbe1cdff45e39dce658aafe
 end

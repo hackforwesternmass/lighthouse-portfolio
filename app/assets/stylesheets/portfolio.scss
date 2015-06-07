@@ -1,0 +1,132 @@
+@import "lib";
+
+section#header{
+	float: right;
+	width: calc(100vw - 250px);
+	height: 100vh;
+}
+
+div.header-bg-wrapper{
+	height: 300px;
+	width: 100%;
+	background-color: blue;
+	background-image: image-url('tibetan-mountains.jpg');
+  background-size: cover;
+
+  div.header-bg{
+  	width: 100%;
+  	height: 100%;
+  	background-color: rgba(0,0,0, 0.7);
+
+  	.header-container{
+  		height: 100%;
+  		width: 70%;
+  		margin: 0 auto;
+      position: relative;
+
+  	}
+  }
+
+  div.avatar-column{
+    position: absolute;
+    top: 85px;
+    display: inline-block;
+    color: #333;
+    font: 400 1rem 'Raleway', sans-serif;
+    width: 130px;
+  }
+
+  img.edit-avatar{
+    height: 120px;
+    width: 120px;
+    border-radius: 10rem;
+    border: 5px solid #61c6d8;
+  }
+
+  input[type="file"] {
+      display: none;
+  }
+
+  label.custom-file-upload{
+    @include transition(100);
+    font-size: 10px;
+    background-color: #eee;
+    padding: 5px 10px;
+    border-radius: 3px;
+    position: absolute;
+    top: 90px;
+    left: 35px;
+
+
+    &:hover{
+      background-color: #61c6d8;
+      cursor:pointer;
+    }
+  }
+}
+
+div.student-name{
+  position: absolute;
+  top: 70px;
+  left: 200px;
+  font: 400 2rem 'Roboto', helvetica, sans-serif;
+  color: #eee;
+}
+
+div.student-description{
+  position: absolute;
+  top: 120px;
+  left: 200px;
+  font: 400 1rem 'Roboto', helvetica, sans-serif;
+  color: #eee;
+}
+
+a.student-edit{
+  @include transition(200ms);
+  position: absolute;
+  right: 2rem;
+  font: 400 1.1rem 'Roboto', helvetica, sans-serif;
+  top: 1rem;
+  color: #eee;
+
+  i{
+    padding-left: 5px;
+  }
+
+  &:hover{
+    color: orange;
+  }
+}
+
+div.avatar-column{
+  position: relative;
+  color: #333;
+  font: 400 1rem 'Raleway', sans-serif;
+}
+
+img.edit-avatar{
+  height: 150px;
+  width: 150px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+label.custom-file-upload{
+  @include transition(100);
+  font-size: 10px;
+  background-color: #eee;
+  padding: 5px 10px;
+  border-radius: 3px;
+  position: absolute;
+  top: 120px;
+  left: 20px;
+
+
+  &:hover{
+    background-color: rgba(119,136,153,0.95);
+    cursor:pointer;
+  }
+}
+

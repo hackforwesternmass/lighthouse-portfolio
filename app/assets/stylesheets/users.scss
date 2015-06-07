@@ -1,123 +1,131 @@
-section#home-1{
-	background-image: image-url('blue-space-cloud.jpg');
-	background-size: cover;
+// section#home-1{
+// 	background-image: image-url('blue-space-cloud.jpg');
+// 	background-size: cover;
+// 	height: 100vh;
+// }
+
+// span.thetitle{
+// 	display: block;
+// 	color: #fff;
+// 	font: 300 5em 'Open Sans', sans-serif;
+// 	text-transform: uppercase;
+// 	width: 100vw;
+// 	text-align: center;
+// 	letter-spacing: 0.15em;
+// }
+
+// small{
+// 	font-size: 0.3em;
+// }
+
+// .login_field{
+// 	display: block;
+// 	margin: 0 auto;
+// 	font: 300 1em 'Open Sans', sans-serif;
+// 	padding: 8px;
+// 	border: none;
+// 	margin-top: 2px;
+// 	width: 215px;
+// }
+
+// .login_button{
+// 	display: block;
+// 	margin: 0 auto;
+// 	font: 300 1em 'Open Sans', sans-serif;
+// 	padding: 8px;
+// 	border: none;
+// 	margin-top: 6px;
+// 	background-color: #fff;
+// 	text-transform: uppercase;
+// 	width: 216px;
+// 	color: #777;
+// 	letter-spacing: 0.15em;
+// 	border-radius: 3px;
+// 	background-color: #4bbc9c;
+// 	color: #fff;
+// }
+
+// .reset_button{
+// 	display: block;
+// 	margin: 0 auto;
+// 	font: 300 1em 'Open Sans', sans-serif;
+// 	padding: 8px;
+// 	border: none;
+// 	margin-top: 6px;
+// 	background-color: #fff;
+// 	text-transform: uppercase;
+// 	width: 216px;
+// 	color: #777;
+// 	letter-spacing: 0.15em;
+// 	border-radius: 3px;
+// 	background-color: #ff7f50;
+// 	color: #fff;
+// }
+
+// .login_button:hover{
+// 	cursor: pointer;
+// }
+
+// #login-signup-container{
+// 	margin-top: 15vh;
+// }
+
+// #first{
+// 	border-top-right-radius: 3px;
+// 	border-top-left-radius: 3px;
+// }
+
+// #signup-link{
+// font: 300 1em 'Open Sans', sans-serif;
+// display: block;
+// background-color: #008080;
+// color: #fff;
+// text-transform: uppercase;
+// text-decoration: none;
+// padding: 8px;
+// border-radius: 3px;
+// margin: 0 auto;
+// text-align: center;
+// margin-top: 2px;
+// position: absolute;
+// right: 200px;
+// bottom: 3vw;
+// }
+
+// #access-link{
+// 	@extend #signup-link;
+// 	right: 120px;
+// }
+
+// #signup-link:hover{
+// 	cursor: pointer;
+// }
+
+// #reset-link{
+// font: 300 1em 'Open Sans', sans-serif;
+// display: block;
+// background-color: #ff7f50;
+// color: #fff;
+// text-transform: uppercase;
+// text-decoration: none;
+// padding: 8px;
+// border-radius: 3px;
+// margin: 0 auto;
+// text-align: center;
+// margin-top: 2px;
+// position: absolute;
+// right: 22px;
+// bottom: 3vw;
+// }
+
+// #reset-link:hover{
+// 	cursor: pointer;
+
+section#student-edit-profile{
+  display: none;
+	width: calc(100vw - 250px);
 	height: 100vh;
-}
-
-span.thetitle{
-	display: block;
-	color: #fff;
-	font: 300 5em 'Open Sans', sans-serif;
-	text-transform: uppercase;
-	width: 100vw;
-	text-align: center;
-	letter-spacing: 0.15em;
-}
-
-small{
-	font-size: 0.3em;
-}
-
-.login_field{
-	display: block;
-	margin: 0 auto;
-	font: 300 1em 'Open Sans', sans-serif;
-	padding: 8px;
-	border: none;
-	margin-top: 2px;
-	width: 215px;
-}
-
-.login_button{
-	display: block;
-	margin: 0 auto;
-	font: 300 1em 'Open Sans', sans-serif;
-	padding: 8px;
-	border: none;
-	margin-top: 6px;
-	background-color: #fff;
-	text-transform: uppercase;
-	width: 216px;
-	color: #777;
-	letter-spacing: 0.15em;
-	border-radius: 3px;
-	background-color: #4bbc9c;
-	color: #fff;
-}
-
-.reset_button{
-	display: block;
-	margin: 0 auto;
-	font: 300 1em 'Open Sans', sans-serif;
-	padding: 8px;
-	border: none;
-	margin-top: 6px;
-	background-color: #fff;
-	text-transform: uppercase;
-	width: 216px;
-	color: #777;
-	letter-spacing: 0.15em;
-	border-radius: 3px;
-	background-color: #ff7f50;
-	color: #fff;
-}
-
-.login_button:hover{
-	cursor: pointer;
-}
-
-#login-signup-container{
-	margin-top: 15vh;
-}
-
-#first{
-	border-top-right-radius: 3px;
-	border-top-left-radius: 3px;
-}
-
-#signup-link{
-font: 300 1em 'Open Sans', sans-serif;
-display: block;
-background-color: #008080;
-color: #fff;
-text-transform: uppercase;
-text-decoration: none;
-padding: 8px;
-border-radius: 3px;
-margin: 0 auto;
-text-align: center;
-margin-top: 2px;
-position: absolute;
-right: 200px;
-bottom: 3vw;
-}
-
-#access-link{
-	@extend #signup-link;
-	right: 120px;
-}
-
-#signup-link:hover{
-	cursor: pointer;
-}
-
-#reset-link{
-font: 300 1em 'Open Sans', sans-serif;
-display: block;
-background-color: #ff7f50;
-color: #fff;
-text-transform: uppercase;
-text-decoration: none;
-padding: 8px;
-border-radius: 3px;
-margin: 0 auto;
-text-align: center;
-margin-top: 2px;
-position: absolute;
-right: 22px;
-bottom: 3vw;
-}
-
-#reset-link:hover{
-	cursor: pointer;
+	background-color: white;
+	position: fixed;
+	right: 0;
 }

@@ -10,14 +10,20 @@ class SessionsController < ApplicationController
     password = params[:user][:password]
 
     @user = User.authenticate(username_email, password)
-    @user ||= User.new
+    # @user ||= User.new
 
-    unless @user.id.nil?
+    # unless @user.id.nil?
+    #   session[:user_id] = @user.id
+    #   redirect_to root_path
+    # else
+    #   flash.now[:alert] = "Login failed"
+    #   render "static_pages/home"
+    if @user
       session[:user_id] = @user.id
-      redirect_to root_path
+      redirect_to user_portfolios_path(user_id: @user.id)
     else
-      flash.now[:alert] = "Login failed"
-      render "static_pages/home"
+      flash[:alert] = "Something went wrong!"
+      redirect_to root_path
     end
     
   end

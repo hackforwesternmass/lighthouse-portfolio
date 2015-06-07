@@ -1,3 +1,5 @@
+<section id="student-edit-profile">
+
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -11,6 +13,14 @@
     </div>
   <% end %>
 
+  <div class="avatar-column">
+    <%= image_tag @user.avatar.url, class: 'edit-avatar' %>
+    <label class="custom-file-upload">
+      <%= f.file_field :avatar %>
+      Choose new image
+    </label>
+  </div>
+
   <div class="field">
     <%= f.label :first_name %><br>
     <%= f.text_field :first_name %>
@@ -20,22 +30,27 @@
     <%= f.text_field :last_name %>
   </div>
   <div class="field">
-    <%= f.label :username %><br>
-    <%= f.text_field :username %>
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
   </div>
   <div class="field">
-    <%= f.label :email %><br>
-    <%= f.email_field :email %>
+    <%= f.label :tumblr %><br>
+    <%= f.text_field :tumblr %>
   </div>
   <div class="field">
-    <%= f.label :password %><br>
-    <%= f.password_field :password %>
+    <%= f.label :twitter %><br>
+    <%= f.text_field :twitter %>
   </div>
   <div class="field">
-    <%= f.label :password_confirmation %><br>
-    <%= f.password_field :password_confirmation %>
+    <%= f.label :instagram %><br>
+    <%= f.text_field :instagram %>
   </div>
   <div class="actions">
     <%= f.submit %>
+    <%= link_to "Cancel", "", class: 'cancel-edit' %>
   </div>
+<span></span>
 <% end %>
+
+ 
+</section>

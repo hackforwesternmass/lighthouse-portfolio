@@ -1,0 +1,19 @@
+<section id="portfolio">
+  <section class="portfolio-header-wrapper">
+    <section class="portfolio-header">
+        <%= link_to fa_icon("cog", text: "Edit", right: true), "", class: 'edit-student' %>
+      <div class="container">
+        <div class="avatar-column">
+          <%= image_tag @user.avatar.url, class: 'edit-avatar' %>
+        </div> 
+        <div class="name"><%= "#{@user.first_name} #{@user.last_name}" %></div>
+        <div class="student-description"><%= @user.description %></div>
+
+      </div>
+    </section>
+  </section>
+
+
+</section>
+
+

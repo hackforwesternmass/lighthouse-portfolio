@@ -9,6 +9,11 @@ Rails.application.routes.draw do
   resources :goals
   resources :projects
 
+  resources :users do 
+  	resources :portfolios
+  end
+
+
   namespace :sessions, path: '/', as: nil do
     post 'login_authentication'
     get 'logout'

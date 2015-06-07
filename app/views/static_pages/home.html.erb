@@ -2,16 +2,6 @@
   <span class="thetitle" style="padding-top : 5vh !important; ">Compass<br><small>centre for self-directed learning</small></span> 
   <div id="login-signup-container">
     <%= form_for @user, url: {controller: "sessions", action: "login_authentication"}, html: {method: "post" } do |f| %>
-      <% if @user.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@user.errors.count, "error") %> Login unsuccessful</h2>
-          <ul>
-          <% @user.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
     <%= f.text_field :username, autofocus: true, placeholder: "Username", class: "login_field", id: 'first' %>
     <%= f.password_field :password, placeholder: "Password", class: "login_field"%>
     <%= f.submit "Login", class: "login_button" %>
