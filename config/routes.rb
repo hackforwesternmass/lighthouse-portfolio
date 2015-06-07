@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   	resources :portfolios
   end
 
-
   namespace :sessions, path: '/', as: nil do
     post 'login_authentication'
     get 'logout'
