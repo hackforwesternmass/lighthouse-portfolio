@@ -2,10 +2,6 @@
 
 one:
   user_id: 
-  title: MyString
-  description: MyText
 
 two:
   user_id: 
-  title: MyString
-  description: MyText
