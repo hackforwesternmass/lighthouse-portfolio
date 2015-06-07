@@ -46,4 +46,53 @@ div.goal-container{
 	margin-top: 2rem;
 	padding: 2rem;
 	background-color: #fff;
+  @include prefixer(box-shadow, 0 0 20px rgba(0, 0, 0, 0.4));
+}
+
+div.goal-title{
+	font-weight: 700;
+	font-size: 1.2rem;
+}
+
+div.goal-container-footer{
+	display: block;
+	height: 4rem;
+}
+
+div.goal-inner-container-footer{
+}
+
+.goal-label{
+	font-size: 0.8rem;
+	color: #777;
+}
+
+
+.left{
+	float: left;
+}
+
+.right{
+	float: right;
+	text-align: right;
+}
+
+.goal-progress-container{
+	height: 3rem;
+	width: 100%;
+	background-color: rgba(97,198,216, 0.5);
+	border-radius: 3rem;
+	text-align: center;
+	color: #fff;
+	line-height: 3rem;
+	overflow: hidden;
+}
+
+.progress{
+	background-color: rgba(97,198,216, 1);
+	height: inherit;
+	color: #fff;
+	width: 50%;
+	text-align: center;
+	line-height: 3rem;
 }

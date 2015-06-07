@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150607004201) do
+ActiveRecord::Schema.define(version: 20150607144350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,11 +70,8 @@ ActiveRecord::Schema.define(version: 20150607004201) do
 
   create_table "portfolios", force: :cascade do |t|
     t.integer  "user_id"
-<<<<<<< HEAD
     t.string   "title"
     t.text     "description"
-=======
->>>>>>> b86eb7f12819164bd7b33d6f169f6296e2b3bb00
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.string   "avatar_file_name"
@@ -90,8 +87,12 @@ ActiveRecord::Schema.define(version: 20150607004201) do
     t.text     "description"
     t.text     "resume"
     t.integer  "difficulty"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   create_table "resources", force: :cascade do |t|
