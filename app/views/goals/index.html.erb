@@ -8,12 +8,68 @@
 
 <section id="goals">
   <div class="add-goal">
-   <%= link_to fa_icon("plus-circle", text: "Add Goal"), new_user_goal_path %> 
+   <%= fa_icon("plus-circle", text: "Add Goal") %> 
   </div> 
 
   <div class="goal-container">
+    <div class="goal-title">Build university direction</div><br>
+    <div class="goal-description">Register for university courses to register in the fall</div><br>
+    <div class="goal-container-footer">
+      <div class="goal-inner-container-footer left">
+        <label class="goal-label">DATE SET</label>
+        <div class="goal-date-set">March 18 2016</div>
+      </div>
+      <div class="goal-inner-container-footer right">
+        <label class="goal-label">DEAD LINE</label>
+        <div class="goal-date-set">Feburary 16 2026</div>
+      </div>
+    </div>
 
-    <%= render @goals %>
-
+    <label class="goal-label">PROGRESS</label><br><br>
+    <div class="goal-progress-container">
+      <div class="progress" style="width:25%;"></div>
+      <div class="progress-text">25% complete</div>
+    </div>
   </div>
+
+  <div class="goal-container">
+    <div class="goal-title">Find options for learning world religions</div><br>
+    <div class="goal-container-footer">
+      <div class="goal-inner-container-footer left">
+        <label class="goal-label">DATE SET</label>
+        <div class="goal-date-set">March 18 2016</div>
+      </div>
+      <div class="goal-inner-container-footer right">
+        <label class="goal-label">DEAD LINE</label>
+        <div class="goal-date-set">Feburary 16 2026</div>
+      </div>
+    </div>
+
+    <label class="goal-label">PROGRESS</label><br><br>
+    <div class="goal-progress-container">
+      <div class="progress" style="width: 75%;"></div>
+      <div class="progress-text">75% complete</div>
+    </div>
+  </div>
+
+  <div class="goal-container">
+    <div class="goal-title">Explore Careers</div><br>
+    <div class="goal-container-footer">
+      <div class="goal-inner-container-footer left">
+        <label class="goal-label">DATE SET</label>
+        <div class="goal-date-set">March 18 2016</div>
+      </div>
+      <div class="goal-inner-container-footer right">
+        <label class="goal-label">DEAD LINE</label>
+        <div class="goal-date-set">Feburary 16 2026</div>
+      </div>
+    </div>
+
+    <label class="goal-label">PROGRESS</label><br><br>
+    <div class="goal-progress-container">
+      <div class="progress" style="width: 75%;"></div>
+      <div class="progress-text">75% complete</div>
+    </div>
+  </div>
+
 </section>

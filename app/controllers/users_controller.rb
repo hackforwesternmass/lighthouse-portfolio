@@ -24,9 +24,9 @@ class UsersController < SessionsController
 
     if @user.save
       session[:user_id] = @user.id
-      redirect_to root_path, notice: 'Your account was successfully created.'
+      redirect_to user_portfolios_path(@user), notice: 'Your account was successfully created.'
     else
-      render :new
+      render 'new'
     end
   end
 

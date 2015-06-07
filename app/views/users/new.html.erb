@@ -1,4 +1,31 @@
-<h1>Sign Up</h1>
+<section id="home-1">
+  <span class="thetitle" style="padding-top : 5vh !important; ">Compass<br><small>centre for self-directed learning
+  </small></span> 
+  <div id="login-signup-container" style="height: 425px;">
+    <div class="login-signup-header">
+      <div class="signup-header" style="border-bottom: 5px solid #ee6508;">
+        <%= link_to "Sign Up", new_user_path %>
+      </div>
+      <div class="login-header">
+        <%= link_to "Login", root_path %>
+      </div>
+    </div>
+    <%= form_for(@user) do |f| %>
+    <div class="halfer">
+      <%= f.text_field :first_name, placeholder: "FIRST NAME", class: "half-login-field" %>
+      <%= f.text_field :last_name, placeholder: "LAST NAME", class: "half-login-field", style: "float: right;" %>
+    </div>
+      <%= f.text_field :username, placeholder: "USERNAME", class: "login-field" %>
+      <%= f.email_field :email, placeholder: "EMAIL", class: "login-field" %>
+    <div class="halfer">
+      <%= f.password_field :password, placeholder: "PASSWORD", class: "half-login-field" %>
+      <%= f.password_field :password_confirmation, placeholder: "PASSWORD CONFIRMATION", class: "half-login-field", 
+      style: "float: right;" %>
+    </div>
+      <%= f.submit "Sign Up", class: "login_button" %>
+    <% end %>
+  </div>
+</section>
 
-<%= render 'form' %>
+
 

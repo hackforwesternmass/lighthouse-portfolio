@@ -24,7 +24,6 @@ section#goals{
 
 section#goals-side-panel{
 	width: 250px;
-	background-color: rgba(238,238,238,0.5);
 	height: calc(100vh - 70px);
 	position: fixed;
 	right: 0;
@@ -32,6 +31,7 @@ section#goals-side-panel{
 }
 
 div.add-goal{
+	@include transition(100ms);
 	background-color: #777;
 	padding: 1rem 0;
 	text-align: center;
@@ -39,6 +39,11 @@ div.add-goal{
 	font-size: 1.2rem;
 	i{
 		padding-right: 10px;
+	}
+
+	&:hover{
+		color: #ee6508;
+		cursor: pointer;
 	}
 }
 
@@ -86,13 +91,21 @@ div.goal-inner-container-footer{
 	color: #fff;
 	line-height: 3rem;
 	overflow: hidden;
+	position: relative;
+}
+
+.progress-text{
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 3rem;
+	line-height: 3rem;
+	text-align: center;
+	width: inherit;
 }
 
 .progress{
+	position: absolute;
 	background-color: rgba(97,198,216, 1);
-	height: inherit;
-	color: #fff;
-	width: 50%;
-	text-align: center;
-	line-height: 3rem;
+	height: 3rem;
 }

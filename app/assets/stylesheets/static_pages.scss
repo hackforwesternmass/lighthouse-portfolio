@@ -1,5 +1,7 @@
+@import "lib";
+
 section#home-1{
-	background-image: image-url('blue-space-cloud.jpg');
+	background-image: image-url('signupbg.png');
 	background-size: cover;
 	height: 100vh;
 }
@@ -18,7 +20,109 @@ small{
 	font-size: 0.3em;
 }
 
-.login_field{
+
+div#login-signup-container{
+	background-color: #222;
+	width: 600px;
+	height: 300px;
+	border-radius: 3px;
+	margin: 3rem auto
+}
+
+div.login-signup-header{
+	height: 50px;
+	margin-bottom: 2rem;
+
+	a{
+		height: 50px;
+		display: block;
+
+		&:hover{
+			color: #fff;
+		}
+	}
+}
+
+div.signup-header{
+	border-bottom: 5px solid #777;
+	width: 50%;
+	display: inline-block;
+	float: left;
+	height: 50px;
+	text-align: center;
+	font-size: 1.1rem;
+	font-weight: 300;
+	line-height: calc(90px - 1.2rem);
+	color: #aaa;
+}
+
+div.login-header{
+	border-bottom: 5px solid #777;
+	display: inline-block;
+	width: 50%;
+	float: right;
+	height: 50px;
+	line-height: calc(90px - 1.2rem);
+	font-size: 1.1rem;
+	text-align: center;
+	font-weight: 300;
+	color: #aaa;
+}
+
+input.login-field{
+	margin: 0 auto;
+	margin-top: 1rem;
+	border-radius: 5px;
+	border: 1px solid #777;
+	padding: 1rem;
+	background-color: #000;
+	width: 500px;
+	display: block;
+	color: #aaa;
+	font: 300 0.9rem 'Roboto', helvetica, sans-serif;
+}
+
+input.login_button{
+	margin: 0 auto;
+	margin-top: 1rem;
+	border-radius: 5px;
+	border: none;
+	padding: 1rem;
+	background-color: #ee6508;
+	width: calc(500px + 2rem);
+	display: block;
+	color: #fff;
+	font: 300 0.9rem 'Roboto', helvetica, sans-serif;
+}
+
+.halfer{
+	margin: 0 auto;
+	margin-top: 1rem;
+	width: calc(500px + 2rem);
+}
+
+input.half-login-field{
+	border-radius: 5px;
+	border: 1px solid #777;
+	padding: 1rem;
+	background-color: #000;
+	display: inline-block;
+	width: 220px;
+	color: #aaa;
+	font: 300 0.9rem 'Roboto', helvetica, sans-serif;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*.login_field{
 	display: block;
 	margin: 0 auto;
 	font: 300 1em 'Open Sans', sans-serif;
@@ -120,4 +224,4 @@ bottom: 3vw;
 
 #reset-link:hover{
 	cursor: pointer;
-}
+}*/

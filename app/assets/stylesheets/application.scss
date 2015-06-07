@@ -18,6 +18,7 @@
 @import "font-awesome";
 
 body{
+	background-color: rgba(238,238,238,0.5);
   margin: 0;
   overflow-x: hidden;
   font-family: 'Roboto', helvetica, sans-serif;
@@ -33,6 +34,10 @@ a, button{
   &:focus{
     outline-style: none;
   }
+}
+
+input:focus, textarea:focus, select:focus{
+  outline: none;
 }
 
 ul{
