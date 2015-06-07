@@ -1,5 +1,8 @@
 class GoalsController < ApplicationController
   before_action :load_goal
+  before_action :signed_in
+  before_action :current_user
+
 
   def index
     @goals = Goal.all
@@ -26,6 +29,7 @@ class GoalsController < ApplicationController
     if @goal.update_attributes(goal_params)
       redirect_to goals_path(@goal)
     else
+      flash.now[:alert] = "Could not update goal"
       render :edit
     end
   end
@@ -34,11 +38,13 @@ class GoalsController < ApplicationController
   end
 
   def destroy
+    @goal.destroy
+    redirect_to root_path, flash: {notice: "Goal removed"}
   end
 
   private
     def goal_params
-      params.require(:goal).permit()
+      params.require(:goal).permit(:title,:description,:is_completed,:progress,:due_date)
     end
 
     def load_goal
