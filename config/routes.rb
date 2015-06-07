@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   resources :users
   resources :courses
   resources :topics
+  resources :resources
+  resources :goals
+  resources :projects
 
   namespace :sessions, path: '/', as: nil do
     post 'login_authentication'

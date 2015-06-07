@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150606201124) do
+ActiveRecord::Schema.define(version: 20150607002721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,16 @@ ActiveRecord::Schema.define(version: 20150606201124) do
 
   add_index "experiences", ["topic_id"], name: "index_experiences_on_topic_id", using: :btree
   add_index "experiences", ["user_id"], name: "index_experiences_on_user_id", using: :btree
+
+  create_table "goals", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.boolean  "is_completed"
+    t.integer  "progress"
+    t.datetime "due_date"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "portfolio2_courses", force: :cascade do |t|
     t.integer  "portfolio_id"
@@ -65,6 +75,22 @@ ActiveRecord::Schema.define(version: 20150606201124) do
   end
 
   add_index "portfolios", ["user_id"], name: "index_portfolios_on_user_id", using: :btree
+
+  create_table "projects", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.text     "resume"
+    t.integer  "difficulty"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "resources", force: :cascade do |t|
+    t.string   "title"
+    t.string   "link"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "student2_courses", force: :cascade do |t|
     t.integer  "user_id"

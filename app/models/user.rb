@@ -1,6 +1,10 @@
 class User < ActiveRecord::Base
   include BCrypt
 
+  has_many :projects
+  has_many :goals
+  has_many :resources
+
   validates :first_name, 
     presence: { message: "is required."}
 
