@@ -5,7 +5,7 @@
       <li class="menu-item" <%= 'style= background-color:#333;color:#eee;' if current_page?(controller: 'goals', action: 'index') %> >
         <%= link_to fa_icon("desktop", text: "Action Plan"), user_goals_path(@user) %>
       </li>
-      <li class="menu-item"><%= link_to fa_icon("calendar-o", text: "Class Calendar"), "#"%></li>
+      <li class="menu-item"><%= link_to fa_icon("calendar-o", text: "Class Calendar"), "/static_pages/calender"%></li>
       <li class="menu-item"><%= link_to fa_icon("bookmark", text: "Resource"), "#"%></li>
       <li class="menu-item" <%= 'style= background-color:#333;color:#eee;' if current_page?(controller: 'portfolios', action: 'index') %> >
         <%= link_to fa_icon("user", text: "Portfolio"), user_portfolios_path(@user) %>
