@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   resources :topics
   resources :resources
   resources :projects
+  resources :goals
+  resources :portfolios
 
   resources :users do 
   	resources :portfolios
@@ -18,5 +20,7 @@ Rails.application.routes.draw do
     get 'logout'
     get 'login'
   end
+
+  get '/static_pages/calender'
   
 end
