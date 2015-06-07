@@ -1,3 +1,44 @@
-// Place all the styles related to the goals controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "lib";
+
+section#goals-header{
+	position: absolute;
+	top: 0;
+	left: 250px;
+	height: 70px;
+	width: calc(100vw - 250px);
+	background-color: #333;
+	color: orange;
+	font-size: 1.5rem;
+	line-height: 70px;
+	padding: 0 4rem;
+}
+
+section#goals{
+  width: calc(100vw - 500px - 4rem);
+  background-color: #eee;
+  position: absolute;
+  top: 70px;
+  left: 250px;
+  padding: 2rem;
+}
+
+section#goals-side-panel{
+	width: 250px;
+	background-color: rgba(238,238,238,0.5);
+	height: calc(100vh - 70px);
+	position: fixed;
+	right: 0;
+	top: 70px;
+}
+
+div.add-goal{
+	background-color: #777;
+	padding: 1rem 0;
+	text-align: center;
+	color: #fff;
+	font-size: 1.2rem;
+	i{
+		padding-right: 10px;
+	}
+
+}

@@ -1,56 +1,45 @@
-<section id="student-edit-profile">
-
 <%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-      <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <div class="avatar-column">
     <%= image_tag @user.avatar.url, class: 'edit-avatar' %>
     <label class="custom-file-upload">
       <%= f.file_field :avatar %>
-      Choose new image
+      <%= fa_icon "camera", text: "CHANGE PHOTO" %> 
     </label>
   </div>
-
-  <div class="field">
-    <%= f.label :first_name %><br>
-    <%= f.text_field :first_name %>
+  <div class="input-container">
+    <div class="field">
+      <%= f.label :first_name, "FIRST NAME" %><br>
+      <%= f.text_field :first_name %>
+    </div>
+    <div class="field">
+      <%= f.label :last_name, "LAST NAME" %><br>
+      <%= f.text_field :last_name %>
+    </div>
+    <br><br>
+    <div class="field">
+      <%= f.label :description, "BIO" %><br>
+      <%= f.text_area :description, rows: 3  %>
+    </div>
+    <br><br>
+    <div class="field">
+      <%= f.label :tumblr, fa_icon("tumblr", style: "font-size: 1rem;") %><br>
+      <%= f.text_field :tumblr, class: 'sm'  %>
+    </div>
+    <div class="field">
+      <%= f.label :twitter, fa_icon("twitter", style: "font-size: 1rem;") %><br>
+      <%= f.text_field :twitter, class: 'sm'  %>
+    </div>
+    <div class="field">
+      <%= f.label :instagram, fa_icon("instagram", style: "font-size: 1rem;") %><br>
+      <%= f.text_field :instagram, class: 'sm'  %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
+  <div class="button-fields">
+    <%= button_tag(type: 'submit') do %>
+      <%= fa_icon("check", text: 'SAVE', right: true, style: "color: green;") %>
+    <% end %>
+    <%= button_tag(type: 'submit', class: 'cancel-edit') do %>
+      <%= fa_icon("remove", text: 'CANCEL', right: true, style: "color: red;") %>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :tumblr %><br>
-    <%= f.text_field :tumblr %>
-  </div>
-  <div class="field">
-    <%= f.label :twitter %><br>
-    <%= f.text_field :twitter %>
-  </div>
-  <div class="field">
-    <%= f.label :instagram %><br>
-    <%= f.text_field :instagram %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-    <%= link_to "Cancel", "", class: 'cancel-edit' %>
-  </div>
-<span></span>
 <% end %>
-
- 
-</section>

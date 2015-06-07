@@ -1,11 +1,12 @@
-class GoalsController < ApplicationController
-  before_action :load_goal
+class GoalsController < SessionsController
   before_action :signed_in
   before_action :current_user
 
+  layout "student"
 
   def index
     @goals = Goal.all
+    @goal = Goal.new
   end
 
   def new
@@ -47,7 +48,4 @@ class GoalsController < ApplicationController
       params.require(:goal).permit(:title,:description,:is_completed,:progress,:due_date)
     end
 
-    def load_goal
-      @goal = Goal.find(params[:id])
-    end
 end

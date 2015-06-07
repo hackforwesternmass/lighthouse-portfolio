@@ -31,15 +31,11 @@ class UsersController < SessionsController
   end
 
   def update
-    respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
+        redirect_to user_portfolios_path(user_id: @user.id), notice: 'User was successfully updated.'
       else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        render :edit
       end
-    end
   end
 
   def destroy
@@ -52,7 +48,7 @@ class UsersController < SessionsController
 
   private
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :avatar,
+      params.require(:user).permit(:first_name, :last_name, :avatar, :tumblr, :twitter, :instagram,
         :username, :email, :password, :password_confirmation)
     end
 end

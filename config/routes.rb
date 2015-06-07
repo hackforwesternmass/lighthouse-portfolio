@@ -6,11 +6,11 @@ Rails.application.routes.draw do
   resources :courses
   resources :topics
   resources :resources
-  resources :goals
   resources :projects
 
   resources :users do 
   	resources :portfolios
+    resources :goals
   end
 
   namespace :sessions, path: '/', as: nil do
