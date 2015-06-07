@@ -1,4 +1,10 @@
-class PortfoliosController < ApplicationController
+class PortfoliosController < SessionsController
+
+  before_action :session_expiry
+  before_action :update_activity_time
+  before_action :current_user
+
+  layout "student"
   before_action :set_portfolio, only: [:show, :edit, :update, :destroy]
 
   # GET /portfolios

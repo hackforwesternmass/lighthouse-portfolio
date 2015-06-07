@@ -1,6 +1,17 @@
 <section id="header">
-  <ul>
-    <li class="header-item"><%= link_to "Sign Up", new_user_path %></li>
-    <li class="header-item"><%= link_to "Login", "#" %></li>
-  </ul>
+  <div class="header-bg-wrapper">
+    <div class="header-bg">
+    <%= link_to fa_icon("cog", text: "Edit", right: true), "#", class: "student-edit"%>
+      <div class="header-container">
+       <div class="avatar-column">
+          <%= image_tag @user.avatar.url, class: 'edit-avatar' %>
+        </div> 
+          <div class="student-name"><%= "#{@user.first_name} #{@user.last_name}"%></div>
+          <div class="student-description"><%= @user.description %></div>
+      </div>
+    </div>
+  </div> 
 </section>
+
+<%= render 'users/edit' %>
+

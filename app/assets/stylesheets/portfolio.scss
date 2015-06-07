@@ -1,24 +1,24 @@
 @import "lib";
 
-section#portfolio{
+section#header{
 	float: right;
 	width: calc(100vw - 250px);
 	height: 100vh;
 }
 
-section.portfolio-header-wrapper{
+div.header-bg-wrapper{
 	height: 300px;
 	width: 100%;
 	background-color: blue;
 	background-image: image-url('tibetan-mountains.jpg');
   background-size: cover;
 
-  section.portfolio-header{
+  div.header-bg{
   	width: 100%;
   	height: 100%;
   	background-color: rgba(0,0,0, 0.7);
 
-  	.container{
+  	.header-container{
   		height: 100%;
   		width: 70%;
   		margin: 0 auto;
@@ -65,7 +65,7 @@ section.portfolio-header-wrapper{
   }
 }
 
-div.name{
+div.student-name{
   position: absolute;
   top: 70px;
   left: 200px;
@@ -81,7 +81,7 @@ div.student-description{
   color: #eee;
 }
 
-a.edit-student{
+a.student-edit{
   @include transition(200ms);
   position: absolute;
   right: 2rem;
