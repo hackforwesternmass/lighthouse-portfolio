@@ -21,7 +21,7 @@ $(document).on('page:change', function(){
 
 	$("div.add-project").click(function(){
 		$("div.modal-wrapper").fadeIn(200);
-		$("section#project-modal").delay(200).slideDown(200);
+		$("section#project-modal").delay(200).show('drop', {direction: 'up'}, 500);
 	});
 
 	$("div.modal-wrapper").click(function(){

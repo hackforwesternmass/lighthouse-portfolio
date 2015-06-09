@@ -11,7 +11,7 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery-ui/effect-slide
+//= require jquery-ui/effect-drop
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .

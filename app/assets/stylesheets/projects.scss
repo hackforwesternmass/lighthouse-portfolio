@@ -7,11 +7,13 @@ div.modal-wrapper{
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(0,0,0,0.35);
+  background-color: rgba(0,0,0,0.5);
   z-index: 1;
 }
 
 section#project-modal{
+	@include center;
+	position: fixed;
 	display: none;
   z-index: 2;
   background-color: #fff;
@@ -19,10 +21,7 @@ section#project-modal{
   border-top: 10px solid #61c6d8;
   width: 700px;
   height: 300px;
-  position: absolute;
   @include prefixer(box-shadow, 0 0 20px rgba(0, 0, 0, 0.4));
- 	top: 325px;
- 	left: 270px; 
 }
 
 input.project-input{
