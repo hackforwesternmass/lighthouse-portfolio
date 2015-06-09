@@ -10,6 +10,8 @@ class PortfoliosController < SessionsController
   # GET /portfolios
   # GET /portfolios.json
   def index
+    @project = Project.new
+    @projects = @user.projects
     @portfolios = Portfolio.all
   end
 

@@ -1,3 +1,150 @@
-// Place all the styles related to the projects controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "lib";
+
+div.modal-wrapper{
+  display: none;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.35);
+  z-index: 1;
+}
+
+section#project-modal{
+	display: none;
+  z-index: 2;
+  background-color: #fff;
+  padding: 1rem 0;
+  border-top: 10px solid #61c6d8;
+  width: 700px;
+  height: 300px;
+  position: absolute;
+  @include prefixer(box-shadow, 0 0 20px rgba(0, 0, 0, 0.4));
+ 	top: 325px;
+ 	left: 270px; 
+}
+
+input.project-input{
+	display: block;
+	width: 90%;
+	margin: 1rem auto;
+	border-radius: 5px;
+	font: 300 0.9rem 'Roboto', helvetica, sans-serif;
+	padding: 1rem 0.8rem;
+	background-color: #eee;
+	color:#222;
+	border: none;
+}
+
+input.project-submit{
+	display: block;
+	width: 90%;
+	margin: 1rem auto;
+	border-radius: 5px;
+	font: 300 0.9rem 'Roboto', helvetica, sans-serif;
+	padding: 1rem 0.8rem;
+	background-color: #ee6508;
+	color: #fff;
+	border: none;
+}
+
+label.project-file-upload{
+	display: block;
+	width: 90%;
+	margin: 1rem auto;	
+	color: #ee6508;
+
+	small{
+		padding-left: 10px;
+		color: #aaa;
+		font-weight: 300;
+		font-size: 0.9rem;
+	}
+
+	span.project-file-name{
+		padding-left: 10px;
+		color: #4bbc9c;
+		font-size: 0.8rem;
+	}
+
+  input[type="file"] {
+      display: none;
+  }
+
+  &:hover{
+  	cursor: pointer;
+  }
+}
+
+div.project{
+  @include transition(100ms);
+  min-height: 150px;
+  background-color: #fff;
+  padding: 0.5rem;
+  position: relative;
+
+  &:hover{
+    cursor: pointer;
+    @include prefixer(box-shadow, 0 0 25px #61c6d8);
+  }
+
+  img{
+  	width: 100%;
+  }
+}
+
+div.project-title{
+	font-weight: 400;
+	color: #333;
+	font-size: 1.3rem;
+
+	+ div.project-desc{
+		position: absolute;
+		bottom: 1rem;
+	}
+}
+
+a.project-link{
+	display: block;
+	position: absolute;
+	top:0;
+	left:0;
+	height: 100%;
+	width: 100%;
+}
+
+img + div.project-title + div.project-desc{
+	padding-top: 10px; 
+	position: static;
+}
+
+
+div.add-project{
+  @include transition(100ms);
+  height: 150px;
+  background-color: #fff;
+  font-weight: 400;
+  color: #777;
+
+  i{
+    padding-top: 20px;
+    font-size: 4rem;
+    color: #777;
+    margin: 0 auto;
+  }
+
+  text-align: center;
+
+  &:hover{
+    cursor: pointer;
+    @include prefixer(box-shadow, 0 0 25px #61c6d8);
+  }
+}
+
+div.project-wrapper{
+  border-top: 10px solid #61c6d8;
+  font: 300 0.9rem 'Roboto', helvetica, sans-serif;
+  @include prefixer(box-shadow, 0 0 20px rgba(0, 0, 0, 0.4));
+  margin-bottom: 3rem;
+}

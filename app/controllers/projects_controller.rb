@@ -1,5 +1,4 @@
 class ProjectsController < SessionsController
-  before_action :load_project
   before_action :signed_in
   before_action :current_user
 
@@ -14,7 +13,7 @@ class ProjectsController < SessionsController
   def create
     @project = current_user.projects.build(project_params)
       if @project.save
-        redirect_to root_path, flash: { notice: 'Project Created!' }
+        redirect_to portfolios_path, flash: { notice: 'Project Created!' }
       else
         flash.now[:alert] = 'Could not create your project, try again!'
         render :new
@@ -43,12 +42,7 @@ class ProjectsController < SessionsController
 
   private
     def project_params
-      params.require(:project).permit(:title,:description,:resume,:difficulty)
+      params.require(:project).permit(:title, :description, :resume, :difficulty, :link, :photo)
     end
 
-    def load_project
-      if Project.all != []
-        @project = Project.find(params[:id])
-      end
-    end
 end

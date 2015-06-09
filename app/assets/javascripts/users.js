@@ -17,7 +17,17 @@ $(document).on('page:change', function(){
 		$("a.student-edit").fadeIn(200);
 		$("form.edit_user").fadeOut(200);
 		$("div#show_user").fadeIn(200);
-	});	
+	});
+
+	$("div.add-project").click(function(){
+		$("div.modal-wrapper").fadeIn(200);
+		$("section#project-modal").delay(200).slideDown(200);
+	});
+
+	$("input#project_photo").change(function(){
+		$("span.project-file-name").text(this.files[0].name);
+		console.log(this.files[0].name);
+	});
 
 });
 

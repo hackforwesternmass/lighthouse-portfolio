@@ -19,31 +19,6 @@ div.porfolio-grid{
   }
 }
 
-div.add-project{
-  @include transition(100ms);
-  height: 250px;
-  background-color: #fff;
-  i{
-    padding-top: 5rem;
-    font-size: 4rem;
-    color: #777;
-    margin: 0 auto;
-  }
-
-  text-align: center;
-
-  &:hover{
-    cursor: pointer;
-    @include prefixer(box-shadow, 0 0 25px #61c6d8);
-  }
-}
-
-div.project-wrapper{
-  border-top: 10px solid #61c6d8;
-  font: 300 0.9rem 'Roboto', helvetica, sans-serif;
-  @include prefixer(box-shadow, 0 0 20px rgba(0, 0, 0, 0.4));
-  margin-bottom: 3rem;
-}
 
 
 

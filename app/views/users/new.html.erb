@@ -3,11 +3,11 @@
   </small></span> 
   <div id="login-signup-container" style="height: 425px;">
     <div class="login-signup-header">
-      <div class="signup-header" style="border-bottom: 5px solid #ee6508;">
-        <%= link_to "Sign Up", new_user_path %>
-      </div>
       <div class="login-header">
         <%= link_to "Login", root_path %>
+      </div>
+      <div class="signup-header" style="border-bottom: 5px solid #ee6508;">
+        <%= link_to "Sign Up", new_user_path %>
       </div>
     </div>
     <%= form_for(@user) do |f| %>

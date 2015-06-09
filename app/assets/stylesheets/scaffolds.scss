@@ -1,5 +1,4 @@
 /*body {
->>>>>>> ed38b58fbfe6b6e11dbe1cdff45e39dce658aafe
   background-color: #fff;
   color: #333;
   font-family: verdana, arial, helvetica, sans-serif;
@@ -68,7 +67,11 @@ div {
     list-style: square;
   }
 }
-<<<<<<< HEAD
-=======
 */
 
+div.field_with_errors{
+  display: inline;
+  input{
+    border:1px solid red;
+  }
+}

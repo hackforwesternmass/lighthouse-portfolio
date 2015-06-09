@@ -1,9 +1,11 @@
 class User < ActiveRecord::Base
   include BCrypt
 
-  has_many :projects
   has_many :goals
   has_many :resources
+
+  has_many :projects, dependent: :destroy
+  accepts_nested_attributes_for :projects
 
   validates :first_name, 
     presence: { message: "is required."}

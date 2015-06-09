@@ -2,26 +2,53 @@
 
 <section id="portfolios">
   <div class="porfolio-grid">
+  <% projects = @user.projects %>
+  <% i = 2 %>
     <div class="col">
-      <div class="project-wrapper">
-        <div class="add-project"><%= link_to fa_icon("plus-circle"), '/projects/new_project' %><br><br>Add portfolio piece</div>
-      </div>
       <div class="project-wrapper">
         <div class="add-project"><%= fa_icon("plus-circle") %><br><br>Add portfolio piece</div>
       </div>
+  <% until i > projects.size - 1 %>
+      <div class="project-wrapper">
+        <div class="project" >
+          <%= image_tag projects[i].photo if projects[i].photo.present? %>
+          <div class="project-title"><%= projects[i].title %></div>
+          <div class="project-desc"><%= projects[i].description %></div>
+          <%= link_to "", projects[i].link, target: '_blank', class: 'project-link' if projects[i].link.present? %>
+        </div>
+      </div>
+    <% i+= 3 %>
+  <% end %>
     </div>
+  <% i = 0 %>
     <div class="col">
+  <% until i > projects.size - 1 %>
       <div class="project-wrapper">
-        <div class="add-project"><%= fa_icon("plus-circle") %><br><br>Add portfolio piece</div>
+        <div class="project" >
+        <%= image_tag projects[i].photo if projects[i].photo.present? %>
+        <div class="project-title"><%= projects[i].title %></div>
+        <div class="project-desc"><%= projects[i].description %></div>
+        <%= link_to "", projects[i].link, target: '_blank', class: 'project-link' if projects[i].link.present? %>
+        </div>
       </div>
-      <div class="project-wrapper">
-        <div class="add-project"><%= fa_icon("plus-circle") %><br><br>Add portfolio piece</div>
-      </div>
+    <% i+= 3 %>
+  <% end %>
     </div>
+  <% i = 1 %>
     <div class="col">
+  <% until i > projects.size - 1 %>
       <div class="project-wrapper">
-        <div class="add-project"><%= fa_icon("plus-circle") %><br><br>Add portfolio piece</div>
+        <div class="project" >
+        <%= image_tag projects[i].photo if projects[i].photo.present? %>
+        <div class="project-title"><%= projects[i].title %></div>
+        <div class="project-desc"><%= projects[i].description %></div>
+        <%= link_to "", projects[i].link, target: '_blank', class: 'project-link' if projects[i].link.present? %>
+        </div>
       </div>
+    <% i+= 3 %>
+  <% end %>
     </div>
   </div>
 </section>
+
+<%= render 'projects/new'%>
