@@ -24,9 +24,13 @@ $(document).on('page:change', function(){
 		$("section#project-modal").delay(200).slideDown(200);
 	});
 
+	$("div.modal-wrapper").click(function(){
+		$("div.modal-wrapper").fadeOut(200);
+		$("section#project-modal").fadeOut(200);
+	});
+
 	$("input#project_photo").change(function(){
 		$("span.project-file-name").text(this.files[0].name);
-		console.log(this.files[0].name);
 	});
 
 });
