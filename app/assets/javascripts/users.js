@@ -2,8 +2,8 @@
 $(document).on('page:change', function(){ 
 
 	$("input#user_avatar").change(function(){
-    readURL(this);
-  });
+    	readURL(this);
+  	});
 
 	$("a.student-edit").click(function(e){
 		e.preventDefault();
@@ -20,6 +20,11 @@ $(document).on('page:change', function(){
 	});
 
 	$("div.add-project").click(function(){
+		$("div.modal-wrapper").fadeIn(200);
+		$("section#project-modal").delay(200).show('drop', {direction: 'up'}, 500);
+	});
+
+	$("div.add-goal").click(function(){
 		$("div.modal-wrapper").fadeIn(200);
 		$("section#project-modal").delay(200).show('drop', {direction: 'up'}, 500);
 	});

@@ -33,6 +33,7 @@ class ProjectsController < SessionsController
   end
 
   def show
+    @project = Project.find(params[:id])
   end
 
   def destroy

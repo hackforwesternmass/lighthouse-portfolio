@@ -5,7 +5,8 @@ class GoalsController < SessionsController
   layout "student"
 
   def index
-    @goals = Goal.all
+    @current_goals = Goal.current_goals
+    @past_goals = Goal.past_goals
     @goal = Goal.new
   end
 

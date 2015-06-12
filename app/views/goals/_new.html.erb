@@ -1,0 +1,12 @@
+<section id="project-modal">
+	<%= form_for @goal do |f| %>
+	  <%= f.text_field :title, placeholder: "TITLE", class: 'project-input' %>
+	  <%= f.text_field :description, placeholder: "DESCRIPTION", class: 'project-input' %>
+	  <%= f.date_field :due_date, class: 'project-input' %>
+	  <%= f.number_field :progress, class: 'project-input' %>
+
+	  <%= f.submit "ADD GOAL", class: 'project-submit' %>
+	<% end %>
+</section>
+
+<div class="modal-wrapper"></div>
