@@ -2,8 +2,7 @@
   <div class="project-grid">
   	<div class="col" >
   		<h1>Title:</h1> <%= @project.title %>
-        <h1>Description:</h1> <%= @project.description %>
-        <h1>Project Link:</h1> <a href="<%= @project.link %>", target="_blank">Here</a> 
+      <h1>Project Link:</h1> <a href="<%= @project.link %>", target="_blank">Here</a> 
   	</div>
   	<div class="col">
 
@@ -14,7 +13,9 @@
       </div>
 
     </div>
-    <div class="col"></div>
+    <div class="col">
+      <h1>Description:</h1> <%= @project.description %>
+    </div>
   </div>
 </section>
 

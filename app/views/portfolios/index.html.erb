@@ -14,7 +14,7 @@
           <%= image_tag projects[i].photo if projects[i].photo.present? %>
           <div class="project-title"><%= projects[i].title %></div>
           <div class="project-desc"><%= projects[i].description %></div>
-          <%= link_to "", projects[i], target: '_blank', class: 'project-link' if projects[i].link.present? %>
+          <%= link_to "", projects[i], class: 'project-link' if projects[i].link.present? %>
         </div>
       </div>
     <% i+= 3 %>
@@ -28,7 +28,7 @@
         <%= image_tag projects[i].photo if projects[i].photo.present? %>
         <div class="project-title"><%= projects[i].title %></div>
         <div class="project-desc"><%= projects[i].description %></div>
-        <%= link_to "", projects[i], target: '_blank', class: 'project-link' if projects[i].link.present? %>
+        <%= link_to "", projects[i], class: 'project-link' if projects[i].link.present? %>
         </div>
       </div>
     <% i+= 3 %>
@@ -42,7 +42,7 @@
         <%= image_tag projects[i].photo if projects[i].photo.present? %>
         <div class="project-title"><%= projects[i].title %></div>
         <div class="project-desc"><%= projects[i].description %></div>
-        <%= link_to "", projects[i], target: '_blank', class: 'project-link' if projects[i].link.present? %>
+        <%= link_to "", projects[i], class: 'project-link' if projects[i].link.present? %>
         </div>
       </div>
     <% i+= 3 %>
