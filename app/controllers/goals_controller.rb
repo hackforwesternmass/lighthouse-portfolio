@@ -11,11 +11,11 @@ class GoalsController < SessionsController
   end
 
   def new
-    @goal = Goal.new
+    @goal = current_user.goals.build
   end
 
   def create
-    @goal = Goal.new(goal_params)
+    @goal = current_user.goals.build(goal_params)
     if @goal.save
       redirect_to root_path, flash: {notice: "Goal created"}
     else

@@ -1,2 +1,20 @@
-<h1>Projects#show</h1>
-<p>Find me in app/views/projects/show.html.erb</p>
+<section id="project">
+  <div class="project-grid">
+  	<div class="col" >
+  		<h1>Title:</h1> <%= @project.title %>
+        <h1>Description:</h1> <%= @project.description %>
+        <h1>Project Link:</h1> <a href="<%= @project.link %>", target="_blank">Here</a> 
+  	</div>
+  	<div class="col">
+
+      <div class="project-wrapper">
+        <div class="project" >
+          <%= image_tag @project.photo if @project.photo.present? %>
+        </div>
+      </div>
+
+    </div>
+    <div class="col"></div>
+  </div>
+</section>
+

@@ -2,6 +2,8 @@ class ProjectsController < SessionsController
   before_action :signed_in
   before_action :current_user
 
+  layout "student"
+  
   def index
     @projects = Project.all
   end

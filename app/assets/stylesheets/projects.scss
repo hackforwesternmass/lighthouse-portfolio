@@ -148,3 +148,22 @@ div.project-wrapper{
   @include prefixer(box-shadow, 0 0 20px rgba(0, 0, 0, 0.4));
   margin-bottom: 3rem;
 }
+
+section#project{
+  position: relative;
+  top: 0px;
+  left: 250px;
+  min-height: calc(100vh - 300px);
+  background-color: #eee;
+  width: calc(100vw - 250px);
+}
+
+div.project-grid{
+  width: calc(100vw - 250px);
+  background-color: #eee;
+  position: absolute;
+  padding: 3rem 0;
+  .col{
+    @include span-columns(4, 3);
+  }
+}
