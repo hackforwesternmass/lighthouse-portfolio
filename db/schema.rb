@@ -49,6 +49,40 @@ ActiveRecord::Schema.define(version: 20150612173117) do
     t.integer  "user_id"
   end
 
+  create_table "portfolio2_courses", force: :cascade do |t|
+    t.integer  "portfolio_id"
+    t.integer  "course_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "portfolio2_courses", ["course_id"], name: "index_portfolio2_courses_on_course_id", using: :btree
+  add_index "portfolio2_courses", ["portfolio_id"], name: "index_portfolio2_courses_on_portfolio_id", using: :btree
+
+  create_table "portfolio2_experiences", force: :cascade do |t|
+    t.integer  "portfolio_id"
+    t.integer  "experience_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "portfolio2_experiences", ["experience_id"], name: "index_portfolio2_experiences_on_experience_id", using: :btree
+  add_index "portfolio2_experiences", ["portfolio_id"], name: "index_portfolio2_experiences_on_portfolio_id", using: :btree
+
+  create_table "portfolios", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+  end
+
+  add_index "portfolios", ["user_id"], name: "index_portfolios_on_user_id", using: :btree
+
   create_table "projects", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -130,6 +164,11 @@ ActiveRecord::Schema.define(version: 20150612173117) do
   add_foreign_key "courses", "users"
   add_foreign_key "experiences", "topics"
   add_foreign_key "experiences", "users"
+  add_foreign_key "portfolio2_courses", "courses"
+  add_foreign_key "portfolio2_courses", "portfolios"
+  add_foreign_key "portfolio2_experiences", "experiences"
+  add_foreign_key "portfolio2_experiences", "portfolios"
+  add_foreign_key "portfolios", "users"
   add_foreign_key "student2_courses", "courses"
   add_foreign_key "student2_courses", "users"
   add_foreign_key "topic2_courses", "courses"

@@ -19,6 +19,18 @@ $(document).on('page:change', function(){
 		$("div#show_user").fadeIn(200);
 	});
 
+	$("div.project").hover(function(){
+			$($(this).children()[0]).fadeIn(100);
+		},function(){
+			$($(this).children()[0]).fadeOut(100);
+		});
+
+	$("div.remove-project").click(function(){
+		var _this = $(this);
+		var _grandparent = $(_this.parent()).parent();
+		_grandparent.remove();
+	});
+
 	$("div.add-project").click(function(){
 		$("div.modal-wrapper").fadeIn(200);
 		$("section#project-modal").delay(200).show('drop', {direction: 'up'}, 500);

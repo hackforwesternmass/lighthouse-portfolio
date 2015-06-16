@@ -39,8 +39,9 @@ class ProjectsController < SessionsController
   end
 
   def destroy
-    @project.destroy
-    redirect_to root_path, flash: { notice: 'Project removed' }
+    project = Project.find params[:id]
+    project.destroy
+    render nothing: true
   end
 
   private

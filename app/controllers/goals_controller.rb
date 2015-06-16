@@ -17,7 +17,7 @@ class GoalsController < SessionsController
   def create
     @goal = current_user.goals.build(goal_params)
     if @goal.save
-      redirect_to root_path, flash: {notice: "Goal created"}
+      redirect_to user_goals_path(@user)
     else
       flash.now[:alert] = "Goal was not added"
       render :new
