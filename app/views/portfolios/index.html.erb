@@ -11,7 +11,7 @@
   <% until i > projects.size - 1 %>
       <div class="project-wrapper">
         <div class="project" >
-          <div class="remove-project"><%= link_to 'remove', project_path(projects[i]), method: :delete, remote: true %></div>
+          <div class="remove-project"><%= link_to 'remove', user_projects_path(projects[i]), method: :delete, remote: true %></div>
           <%= image_tag projects[i].photo if projects[i].photo.present? %>
           <div class="project-title"><%= projects[i].title %></div>
           <div class="project-desc"><%= projects[i].description %></div>
@@ -26,11 +26,11 @@
   <% until i > projects.size - 1 %>
       <div class="project-wrapper">
         <div class="project" >
-          <div class="remove-project"><%= link_to 'remove', project_path(projects[i]), method: :delete, remote: true %></div>
+          <div class="remove-project"><%= link_to 'remove', user_projects_path(projects[i]), method: :delete, remote: true %></div>
         <%= image_tag projects[i].photo if projects[i].photo.present? %>
         <div class="project-title"><%= projects[i].title %></div>
         <div class="project-desc"><%= projects[i].description %></div>
-        <%= link_to "", projects[i], class: 'project-link' if projects[i].link.present? %>
+        <%= link_to "", projects[i].link, class: 'project-link' if projects[i].link.present? %>
         </div>
       </div>
     <% i+= 3 %>
@@ -41,11 +41,11 @@
   <% until i > projects.size - 1 %>
       <div class="project-wrapper">
         <div class="project" >
-          <div class="remove-project"><%= link_to 'remove', project_path(projects[i]), method: :delete, remote: true %></div>
+          <div class="remove-project"><%= link_to 'remove', user_projects_path(projects[i]), method: :delete, remote: true %></div>
         <%= image_tag projects[i].photo if projects[i].photo.present? %>
         <div class="project-title"><%= projects[i].title %></div>
         <div class="project-desc"><%= projects[i].description %></div>
-        <%= link_to "", projects[i], class: 'project-link' if projects[i].link.present? %>
+        <%= link_to "", projects[i].link, class: 'project-link' if projects[i].link.present? %>
         </div>
       </div>
     <% i+= 3 %>

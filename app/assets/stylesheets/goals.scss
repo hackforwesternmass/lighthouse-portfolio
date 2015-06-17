@@ -7,27 +7,67 @@ section#goals-header{
 	height: 70px;
 	width: calc(100vw - 250px);
 	background-color: #333;
-	color: orange;
+	color: #ee6508;
 	font-size: 1.5rem;
 	line-height: 70px;
 	padding: 0 4rem;
 }
 
+
+
 section#goals{
   width: calc(100vw - 500px - 4rem);
+  min-width: 30rem;
   background-color: #eee;
   position: absolute;
   top: 70px;
-  left: 250px;
+  left: 500px;
   padding: 2rem;
 }
 
 section#goals-side-panel{
 	width: 250px;
+	margin-top: calc( 20px + 2rem );
 	height: calc(100vh - 70px);
-	position: fixed;
-	right: 0;
+	position: absolute;
+	left: 250px;
 	top: 70px;
+
+	ul{
+		padding-bottom: 1rem;
+	}
+
+	ul li{
+		color: #555;
+		padding: 0.3rem 1rem;
+
+		a.add{
+			opacity: 0;
+			@include transition(100ms);
+			font-size: 1.2rem;
+			padding: 0 1rem;
+			color: #a3e6db;
+			float: right;
+			display: inline-block;
+		}
+
+		&:hover a.add{
+			opacity: 1;
+		}
+
+		&:first-child{
+			font-size: 0.9rem;
+			background-color: #fff;
+			height: 3rem;
+			color: #777;
+			line-height: 3rem;
+			text-transform: uppercase;
+			padding: 0;
+			margin-bottom: 0.5rem;
+			padding-left: 0.5rem;
+			border-left: 5px solid #a3e6db;
+		}
+	}
 }
 
 div.add-goal{
@@ -49,7 +89,8 @@ div.add-goal{
 
 div.goal-container{
 	margin-top: 2rem;
-	padding: 2rem;
+	padding: 1rem 2rem;
+	position: relative;
 	background-color: #fff;
   @include prefixer(box-shadow, 0 0 20px rgba(0, 0, 0, 0.4));
 }
@@ -57,11 +98,21 @@ div.goal-container{
 div.goal-title{
 	font-weight: 700;
 	font-size: 1.2rem;
+	margin-bottom: 0.5rem;
 }
 
 div.goal-container-footer{
 	display: block;
-	height: 4rem;
+	height: 3.5rem;
+}
+
+a.goal-link{
+	display: block;
+	position: absolute;
+	top:0;
+	left:0;
+	height: 100%;
+	width: 100%;
 }
 
 div.goal-inner-container-footer{
@@ -70,6 +121,7 @@ div.goal-inner-container-footer{
 .goal-label{
 	font-size: 0.8rem;
 	color: #777;
+	display: block;
 }
 
 

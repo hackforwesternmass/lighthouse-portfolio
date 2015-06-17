@@ -1,11 +1,12 @@
-<section id="project-modal">
-	<%= form_for @goal do |f| %>
-	  <%= f.text_field :title, placeholder: "TITLE", class: 'project-input' %>
-	  <%= f.text_field :description, placeholder: "SHORT DESCRIPTION", class: 'project-input' %>
-	  <%= f.date_field :due_date, class: 'project-input' %>
+<section id="goal-modal">
+	<%= form_for [@user, @goal] do |f| %>
+	  <%= f.text_field :title, placeholder: "TITLE", class: 'modal-input' %>
+	  <%= f.text_area :description, placeholder: "SHORT DESCRIPTION", rows: 3, class: 'modal-input' %>
+	  <%= f.text_field :due_date, placeholder: 'DUE DATE', class: 'modal-input goal-due-date' %>
 
-	  <%= f.submit "ADD GOAL", class: 'project-submit' %>
+	  <%= f.submit "ADD GOAL", class: 'modal-submit' %>
 	<% end %>
 </section>
 
 <div class="modal-wrapper"></div>
+

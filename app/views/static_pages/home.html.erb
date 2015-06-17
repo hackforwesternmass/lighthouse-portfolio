@@ -12,7 +12,7 @@
     </div>
     <%= form_for @user, url: {controller: "sessions", action: "login_authentication"},
      html: {method: "post" } do |f| %>
-    <%= f.text_field :username, autofocus: true, placeholder: "EMAIL ADDRESS / USERNAME", class: "login-field" %>
+    <%= f.text_field :username, autofocus: true, placeholder: "EMAIL ADDRESS", class: "login-field" %>
     <%= f.password_field :password, placeholder: "PASSWORD", class: "login-field"%>
     <%= f.submit "Login", class: "login_button" %>
     <% end %>

@@ -13,5 +13,6 @@
 //= require jquery
 //= require jquery-ui/effect-drop
 //= require jquery_ujs
+//= require bootstrap-datepicker
 //= require turbolinks
 //= require_tree .

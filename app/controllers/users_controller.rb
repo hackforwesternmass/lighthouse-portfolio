@@ -46,6 +46,17 @@ class UsersController < SessionsController
     end
   end
 
+  def add_courses
+    @user.courses.delete_all
+
+    params['courses'].each do |c|
+      @user.courses << Course.find(c.first)
+    end
+
+    redirect_to user_goals_path(user_id: params[:id])
+  end
+
+
   private
     def user_params
       params.require(:user).permit(:first_name, :last_name, :avatar, :tumblr, :twitter, :instagram,

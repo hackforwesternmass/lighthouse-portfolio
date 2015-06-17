@@ -2,17 +2,17 @@ Rails.application.routes.draw do
 
   root "static_pages#home"
 
-  resources :users
   resources :courses
-  resources :topics
-  resources :resources
-  resources :projects
-  resources :goals
-  resources :portfolios
 
-  resources :users do 
+  resources :users do
+    post 'add_courses', on: :member 
   	resources :portfolios
-    resources :goals
+    resources :goals do
+      #todo
+    end
+    resources :activities
+    resources :resources
+    resources :projects
   end
 
   namespace :sessions, path: '/', as: nil do

@@ -13,9 +13,9 @@ class ProjectsController < SessionsController
   end
 
   def create
-    @project = current_user.projects.build(project_params)
+    @project = @user.projects.build(project_params)
       if @project.save
-        redirect_to portfolios_path, flash: { notice: 'Project Created!' }
+        redirect_to user_portfolios_path(user_id: @user.id), flash: { notice: 'Project Created!' }
       else
         flash.now[:alert] = 'Could not create your project, try again!'
         render :new

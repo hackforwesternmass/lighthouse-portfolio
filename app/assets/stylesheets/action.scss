@@ -1,0 +1,49 @@
+@import "lib";
+
+section#actions-header{
+	position: absolute;
+	top: 0;
+	left: 250px;
+	height: 70px;
+	width: calc(100vw - 250px - 8rem);
+	background-color: #333;
+	color: #eee;
+	font-size: 1.5rem;
+	line-height: 70px;
+	padding: 0 4rem;
+
+
+	a.add{
+		float: right;
+		height: 70px;
+		line-height: 70px;
+		color: #eee;
+	}
+
+	a.back{
+		height: 70px;
+		line-height: 70px !important;
+		float: left;
+		i{
+			float: left;
+			color: #ee6508; 
+			font-size: 2.5rem;
+			padding-right: 2.5rem;
+			height: 70px;
+			line-height: 70px !important;
+		}
+	}
+}
+
+
+
+section#actions{
+  width: calc(100vw - 250px - 4rem);
+  min-width: 30rem;
+  background-color: #eee;
+  position: absolute;
+  top: 70px;
+  left: 250px;
+  min-height: calc(100vh - 70px - 4rem);
+  padding: 2rem;
+}

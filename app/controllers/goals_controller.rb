@@ -8,6 +8,8 @@ class GoalsController < SessionsController
     @current_goals = Goal.current_goals
     @past_goals = Goal.past_goals
     @goal = Goal.new
+    @activity = Activity.new
+    @courses = Course.all
   end
 
   def new
@@ -37,6 +39,7 @@ class GoalsController < SessionsController
   end
 
   def show
+    @goal = Goal.find(params[:id])
   end
 
   def destroy
