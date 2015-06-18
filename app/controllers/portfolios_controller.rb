@@ -2,6 +2,7 @@ class PortfoliosController < SessionsController
 
   before_action :session_expiry
   before_action :update_activity_time
+  before_action :signed_in
   before_action :current_user
 
   layout "student"

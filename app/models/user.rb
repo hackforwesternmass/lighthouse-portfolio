@@ -41,6 +41,18 @@ class User < ActiveRecord::Base
     user if user && user.pword == password
   end
 
+  def twitter_url
+    "https://twitter.com/#{self.twitter}"
+  end
+
+  def tumblr_url
+    "http://#{self.tumblr}.tumblr.com/"
+  end
+
+  def instagram_url
+    "https://instagram.com/#{self.instagram}/"
+  end
+  
   def pword
     @pword ||= Password.new(password)
   end
