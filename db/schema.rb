@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20150617224128) do
   add_index "action_items", ["action_id"], name: "index_action_items_on_action_id", using: :btree
 
   create_table "actions", force: :cascade do |t|
-    t.string   "note"
+    t.text     "note"
     t.integer  "goal_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

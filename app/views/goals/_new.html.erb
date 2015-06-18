@@ -2,7 +2,7 @@
 	<%= form_for [@user, @goal] do |f| %>
 	  <%= f.text_field :title, placeholder: "TITLE", class: 'modal-input' %>
 	  <%= f.text_area :description, placeholder: "SHORT DESCRIPTION", rows: 3, class: 'modal-input' %>
-	  <%= f.text_field :due_date, placeholder: 'DUE DATE', class: 'modal-input goal-due-date' %>
+	  <%= f.text_field :due_date, placeholder: 'DUE DATE', class: 'modal-input due-date' %>
 
 	  <%= f.submit "ADD GOAL", class: 'modal-submit' %>
 	<% end %>

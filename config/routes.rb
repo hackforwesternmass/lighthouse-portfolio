@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     post 'add_courses', on: :member 
   	resources :portfolios
     resources :goals do
-      #todo
+      resources :actions 
     end
     resources :activities
     resources :resources

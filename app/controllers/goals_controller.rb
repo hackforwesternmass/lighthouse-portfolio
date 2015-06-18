@@ -39,6 +39,9 @@ class GoalsController < SessionsController
   end
 
   def show
+    @activity = Activity.new
+    @courses = Course.all
+    @action = Action.new
     @goal = Goal.find(params[:id])
   end
 
