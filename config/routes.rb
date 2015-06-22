@@ -2,13 +2,14 @@ Rails.application.routes.draw do
 
   root "static_pages#home"
 
-  resources :courses
+  # resources :courses
 
   resources :users do
     post 'add_courses', on: :member 
   	resources :portfolios
     resources :goals do
-      resources :actions 
+      resources :actions
+      resources :courses
     end
     resources :activities
     resources :resources

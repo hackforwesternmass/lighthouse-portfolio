@@ -77,20 +77,6 @@ ActiveRecord::Schema.define(version: 20150617224128) do
     t.integer  "user_id"
   end
 
-  create_table "portfolios", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "title"
-    t.text     "description"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
-    t.datetime "avatar_updated_at"
-  end
-
-  add_index "portfolios", ["user_id"], name: "index_portfolios_on_user_id", using: :btree
-
   create_table "projects", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -136,5 +122,4 @@ ActiveRecord::Schema.define(version: 20150617224128) do
   add_foreign_key "actions", "goals"
   add_foreign_key "activities", "users"
   add_foreign_key "courses", "users"
-  add_foreign_key "portfolios", "users"
 end
