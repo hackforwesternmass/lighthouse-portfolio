@@ -1,5 +1,4 @@
 class CoursesController < ApplicationController
-  before_action :load_course
 
   def index
     @courses = Course.all
@@ -12,7 +11,7 @@ class CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
     if @course.save
-      redirect_to root_path, flash: { notice: 'Course made.' }
+      redirect_to action: :new, flash: { notice: 'Course made.' }
     else
       flash.now[:alert] = 'Could not create the course'
       render :new
@@ -37,10 +36,7 @@ class CoursesController < ApplicationController
 
   private
     def course_params
-      params.require(:course).permit(:user_id,:name,:description,:category);
+      params.require(:course).permit(:name, :description, :photo)
     end
 
-    def load_course
-      @course = Course.find(params[:id])
-    end
 end

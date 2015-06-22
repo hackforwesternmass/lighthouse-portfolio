@@ -46,9 +46,18 @@ ul{
   padding:0;
 }
 
+#error_explanation {
+  margin: 0 auto;
+  width: 85%;
+  margin-bottom: 20px;
+  color: #eee;
+  font: 300 0.9rem 'Roboto', helvetica, sans-serif;
+  line-height: 1.25rem;
+}
+
 div.field_with_errors{
   display: inline;
   input{
-    border:1px solid red;
+    border:1px solid #cd5c5c;
   }
 }

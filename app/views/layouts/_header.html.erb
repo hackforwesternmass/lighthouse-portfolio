@@ -12,13 +12,13 @@
         <div class="student-description"><%= @user.description %></div>
         <div class="social-container">
           <% if @user.tumblr.present? %>
-            <span class="social"><%= fa_icon("tumblr", text: @user.tumblr)%></span>
+            <span class="social"><%= link_to fa_icon("tumblr", text: @user.tumblr), @user.tumblr_url %></span>
           <% end %>
           <% if @user.twitter.present? %>
-            <span class="social"><%= fa_icon("twitter", text: @user.twitter)%></span>
+            <span class="social"><%= link_to fa_icon("twitter", text: @user.twitter), @user.twitter_url %></span>
           <% end %>
           <% if @user.instagram.present? %>
-            <span class="social"><%= fa_icon("instagram", text: @user.instagram)%></span>
+            <span class="social"><%= link_to fa_icon("instagram", text: @user.instagram), @user.instagram_url %></span>
           <% end %>
         </div>
       </div>

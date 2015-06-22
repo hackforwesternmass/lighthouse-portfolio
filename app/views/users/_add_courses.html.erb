@@ -1,0 +1,14 @@
+<section id="course-modal">
+  <%= form_tag add_courses_user_path(id: @user.id), method: :post do %>
+    <% @courses.each do |course| %>
+      <div class="courses-checkboxes">
+        <%= check_box_tag "courses[#{course.id}]" %>
+        <%= label_tag "courses[#{course.id}]", course.name %>
+      </div>
+    <% end %>
+      <%= submit_tag 'submit' %>
+  <% end %>
+</section>
+
+<div class="modal-wrapper"></div>
+

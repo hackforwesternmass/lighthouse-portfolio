@@ -1,7 +1,8 @@
 <section id="home-1">
-  <span class="thetitle" style="padding-top : 5vh !important; ">Compass<br><small>centre for self-directed learning
-  </small></span> 
-  <div id="login-signup-container" style="height: 425px;">
+  <span class="thetitle">Compass<br><small>centre for self-directed learning</small></span>
+
+  <div id="login-signup-container">
+
     <div class="login-signup-header">
       <div class="login-header">
         <%= link_to "Login", root_path %>
@@ -10,12 +11,20 @@
         <%= link_to "Sign Up", new_user_path %>
       </div>
     </div>
+      <% if @user.errors.any? %>
+        <div id="error_explanation">
+          <ul>
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
     <%= form_for(@user) do |f| %>
     <div class="halfer">
       <%= f.text_field :first_name, placeholder: "FIRST NAME", class: "half-login-field" %>
       <%= f.text_field :last_name, placeholder: "LAST NAME", class: "half-login-field", style: "float: right;" %>
     </div>
-      <%= f.text_field :username, placeholder: "USERNAME", class: "login-field" %>
       <%= f.email_field :email, placeholder: "EMAIL", class: "login-field" %>
     <div class="halfer">
       <%= f.password_field :password, placeholder: "PASSWORD", class: "half-login-field" %>

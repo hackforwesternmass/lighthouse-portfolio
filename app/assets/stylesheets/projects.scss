@@ -7,12 +7,13 @@ div.modal-wrapper{
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0,0,0,0.2);
   z-index: 1;
 }
 
-section#project-modal{
-	@include center;
+section#project-modal, section#course-modal, 
+  section#goal-modal, section#activity-modal{
+  top: 50%;
 	position: fixed;
 	display: none;
   z-index: 2;
@@ -20,12 +21,12 @@ section#project-modal{
   padding: 1rem 0;
   border-top: 10px solid #61c6d8;
   width: 700px;
-  max-height: 400px;
   border-radius: 5px;
+  @include prefixer(transform, translate(50%, -50%));
   @include prefixer(box-shadow, 0 0 20px rgba(0, 0, 0, 0.4));
 }
 
-input.project-input{
+input.modal-input, textarea.modal-input{
 	display: block;
 	width: 90%;
 	margin: 1rem auto;
@@ -37,7 +38,7 @@ input.project-input{
 	border: none;
 }
 
-input.project-submit{
+input.modal-submit{
 	display: block;
 	width: 90%;
 	margin: 1rem auto;
@@ -49,7 +50,7 @@ input.project-submit{
 	border: none;
 }
 
-label.project-file-upload{
+label.modal-file-upload{
 	display: block;
 	width: 90%;
 	margin: 1rem auto;	
@@ -62,7 +63,7 @@ label.project-file-upload{
 		font-size: 0.9rem;
 	}
 
-	span.project-file-name{
+	span.modal-file-name{
 		padding-left: 10px;
 		color: #4bbc9c;
 		font-size: 0.8rem;

@@ -2,7 +2,9 @@ class User < ActiveRecord::Base
   include BCrypt
 
   has_many :goals
+  has_many :courses
   has_many :resources
+  has_many :activities
 
   has_many :projects, dependent: :destroy
   accepts_nested_attributes_for :projects
@@ -13,9 +15,8 @@ class User < ActiveRecord::Base
   validates :last_name, 
     presence: { message: "is required."}
 
-  validates :username,
-    presence: { message: "is required." },
-    uniqueness: { message: "s already in use." }   
+  validates :description,
+    length: { maximum: 140 }
 
   validates :email, 
     presence: { message: "is required." },
@@ -23,10 +24,7 @@ class User < ActiveRecord::Base
 
   validates :password, 
     presence: { message: "is required." },
-    confirmation: {message: "do not match."},
-    format: {with: /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\W]).{8,}/,
-    				 message: "is an invalid format."},
-					   on: :create
+    confirmation: {message: "do not match."}
 
   validates :password_confirmation, 
     presence: { message: "is required." },
@@ -43,6 +41,18 @@ class User < ActiveRecord::Base
     user if user && user.pword == password
   end
 
+  def twitter_url
+    "https://twitter.com/#{self.twitter}"
+  end
+
+  def tumblr_url
+    "http://#{self.tumblr}.tumblr.com/"
+  end
+
+  def instagram_url
+    "https://instagram.com/#{self.instagram}/"
+  end
+  
   def pword
     @pword ||= Password.new(password)
   end
