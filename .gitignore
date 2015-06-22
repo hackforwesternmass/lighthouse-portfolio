@@ -18,3 +18,6 @@
 
 #Ignore uploaded photos for testing purposes
 /public/system/projects
+
+#Ignore Mockups
+/UI_update2
