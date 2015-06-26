@@ -1,2 +1,39 @@
-<h1>Resources#index</h1>
-<p>Find me in app/views/resources/index.html.erb</p>
+<section id="goals-header">
+  <%= fa_icon( "angle-down", text: "Current", right: true) %>
+</section>
+
+<section id="goals-side-panel">
+  <ul class="courses">
+    <li>Courses<%= link_to fa_icon('plus-circle'), '#', class: 'add course' %></li>
+    <% @user.courses.each do |course| %>
+      <li><%= course.name %></li>
+    <% end %>
+  </ul>
+  <ul class="activities">
+    <li>Activities<%= link_to fa_icon('plus-circle'), '#', class: 'add activity'  %></li>
+    <% @user.activities.each do |activity| %>
+      <li><%= link_to activity.name, "#" %></li>
+    <% end %>
+  </ul>
+  <ul class="projects">
+    <li>Project</li>
+    <% @user.projects.each do |project| %>
+      <li><%= link_to project.title, project.link %></li>
+    <% end %>
+  </ul>
+</section>
+
+<section id="goals">
+  <div class="add-goal">
+   <%= fa_icon("plus-circle", text: "Add Goal") %> 
+  </div> 
+
+  <div class="each-goal">
+    <%= render @resources %>
+  </div>
+  
+</section>
+
+<%= render 'resources/new' %>
+
+

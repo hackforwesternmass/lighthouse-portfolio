@@ -1,5 +1,5 @@
-class ResourcesController < ApplicationController
-  before_action :load_resource
+class ResourcesController < SessionsController
+  before_action :current_user
 
   def index
     @resources = Resource.all
@@ -44,7 +44,4 @@ class ResourcesController < ApplicationController
       params.require(:resource).permit()
     end
 
-    def load_resource
-      @resource = Resource.find(params[:id])
-    end
 end
