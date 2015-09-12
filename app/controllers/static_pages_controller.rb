@@ -5,4 +5,8 @@ class StaticPagesController < SessionsController
   	redirect_to user_portfolios_path(@user) if signed_in?
   end
 
+  def calender
+  	
+  end
+
 end
