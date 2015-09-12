@@ -18,6 +18,7 @@ gem 'turbolinks'
 gem 'bootstrap-datepicker-rails', '~> 1.4.0'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'email_validator'
 
 group :development, :test do
   gem 'byebug'

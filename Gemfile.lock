@@ -66,6 +66,8 @@ GEM
     columnize (0.9.0)
     daemons (1.2.2)
     debug_inspector (0.0.2)
+    email_validator (1.6.0)
+      activemodel
     erubis (2.7.0)
     eventmachine (1.0.7)
     execjs (2.5.2)
@@ -186,6 +188,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.4)
   byebug
   coffee-rails (~> 4.1.0)
+  email_validator
   font-awesome-rails (~> 4.3.0.0)
   jbuilder (~> 2.0)
   jquery-rails
@@ -204,4 +207,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.10.3
+   1.10.5
