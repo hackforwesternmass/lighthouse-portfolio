@@ -6,6 +6,13 @@
         <%= label_tag "courses[#{course.id}]", course.name %>
       </div>
     <% end %>
+      <%= text_field_tag :name, placeholder: "TITLE", class: 'modal-input' %>
+	  <%= text_area_tag :description, placeholder: "DESCRIPTION", rows: 3, class: 'modal-input' %>
+	  <%= text_field_tag :category, placeholder: "CATEGORY" %>
+	  <label class="modal-file-upload">
+      	<%= file_field_tag :photo %>
+      	UPLOAD PHOTO <small>(optional)</small><span class="modal-file-name"></span>
+      </label>
       <%= submit_tag 'submit' %>
   <% end %>
 </section>

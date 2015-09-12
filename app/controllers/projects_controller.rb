@@ -39,7 +39,7 @@ class ProjectsController < SessionsController
   end
 
   def destroy
-    project = Project.find params[:id]
+    project = Project.find(params[:id])
     project.destroy
     render nothing: true
   end

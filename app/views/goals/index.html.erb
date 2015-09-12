@@ -18,7 +18,7 @@
   <ul class="projects">
     <li>Project</li>
     <% @user.projects.each do |project| %>
-      <li><%= link_to project.title, project.link %></li>
+      <li><%= link_to project.title, project.link, target: "_blank" %></li>
     <% end %>
   </ul>
 </section>
