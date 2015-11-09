@@ -22,5 +22,21 @@ module Compass
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance| 
+
+      if(instance.class.to_s.eql?("ActionView::Helpers::Tags::Label"))
+        html_tag << "<span class=\"error-message\">#{instance.error_message.join(" and ")}</span>".html_safe
+      else
+        field = html_tag.split(" ")
+        pos = field.count - 1
+        field.insert(pos, "class=\"invalid\"")
+        html_tag = field.join(" ")
+      end
+
+      html_tag.html_safe
+
+    }
+
   end
 end

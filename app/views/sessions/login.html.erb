@@ -1,14 +1,37 @@
-<section id="login">
-  
-  <div class="login-title">Sign In</div>
+<section id="home-1">
 
-  <%= form_tag url_for(controller: 'sessions', action: 'login_authentication'), method: :post do %>
+<!--   <span class="thetitle" style="padding-top : 5vh !important; ">
+    Compass<br><small>centre for self-directed learning</small>
+  </span>  -->
 
-    <%= text_field_tag 'username', nil, placeholder: 'Username or Email' %>     
-    <%= password_field_tag 'password', nil, placeholder: 'Password' %> 
-    
-    <%= submit_tag "Sign In", class: 'login-button' %>
-  
-  <% end %>
+  <h1 class="center-align grey-text text-lighten-5">
+    Compass<br><small>Centre for Self-Directed Learning</small>
+  </h1>
 
+  <div id="login-signup-container">
+
+    <%= form_for @user, url: login_authentication_path, html: {method: "post", class: "col s12" } do |f| %>
+
+      <div class="row">
+        <div class="input-field">
+          <%= f.text_field :email, autofocus: true %>
+          <%= f.label :email %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field">
+          <%= f.password_field :password %>
+          <%= f.label :password %>
+        </div>
+      </div>
+
+      <% if flash[:alert] %>
+        <div class="login-refused"><%= flash[:alert] %></div>
+      <% end %>
+
+      <%= content_tag :button, "Submit",type: :submit, class: "waves-effect waves-light btn login-submit" %>
+
+    <% end %>
+  </div>
 </section>

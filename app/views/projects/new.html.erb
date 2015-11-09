@@ -1,2 +1,80 @@
-<h1>Projects#new</h1>
-<p>Find me in app/views/projects/new.html.erb</p>
+<section class="section-container">
+
+  <div class="row">
+    <h1 class="teal-text">New Portfolio Piece</h1>
+  </div>
+
+  <% if flash[:alert] %>
+    <script type="text/javascript">Materialize.toast("<%= flash[:alert] %>", 5000, "red lighten-1")</script>
+  <% end %>
+
+  <%= form_for [@user, @project], html: { class: "col s12 new-project", multipart: true } do |f| %>
+
+    <div class="row">
+      <div class="input-field col s12 m9 l5">
+        <%= f.text_field :title %>
+        <%= f.label :title, "TITLE" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12 m9 l5">
+        <%= f.text_field :location, class: "location-autocomplete" %>
+        <%= f.label :location, "LOCATION" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12 m9 l5">
+        <%= f.date_field :date_completed %>
+        <%= f.label :date_completed, "DATE" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+      <%= f.text_field :description, placeholder: '50 characters maximum', length: "50" %>
+      <%= f.label :description, "BRIEF DISCRIPTION" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+      <%= f.text_area :body, placeholder: 'Write whatever you want here?', class: "materialize-textarea"  %>
+      <%= f.label :body, "BODY" %>
+      </div>
+    </div>
+
+    <h5 class="teal-text text-darken-4">Display Photo</h5>
+
+    <div class="row">
+      <div class="file-field input-field col s12">
+        <div class="btn teal darken-4">
+          <span>Photo</span>
+          <%= f.file_field :photo %>
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path" type="text" placeholder="Upload one photo">
+        </div>
+      </div>
+    </div>
+
+    <h5 class="teal-text text-darken-4">Attachments</h5>
+
+      <div class="row">
+        <div class="file-field input-field col s12">
+          <div class="btn teal darken-4">
+            <span>PDF File</span>
+            <%= file_field_tag('project_project_attachments_document', 
+              multiple: true, name: "project[project_attachments_attributes][][document]") %>
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path" type="text" placeholder="Upload one or more documents">
+          </div>
+        </div>
+      </div>
+
+    <%= content_tag :button, "Save", type: :submit, class: "waves-effect waves-light btn teal right" %>
+
+  <% end %>
+</section>

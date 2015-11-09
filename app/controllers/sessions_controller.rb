@@ -6,26 +6,22 @@ class SessionsController < ApplicationController
 
   def login_authentication
 
-    username_email = params[:user][:username]
+    email = params[:user][:email]
     password = params[:user][:password]
 
-    @user = User.authenticate(username_email, password)
-    # @user ||= User.new
+    @user = User.authenticate(email, password)
 
-    # unless @user.id.nil?
-    #   session[:user_id] = @user.id
-    #   redirect_to root_path
-    # else
-    #   flash.now[:alert] = "Login failed"
-    #   render "static_pages/home"
     if @user
       session[:user_id] = @user.id
       redirect_to user_portfolios_path(user_id: @user.id)
     else
-      flash[:alert] = "Something went wrong!"
+      flash[:alert] = "Your email or password were incorrect."
       redirect_to root_path
     end
-    
+  
+    rescue
+      flash[:alert] = "Ugh, something went wrong. Try again."
+      redirect_to root_path
   end
 
   def current_user
@@ -38,6 +34,9 @@ class SessionsController < ApplicationController
   end
 
   def login
+    if signed_in?
+      redirect_to user_portfolios_path(user_id: @user.id)
+    end
   end
   
   def signed_in
@@ -59,7 +58,7 @@ class SessionsController < ApplicationController
   end
 
   def update_activity_time
-    session[:expires_at] = 30.minutes.from_now
+    session[:expires_at] = 24.hours.from_now
   end
 
 private

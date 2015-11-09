@@ -1,8 +1,8 @@
 default: &default
   adapter: postgresql
   database: compass
-  username: ash
-  password: 
+  username: postgres
+  password: postgres
   host: localhost
 
 development:

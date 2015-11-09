@@ -1,10 +1,29 @@
-section#student-edit-profile{
-  display: none;
-	width: calc(100vw - 250px);
-	height: 100vh;
-	background-color: white;
-	position: fixed;
-	right: 0;
+@import "lib";
+
+form.edit-student{
+	color: #444;
+
+	.custom-file-upload{
+		width: 100%;
+
+	  input[type="file"] {
+	      display: none;
+	  }
+	}
 }
 
+.avatar-column{
 
+	padding: 10px;
+
+  img{
+  	display: block;
+  	margin: 0 auto;
+    height: 120px;
+    width: 120px;
+    object-fit: cover;
+    border-radius: 10rem;
+    border: 5px solid teal;
+  }
+
+}

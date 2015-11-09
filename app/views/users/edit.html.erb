@@ -1,6 +1,67 @@
-<h1>Editing User</h1>
+<section  class="section-container">
 
-<%= render 'form' %>
+  <div class="row">
+    <h1 class="teal-text">Edit Profile</h1>
+  </div>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+  <% if flash[:alert] %>
+    <script type="text/javascript">Materialize.toast("<%= flash[:alert] %>", 5000, "red lighten-1")</script>
+  <% end %>
+
+  <%= form_for @user, html: { class: "col s12 edit-student" } do |f| %>
+
+    <div class="row">
+      <div class="col s2">
+
+        <div class="avatar-column">
+          <%= image_tag @user.avatar.url, class: 'edit-avatar' %>
+        </div>
+
+        <label class="custom-file-upload waves-effect waves-light btn teal">
+          <%= f.file_field :avatar %>
+          <%= fa_icon "camera", text: "CHANGE PHOTO" %> 
+        </label>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col m6 s12">
+      <%= f.text_field :first_name %>
+      <%= f.label :first_name, "FIRST NAME" %>
+      </div>
+
+      <div class="input-field col m6 s12">
+      <%= f.text_field :last_name %>
+      <%= f.label :last_name, "LAST NAME" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+      <%= f.text_area :description, placeholder: '140 characters maximum', length: "140", class: "materialize-textarea"  %>
+      <%= f.label :description, "SHORT BIO" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col m4 s12">
+      <%= f.url_field :tumblr  %>
+      <%= f.label :tumblr, fa_icon("tumblr", style: "font-size: 1rem;") %>
+      </div>
+
+      <div class="input-field col m4 s12">
+      <%= f.url_field :twitter  %>
+      <%= f.label :twitter, fa_icon("twitter", style: "font-size: 1rem;") %>
+      </div>
+
+      <div class="input-field col m4 s12">
+      <%= f.url_field :instagram  %>
+      <%= f.label :instagram, fa_icon("instagram", style: "font-size: 1rem;") %>
+      </div>
+    </div>
+
+    <%= content_tag :button, "Save", type: :submit, class: "waves-effect waves-light btn teal" %>
+
+  <% end %>
+</section>

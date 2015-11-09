@@ -3,6 +3,8 @@ class UsersController < SessionsController
   before_action :current_user, except: [:create]
   before_action :signed_in, except: [:new, :create]
 
+  layout "student", only: [:edit, :update]
+
   def index
     @users = User.all
   end
@@ -31,17 +33,22 @@ class UsersController < SessionsController
   end
 
   def update
-      if @user.update(user_params)
-        redirect_to user_portfolios_path(user_id: @user.id), notice: 'User was successfully updated.'
-      else
-        render :edit
-      end
+
+    prefix = ['Darn! ', 'Dang! ', 'Oh Snap! '].sample
+
+    if @user.update(user_params)
+      redirect_to user_portfolios_path(user_id: @user.id), flash: { notice: "Profile successfully updated!" }
+    else
+      word = @user.errors.count.eql?(1) ? "one" : "a few"
+      flash[:alert] = prefix << "Change #{word} things up and try submitting again."
+      render :edit
+    end
   end
 
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      format.html { redirect_to users_url, flash: { notice: 'User was successfully destroyed.' } }
       format.json { head :no_content }
     end
   end

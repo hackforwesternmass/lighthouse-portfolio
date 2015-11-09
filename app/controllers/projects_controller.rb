@@ -10,12 +10,13 @@ class ProjectsController < SessionsController
 
   def new
     @project = current_user.projects.build
+    @project.project_attachments.build
   end
 
   def create
     @project = @user.projects.build(project_params)
       if @project.save
-        redirect_to user_portfolios_path(user_id: @user.id), flash: { notice: 'Project Created!' }
+        redirect_to user_portfolios_path(user_id: @user.id), flash: { notice: 'Portfolio piece created!' }
       else
         flash.now[:alert] = 'Could not create your project, try again!'
         render :new
@@ -46,7 +47,8 @@ class ProjectsController < SessionsController
 
   private
     def project_params
-      params.require(:project).permit(:title, :description, :resume, :difficulty, :link, :photo)
+      params.require(:project).permit(:title, :description, :link, 
+        :body, :photo, :location, :date_completed, project_attachments_attributes: [:document])
     end
 
 end

@@ -15,7 +15,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'pry', '~> 0.10.1'
 gem 'turbolinks'
-gem 'bootstrap-datepicker-rails', '~> 1.4.0'
+gem 'materialize-sass'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'email_validator'

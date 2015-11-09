@@ -1,125 +1,12 @@
 @import "lib";
 
-div.modal-wrapper{
-  display: none;
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-section#project-modal, section#course-modal, 
-  section#goal-modal, section#activity-modal{
-  top: 50%;
-	position: fixed;
-	display: none;
-  z-index: 2;
-  background-color: #fff;
-  padding: 1rem 0;
-  border-top: 10px solid #61c6d8;
-  width: 700px;
-  border-radius: 5px;
-  @include prefixer(transform, translate(50%, -50%));
-  @include prefixer(box-shadow, 0 0 20px rgba(0, 0, 0, 0.4));
-}
-
-input.modal-input, textarea.modal-input{
-	display: block;
-	width: 90%;
-	margin: 1rem auto;
-	border-radius: 5px;
-	font: 300 0.9rem 'Roboto', helvetica, sans-serif;
-	padding: 1rem 0.8rem;
-	background-color: #eee;
-	color:#222;
-	border: none;
-}
-
-input.modal-submit{
-	display: block;
-	width: 90%;
-	margin: 1rem auto;
-	border-radius: 5px;
-	font: 300 0.9rem 'Roboto', helvetica, sans-serif;
-	padding: 1rem 0.8rem;
-	background-color: #ee6508;
-	color: #fff;
-	border: none;
-}
-
-label.modal-file-upload{
-	display: block;
-	width: 90%;
-	margin: 1rem auto;	
-	color: #ee6508;
-
-	small{
-		padding-left: 10px;
-		color: #aaa;
-		font-weight: 300;
-		font-size: 0.9rem;
-	}
-
-	span.modal-file-name{
-		padding-left: 10px;
-		color: #4bbc9c;
-		font-size: 0.8rem;
-	}
-
-  input[type="file"] {
-      display: none;
-  }
-
-  &:hover{
-  	cursor: pointer;
-  }
-}
-
-div.project{
-  @include transition(100ms);
-  min-height: 150px;
-  background-color: #fff;
-  padding: 0.5rem;
-  position: relative;
-
-  &:hover{
-    cursor: pointer;
-    @include prefixer(box-shadow, 0 0 25px #61c6d8);
-  }
-
-  img{
-  	width: 100%;
-  }
-}
-
-div.project-title{
-	font-weight: 400;
-	color: #333;
-	font-size: 1.3rem;
-
-	+ div.project-desc{
-		position: absolute;
-		bottom: 1rem;
-	}
-}
-
 a.project-link{
-	display: block;
-	position: absolute;
-	top:0;
-	left:0;
-	height: 100%;
-	width: 100%;
+  position:absolute; 
+  width:100%;
+  height:100%;
+  top:0;
+  left: 0;
 }
-
-img + div.project-title + div.project-desc{
-	padding-top: 10px; 
-	position: static;
-}
-
 
 div.add-project{
   @include transition(100ms);
@@ -127,6 +14,7 @@ div.add-project{
   background-color: #fff;
   font-weight: 400;
   color: #777;
+  text-align: center;
 
   i{
     padding-top: 20px;
@@ -135,50 +23,25 @@ div.add-project{
     margin: 0 auto;
   }
 
-  text-align: center;
-
-  &:hover{
-    cursor: pointer;
-    @include prefixer(box-shadow, 0 0 25px #61c6d8);
-  }
 }
 
 div.project-wrapper{
+  position: relative;
   border-top: 10px solid #61c6d8;
   font: 300 0.9rem 'Roboto', helvetica, sans-serif;
-  @include prefixer(box-shadow, 0 0 20px rgba(0, 0, 0, 0.4));
-  margin-bottom: 3rem;
-}
 
-section#project{
-  position: relative;
-  top: 0px;
-  left: 250px;
-  min-height: calc(100vh - 300px);
-  background-color: #eee;
-  width: calc(100vw - 250px);
-}
-
-div.project-grid{
-  width: calc(100vw - 250px);
-  background-color: #eee;
-  position: absolute;
-  padding: 3rem 0;
-  .col{
-    @include span-columns(4, 3);
+  .card-image img{
+    height: 250px;
+    object-fit: cover;
   }
 }
 
-div.remove-project{
-  display: none;
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  padding: 0.1rem 0.2rem;
-  color: #fff;
-  background-color: #222;
-  cursor: pointer;
-  z-index: 1;
-  font: 300 1em 'Raleway', sans-serif !important;
+/* NEW */
 
+form.new-project{
+  color: #444;
 }
+
+/* SHOW */
+
+

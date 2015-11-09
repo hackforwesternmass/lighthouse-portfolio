@@ -10,47 +10,46 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :projects
 
   validates :first_name, 
-    presence: { message: "is required."}
+    presence: { message: "First name is required"}
 
   validates :last_name, 
-    presence: { message: "is required."}
+    presence: { message: "Last name is required"}
 
   validates :description,
-    length: { maximum: 140 }
+    length: { maximum: 140, message: "140 character max" }
 
   validates :email, 
-    presence: { message: "is required." },
+    presence: { message: "Email is required." },
     uniqueness: { message: "is already in use." }
 
   validates :password, 
-    presence: { message: "is required." },
-    confirmation: {message: "do not match."}
+    presence: { message: "Password is required." },
+    confirmation: {message: "Passwords do not match."}
 
   validates :password_confirmation, 
-    presence: { message: "is required." },
+    presence: { message: "Password confirmation is required." },
     on: :create
 
 
   has_attached_file :avatar, :default_url => "default-avatar.png"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
-  
-  def self.authenticate(username_email, password)
-    a = self.arel_table
-    user = self.where(a[:username].eq(username_email)
-      .or(a[:email].eq(username_email))).first
+ 
+   def self.authenticate(email, password)
+    user = User.find_by_email(email)
     user if user && user.pword == password
   end
 
-  def twitter_url
-    "https://twitter.com/#{self.twitter}"
+  def twitter_handle
+    self.twitter.gsub("https://twitter.com/", "").gsub("/", "")
   end
 
-  def tumblr_url
-    "http://#{self.tumblr}.tumblr.com/"
+  def tumblr_handle
+    self.tumblr.gsub("http://", "").split(".").first.gsub("/", "")
+    
   end
 
-  def instagram_url
-    "https://instagram.com/#{self.instagram}/"
+  def instagram_handle
+    self.instagram.gsub("https://instagram.com/", "").gsub("/", "")
   end
   
   def pword

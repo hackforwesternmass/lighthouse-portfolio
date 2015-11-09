@@ -1,58 +1,41 @@
-<%= render 'layouts/header' %>
+<%= render 'portfolio_header' %>
+
+<% if flash[:notice] %>
+  <script type="text/javascript">Materialize.toast("<%= flash[:notice] %>", 3500, "teal")</script>
+<% end %>
+
+<% if flash[:alert] %>
+  <script type="text/javascript">Materialize.toast("<%= flash[:alert] %>", 3500, "red")</script>
+<% end %>
 
 <section id="portfolios">
-  <div class="porfolio-grid">
-  <% projects = @user.projects %>
-  <% i = 2 %>
-    <div class="col">
-      <div class="project-wrapper">
-        <div class="add-project"><%= fa_icon("plus-circle") %><br><br>Add portfolio piece</div>
-      </div>
-  <% until i > projects.size - 1 %>
-      <div class="project-wrapper">
-        <div class="project" >
-          <div class="remove-project"><%= link_to 'remove', user_projects_path(projects[i]), method: :delete, remote: true %></div>
-          <%= image_tag projects[i].photo if projects[i].photo.present? %>
-          <div class="project-title"><%= projects[i].title %></div>
-          <div class="project-desc"><%= projects[i].description %></div>
-          <%= link_to "", projects[i].link, target: "_blank", class: 'project-link' if projects[i].link.present? %>
+
+  <div class="row">
+
+    <div class="col s12 m12 l4">
+      <div class="card-panel project-wrapper hoverable">
+        <div class="card-content">
+          <%= link_to "", new_user_project_path, class: "project-link" %>
+          <div class="add-project"><%= link_to fa_icon("plus-circle"), new_user_project_path %><br><br>Add portfolio piece</div>
         </div>
       </div>
-    <% i+= 3 %>
-  <% end %>
     </div>
-  <% i = 0 %>
-    <div class="col">
-  <% until i > projects.size - 1 %>
-      <div class="project-wrapper">
-        <div class="project" >
-          <div class="remove-project"><%= link_to 'remove', user_projects_path(projects[i]), method: :delete, remote: true %></div>
-        <%= image_tag projects[i].photo if projects[i].photo.present? %>
-        <div class="project-title"><%= projects[i].title %></div>
-        <div class="project-desc"><%= projects[i].description %></div>
-        <%= link_to "", projects[i].link, target: "_blank", class: 'project-link' if projects[i].link.present? %>
+    
+    <% @projects.each do |project| %>
+      <div class="col s12 m12 l4">
+        <div class="card project-wrapper hoverable">
+          <div class="card-image">
+            <%= image_tag project.photo if project.photo.present? %>
+          </div>
+          <div class="card-content">
+            <span class="card-title black-text"><%= project.title %></span>
+            <p class="truncate"><%= project.description %></p>
+          </div>
+          <%= link_to "", user_project_path(@user, project), class: "project-link" %>
         </div>
       </div>
-    <% i+= 3 %>
-  <% end %>
-    </div>
-  <% i = 1 %>
-    <div class="col">
-  <% until i > projects.size - 1 %>
-      <div class="project-wrapper">
-        <div class="project" >
-          <div class="remove-project"><%= link_to 'remove', user_projects_path(projects[i]), method: :delete, remote: true %></div>
-        <%= image_tag projects[i].photo if projects[i].photo.present? %>
-        <div class="project-title"><%= projects[i].title %></div>
-        <div class="project-desc"><%= projects[i].description %></div>
-        <%= link_to "", projects[i].link, target: "_blank", class: 'project-link' if projects[i].link.present? %>
-        </div>
-      </div>
-    <% i+= 3 %>
-  <% end %>
-    </div>
+    <% end %>
+
   </div>
+
 </section>
-
-
-<%= render 'projects/new'%>

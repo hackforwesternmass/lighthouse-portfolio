@@ -1,24 +1,79 @@
 @import "lib";
 
 section#portfolios{
-  position: relative;
+  position: absolute;
   top: 300px;
   left: 250px;
+  padding: 3.5rem 2rem;
   min-height: calc(100vh - 300px);
   background-color: #eee;
   width: calc(100vw - 250px);
 }
 
-div.porfolio-grid{
+/* PORTFOLIO HEADER */
+
+section#header{
+  float: right;
   width: calc(100vw - 250px);
-  background-color: #eee;
-  position: absolute;
-  padding: 3rem 0;
-  .col{
-    @include span-columns(4, 3);
-  }
 }
 
+div.header-bg-wrapper{
+  height: 300px;
+  width: 100%;
+  background-color: #eee;
+  background-image: image-url('tibetan-mountains.jpg');
+  background-size: cover;
 
+  div.header-bg{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0, 0.5);
+
+
+    .container{
+      h2{
+        padding-top: 25px;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  div.student-avatar{
+    padding-top: 50px;
+
+    img{
+      height: 12vw;
+      width: 12vw;
+      object-fit: cover;
+      border-radius: 10rem;
+      border: 5px solid #61c6d8;
+    }
+  }
+
+  .social-media{
+    a:hover{
+      @include transition(200ms);
+      color: #61c6d8;
+    }
+  }
+
+  a.student-edit{
+    @include transition(200ms);
+    position: absolute;
+    right: 2rem;
+    font: 400 1.1rem 'Roboto', helvetica, sans-serif;
+    top: 1rem;
+    color: #eee;
+
+    i{
+      padding-left: 5px;
+    }
+
+    &:hover{
+      color: orange;
+    }
+  }
+
+}
 
 
