@@ -8,7 +8,7 @@ section#side-panel{
 }
 
 div.side-title{
-	padding: 3rem 0rem 5rem;
+	padding-bottom: 5rem;
 	color: #aaa;
   font: 400 2rem 'Roboto', helvetica, sans-serif;
   text-align: center;
@@ -18,6 +18,8 @@ div.side-title{
 }
 
 .side-nav{
+
+	padding: 3rem 0;
 
 	li{ 
 
