@@ -1,16 +1,15 @@
 <section id="home-1">
 
-<!--   <span class="thetitle" style="padding-top : 5vh !important; ">
-    Compass<br><small>centre for self-directed learning</small>
-  </span>  -->
-
   <h1 class="center-align grey-text text-lighten-5">
     Compass<br><small>Centre for Self-Directed Learning</small>
   </h1>
 
   <div id="login-signup-container">
 
-    <%= form_for @user, url: login_authentication_path, html: {method: "post", class: "col s12" } do |f| %>
+    <%= form_for @user, url: login_authentication_path, html: {method: "post", class: "col s12", autocomplete: "off" } do |f| %>
+
+    <input type="text" style="display:none;">
+    <input type="password" style="display:none;">
 
       <div class="row">
         <div class="input-field">

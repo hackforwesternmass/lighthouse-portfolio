@@ -11,6 +11,7 @@ class PortfoliosController < SessionsController
   # GET /portfolios
   # GET /portfolios.json
   def index
+    @text_color = "cyan-text text-lighten-2"
     @project = Project.new
     @projects = @user.projects
     @portfolios = Portfolio.all

@@ -1,21 +1,6 @@
 @import "lib";
 
-section#portfolios{
-  position: absolute;
-  top: 300px;
-  left: 250px;
-  padding: 3.5rem 2rem;
-  min-height: calc(100vh - 300px);
-  background-color: #eee;
-  width: calc(100vw - 250px);
-}
-
 /* PORTFOLIO HEADER */
-
-section#header{
-  float: right;
-  width: calc(100vw - 250px);
-}
 
 div.header-bg-wrapper{
   height: 300px;

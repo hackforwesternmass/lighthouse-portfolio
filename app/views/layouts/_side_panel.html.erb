@@ -1,20 +1,23 @@
-<section id="side-panel">
+<a href="#" data-activates="slide-out" class="button-collapse hide-on-large-only">
+  <i class="mdi-navigation-menu grey-text "></i>
+</a>
+
+<ul id="slide-out" class="side-nav fixed grey darken-4">
+
+
   <div class="side-title">C<%= image_tag "logo.png"%>MPASS</div>
-  <div class="menu">
-    <ul class="menu">
-      <li class="menu-item" <%= 'style= background-color:#333;color:#eee;border-left-width:5px;border-left-style:solid;border-left-color:#ee6508;' if current_page?(user_goals_path(user_id: @user.id)) %> >
-        <%= link_to fa_icon("desktop", text: "Action Plan"), user_goals_path(@user) %>
-      </li>
-      <li class="menu-item"><%= link_to fa_icon("calendar-o", text: "Class Calendar"), static_pages_calender_path %></li>
-    
-      <li class="menu-item" <%= 'style= background-color:#333;color:#eee;border-left-width:5px;border-left-style:solid;border-left-color:#ee6508;' if current_page?(user_portfolios_path(user_id: @user.id)) %> >
-        <%= link_to fa_icon("user", text: "Portfolio"), user_portfolios_path(@user) %>
-      </li>
-    </ul>
-  </div>
-  <div class="menu-bottom">
-    <ul class="menu">
-      <li class="menu-item"><%= link_to fa_icon("sign-out", text: "Sign Out"), logout_path %></li>
-    </ul>
-  </div>
-</section>
+
+  <li <%= 'class=active-tab' if current_page? user_goals_path(user_id: @user.id) %> >
+    <%= link_to fa_icon("desktop", text: "Action Plan"), user_goals_path(@user) %>
+  </li>
+
+  <li><%= link_to fa_icon("calendar-o", text: "Class Calendar"), static_pages_calender_path %></li>
+
+  <li <%= 'class=active-tab' if current_page? user_portfolios_path(user_id: @user.id) %> >
+    <%= link_to fa_icon("user", text: "Portfolio"), user_portfolios_path(@user) %>
+  </li>    
+
+  <li><%= link_to fa_icon("sign-out", text: "Sign Out"), logout_path %></li>
+
+
+</ul>

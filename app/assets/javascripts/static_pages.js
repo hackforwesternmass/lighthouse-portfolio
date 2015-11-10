@@ -1,1 +1,4 @@
+$(function(){
+  $('.button-collapse').sideNav({});
+});
 

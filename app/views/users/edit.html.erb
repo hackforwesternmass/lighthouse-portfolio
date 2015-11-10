@@ -1,7 +1,7 @@
 <section  class="section-container">
 
   <div class="row">
-    <h1 class="teal-text">Edit Profile</h1>
+    <h1 class="teal-text center-align">Edit Profile</h1>
   </div>
 
   <% if flash[:alert] %>
@@ -11,7 +11,7 @@
   <%= form_for @user, html: { class: "col s12 edit-student" } do |f| %>
 
     <div class="row">
-      <div class="col s2">
+      <div class="col s12">
 
         <div class="avatar-column">
           <%= image_tag @user.avatar.url, class: 'edit-avatar' %>
@@ -19,7 +19,7 @@
 
         <label class="custom-file-upload waves-effect waves-light btn teal">
           <%= f.file_field :avatar %>
-          <%= fa_icon "camera", text: "CHANGE PHOTO" %> 
+          <%= fa_icon "camera", text: "CHANGE" %> 
         </label>
 
       </div>

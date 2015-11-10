@@ -5,22 +5,6 @@ $(document).on('page:change', function(){
     	readURL(this);
   	});
 
-	// $("input.due-date").pickadate();
-	// maxTextArea();
-
-	// $("a.student-edit").click(function(e){
-	// 	e.preventDefault();
-	// 	$(this).fadeOut(200);
-	// 	$("form.edit_user").fadeIn(200);
-	// 	$("div#show_user").fadeOut(200);	
-	// });
-
-	// $("button.cancel-edit").click(function(e){
-	// 	e.preventDefault();
-	// 	$("a.student-edit").fadeIn(200);
-	// 	$("form.edit_user").fadeOut(200);
-	// 	$("div#show_user").fadeIn(200);
-	// });
 
 
 	$("div.project").hover(function(){
@@ -35,30 +19,6 @@ $(document).on('page:change', function(){
 		_grandparent.remove();
 	});
 
-	// $("div.add-project").click(function(){
-	// 	$("div.modal-wrapper").fadeIn(200);
-	// 	$("section#project-modal").delay(200).show('drop', {direction: 'up'}, 500);
-	// });
-
-	$("div.add-goal").click(function(){
-		$("div.modal-wrapper").fadeIn(200);
-		$("section#goal-modal").delay(200).show('drop', {direction: 'up'}, 500);
-	});
-
-	$("a.add.course").click(function(){
-		$("div.modal-wrapper").fadeIn(200);
-		$("section#course-modal").delay(200).show('drop', {direction: 'up'}, 500);
-	});
-
-	$("a.add.activity").click(function(){
-		$("div.modal-wrapper").fadeIn(200);
-		$("section#activity-modal").delay(200).show('drop', {direction: 'up'}, 500);
-	});
-
-	$("div.modal-wrapper").click(function(){
-		$("div.modal-wrapper").fadeOut(200);
-		$("section#project-modal, section#goal-modal, section#course-modal, section#activity-modal").fadeOut(200);
-	});
 
 	$("input#project_photo, input#course_photo").change(function(){
 		$("span.modal-file-name").text(this.files[0].name);

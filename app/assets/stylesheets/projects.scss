@@ -31,7 +31,7 @@ div.project-wrapper{
   font: 300 0.9rem 'Roboto', helvetica, sans-serif;
 
   .card-image img{
-    height: 250px;
+    max-height: 400px;
     object-fit: cover;
   }
 }
@@ -44,4 +44,17 @@ form.new-project{
 
 /* SHOW */
 
+div.show-display-image{
+  margin: 2.5rem 0;
+
+  img{
+    margin: 0 auto;
+    height: 400px;
+  }
+}
+
+div.project-body{
+  font-size: 1.2rem;
+  font-weight: 300;
+}
 
