@@ -25,6 +25,7 @@ div.side-title{
 
 		a{
 			all: initial;
+			height: auto;
 	    display: block;
 			padding: 8px 15px !important;
 	    padding-left: 35px !important;
@@ -67,30 +68,3 @@ div.side-title{
 	border-left-color: #ee6508;
 }
 
-div.menu{
-	padding-top: 70px;
-}
-
-div.menu-bottom{
-	position: absolute;
-	bottom: 20px;
-	width: 250px;
-}
-
-ul.menu{
-	li.menu-item a{
-    display: block;
-		padding: 8px 15px;
-    padding-left: 35px;
-	  font: 300 1.2rem 'Roboto', helvetica, sans-serif;
-	  color: #aaa;
-	  i{
-	  	padding-right: 15px;
-	  }
-
-	  &:hover{
-	  	color:#eee;
-	  	background-color: #333;
-	  }
-	}
-}
