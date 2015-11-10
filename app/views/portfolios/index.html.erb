@@ -28,7 +28,7 @@
             <%= image_tag project.photo if project.photo.present? %>
           </div>
           <div class="card-content">
-            <span class="card-title black-text"><%= project.title %></span>
+            <span class="card-title black-text truncate"><%= project.title %></span>
             <p><%= project.description %></p>
           </div>
           <%= link_to "", user_project_path(@user, project), class: "project-link" %>

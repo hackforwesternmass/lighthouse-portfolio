@@ -12,23 +12,36 @@ div.header-bg-wrapper{
   div.header-bg{
     width: 100%;
     height: 100%;
+    padding-top: 4%;
     background-color: rgba(0,0,0, 0.5);
 
 
     .container{
       h2{
-        padding-top: 25px;
         margin-bottom: 0;
       }
     }
   }
 
   div.student-avatar{
-    padding-top: 50px;
+    width: 100%;
+    position: relative;
+    max-width: 50vh;
+    max-height: 50vh;
+
+    &::before{
+      content: "";
+      display: block;
+      padding-top: 100%;
+    }
 
     img{
-      height: 12vw;
-      width: 12vw;
+      height: 100%;
+      position:  absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
       object-fit: cover;
       border-radius: 10rem;
       border: 5px solid #61c6d8;
@@ -36,6 +49,10 @@ div.header-bg-wrapper{
   }
 
   .social-media{
+
+    i{
+      font-size: 2rem;
+    }
     a:hover{
       @include transition(200ms);
       color: #61c6d8;
