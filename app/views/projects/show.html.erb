@@ -8,6 +8,10 @@
 
     <div class="col s12 m10 portfolio-piece-content">
       <div class="container">
+       
+        <%= link_to fa_icon("pencil"), edit_user_project_path(@project.user, @project), 
+          class: "btn-floating btn-large waves-effect waves-light teal right" %> 
+
         <h1 class="center-align thick"><%= @project.title %></h1>
 
         <hr>

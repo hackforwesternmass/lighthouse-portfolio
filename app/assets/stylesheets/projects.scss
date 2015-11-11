@@ -62,12 +62,19 @@ div.project-body{
 .portfolio-piece-content{
   opacity: 0.65;
 }
+
 .portfolio-piece-nav{
   text-align: center;
   font-size: 0.9rem;
   i{
     font-size: calc(100vw/12);
   }
-
 }
+
+.btn-floating{
+  i.fa{
+    padding: 0;
+  }
+}
+
 

@@ -1,6 +1,7 @@
 class ProjectsController < SessionsController
   before_action :signed_in
   before_action :current_user
+  before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   layout "student"
   
@@ -25,7 +26,7 @@ class ProjectsController < SessionsController
 
   def update
     if @project.update_attributes(project_params)
-      redirect_to projects_path(@project)
+      redirect_to [@project.user, @project]
     else
       flash.now[:alert] = "Could not update project"
       render :edit
@@ -36,16 +37,19 @@ class ProjectsController < SessionsController
   end
 
   def show
-    @project = Project.find(params[:id])
   end
 
   def destroy
-    project = Project.find(params[:id])
-    project.destroy
-    render nothing: true
+    @project.destroy
+    redirect_to user_portfolios_path(user_id: @user.id), flash: { notice: 'Portfolio piece deleted' }
   end
 
   private
+
+    def set_project
+      @project = Project.find(params[:id])
+    end
+
     def project_params
       params.require(:project).permit(:title, :description, :link, 
         :body, :photo, :location, :date_completed, project_attachments_attributes: [:document])
