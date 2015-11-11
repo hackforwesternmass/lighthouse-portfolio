@@ -140,11 +140,17 @@ main{
 }
 
 @media only screen and (max-width : 590px){
+
+  h1 {
+    font-size: 3rem;
+  }
+
   h2 {
     font-size: 2.25rem;
   }
 
-  div.header-bg{
-    padding-top: 10% !important;
-  }
+/*  div.header-bg{
+    margin-top: 70px;
+  }*/
 }
+

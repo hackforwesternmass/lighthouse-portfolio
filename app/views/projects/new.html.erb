@@ -59,20 +59,20 @@
       </div>
     </div>
 
-    <h5 class="teal-text text-darken-4">Attachments</h5>
+    <h5 class="teal-text text-darken-4 hide-on-small-only">Attachments</h5>
 
-      <div class="row">
-        <div class="file-field input-field col s12">
-          <div class="btn teal darken-4">
-            <span>PDF File</span>
-            <%= file_field_tag('project_project_attachments_document', 
-              multiple: true, name: "project[project_attachments_attributes][][document]") %>
-          </div>
-          <div class="file-path-wrapper">
-            <input class="file-path" type="text" placeholder="Upload one or more documents">
-          </div>
+    <div class="row hide-on-small-only">
+      <div class="file-field input-field col s12">
+        <div class="btn teal darken-4">
+          <span>PDF File</span>
+          <%= file_field_tag('project_project_attachments_document', 
+            multiple: true, name: "project[project_attachments_attributes][][document]") %>
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path" type="text" placeholder="Upload one or more documents">
         </div>
       </div>
+    </div>
 
     <%= content_tag :button, "Save", type: :submit, class: "waves-effect waves-light btn teal right" %>
 

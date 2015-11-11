@@ -55,7 +55,10 @@ class User < ActiveRecord::Base
   def instagram_handle
     self.instagram.gsub("https://instagram.com/", "").gsub("/", "")
   end
-  
+ 
+  def social_media?
+    self.tumblr.blank? && self.twitter.blank? && self.instagram.blank?
+  end 
   def pword
     @pword ||= Password.new(password)
   end

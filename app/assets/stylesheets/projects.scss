@@ -59,3 +59,15 @@ div.project-body{
   font-weight: 300;
 }
 
+.portfolio-piece-content{
+  opacity: 0.65;
+}
+.portfolio-piece-nav{
+  text-align: center;
+  font-size: 0.9rem;
+  i{
+    font-size: calc(100vw/12);
+  }
+
+}
+

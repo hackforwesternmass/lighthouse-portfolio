@@ -1,9 +1,19 @@
-
-$(document).on('page:change', function(){ 
+// $(document).on('page:change', function(){ 
+$(function(){
 
 	$("input#user_avatar").change(function(){
     	readURL(this);
   	});
+
+  $(".portfolio-piece-content").fadeTo(250, 1);
+
+
+  $("a.nav-right, a.nav-left").click(function(e){
+    e.preventDefault();
+    $(".portfolio-piece-content").fadeTo(250, 0.65);
+    var link = $(this).attr("href");
+    setTimeout(function() { Turbolinks.visit(link) }, 250);
+  });
 
 
 

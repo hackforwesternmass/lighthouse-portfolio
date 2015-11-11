@@ -10,6 +10,7 @@ div.header-bg-wrapper{
   background-size: cover;
 
   div.header-bg{
+    position: relative;
     width: 100%;
     height: 100%;
     padding-top: 4%;
@@ -62,7 +63,7 @@ div.header-bg-wrapper{
   a.student-edit{
     @include transition(200ms);
     position: absolute;
-    right: 2rem;
+    right: 1rem;
     font: 400 1.1rem 'Roboto', helvetica, sans-serif;
     top: 1rem;
     color: #eee;

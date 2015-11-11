@@ -19,7 +19,7 @@
                 <h2 class="cyan-text text-lighten-2"><%= @user.full_name %></h2>   
               </div>
               <div class="col s12 hide-on-small-only">
-                <span class="white-text thin med-opacity"><%= @user.description.capitalize %></span>
+                <span class="white-text thin med-opacity"><%= @user.description %></span>
               </div>
             </div>
             <div class="social-media row hide-on-small-only">
@@ -48,32 +48,37 @@
           </div>
         </div>
 
-        <div class="row">
-            <div class="social-media row hide-on-med-and-up">
-              <% if @user.tumblr.present? %>
-              <div class="col s4 m4 l4 center-align">
-                <span class="white-text medium med-opacity">
-                  <%= link_to fa_icon("tumblr"), @user.tumblr %>
-                </span>
-              </div>
-              <% end %>
-              <% if @user.twitter.present? %>
-              <div class="col s4 m4 l4 center-align">
-                <span class="white-text medium med-opacity">
-                  <%= link_to fa_icon("twitter"), @user.twitter %>
-                </span>
-              </div>
-              <% end %>
-              <% if @user.instagram.present? %>
-              <div class="col s4 m4 l4 center-align">
-                <span class="white-text medium med-opacity">
-                  <%= link_to fa_icon("instagram"), @user.instagram %>
-                </span>
-              </div>
-              <% end %>
+        <% if !@user.social_media? %>
+          <div class="social-media row hide-on-med-and-up">
+            <% if @user.tumblr.present? %>
+            <div class="col s4 m4 l4 center-align">
+              <span class="white-text medium med-opacity">
+                <%= link_to fa_icon("tumblr"), @user.tumblr %>
+              </span>
+            </div>
+            <% end %>
+            <% if @user.twitter.present? %>
+            <div class="col s4 m4 l4 center-align">
+              <span class="white-text medium med-opacity">
+                <%= link_to fa_icon("twitter"), @user.twitter %>
+              </span>
+            </div>
+            <% end %>
+            <% if @user.instagram.present? %>
+            <div class="col s4 m4 l4 center-align">
+              <span class="white-text medium med-opacity">
+                <%= link_to fa_icon("instagram"), @user.instagram %>
+              </span>
+            </div>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="row hide-on-med-and-up">
+            <div class="col s12 grey-text text-lighten-3 thin med-opacity">
+              <%= @user.description %>
             </div>
           </div>
-
+        <% end %>
       </div>
     </div>
   </div>
