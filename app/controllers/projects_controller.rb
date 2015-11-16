@@ -51,7 +51,7 @@ class ProjectsController < SessionsController
     end
 
     def project_params
-      params.require(:project).permit(:title, :description, :link, 
+      params.require(:project).permit(:title, :description, :link, :priority, 
         :body, :photo, :location, :date_completed, project_attachments_attributes: [:document])
     end
 
