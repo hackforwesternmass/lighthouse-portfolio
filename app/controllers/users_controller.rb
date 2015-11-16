@@ -40,7 +40,7 @@ class UsersController < SessionsController
       redirect_to user_portfolios_path(user_id: @user.id), flash: { notice: "Profile successfully updated!" }
     else
       word = @user.errors.count.eql?(1) ? "one" : "a few"
-      flash[:alert] = prefix << "Change #{word} things up and try submitting again."
+      flash.now[:alert] = prefix << "Change #{word} things up and try submitting again."
       render :edit
     end
   end
