@@ -6,6 +6,9 @@ class User < ActiveRecord::Base
   has_many :resources
   has_many :activities
 
+  has_many :social_mediums
+  accepts_nested_attributes_for :social_mediums, allow_destroy: true
+
   has_many :projects, dependent: :destroy
   accepts_nested_attributes_for :projects
 

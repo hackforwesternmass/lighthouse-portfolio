@@ -41,25 +41,33 @@
       <div class="input-field col s12">
       <%= f.text_area :description, placeholder: '140 characters maximum', length: "140", class: "materialize-textarea"  %>
       <%= f.label :description, "SHORT BIO" %>
-      </div>
+      </div> 
     </div>
+
+    <hr class="dark"></hr>
 
     <div class="row">
-      <div class="input-field col m4 s12">
-      <%= f.url_field :tumblr  %>
-      <%= f.label :tumblr, fa_icon("tumblr", style: "font-size: 1rem;") %>
-      </div>
-
-      <div class="input-field col m4 s12">
-      <%= f.url_field :twitter  %>
-      <%= f.label :twitter, fa_icon("twitter", style: "font-size: 1rem;") %>
-      </div>
-
-      <div class="input-field col m4 s12">
-      <%= f.url_field :instagram  %>
-      <%= f.label :instagram, fa_icon("instagram", style: "font-size: 1rem;") %>
-      </div>
+      <h5>Social Media Links</h5>
     </div>
+    <%= f.nested_fields_for :social_mediums do |ff| %>
+      <div class="row">
+        <div class="input-field col s12 m5">
+          <%= ff.url_field :link %>
+          <%= ff.label :link, "LINK" %>
+        </div>
+        <div class="input-field col s12 m5">
+          <%= ff.text_field :name %>
+          <%= ff.label :name, "SHORT TITLE"%>
+        </div>
+        <div class="input-field col s12 m2 valign-wrapper">
+        <%= ff.remove_nested_fields_link fa_icon("trash-o", class: "no-padding"), class: "waves-effect waves-light btn valign red" %>
+        </div>
+      </div>
+    <% end %>
+    <%= f.add_nested_fields_link :social_mediums, fa_icon("plus-circle", text: "Add Social Media"), class: " waves-effect waves-light btn cyan" %>
+    <br>
+    <br>
+
 
     <%= content_tag :button, "Save", type: :submit, class: "waves-effect waves-light btn teal" %>
 

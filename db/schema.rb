@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151116222025) do
+ActiveRecord::Schema.define(version: 20151117043317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,17 @@ ActiveRecord::Schema.define(version: 20151116222025) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "social_media", force: :cascade do |t|
+    t.string   "link"
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "icon"
+  end
+
+  add_index "social_media", ["user_id"], name: "index_social_media_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -155,4 +166,5 @@ ActiveRecord::Schema.define(version: 20151116222025) do
   add_foreign_key "courses", "users"
   add_foreign_key "portfolios", "users"
   add_foreign_key "project_attachments", "projects"
+  add_foreign_key "social_media", "users"
 end

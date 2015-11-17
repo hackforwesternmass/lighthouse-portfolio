@@ -1,4 +1,4 @@
-$(function(){
+$(document).on('page:change', function(){
 
   $(".portfolio-piece-content").fadeTo(250, 1);
 
