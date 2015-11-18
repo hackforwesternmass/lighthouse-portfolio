@@ -4,7 +4,7 @@ class SocialMedium < ActiveRecord::Base
   validates :name, presence: true
   validates :link, presence: true
 
-  before_create do
+  before_save do
     self.icon = find_icon
   end
 
@@ -22,7 +22,7 @@ class SocialMedium < ActiveRecord::Base
       when self.link.include?("vine") then "vine"
       when self.link.include?("youtube") then "youtube"
       when self.link.include?("behance") then "behance"
-      else ["internet-explorer", "globe"].sample
+      else ["link", "globe"].sample
     end
   end
 

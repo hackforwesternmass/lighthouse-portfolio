@@ -29,7 +29,12 @@
           </div>
           <div class="card-content">
             <span class="card-title black-text truncate"><%= project.title %></span>
-            <p><%= project.description %></p>
+            <p><%= project.created_at.strftime("Created %b %d at %I:%M%p") %>
+            </p>
+            <p>
+              Priority: 
+                <%= if project.priority then "High" else "Normal" end %>
+            </p>
           </div>
           <%= link_to "", user_project_path(@user, project), class: "project-link" %>
         </div>

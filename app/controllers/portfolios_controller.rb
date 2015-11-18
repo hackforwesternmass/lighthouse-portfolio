@@ -13,7 +13,7 @@ class PortfoliosController < SessionsController
   def index
     @text_color = "cyan-text text-lighten-2"
     @project = Project.new
-    @projects = @user.projects.prioritize
+    @projects = @user.projects
     @portfolios = Portfolio.all
   end
 
