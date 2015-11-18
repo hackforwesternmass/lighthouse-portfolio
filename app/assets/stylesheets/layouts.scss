@@ -26,13 +26,13 @@ div.side-title{
 			padding: 8px 15px !important;
 	    padding-left: 35px !important;
 		  font: 300 1.2rem 'Roboto', helvetica, sans-serif;
-		  color: #aaa !important;
 		  i{
 		  	padding-right: 15px;
 		  }
 
 		  &:hover{
-		  	color:#eee;
+		  	opacity: 1;
+		  	color:#ddd !important;
 		  	background-color: #333;
 		  }	
 
@@ -51,7 +51,8 @@ div.side-title{
 
 .active-tab{
 	background-color: #333;
-	color: #eee;
+	color: #ddd !important;
+	opacity: 1;
 	border-left-width: 5px;
 	border-left-style: solid;
 	border-left-color: #ee6508;

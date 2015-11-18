@@ -68,6 +68,6 @@ class UsersController < SessionsController
     def user_params
       params.require(:user).permit(:first_name, :last_name, :avatar, :tumblr, :twitter, :instagram,
         :username, :email, :password, :password_confirmation, :description, 
-        social_mediums_attributes: [:link, :name,:_destroy,:id])
+        social_mediums_attributes: [:link, :name,:_destroy, :id])
     end
 end

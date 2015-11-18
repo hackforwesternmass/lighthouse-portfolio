@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-	default_scope { order(priority: :desc, created_at: :desc) }
+	default_scope { order(priority: :desc, date_completed: :desc) }
 
   belongs_to :user
 	has_many :project_attachments, dependent: :destroy
@@ -21,5 +21,10 @@ class Project < ActiveRecord::Base
     prev_pos = ids[ (pos - 1) % ids.length ]
     Project.find prev_pos
   end
+
+  before_save do
+    self.date_completed = created_at if date_completed.blank?
+  end
+
 
 end

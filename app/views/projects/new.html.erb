@@ -4,10 +4,6 @@
     <h1 class="teal-text center-align">New Portfolio Piece</h1>
   </div>
 
-  <% if flash[:alert] %>
-    <script type="text/javascript">Materialize.toast("<%= flash[:alert] %>", 5000, "red lighten-1")</script>
-  <% end %>
-
   <%= render 'form' %>
 
 </section>

@@ -1,20 +1,20 @@
-#grid{
-	padding-top: 3rem;
+#portfolio-piece-grid{
+	padding: 1rem 1.5rem 2rem;
 }
 
 @media screen and (max-width: 730px){
-	#grid[data-columns]::before {
+	#portfolio-piece-grid[data-columns]::before {
 		content: '1 .column.size-1of1';
 	}
 }
 
 @media screen and (min-width: 731px) and (max-width: 1036px) {
-	#grid[data-columns]::before {
+	#portfolio-piece-grid[data-columns]::before {
 		content: '2 .column.size-1of2';
 	}
 }
 @media screen and (min-width: 1037px) {
-	#grid[data-columns]::before {
+	#portfolio-piece-grid[data-columns]::before {
 		content: '3 .column.size-1of3';
 	}
 }

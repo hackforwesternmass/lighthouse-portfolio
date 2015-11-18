@@ -1,16 +1,15 @@
 <%= render 'portfolio_header' %>
 
-<% if flash[:notice] %>
-  <script type="text/javascript">Materialize.toast("<%= flash[:notice] %>", 3500, "teal")</script>
-<% end %>
+<section class="section-container no-padding">
 
-<% if flash[:alert] %>
-  <script type="text/javascript">Materialize.toast("<%= flash[:alert] %>", 3500, "red")</script>
-<% end %>
+<div class="row">
+    <ul class="tabs">
+      <li class="tab col s6"><a href="#portfolio-piece-grid">Portfolio</a></li>
+      <li class="tab col s6"><a href="#resume">Resume</a></li>
+    </ul>
+</div>
 
-<section class="section-container">
-
-  <div id="grid" data-columns class="row">
+  <div id="portfolio-piece-grid" data-columns class="row">
 
     <div class="col s12">
       <div class="card-panel project-wrapper hoverable">
@@ -29,7 +28,7 @@
           </div>
           <div class="card-content">
             <span class="card-title black-text truncate"><%= project.title %></span>
-            <p><%= project.created_at.strftime("Created %b %d at %I:%M%p") %>
+            <p><%= project.date_completed.strftime("Date completed %b %d") %>
             </p>
             <p>
               Priority: 
@@ -41,6 +40,11 @@
       </div>
     <% end %>
 
+  </div>
+
+  <div id="resume" class="container">
+    <h2>Nothing here yet.</h2>
+    <%= link_to "Get Started", "#", class: "btn wave cyan lighter-2" %>
   </div>
 
 </section>

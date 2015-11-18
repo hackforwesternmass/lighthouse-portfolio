@@ -27,7 +27,7 @@
             <% @user.social_mediums.first(3).each do |sm| %>
               <div class="col s4 m4 l4">
                 <span class="white-text thin med-opacity truncate">
-                  <%= link_to fa_icon(sm.icon, text: sm.name), sm.link %>
+                  <%= link_to fa_icon(sm.icon, text: sm.name), sm.link, target: "_blank" %>
                 </span>
               </div>
             <% end %>
