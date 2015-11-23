@@ -29,6 +29,7 @@
       <%= label_tag :tag, "TAG" %>
       <div class="tag-container">
         <%= f.fields_for :tags do |ff| %>
+          <% next if ff.object.new_record? %>
           <div class="chip chip-tag" data-index="<%= ff.index %>">
             <%= ff.object.name %>
             <i class="fa fa-times"></i>
