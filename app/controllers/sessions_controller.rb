@@ -1,8 +1,7 @@
 class SessionsController < ApplicationController
-
   before_action :session_expiry, except: [:login_authentication] 
   before_action :update_activity_time
-  before_action :current_user, only: [:login]
+  before_action :current_user
 
   def login_authentication
 
@@ -13,7 +12,7 @@ class SessionsController < ApplicationController
 
     if @user
       session[:user_id] = @user.id
-      redirect_to user_portfolios_path(user_id: @user.id)
+      redirect_to user_projects_path(user_id: @user.id)
     else
       flash[:alert] = "Your email or password were incorrect."
       redirect_to root_path
@@ -24,18 +23,9 @@ class SessionsController < ApplicationController
       redirect_to root_path
   end
 
-  def current_user
-    @user = User.find(session[:user_id]) if signed_in?
-    @user ||= User.new
-  end
-
-  def signed_in?
-    session[:user_id].present?
-  end
-
   def login
     if signed_in?
-      redirect_to user_portfolios_path(user_id: @user.id)
+      redirect_to user_projects_path(user_id: @user.id)
     end
   end
   

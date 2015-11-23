@@ -24,6 +24,21 @@
   </div>
 
   <div class="row">
+    <div class="input-field col s12 m9 l5 tagger">
+      <%= text_field_tag :tag, nil, class: "tag", placeholder: "Enter tag and press enter" %>
+      <%= label_tag :tag, "TAG" %>
+      <div class="tag-container">
+        <%= f.fields_for :tags do |ff| %>
+          <div class="chip chip-tag" data-index="<%= ff.index %>">
+            <%= ff.object.name %>
+            <i class="fa fa-times"></i>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="input-field col s12">
     <%= f.text_field :description, placeholder: '200 characters maximum', length: "200" %>
     <%= f.label :description, "BRIEF DISCRIPTION" %>
@@ -46,7 +61,8 @@
         <%= f.file_field :photo %>
       </div>
       <div class="file-path-wrapper">
-        <input class="file-path" type="text" placeholder="Upload one photo" value="<%= @project.photo.original_filename %>">
+        <input class="file-path" type="text" 
+          placeholder="Upload one photo" value="<%= @project.photo.original_filename %>">
       </div>
     </div>
   </div>
@@ -77,6 +93,8 @@
       <% end %>
     </div>
   </div>
+
+
 
   <div class="right">
     <%= content_tag :button, "Save", type: :submit, class: "waves-effect waves-light btn teal" %>

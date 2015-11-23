@@ -1,23 +1,23 @@
 class ProjectsController < SessionsController
   before_action :signed_in
-  before_action :current_user
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   layout "student"
   
   def index
-    @projects = Project.all
+    @projects = @user.projects
   end
 
   def new
     @project = current_user.projects.build
     @project.project_attachments.build
+    @project.tags.build
   end
 
   def create
-    @project = @user.projects.build(project_params)
+    @project = current_user.projects.build(project_params)
       if @project.save
-        redirect_to user_portfolios_path(user_id: @user.id), flash: { notice: 'Portfolio piece created!' }
+        redirect_to user_projects_path(user_id: @user.id), flash: { notice: 'Portfolio piece created!' }
       else
         flash.now[:alert] = 'Could not create your project, try again!'
         render :new
@@ -36,12 +36,11 @@ class ProjectsController < SessionsController
   def edit
   end
 
-  def show
-  end
+  def show; end
 
   def destroy
     @project.destroy
-    redirect_to user_portfolios_path(user_id: @user.id), flash: { notice: 'Portfolio piece deleted' }
+    redirect_to user_projects_path(user_id: @user.id), flash: { notice: 'Portfolio piece deleted' }
   end
 
   private
@@ -52,7 +51,8 @@ class ProjectsController < SessionsController
 
     def project_params
       params.require(:project).permit(:title, :description, :link, :priority, 
-        :body, :photo, :location, :date_completed, project_attachments_attributes: [:document,:_destroy, :id])
+        :body, :photo, :location, :date_completed, project_attachments_attributes: [:document, :_destroy, :id],
+        tags_attributes: [:name, :_destroy, :id])
     end
 
 end

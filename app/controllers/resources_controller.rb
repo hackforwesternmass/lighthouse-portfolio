@@ -1,6 +1,4 @@
 class ResourcesController < SessionsController
-  before_action :current_user
-
   layout "student"
 
   def index

@@ -1,10 +1,7 @@
 class User < ActiveRecord::Base
   include BCrypt
 
-  has_many :goals
-  has_many :courses
   has_many :resources
-  has_many :activities
 
   has_many :social_mediums
   accepts_nested_attributes_for :social_mediums, allow_destroy: true
@@ -46,22 +43,6 @@ class User < ActiveRecord::Base
     "#{self.first_name} #{self.last_name}"
   end
 
-  def twitter_handle
-    self.twitter.gsub("https://twitter.com/", "").gsub("/", "")
-  end
-
-  def tumblr_handle
-    self.tumblr.gsub("http://", "").split(".").first.gsub("/", "")
-    
-  end
-
-  def instagram_handle
-    self.instagram.gsub("https://instagram.com/", "").gsub("/", "")
-  end
- 
-  def social_media?
-    self.tumblr.blank? && self.twitter.blank? && self.instagram.blank?
-  end 
   def pword
     @pword ||= Password.new(password)
   end

@@ -2,6 +2,10 @@ $(document).on('page:change', function(){
   $('.button-collapse').sideNav({});
 });
 
+// $(document).on('click.chip', '.chip i.fa', function () {
+//   $(this).parent().remove();
+// });
+  
 function maxTextArea(identifier, limit){
     $(identifier).keypress(function(e) {
         if (e.which < 0x20) {

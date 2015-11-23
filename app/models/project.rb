@@ -3,7 +3,10 @@ class Project < ActiveRecord::Base
 
   belongs_to :user
 	has_many :project_attachments, dependent: :destroy
-	accepts_nested_attributes_for :project_attachments
+	accepts_nested_attributes_for :project_attachments, allow_destroy: true
+
+  has_many :tags, dependent: :destroy
+  accepts_nested_attributes_for :tags, allow_destroy: true
 
   has_attached_file :photo, :default_url => "blue-space-cloud.jpg"
   validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/

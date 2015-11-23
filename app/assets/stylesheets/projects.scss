@@ -1,5 +1,84 @@
 @import "lib";
 
+/* PROJECTS HEADER */
+
+div.header-bg-wrapper{
+  height: 300px;
+  width: 100%;
+  background-color: #eee;
+  background-image: image-url('tibetan-mountains.jpg');
+  background-size: cover;
+
+  div.header-bg{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding-top: 4%;
+    background-color: rgba(0,0,0, 0.5);
+
+
+    .container{
+      h2{
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  div.student-avatar{
+    width: 100%;
+    position: relative;
+    max-width: 50vh;
+    max-height: 50vh;
+
+    &::before{
+      content: "";
+      display: block;
+      padding-top: 100%;
+    }
+
+    img{
+      height: 100%;
+      position:  absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      object-fit: cover;
+      border-radius: 10rem;
+      border: 5px solid #61c6d8;
+    }
+  }
+
+  .social-media{
+
+    i{
+      font-size: 2rem;
+    }
+    a:hover{
+      @include transition(200ms);
+      color: #61c6d8;
+    }
+  }
+
+  a.student-edit{
+    @include transition(200ms);
+    position: absolute;
+    right: 1rem;
+    font: 400 1.1rem 'Roboto', helvetica, sans-serif;
+    top: 1rem;
+    color: #eee;
+
+    i{
+      padding-left: 5px;
+    }
+
+    &:hover{
+      color: orange;
+    }
+  }
+
+}
+
 // FORM
 fieldset{
   border: none !important;
@@ -64,11 +143,11 @@ div.project-body{
   font-weight: 300;
 }
 
-.portfolio-piece-content{
+.project-content{
   opacity: 0.65;
 }
 
-.portfolio-piece-nav{
+.project-nav{
   text-align: center;
   font-size: 0.9rem;
   i{

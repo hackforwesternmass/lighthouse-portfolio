@@ -4,13 +4,13 @@
     <h1 class="teal-text center-align">Edit Profile</h1>
   </div>
 
-  <%= form_for @user, html: { class: "col s12 edit-student" } do |f| %>
+  <%= form_for current_user, html: { class: "col s12 edit-student" } do |f| %>
 
     <div class="row">
       <div class="col s12">
 
         <div class="avatar-column">
-          <%= image_tag @user.avatar.url, class: 'edit-avatar' %>
+          <%= image_tag current_user.avatar.url, class: 'edit-avatar' %>
         </div>
 
         <label class="custom-file-upload waves-effect waves-light btn teal">

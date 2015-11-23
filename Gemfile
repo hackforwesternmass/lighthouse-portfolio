@@ -18,6 +18,7 @@ gem 'pry', '~> 0.10.1'
 gem 'turbolinks'
 gem 'materialize-sass'
 gem 'jbuilder', '~> 2.0'
+gem 'handlebars_assets'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'email_validator'
 

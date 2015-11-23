@@ -2,16 +2,7 @@ Rails.application.routes.draw do
 
   root "sessions#login"
 
-  # resources :courses
-
   resources :users do
-    post 'add_courses', on: :member 
-  	resources :portfolios
-    resources :goals do
-      resources :actions
-      resources :courses
-    end
-    resources :activities
     resources :resources
     resources :projects
   end
@@ -22,6 +13,4 @@ Rails.application.routes.draw do
     get 'login'
   end
 
-  get '/static_pages/calender'
-  
 end

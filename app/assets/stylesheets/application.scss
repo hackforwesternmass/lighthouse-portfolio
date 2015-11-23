@@ -141,6 +141,7 @@ input:-webkit-autofill {
   -webkit-box-shadow:0 0 0 50px #222 inset;
   -webkit-text-fill-color: #eee;
 }
+
 .section-container{
   overflow: hidden;
   padding: 0 5% 3rem;
@@ -149,6 +150,19 @@ input:-webkit-autofill {
   width: 100%;
 }
 
+.tag-container{
+  padding: 0.5rem 0;
+}
+
+.chip{
+  margin: 0.5rem 0.25rem 0 0;
+
+  & i{
+    padding: 0;
+    cursor: pointer;
+    margin-left: 0.5rem;
+  }
+}
 
 main{
   padding-left: 240px;

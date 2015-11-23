@@ -2,11 +2,11 @@
 
   <div class="row">
 
-    <div class="col m1 hide-on-small-only portfolio-piece-nav">
+    <div class="col m1 hide-on-small-only project-nav">
       <%= link_to fa_icon("angle-left", text: "Previous"), [@project.user, @project.previous], class: "nav-left" %>
     </div>
 
-    <div class="col s12 m10 portfolio-piece-content">
+    <div class="col s12 m10 project-content">
       <div class="container">
 
         <div class="menu"></div>
@@ -14,7 +14,7 @@
         <%= link_to fa_icon("pencil"), edit_user_project_path(@project.user, @project), 
           class: "btn-floating btn-large waves-effect waves-light teal right" %> 
 
-        <%= link_to fa_icon("th"), user_portfolios_path, 
+        <%= link_to fa_icon("th"), user_projects_path, 
           class: "btn-floating btn-large waves-effect waves-light teal left" %> 
 
         <h1 class="center-align thick"><%= @project.title %></h1>
@@ -27,7 +27,17 @@
           <%= " By <span class=\"normal\">#{@project.user.full_name}</span>".html_safe %>
         </div>
 
-        <br><br>
+        <br>
+
+        <div class="show-tag center-align thin teal-text text-darken-1 ">
+          <% @project.tags.each do |tag| %>
+            <div class="chip">
+              <span><%= tag.name %></span>
+            </div>
+          <% end %>
+        </div>
+
+        <br>
 
         <div class="center-align flow-text">
           <i><%= @project.description %></i>
@@ -62,7 +72,7 @@
       <% end %> -->
     </div>
 
-    <div class="col m1 hide-on-small-only portfolio-piece-nav">
+    <div class="col m1 hide-on-small-only project-nav">
       <%= link_to fa_icon("angle-right", text: "Next"),[@project.user, @project.next], class: "nav-right" %>
     </div>
   </div>

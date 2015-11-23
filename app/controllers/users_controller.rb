@@ -1,9 +1,5 @@
 class UsersController < SessionsController
-  skip_before_action :session_expiry, only: [:create]
-  before_action :current_user, except: [:create]
-  before_action :signed_in, except: [:new, :create]
-
-  layout "student", only: [:edit, :update]
+  layout "student", only: [:edit]
 
   def index
     @users = User.all
@@ -26,18 +22,17 @@ class UsersController < SessionsController
 
     if @user.save
       session[:user_id] = @user.id
-      redirect_to user_portfolios_path(@user), notice: 'Your account was successfully created.'
+      redirect_to user_projects_path(@user), notice: 'Your account was successfully created.'
     else
       render 'new'
     end
   end
 
   def update
-
     prefix = ['Darn! ', 'Dang! ', 'Oh Snap! '].sample
 
-    if @user.update(user_params)
-      redirect_to user_portfolios_path(user_id: @user.id), flash: { notice: "Profile successfully updated!" }
+    if current_user.update(user_params)
+      redirect_to user_projects_path(user_id: @user.id), flash: { notice: "Profile successfully updated!" }
     else
       word = @user.errors.count.eql?(1) ? "one" : "a few"
       flash.now[:alert] = prefix << "Change #{word} things up and try submitting again."
@@ -53,20 +48,9 @@ class UsersController < SessionsController
     end
   end
 
-  def add_courses
-    @user.courses.delete_all
-
-    params['courses'].each do |c|
-      @user.courses << Course.find(c.first)
-    end
-
-    redirect_to user_goals_path(user_id: params[:id])
-  end
-
-
   private
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :avatar, :tumblr, :twitter, :instagram,
+      params.require(:user).permit(:first_name, :last_name, :avatar,
         :username, :email, :password, :password_confirmation, :description, 
         social_mediums_attributes: [:link, :name,:_destroy, :id])
     end

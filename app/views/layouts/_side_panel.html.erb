@@ -7,17 +7,15 @@
 
   <div class="side-title">C<%= image_tag "logo.png"%>MPASS</div>
 
-  <li <%= 'class=active-tab' if current_page? user_goals_path(user_id: @user.id) %> >
-    <%= link_to fa_icon("desktop", text: "Action Plan"), "#", class: "grey-text text-darken-1" %>
-  </li>
-
-  <li><%= link_to fa_icon("calendar-o", text: "Class Calendar"), static_pages_calender_path, class: "grey-text text-darken-1" %></li>
+  <li ><%= link_to fa_icon("desktop", text: "Action Plan"), "#", class: "grey-text text-darken-1" %></li>
+  <li><%= link_to fa_icon("calendar-o", text: "Class Calendar"), "#", class: "grey-text text-darken-1" %></li>
   <li><%= link_to fa_icon("bookmark", text: "Resources"), "#", class: "grey-text text-darken-1" %></li>
-
-  <li <%= 'class=active-tab' if current_page? user_portfolios_path(user_id: @user.id) %> >
-    <%= link_to fa_icon("user", text: "Portfolio"), user_portfolios_path(@user), class: "grey-text text-darken-1" %>
+  <li <%= 'class=active-tab' if current_page? user_projects_path(user_id: @user.id) %> >
+    <%= link_to fa_icon("user", text: "Portfolio"), user_projects_path(@user), class: "grey-text text-darken-1" %>
   </li>    
 
-  <li><%= link_to fa_icon("sign-out", text: "Sign Out"), logout_path, class: "grey-text text-darken-1" %></li>
+  <li data-no-turbolink>
+    <%= link_to fa_icon("sign-out", text: "Sign Out"), logout_path, class: "grey-text text-darken-1" %>
+  </li>
 
 </ul>
