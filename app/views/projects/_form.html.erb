@@ -5,14 +5,14 @@
   <div class="row">
     <div class="input-field col s12 m9 l5">
       <%= f.text_field :title %>
-      <%= f.label :title, "TITLE" %>
+      <%= f.label :title %>
     </div>
   </div>
 
   <div class="row">
     <div class="input-field col s12 m9 l5">
       <%= f.text_field :location, class: "location-autocomplete" %>
-      <%= f.label :location, "LOCATION" %>
+      <%= f.label :location %>
     </div>
   </div>
 
@@ -26,8 +26,9 @@
   <div class="row">
     <div class="input-field col s12 m9 l5 tagger">
       <%= text_field_tag :tag, nil, class: "tag", placeholder: "Enter tag and press enter" %>
-      <%= label_tag :tag, "TAG" %>
+      <%= label_tag :tag %>
       <div class="tag-container">
+        <!-- This is here just to initiate tags. -->
         <%= f.fields_for :tags do |ff| %>
           <% next if ff.object.new_record? %>
           <div class="chip chip-tag" data-index="<%= ff.index %>">
@@ -49,7 +50,7 @@
   <div class="row">
     <div class="input-field col s12">
     <%= f.text_area :body, placeholder: 'Write whatever you want here?', class: "materialize-textarea resize-vertical"  %>
-    <%= f.label :body, "BODY" %>
+    <%= f.label :body %>
     </div>
   </div>
 

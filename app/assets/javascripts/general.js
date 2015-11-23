@@ -1,10 +1,17 @@
 $(document).on('page:change', function(){
   $('.button-collapse').sideNav({});
-});
+  
+  $('select').material_select();
 
-// $(document).on('click.chip', '.chip i.fa', function () {
-//   $(this).parent().remove();
-// });
+  if($('#notice').length){
+    Materialize.toast($('#notice').data("notice"), 3500, "teal");
+  }
+
+  if($('#alert').length){
+    Materialize.toast($('#alert').data("alert"), 3500, "red");
+  }
+
+});
   
 function maxTextArea(identifier, limit){
     $(identifier).keypress(function(e) {

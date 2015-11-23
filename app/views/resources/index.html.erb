@@ -1,35 +1,56 @@
-<section id="goals-header">
-  <%= fa_icon( "angle-down", text: "Current", right: true) %>
-</section>
+<nav>
+  <div class="nav-wrapper">
+    <span class="brand-logo">Links</span>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <%= link_to fa_icon("plus-square"), 
+    new_user_resource_path(current_user), class: "right" %> 
+      </ul>
 
-<section id="goals-side-panel">
-  <ul class="courses">
-    <li>Courses<%= link_to fa_icon('plus-circle'), '#', class: 'add course' %></li>
-    <% @user.courses.each do |course| %>
-      <li><%= course.name %></li>
-    <% end %>
-  </ul>
-  <ul class="activities">
-    <li>Activities<%= link_to fa_icon('plus-circle'), '#', class: 'add activity'  %></li>
-    <% @user.activities.each do |activity| %>
-      <li><%= link_to activity.name, "#" %></li>
-    <% end %>
-  </ul>
-  <ul class="projects">
-    <li>Project</li>
-    <% @user.projects.each do |project| %>
-      <li><%= link_to project.title, project.link %></li>
-    <% end %>
-  </ul>
-</section>
-
-<section id="resources"> 
-  <div class="each-resource">
-    <%= render @resources %>
   </div>
-  
+</nav>
+
+<section class="section-container">
+
+  <div class="row">
+    <div class="resource-item col s12 m3">
+      <div class="resource-category thick z-depth-1">
+        <%= link_to "Online Courses", new_user_resource_path(current_user, select: "Online Courses"), class: "truncate"  %>
+      </div>
+      <ul>
+      <% @resources.where(category: "Online Courses").each do |resource| %>
+        <li>
+          <%= link_to resource.title, resource.link, class: "purple-text thick", target: "_blank" %>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+
+    <div class="resource-item col s12 m3">
+      <div class="resource-category thick z-depth-1">
+        <%= link_to "Job Sites", new_user_resource_path(current_user, select: "Job Sites"), class: "truncate"  %>
+      </div>
+      <ul>
+      <% @resources.where(category: "Job Sites").each do |resource| %>
+        <li>
+          <%= link_to resource.title, resource.link, class: "purple-text thick", target: "_blank" %>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+
+    <div class="resource-item col s12 m3">
+      <div class="resource-category thick z-depth-1">
+        <%= link_to "Community", new_user_resource_path(current_user, select: "Community"), class: "truncate"  %>
+      </div>
+      <ul>
+      <% @resources.where(category: "Community").each do |resource| %>
+        <li>
+          <%= link_to resource.title, resource.link, class: "purple-text thick", target: "_blank" %>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+
+  </div>
+
 </section>
-
-<%= render 'resources/new' %>
-
-

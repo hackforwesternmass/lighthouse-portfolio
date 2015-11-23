@@ -1,8 +1,11 @@
 class ResourcesController < SessionsController
+  before_action :signed_in
+  before_action :set_resource, only: [:show, :edit, :update, :destroy]
+  
   layout "student"
 
   def index
-    @resources = Resource.all
+    @resources = current_user.resources
   end
 
   def new
@@ -12,7 +15,7 @@ class ResourcesController < SessionsController
   def create
     @resource = current_user.resources.build(resource_params)
       if @resource.save
-        redirect_to root_path, flash: { notice: 'Resource Created!' }
+        redirect_to user_resources_path(current_user), flash: { notice: 'Resource Created!' }
       else
         flash.now[:alert] = 'Could not create your resource, try again!'
         render :new
@@ -40,8 +43,13 @@ class ResourcesController < SessionsController
   end
 
   private
+
+    def set_project
+      @resource = Resource.find(params[:id])
+    end
+
     def resource_params
-      params.require(:resource).permit()
+      params.require(:resource).permit(:link, :category, :title)
     end
 
 end

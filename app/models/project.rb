@@ -11,6 +11,9 @@ class Project < ActiveRecord::Base
   has_attached_file :photo, :default_url => "blue-space-cloud.jpg"
   validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
 
+  validates :title, 
+    presence: { message: "Title is required" }
+
   def next
     ids = Project.where(user_id: self.user_id).pluck :id
     pos = ids.index(self.id)

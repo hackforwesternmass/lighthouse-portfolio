@@ -1,10 +1,19 @@
-section#resources{
-  width: calc(100vw - 500px - 4rem);
-  min-width: 30rem;
-  background-color: #eee;
-  position: absolute;
-  top: 70px;
-  left: 500px;
-  padding: 2rem;
+.resource-category{
+	margin: 2rem 0 1rem;
+	background-color: #fff;
+	border-left: 5px solid purple;
+
+	a{
+		font-size: 1.2rem;
+		padding: 1.3rem 2rem;
+		display: block;
+	}
 }
 
+.resource-item{
+	margin-left: 5% !important;
+	font-size: 1.1rem;
+	& li{
+		padding: 0.5rem 0;
+	}
+}

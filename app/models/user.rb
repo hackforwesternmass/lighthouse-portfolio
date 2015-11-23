@@ -2,7 +2,6 @@ class User < ActiveRecord::Base
   include BCrypt
 
   has_many :resources
-
   has_many :social_mediums
   accepts_nested_attributes_for :social_mediums, allow_destroy: true
 

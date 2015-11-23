@@ -1,0 +1,33 @@
+<%= form_for [@user, @resource], html: { class: "col s12 new-resource", multipart: true } do |f| %>
+
+  <div class="row">
+    <div class="input-field col s12 m9 l5">
+      <%= f.text_field :title %>
+      <%= f.label :title %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12 m9 l5">
+      <%= f.url_field :link %>
+      <%= f.label :link %>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="input-field col s12 m9 l5">
+      <% default_category = (params[:select].present? ? params[:select] : f.object.category ) %>
+      <%= f.select :category, options_for_select(Resource::VALID_CATEGORY, 
+        selected: default_category ) %>
+      <%= f.label :category %>
+    </div>
+  </div>
+
+
+  <div>
+    <%= content_tag :button, "Save", type: :submit, class: "waves-effect waves-light btn teal" %>
+    <%= link_to 'Delete', [@resource.user, @resource], method: :delete, 
+      class: "waves-effect waves-light btn red" unless @resource.new_record? %>
+  </div>
+<% end %>
