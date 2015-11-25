@@ -26,7 +26,7 @@ class ResourcesController < SessionsController
 
   def update
     if @resource.update_attributes(resource_params)
-      redirect_to resources_path(@resource)
+      redirect_to user_resources_path(current_user), flash: {notice: "Resource updated"}
     else
       flash.now[:alert] = "Could not update resource"
       render :edit
