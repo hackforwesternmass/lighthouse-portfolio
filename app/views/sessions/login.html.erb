@@ -6,7 +6,8 @@
 
   <div id="login-signup-container">
 
-    <%= form_for @user, url: login_authentication_path, html: {method: "post", class: "col s12", autocomplete: "off" } do |f| %>
+    <%= form_for @user, url: login_authentication_path, 
+      html: {method: "post", class: "col s12", autocomplete: "off" } do |f| %>
 
     <input type="text" style="display:none;">
     <input type="password" style="display:none;">

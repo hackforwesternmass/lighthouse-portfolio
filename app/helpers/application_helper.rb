@@ -14,4 +14,5 @@ module ApplicationHelper
   		link_to fa_icon(icon, text: text), url, class: "grey-text text-darken-1" 
   	end
   end
+  
 end

@@ -11,9 +11,26 @@
 }
 
 .resource-item{
-	margin-left: 5% !important;
 	font-size: 1.1rem;
 	& li{
 		padding: 0.5rem 0;
+
+		.right{
+	    @include transition(200ms);
+			font-size: 0.9rem;
+			color: #777;
+
+			&:hover{
+				font-size: 1rem;
+				color: #222;
+			}
+		}
+
+		p{
+			margin-top: 0;
+			font-size: 0.9rem;
+			color: #777;
+			overflow-wrap: break-word;
+		}
 	}
 }

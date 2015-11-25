@@ -1,0 +1,3 @@
+collection @resources
+
+attributes :category

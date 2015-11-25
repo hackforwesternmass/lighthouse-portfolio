@@ -14,12 +14,17 @@
     </div>
   </div>
 
-
   <div class="row">
     <div class="input-field col s12 m9 l5">
-      <% default_category = (params[:select].present? ? params[:select] : f.object.category ) %>
-      <%= f.select :category, options_for_select(Resource::VALID_CATEGORY, 
-        selected: default_category ) %>
+      <%= f.text_area :description, placeholder: '200 characters maximum', 
+        length: "200", class: "materialize-textarea resize-vertical" %>
+      <%= f.label :description %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12 m9 l5 category-autocomplete">
+      <%= f.text_field :category %>
       <%= f.label :category %>
     </div>
   </div>

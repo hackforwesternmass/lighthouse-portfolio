@@ -6,6 +6,8 @@ class ResourcesController < SessionsController
 
   def index
     @resources = current_user.resources
+    @resources = @resources.select("DISTINCT(CATEGORY)") if params[:q]
+
   end
 
   def new
@@ -15,7 +17,7 @@ class ResourcesController < SessionsController
   def create
     @resource = current_user.resources.build(resource_params)
       if @resource.save
-        redirect_to user_resources_path(current_user), flash: { notice: 'Resource Created!' }
+        redirect_to user_resources_path(current_user), flash: { notice: 'Resource created' }
       else
         flash.now[:alert] = 'Could not create your resource, try again!'
         render :new
@@ -39,17 +41,17 @@ class ResourcesController < SessionsController
 
   def destroy
     @resource.destroy
-    redirect_to :root_path, flash: {notice: "Resource removed"}
+    redirect_to [current_user, @resource], flash: {notice: "Resource removed"}
   end
 
   private
 
-    def set_project
+    def set_resource
       @resource = Resource.find(params[:id])
     end
 
     def resource_params
-      params.require(:resource).permit(:link, :category, :title)
+      params.require(:resource).permit(:link, :category, :title, :description)
     end
 
 end
