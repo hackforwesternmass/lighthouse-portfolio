@@ -1,0 +1,8 @@
+menubar: false
+statusbar: false
+height: 300
+toolbar:
+  - insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image
+plugins:
+  - image
+  - link

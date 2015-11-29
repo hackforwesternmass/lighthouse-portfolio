@@ -95,13 +95,13 @@ div.add-project{
   height: 150px;
   background-color: #fff;
   font-weight: 400;
-  color: #777;
+  color: #333;
   text-align: center;
 
   i{
     padding-top: 20px;
     font-size: 4rem;
-    color: #777;
+    color: #333;
     margin: 0 auto;
   }
 
@@ -159,4 +159,7 @@ div.project-body{
   }
 }
 
+.show-tag{
+  padding-top: 10px;
+}
 

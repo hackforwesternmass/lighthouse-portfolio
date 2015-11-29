@@ -6,6 +6,7 @@ gem 'thin'
 gem 'bcrypt'
 gem 'sass-rails', '~> 5.0'
 gem 'pg'
+gem 'tinymce-rails'
 gem 'nested_form_fields'
 gem "paperclip", "~> 4.2"
 gem 'aws-sdk', '< 2.0'

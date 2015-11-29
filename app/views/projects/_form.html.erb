@@ -3,28 +3,24 @@
 <%= form_for [@user, @project], html: { class: "col s12 new-project", multipart: true } do |f| %>
 
   <div class="row">
-    <div class="input-field col s12 m9 l5">
+    <div class="input-field col s12 m6">
       <%= f.text_field :title %>
       <%= f.label :title %>
     </div>
-  </div>
-
-  <div class="row">
-    <div class="input-field col s12 m9 l5">
-      <%= f.text_field :location, class: "location-autocomplete" %>
-      <%= f.label :location %>
+    <div class="input-field col s12 m6">
+      <%= f.text_field :date_completed, value: date_completed, class: "datepicker" %>
+      <%= f.label :date_completed %>
     </div>
   </div>
 
   <div class="row">
-    <div class="input-field col s12 m9 l5">
-      <%= f.date_field :date_completed, value: date_completed %>
-      <%= f.label :date_completed, "DATE" %>
-    </div>
+    <div class="input-field col s12">
+    <%= f.text_area :body, placeholder: 'Write whatever you want here?', class: "tinymce" %>
+      </div>
   </div>
 
   <div class="row">
-    <div class="input-field col s12 m9 l5 tagger">
+    <div class="input-field col s12 tagger">
       <%= text_field_tag :tag, nil, class: "tag", placeholder: "Enter tag and press enter" %>
       <%= label_tag :tag %>
       <div class="tag-container">
@@ -41,25 +37,9 @@
   </div>
 
   <div class="row">
-    <div class="input-field col s12">
-    <%= f.text_field :description, placeholder: '200 characters maximum', length: "200" %>
-    <%= f.label :description, "BRIEF DISCRIPTION" %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="input-field col s12">
-    <%= f.text_area :body, placeholder: 'Write whatever you want here?', class: "materialize-textarea resize-vertical"  %>
-    <%= f.label :body %>
-    </div>
-  </div>
-
-  <h5 class="teal-text text-darken-4">Display Photo</h5>
-
-  <div class="row">
-    <div class="file-field input-field col s12">
+    <div class="file-field input-field col s12 m6">
       <div class="btn teal darken-4">
-        <span>Photo</span>
+        <span>Display Photo</span>
         <%= f.file_field :photo %>
       </div>
       <div class="file-path-wrapper">
@@ -67,12 +47,8 @@
           placeholder="Upload one photo" value="<%= @project.photo.original_filename %>">
       </div>
     </div>
-  </div>
 
-  <h5 class="teal-text text-darken-4 hide-on-small-only">Attachments</h5>
-
-  <div class="row hide-on-small-only">
-    <div class="file-field input-field col s12">
+    <div class="file-field input-field col s12 m6">
       <div class="btn teal darken-4">
         <span>PDF File</span>
         <%= file_field_tag('project_project_attachments_document', 
@@ -96,10 +72,7 @@
     </div>
   </div>
 
+  <%= f.button "Save", class: "waves-effect waves-light btn teal" %>
+  <%= link_to 'Delete', [@project.user, @project], method: :delete, class: "waves-effect waves-light btn red" unless @project.new_record? %>
 
-
-  <div class="right">
-    <%= content_tag :button, "Save", type: :submit, class: "waves-effect waves-light btn teal" %>
-    <%= link_to 'Delete', [@project.user, @project], method: :delete, class: "waves-effect waves-light btn red" unless @project.new_record? %>
-  </div>
 <% end %>

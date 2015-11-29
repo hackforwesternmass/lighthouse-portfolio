@@ -20,7 +20,6 @@ $(document).on('page:change', function(){
     // ENTER
     if(e.which === 13){
     	e.preventDefault();
-    	console.log("hit?");
 			if($input.val() !== ""){
 				setTag($input, tags);
 			}

@@ -9,6 +9,6 @@ $(document).on('page:change', function(){
     setTimeout(function() { Turbolinks.visit(link) }, 250);
   });
 
-	$('#project_date_completed').pickadate();
+	$('.datepicker').pickadate();
 
 });

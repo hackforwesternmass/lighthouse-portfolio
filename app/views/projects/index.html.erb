@@ -15,7 +15,10 @@
       <div class="card-panel project-wrapper hoverable">
         <div class="card-content">
           <%= link_to "", new_user_project_path, class: "project-link" %>
-          <div class="add-project"><%= link_to fa_icon("plus-circle"), new_user_project_path %><br><br>Add portfolio piece</div>
+          <div class="add-project">
+            <%= link_to fa_icon("plus-circle"), new_user_project_path %>
+            <br><br>Add portfolio piece
+          </div>
         </div>
       </div>
     </div>
@@ -28,7 +31,9 @@
           </div>
           <div class="card-content">
             <span class="card-title black-text truncate"><%= project.title %></span>
-            <p><%= project.description %></p>
+            <p class="grey-text truncate">
+            <%= project.date_completed.strftime("%d %B, %Y") %> 
+            </p>  
           </div>
           <%= link_to "", user_project_path(@user, project), class: "project-link", title: project.title %>
         </div>

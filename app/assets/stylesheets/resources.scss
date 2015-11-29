@@ -11,6 +11,7 @@
 }
 
 .resource-item{
+	min-height: 325px;
 	font-size: 1.1rem;
 	& li{
 		padding: 0.5rem 0;
@@ -34,3 +35,10 @@
 		}
 	}
 }
+
+@media #{$small-and-down} {
+	.resource-item{
+		min-height: auto;
+	}
+}
+

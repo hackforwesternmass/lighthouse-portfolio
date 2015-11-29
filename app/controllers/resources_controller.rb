@@ -26,7 +26,7 @@ class ResourcesController < SessionsController
 
   def update
     if @resource.update_attributes(resource_params)
-      redirect_to user_resources_path(current_user), flash: {notice: "Resource updated"}
+      redirect_to user_resources_path(current_user), flash: { notice: "Resource updated" }
     else
       flash.now[:alert] = "Could not update resource"
       render :edit
@@ -41,7 +41,7 @@ class ResourcesController < SessionsController
 
   def destroy
     @resource.destroy
-    redirect_to [current_user, @resource], flash: {notice: "Resource removed"}
+    redirect_to [current_user, @resource], flash: { notice: "Resource removed" }
   end
 
   private

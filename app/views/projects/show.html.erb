@@ -23,11 +23,8 @@
 
         <div class="center-align thin teal-text">
           <%= @project.date_completed.strftime("%B %d, %Y / ") if @project.date_completed.present? %>
-          <%= " In <span class=\"normal\">#{@project.location}</span> / ".html_safe if @project.location.present? %>
           <%= " By <span class=\"normal\">#{@project.user.full_name}</span>".html_safe %>
         </div>
-
-        <br>
 
         <div class="show-tag center-align thin teal-text text-darken-1 ">
           <% @project.tags.each do |tag| %>
@@ -37,12 +34,6 @@
           <% end %>
         </div>
 
-        <br>
-
-        <div class="center-align flow-text">
-          <i><%= @project.description %></i>
-        </div>
-
         <% if @project.photo.present? %>
           <div class="show-display-image">
             <%= image_tag @project.photo.url, class: "responsive-img materialboxed" %>
@@ -50,21 +41,10 @@
         <% end %>
 
         <div class="project-body">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <%= @project.body.html_safe %>
         </div>
       </div>
+
       <!-- 
         <h1>PDF</h1>
       <% @project.project_attachments.each do |pa| %>

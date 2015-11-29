@@ -1,0 +1,57 @@
+$(document).on('page:change', function(){
+
+  if (typeof tinyMCE != 'undefined') {
+    tinyMCE.init({
+      selector: "textarea.tinymce",
+      menubar: false,
+      statusbar: false,
+      height: 300,
+      style_formats: [
+        { title: 'Headers', items: [
+          { title: 'h1', block: 'h1' },
+          { title: 'h2', block: 'h2' },
+          { title: 'h3', block: 'h3' },
+          { title: 'h4', block: 'h4' }
+        ] },
+        {title: 'Inline', items: [
+          {title: 'Bold', icon: 'bold', format: 'bold'},
+          {title: 'Italic', icon: 'italic', format: 'italic'},
+          {title: 'Underline', icon: 'underline', format: 'underline'},
+          {title: 'Strikethrough', icon: 'strikethrough', format: 'strikethrough'},
+          {title: 'Superscript', icon: 'superscript', format: 'superscript'},
+          {title: 'Subscript', icon: 'subscript', format: 'subscript'},
+          {title: 'Code', icon: 'code', format: 'code'}
+        ]},
+        {title: 'Alignment', items: [
+          {title: 'Left', icon: 'alignleft', format: 'alignleft'},
+          {title: 'Center', icon: 'aligncenter', format: 'aligncenter'},
+          {title: 'Right', icon: 'alignright', format: 'alignright'},
+          {title: 'Justify', icon: 'alignjustify', format: 'alignjustify'}
+        ]}
+      ],
+      content_css: "<%= stylesheet_path 'customize_tinymce.css' %>",
+      preview_styles: false,
+      toolbar: ["undo redo | styleselect bold underline italic | alignleft aligncenter alignright | numlist outdent indent | link image media preview"],
+      plugins: "image, link, preview, media, paste",
+      setup: function(ed) {
+          ed.on('keydown', function(event) {
+              if (event.keyCode == 9) { 
+                if (event.shiftKey) {
+                  ed.execCommand('Outdent');
+                }
+                else {
+                  ed.execCommand('Indent');
+                }
+                event.preventDefault();
+                return false;
+              }
+          });
+      }
+    });
+  } else {
+    setTimeout(arguments.callee, 50);
+  }
+
+
+});
+

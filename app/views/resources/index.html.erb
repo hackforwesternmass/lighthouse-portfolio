@@ -9,11 +9,11 @@
 
 <section class="section-container">
 
-  <div id="category-grid" data-columns  class="row">
+  <div id="category-grid" data-columns class="row">
     <% @resources.pluck(:category).uniq.each do |category| %>
       <div class="resource-item col s12">
         <div class="resource-category thick z-depth-1">
-          <%= link_to category, new_user_resource_path(current_user, select: category), class: "truncate" %>
+          <%= link_to category, new_user_resource_path(current_user, category: category), class: "truncate" %>
         </div>
         <ul>
         <% @resources.where(category: category).each do |resource| %>
