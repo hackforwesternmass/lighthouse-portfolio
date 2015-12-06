@@ -1,8 +1,9 @@
 class User < ActiveRecord::Base
   include BCrypt
 
-  has_many :resources
-  has_many :social_mediums
+  has_many :resources, dependent: :destroy
+  
+  has_many :social_mediums, dependent: :destroy
   accepts_nested_attributes_for :social_mediums, allow_destroy: true
 
   has_many :projects, dependent: :destroy
@@ -29,11 +30,10 @@ class User < ActiveRecord::Base
     presence: { message: "Password confirmation is required." },
     on: :create
 
-
   has_attached_file :avatar, :default_url => "default-avatar.png"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
  
-   def self.authenticate(email, password)
+  def self.authenticate(email, password)
     user = User.find_by_email(email)
     user if user && user.pword == password
   end

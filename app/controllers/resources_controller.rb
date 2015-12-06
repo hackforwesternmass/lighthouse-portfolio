@@ -6,12 +6,10 @@ class ResourcesController < SessionsController
 
   def index
     @resources = current_user.resources
-    @resources = @resources.select("DISTINCT(CATEGORY)") if params[:q]
-
   end
 
   def new
-    @resource = current_user.resources.build
+    @resource = Resource.new
   end
 
   def create

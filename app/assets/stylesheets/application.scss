@@ -14,6 +14,7 @@ $success-color: color("teal", "base") !default;
 $error-color: color("red", "lighten-1") !default;
 $link-color: color("orange", "darken-1") !default;
 @import "materialize";
+@import "calendar";
 @import "category";
 @import "grid";
 @import "layouts";
@@ -21,6 +22,7 @@ $link-color: color("orange", "darken-1") !default;
 @import "users";
 @import "resources";
 @import "sessions";
+
 
 body{
 	background-color: #222;
@@ -32,6 +34,12 @@ body{
 nav{
   background-color: #343434;
   padding: 0 5%;
+}
+
+.tabs, .tab{
+  line-height: 60px !important;
+  height: 60px !important;
+  font-weight: 400;
 }
 
 .select-dropdown li span{
@@ -69,6 +77,10 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 300;
 }
 
+h6{
+  font-size: 1.25rem;
+}
+
 ul{
   list-style-type: none;
   margin:0;
@@ -94,7 +106,7 @@ hr{
   font-weight: 400;
 }
 
-.thick{
+.thick, .bold{
   font-weight: 700;
 }
 
@@ -146,7 +158,7 @@ input:-webkit-autofill {
   overflow: hidden;
   padding: 0 5% 3rem;
   min-height: 100vh;
-  background-color: rgb(250,250,250);
+  background-color: #eee;
   width: 100%;
 }
 

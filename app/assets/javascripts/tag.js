@@ -1,49 +1,56 @@
 $(document).on('page:change', function(){
 
-	var tags = [];
+  var tags = [];
 
-	$(".chip-tag").each(function(){
-		tags.push($(this).text().trim());
-	});
+  $(".chip-tag").each(function(){
+    tags.push($(this).text().trim());
+  });
 
-	$(".tagger input.tag").on("keydown", function(e){
+  $(".tagger input.tag").on("keydown blur", function(e){
 
-		var $input = $(this);
+    var $input = $(this);
 
-		// TAB
-		if(e.which === 9){
-			if($input.val() !== ""){
-				setTag($input, tags);
-			 }
+    // TAB
+    if(e.which === 9){
+      if($input.val() !== ""){
+        setTag($input, tags);
+       }
     }
 
     // ENTER
     if(e.which === 13){
-    	e.preventDefault();
-			if($input.val() !== ""){
-				setTag($input, tags);
-			}
+      e.preventDefault();
+      if($input.val() !== ""){
+        setTag($input, tags);
+      }
     }
 
-	});
+    // UNFOCUS INPUT
+    if(e.which === 0){
+      if($input.val() !== ""){
+        setTag($input, tags);
+      }
+    }
+
+  });
 
   $(document).on('click.chip', '.tag-container .chip i.fa', function () {
-  	removeChip.apply(this);
+    removeChip.apply(this);
   });
 
 });
 
 
 function removeChip(){
-	var $chip = $(this).parent();
-	var html = HandlebarsTemplates['tags/remove_tag']({index: $chip.data("index")});
-  $chip.prepend(html);	
+  var $chip = $(this).parent();
+  var html = HandlebarsTemplates['tags/remove_tag']({index: $chip.data("index")});
+  $chip.prepend(html);  
   $chip.hide();
 }
 
 function setTag($input, tags){
-	var html = HandlebarsTemplates['tags/tag']({name: $input.val(), index: tags.length});
-  $input.siblings(".tag-container").append(html);	
+  var html = HandlebarsTemplates['tags/tag']({name: $input.val(), index: tags.length});
+  $input.siblings(".tag-container").append(html); 
   tags.push($input.val());
- 	$input.val("");
+  $input.val("");
 }

@@ -8,9 +8,13 @@ Rails.application.routes.draw do
   end
 
   namespace :sessions, path: '/', as: nil do
-    post 'login_authentication'
-    get 'logout'
-    get 'login'
+    post :login_authentication
+    get  :logout
+    get  :login
+  end
+
+  namespace :calendar, path: '/', as: nil do
+    get :calendar
   end
 
 end

@@ -1,0 +1,37 @@
+<nav>
+  <div class="nav-wrapper">
+    <span class="brand-logo">Class Calendar</span>
+  </div>
+</nav>
+
+<ul class="tabs z-depth-1">
+  <li class="tab col s6"><a href="#week-calendar">Week</a></li>
+  <li class="tab col s6"><a href="#agenda-calendar">Agenda</a></li>
+</ul>
+
+<section class="section-container" id="agenda-calendar">
+</section>
+
+<section class="section-container" id="week-calendar">
+
+  <div class="week">
+
+    <% for i in 1..5 %>
+      <div class="row p<%= i %>">
+          <div class="col m-fifth w1"></div>
+          <div class="col m-fifth w2"></div>
+          <div class="col m-fifth w3"></div>
+          <div class="col m-fifth w4"></div>
+          <div class="col m-fifth w5"></div>
+      </div>
+    <% end %>
+
+  </div>
+
+  <div class="week-navigation clear row">
+    <div class="last-week col s4"><%= fa_icon "chevron-left" %> <span>Last week</span></div>
+    <div class="col s4 center-align calendar-spinner"> <%= fa_icon "spinner spin" %></div>
+    <div class="next-week col s4 right-align"><span>Next week</span><%= fa_icon "chevron-right", right: true %></div>
+  </div>
+
+</section>

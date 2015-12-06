@@ -16,8 +16,11 @@
 !/log/.keep
 /tmp
 
-#Ignore uploaded photos for testing purposes
-/public/system/projects
+.env
+public/system/*
 
 #Ignore Mockups
 /UI_update2
+
+latest.dump
+*.DS_Store

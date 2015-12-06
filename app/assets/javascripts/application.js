@@ -16,6 +16,7 @@
 //= require tinymce-jquery
 //= require nested_form_fields
 //= require handlebars.runtime
+//= require moment
 //= require_tree ./helpers
 //= require_tree ./templates
 //= require_tree .

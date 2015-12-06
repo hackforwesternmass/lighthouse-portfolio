@@ -28,7 +28,7 @@ class ProjectsController < SessionsController
     if @project.update_attributes(project_params)
       redirect_to [@project.user, @project], flash: { notice: 'Portfolio piece updated!' }
     else
-      flash.now[:alert] = "Portfolio pice could not be updated."
+      flash.now[:alert] = "Portfolio piece could not be updated."
       render :edit
     end
   end

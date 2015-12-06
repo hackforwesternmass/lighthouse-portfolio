@@ -3,7 +3,7 @@
   <div class="row">
 
     <div class="col m1 hide-on-small-only project-nav">
-      <%= link_to fa_icon("angle-left", text: "Previous"), [@project.user, @project.previous], class: "nav-left" %>
+      <%= link_to fa_icon("angle-left"), [@project.user, @project.previous], class: "nav-left" %>
     </div>
 
     <div class="col s12 m10 project-content">
@@ -34,6 +34,10 @@
           <% end %>
         </div>
 
+        <br>
+
+        <div class="flow-text center-align "><i><%= @project.description %></i></div>
+
         <% if @project.photo.present? %>
           <div class="show-display-image">
             <%= image_tag @project.photo.url, class: "responsive-img materialboxed" %>
@@ -45,15 +49,15 @@
         </div>
       </div>
 
-      <!-- 
-        <h1>PDF</h1>
+      
+        <h1>Attachments</h1>
       <% @project.project_attachments.each do |pa| %>
         <%= image_tag pa.document(:pdf_thumbnail) %>
-      <% end %> -->
+      <% end %>
     </div>
 
     <div class="col m1 hide-on-small-only project-nav">
-      <%= link_to fa_icon("angle-right", text: "Next"),[@project.user, @project.next], class: "nav-right" %>
+      <%= link_to fa_icon("angle-right"),[@project.user, @project.next], class: "nav-right" %>
     </div>
   </div>
 

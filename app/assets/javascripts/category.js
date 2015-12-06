@@ -62,7 +62,6 @@ $(document).on('page:change', function(){
  			}
  			$selected.next().toggleClass("selected");
  			$selected.toggleClass("selected");
-
     } 
 
     // ARROW UP

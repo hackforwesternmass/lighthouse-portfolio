@@ -14,6 +14,9 @@ class Project < ActiveRecord::Base
   validates :title, 
     presence: { message: "Title is required" }
 
+  validates :description,
+    length: { maximum: 200, message: "200 character max" }
+
   def next
     ids = Project.where(user_id: self.user_id).pluck :id
     pos = ids.index(self.id)

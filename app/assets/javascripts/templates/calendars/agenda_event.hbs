@@ -1,0 +1,18 @@
+<div class="agenda-event">
+  <div class="container row">
+    <div class="agenda-event-time col s12 m1 center-align">
+      {{#if start_time}}
+      <div class="time">{{start_time}}</div>
+      to
+      <div class="time">{{end_time}}</div>
+      {{/if}}
+    </div>
+    <div class="agenda-event-content col s12 m11">
+      <h6 class="purple-text bold">{{title}}</h6>
+      <div class="event-instructor">{{display_name}}</div>
+      <div class="event-description">
+        {{{description}}}
+      </div>
+    </div>
+  </div>
+</div>
