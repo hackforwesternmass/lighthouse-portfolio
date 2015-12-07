@@ -4,6 +4,10 @@ $(document).on('page:change', function(){
 
   $(".resource-category .modal-trigger").click(function(){
 
+    // if($this.text() === ""){
+    //   return false;
+    // }
+
     var $edit_category_modal = $("#edit-category-modal"),
         $this       = $(this);
 
@@ -14,7 +18,14 @@ $(document).on('page:change', function(){
 
   });
 
-  $('form#ugh').on('ajax:success', function(e, data, status, xhr){
+  $("#edit-category-modal form input[type='submit']").click(function(e){
+    if( $(this).closest("form").find("input[type='text']").text() === "" ){
+      e.preventDefault();
+    }
+  })
+
+
+  $('#edit-category-modal form').on('ajax:success', function(e, data, status, xhr){
 
     $(this).find("input[type='text']").val("");
     $("#edit-category-modal").closeModal();
