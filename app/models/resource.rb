@@ -1,4 +1,6 @@
 class Resource < ActiveRecord::Base
+	default_scope { order(id: :asc) }
+
 	belongs_to :user
 
   validates :title, 

@@ -2,6 +2,7 @@ $(document).on('page:change', function(){
 
   $('.button-collapse').sideNav();
   $('select').material_select();
+  $('.modal-trigger').leanModal();
 
   if($('#notice').length){
     Materialize.toast($('#notice').data("notice"), 3500, "teal");

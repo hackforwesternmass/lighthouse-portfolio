@@ -31,6 +31,18 @@ class ResourcesController < SessionsController
     end
   end
 
+  def change_category
+    resources = Resource.where(category: params[:old_category])
+
+    resources.each do |r|
+      r.category = params[:new_category]
+      r.save
+    end
+
+    render json: {category: params[:new_category] }
+
+  end
+  
   def edit
   end
 

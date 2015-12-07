@@ -115,8 +115,6 @@ function setWeekdays(){
   next_day = moment(week_start),
   html;
 
-
-
   for (var i = 0; i < 5; i++) {
     days.push({ weekday: weekdays[i], date: next_day.format("MMMM D") });
     next_day = moment(next_day).add(1, 'days');

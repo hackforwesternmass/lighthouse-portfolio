@@ -13,7 +13,7 @@
     <% @resources.pluck(:category).uniq.each do |category| %>
       <div class="resource-item col s12">
         <div class="resource-category thick z-depth-1">
-          <%= link_to category, new_user_resource_path(current_user, category: category), class: "truncate" %>
+          <%= link_to category, "#edit-category-modal", class: "truncate modal-trigger" %>
         </div>
         <ul>
         <% @resources.where(category: category).each do |resource| %>
@@ -30,3 +30,25 @@
   </div>
 
 </section>
+
+
+<div id="edit-category-modal" class="modal">
+  <%= form_tag change_category_user_resources_path(current_user), {id: "ugh", remote: true, "data-type" => "json" } do %>
+
+    <div class="modal-content">
+      <%= hidden_field_tag :old_category %>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= text_field_tag :new_category %>
+          <%= label_tag :new_category, "new category name" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <%= submit_tag "Change Category Name", class: 'btn' %>
+    </div>
+
+  <% end %>
+</div>
+         

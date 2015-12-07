@@ -1,6 +1,6 @@
 $(document).on('click', '.category-autocomplete .autocomplete-dropdown li', function(){
 	$input = $(this).closest(".category-autocomplete").find("input");
-	$input.trigger('change');
+	$(this).closest(".category-autocomplete").find("label").addClass('active');
 	setCategory($input, $(this).text(), true);
 });
 
