@@ -92,7 +92,7 @@ function multipleDays(current_event){
   var start_day = moment(current_event.start.date).format("MMMM D");
   var end_day = moment(current_event.end.date).format("MMMM D");
   var date = start_day +" - "+ end_day;
-  var date_class = current_event.start.date;
+  var date_class = "multiple-" + current_event.start.date;
   input = { date: date, date_class: date_class };
 
   html = HandlebarsTemplates['calendars/agenda_item'](input);

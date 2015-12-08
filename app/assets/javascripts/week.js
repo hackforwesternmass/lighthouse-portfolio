@@ -44,6 +44,11 @@ function loadUpcomingWeekEvents(week_start){
 
     for(var i = 0; i < events.items.length; i++){
       event = events.items[i];
+
+      if(event.start.date){
+        continue;
+      }
+
       day = moment(event.start.dateTime).day();
       period = getPeriod(event);
       if(!period){ continue; }
