@@ -33,8 +33,7 @@ class ProjectsController < SessionsController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def show; end
 

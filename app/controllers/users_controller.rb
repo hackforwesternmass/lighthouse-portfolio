@@ -34,8 +34,7 @@ class UsersController < SessionsController
     if current_user.update(user_params)
       redirect_to user_projects_path(user_id: @user.id), flash: { notice: "Profile successfully updated!" }
     else
-      word = @user.errors.count.eql?(1) ? "one" : "a few"
-      flash.now[:alert] = prefix << "Change #{word} things up and try submitting again."
+      flash.now[:alert] = prefix << "Change a few things up and try submitting again."
       render :edit
     end
   end

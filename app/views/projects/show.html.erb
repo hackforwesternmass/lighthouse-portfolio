@@ -49,11 +49,15 @@
         </div>
       </div>
 
-      
-        <h1>Attachments</h1>
-      <% @project.project_attachments.each do |pa| %>
-        <%= image_tag pa.document(:pdf_thumbnail) %>
+      <% if @project.project_attachments.present? %>
+        <h6 class="bold">Attachments</h6>
+          <ul>
+        <% @project.project_attachments.each do |pa| %>
+            <li><%= link_to pa.document.original_filename, project_attachments_path(pa.id) %></li>
+        <% end %>
+          </ul>
       <% end %>
+
     </div>
 
     <div class="col m1 hide-on-small-only project-nav">

@@ -22,7 +22,7 @@ class SocialMedium < ActiveRecord::Base
       when self.link.include?("vine") then "vine"
       when self.link.include?("youtube") then "youtube"
       when self.link.include?("behance") then "behance"
-      else ["link", "globe"].sample
+      else "link"
     end
   end
 

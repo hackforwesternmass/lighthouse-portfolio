@@ -4,10 +4,6 @@ $(document).on('page:change', function(){
 
   $(".resource-category .modal-trigger").click(function(){
 
-    // if($this.text() === ""){
-    //   return false;
-    // }
-
     var $edit_category_modal = $("#edit-category-modal"),
         $this       = $(this);
 
@@ -19,7 +15,7 @@ $(document).on('page:change', function(){
   });
 
   $("#edit-category-modal form input[type='submit']").click(function(e){
-    if( $(this).closest("form").find("input[type='text']").text() === "" ){
+    if( $(this).closest("form").find("input[type='text']").value === "" ){
       e.preventDefault();
     }
   })

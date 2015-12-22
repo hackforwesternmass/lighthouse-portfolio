@@ -6,7 +6,12 @@ Rails.application.routes.draw do
     resources :resources do
       post :change_category, on: :collection
     end
-    resources :projects
+    resources :projects do
+    end
+  end
+
+  namespace :project_attachments do
+    get 'download/:id', to: :download
   end
 
   namespace :sessions, path: '/', as: nil do
@@ -18,5 +23,6 @@ Rails.application.routes.draw do
   namespace :calendar, path: '/', as: nil do
     get :calendar
   end
+
 
 end
