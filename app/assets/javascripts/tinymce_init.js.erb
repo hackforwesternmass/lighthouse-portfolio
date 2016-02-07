@@ -52,6 +52,68 @@ $(document).on('page:change', function(){
     setTimeout(arguments.callee, 50);
   }
 
+  if (typeof tinyMCE != 'undefined') {
+    tinyMCE.init({
+      selector: "textarea.tinymce-meetings-notes",
+      menubar: false,
+      statusbar: false,
+      height: 300,
+      content_css: "<%= stylesheet_path 'customize_tinymce.css' %>",
+      preview_styles: false,
+      toolbar: ["undo redo | bold underline italic | numlist outdent indent link"],
+      plugins: "image, link, preview, media, paste",
+      setup: function(ed) {
+          ed.on('keydown', function(event) {
+              if (event.keyCode == 9) { 
+                if (event.shiftKey) {
+                  ed.execCommand('Outdent');
+                }
+                else {
+                  ed.execCommand('Indent');
+                }
+                event.preventDefault();
+                return false;
+              }
+          });
+      }
+    });
+  } else {
+    setTimeout(arguments.callee, 50);
+  }
+
 
 });
+
+function initTiny(){
+
+   if (typeof tinyMCE != 'undefined') {
+    tinyMCE.init({
+      selector: "textarea.tinymce-meetings-notes",
+      menubar: false,
+      statusbar: false,
+      height: 200,
+      content_css: "<%= stylesheet_path 'customize_tinymce.css' %>",
+      preview_styles: false,
+      toolbar: ["undo redo | bold underline italic | numlist outdent indent link"],
+      plugins: "image, link, preview, media, paste",
+      setup: function(ed) {
+          ed.on('keydown', function(event) {
+              if (event.keyCode == 9) { 
+                if (event.shiftKey) {
+                  ed.execCommand('Outdent');
+                }
+                else {
+                  ed.execCommand('Indent');
+                }
+                event.preventDefault();
+                return false;
+              }
+          });
+      }
+    });
+  } else {
+    setTimeout(arguments.callee, 50);
+  }
+
+}
 

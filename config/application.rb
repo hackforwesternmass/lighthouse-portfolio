@@ -23,6 +23,8 @@ module Compass
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
+
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| 
 
       if(instance.class.to_s.eql?("ActionView::Helpers::Tags::Label"))

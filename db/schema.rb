@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151125033527) do
+ActiveRecord::Schema.define(version: 20160107003713) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,9 +23,11 @@ ActiveRecord::Schema.define(version: 20151125033527) do
     t.integer  "action_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "meeting_id"
   end
 
   add_index "action_items", ["action_id"], name: "index_action_items_on_action_id", using: :btree
+  add_index "action_items", ["meeting_id"], name: "index_action_items_on_meeting_id", using: :btree
 
   create_table "actions", force: :cascade do |t|
     t.text     "note"
@@ -76,6 +78,15 @@ ActiveRecord::Schema.define(version: 20151125033527) do
     t.datetime "updated_at",   null: false
     t.integer  "user_id"
   end
+
+  create_table "meetings", force: :cascade do |t|
+    t.text     "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+  end
+
+  add_index "meetings", ["user_id"], name: "index_meetings_on_user_id", using: :btree
 
   create_table "portfolios", force: :cascade do |t|
     t.integer  "user_id"
@@ -187,9 +198,11 @@ ActiveRecord::Schema.define(version: 20151125033527) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "action_items", "actions"
+  add_foreign_key "action_items", "meetings"
   add_foreign_key "actions", "goals"
   add_foreign_key "activities", "users"
   add_foreign_key "courses", "users"
+  add_foreign_key "meetings", "users"
   add_foreign_key "portfolios", "users"
   add_foreign_key "project_attachments", "projects"
   add_foreign_key "resources", "users"

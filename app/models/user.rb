@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   include BCrypt
 
   has_many :resources, dependent: :destroy
+  has_many :meetings, dependent: :destroy
   
   has_many :social_mediums, dependent: :destroy
   accepts_nested_attributes_for :social_mediums, allow_destroy: true

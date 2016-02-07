@@ -14,6 +14,7 @@ $success-color: color("teal", "base") !default;
 $error-color: color("red", "lighten-1") !default;
 $link-color: color("orange", "darken-1") !default;
 @import "materialize";
+@import "action_plan";
 @import "calendar";
 @import "category";
 @import "grid";
@@ -29,6 +30,10 @@ body{
   margin: 0;
   overflow-x: hidden;
   font-family: 'Roboto', helvetica, sans-serif;
+}
+
+strong{
+  font-weight: 700;
 }
 
 nav{
@@ -122,6 +127,13 @@ i.fa{
   padding: 0 !important;
 }
 
+.no-margin{
+  margin: 0 !important;
+}
+
+.capitalize{
+  text-transform: capitalize;
+}
 .resize-vertical{
   resize: vertical !important;
 }
@@ -156,7 +168,7 @@ input:-webkit-autofill {
 
 .section-container{
   overflow: hidden;
-  padding: 0 5% 3rem;
+  padding: 2rem 5% 3rem;
   min-height: 100vh;
   background-color: #eee;
   width: 100%;

@@ -1,0 +1,63 @@
+<nav>
+  <div class="nav-wrapper">
+    <span class="brand-logo">Action Plan</span>
+  </div>
+</nav>
+
+<ul class="tabs z-depth-1">
+  <li class="tab"><a href="#meetings-action-plan">Meetings</a></li>
+  <li class="tab"><a href="#goals-action-plan">Goals</a></li>
+  <li class="tab"><a href="#completed-action-plan">Completed</a></li>
+</ul>
+
+<section class="section-container" id="meetings-action-plan">
+   <%= react_component "Meeting", {userId: current_user.id, authenticityToken: form_authenticity_token} %>
+</section>
+
+<section class="section-container" id="goals-action-plan">
+
+  <%= link_to "#" do %>
+    <div class="row">
+    <div class="col s12">
+      <div class="card grey darken-1 no-margin hoverable">
+        <div class="card-content white-text center-align">
+          <h6><%= fa_icon "plus-circle", text: "ADD GOAL" %></h6>
+        </div>
+      </div>
+    </div>
+    </div>
+  <% end %>
+
+  <div class="row">
+  <div class="col s12">
+    <div class="card">
+      <div class="card-content">
+      <div class="goal-title">
+        Build university direction
+      </div>
+      <div class="row grey-text no-margin">
+        <div class="col s6">DATE SET</div>
+        <div class="col s6 right-align">DEADLINE</div>
+      </div>
+      <div class="row">
+        <div class="col s6">June 6 2015</div>
+        <div class="col s6 right right-align">June 20 2015</div>
+      </div> 
+
+      <div class="row">
+        <div class="col grey-text">
+          Progress
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</section>
+
+<section class="section-container" id="completed-action-plan">
+</section>

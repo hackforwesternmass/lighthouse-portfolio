@@ -1,0 +1,57 @@
+.card-date{
+  background-color: color("blue", "lighten-4");
+  padding: 3px 20px;
+  padding-right: 0;
+
+  a{
+    &:hover{
+      i{
+        @include transition(250ms);
+        color: color("blue", "darken-4");
+      }
+    } 
+  }
+}
+
+.action-items{
+
+  padding-top: 10px;
+
+  .title .col{
+    color: #aaa;
+
+    &:last-child{
+      text-align: right;
+    }
+  }
+
+  .checkmark a{
+    margin: 0 auto;
+    display: block !important;
+  }
+
+  .body .col{
+
+    &:last-child{
+      text-align: right;
+    }
+  }
+
+  .close{
+    cursor: pointer;
+    &:hover{
+      i{
+        @include transition(250ms);
+        color: color("blue", "darken-4");
+      }
+    } 
+  }
+
+}
+
+.goal-title{
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin: 10px 0;
+  padding-left: 0.75rem;
+}

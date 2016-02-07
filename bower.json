@@ -1,0 +1,21 @@
+{
+  "name": "Y",
+  "homepage": "https://github.com/mtuck063/compass",
+  "authors": [
+    "mtuck063 <meneliktucker@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react-motion": "https://npmcdn.com/react-motion/bower.zip"
+  }
+}

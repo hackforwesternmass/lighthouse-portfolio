@@ -36,6 +36,8 @@ Rails.application.configure do
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
 
+  config.react.addons = true
+
   config.console = Pry
 
   # Raises error for missing translations

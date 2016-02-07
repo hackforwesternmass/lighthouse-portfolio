@@ -10,8 +10,11 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :meetings
+  resources :action_items
+
   namespace :project_attachments do
-    get 'download/:id', to: :download
+    get 'download/:id', action: :download
   end
 
   namespace :sessions, path: '/', as: nil do
@@ -24,5 +27,8 @@ Rails.application.routes.draw do
     get :calendar
   end
 
+  namespace :action_plan, path: '/', as: nil do
+    get :action_plan
+  end
 
 end
