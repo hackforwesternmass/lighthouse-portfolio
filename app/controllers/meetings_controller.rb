@@ -23,8 +23,8 @@ class MeetingsController < SessionsController
   end
 
   def update
-    @meeting = Meeting.find(params[:id])
     meeting_params[:action_items_attributes] = meeting_params[:action_items_attributes].map { | k,v | [ k, v ] unless v[:description].empty? }.compact.to_h
+    @meeting = Meeting.find(params[:id])
     if @meeting.update(meeting_params)
       render json: {meeting: @meeting, action_items: @meeting.action_items}, status: 200 
     else

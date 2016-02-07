@@ -98,6 +98,13 @@ hr{
   margin: 1rem auto 2rem;
 }
 
+[type="checkbox"] + label{
+  text-transform: none;
+  color: #777;
+  font-weight: 400;
+  font-size: 1.05rem;
+}
+
 .error-message{
   color: #f44336;
   font-size: 0.75rem;

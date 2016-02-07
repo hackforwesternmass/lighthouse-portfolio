@@ -57,7 +57,7 @@ var Meeting = React.createClass({
 
     }else{
 
-      newMeeting = <a href="#" onClick={this.handleClickNewMeeting}>
+      newMeeting = <a href="#" onClick={this.handleClickNewMeeting} className="hide-on-small-only">
                       <div className="row">
                         <div className="col s12">
                           <div className="card blue darken-1 no-margin hoverable">

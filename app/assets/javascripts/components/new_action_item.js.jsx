@@ -13,10 +13,10 @@ var NewActionItem = React.createClass({
     $(ReactDOM.findDOMNode(this)).velocity("slideDown", { duration: 500, easing: "easeOutQuad" });
   },
   changeDescription: function(e){
-    this.props.addActionItem(this.props.reactKey, { description: e.target.value, due_date: this.state.due_date });
+    this.props.addActionItem(this.props.reactKey, { description: e.target.value, due_date: this.state.due_date, id: this.state.id });
   },
   changeDueDate: function(e){
-    this.props.addActionItem(this.props.reactKey, { description: this.state.description, due_date: $("input.datepicker")[ this.props.reactKey ].value });
+    this.props.addActionItem(this.props.reactKey, { description: this.state.description, due_date: $("input.datepicker")[ this.props.reactKey ].value, id: this.state.id });
   },
   handleClickClose: function(e) {
     e.preventDefault();
@@ -36,6 +36,8 @@ var NewActionItem = React.createClass({
 
   },
   render: function(){
+
+    console.log(this.state);
 
     return (
 

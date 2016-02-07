@@ -2,19 +2,7 @@ var ReactTransitionGroup = React.addons.TransitionGroup;
 
 var NewMeeting = React.createClass({
   getInitialState: function() {
-    var state;
-
-    if(this.props.meeting){
-      var action_items = $.map(this.props.meeting.action_items, function(obj){
-        return { description: obj.action_item.description, due_date: obj.action_item.due_date };
-      });
-
-      state = { notes: this.props.meeting.notes, action_items: action_items }
-    }else{
-      state = { notes: "", action_items: [{description: "", due_date: ""}] };
-    }
-
-    return state;
+    return { notes: "", action_items: [{description: "", due_date: ""}] };
   },
   componentDidMount: function() {
     this.props.closeAllMeetings();

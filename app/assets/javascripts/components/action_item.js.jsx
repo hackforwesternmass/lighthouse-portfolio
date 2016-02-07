@@ -54,11 +54,11 @@ var ActionItem = React.createClass({
 
     return (
       <div className="row body">
-        <div className="col s2 checkmark">
+        <div className="col m2 checkmark hide-on-small-only">
           {completed}
         </div>
-        <div className="col s8">{this.state.description}</div>
-        <div className="col s2 capitalize">{ this.state.due_date ? moment(this.state.due_date).fromNow() : "∞" }</div>
+        <div className="col s9 m8">{this.state.description}</div>
+        <div className="col s3 m2 capitalize">{ this.state.due_date ? moment(this.state.due_date).fromNow() : "∞" }</div>
       </div>
     );
 

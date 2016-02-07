@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   resources :meetings
   resources :action_items
+  resources :goals
 
   namespace :project_attachments do
     get 'download/:id', action: :download

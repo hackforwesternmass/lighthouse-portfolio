@@ -66,7 +66,7 @@ var MeetingItem = React.createClass({
                           <div className="card-date">
                             {moment(this.state.created_at).format("MMMM D YYYY")}
                             <a href="#" className="right white-text" onClick={this.handleClickDestroy} data-confirm="Are you sure that you want to delete the meetings notes?" rel="nofollow" ><i className="fa fa-times"></i></a>
-                            <a href="#" className="right white-text" onClick={this.handleClickEdit} ><i className="fa fa-edit"></i></a>
+                            <a href="#" className="right white-text hide-on-small-only" onClick={this.handleClickEdit} ><i className="fa fa-edit"></i></a>
                           </div>
                           <div className="card-content">
 

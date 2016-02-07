@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160107003713) do
+ActiveRecord::Schema.define(version: 20160207124522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,9 +24,11 @@ ActiveRecord::Schema.define(version: 20160107003713) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "meeting_id"
+    t.integer  "goal_id"
   end
 
   add_index "action_items", ["action_id"], name: "index_action_items_on_action_id", using: :btree
+  add_index "action_items", ["goal_id"], name: "index_action_items_on_goal_id", using: :btree
   add_index "action_items", ["meeting_id"], name: "index_action_items_on_meeting_id", using: :btree
 
   create_table "actions", force: :cascade do |t|
@@ -198,6 +200,7 @@ ActiveRecord::Schema.define(version: 20160107003713) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "action_items", "actions"
+  add_foreign_key "action_items", "goals"
   add_foreign_key "action_items", "meetings"
   add_foreign_key "actions", "goals"
   add_foreign_key "activities", "users"
