@@ -37,8 +37,6 @@ var NewActionItem = React.createClass({
   },
   render: function(){
 
-    console.log(this.state);
-
     return (
 
       <li key={this.props.reactKey} className='collection-item'>

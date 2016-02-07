@@ -21,7 +21,6 @@ var NewGoal = React.createClass({
   handleSubmit: function(e){
     e.preventDefault();
     var form = new FormData($(e.currentTarget)[0]);
-
     $.ajax({
       url: "/goals" ,
       dataType: "JSON",
@@ -58,7 +57,7 @@ var NewGoal = React.createClass({
                 <div className="row">
                   <h6 className="bold grey-text text-darken-2 col s12 m6" style={{paddingLeft: "0.75rem"}}>
                   Checklist
-                  <a onClick={this.toggleChecklist} className="add-checklist right">Remove...</a>
+                  <a onClick={this.toggleChecklist} className="add-checklist right">Delete list...</a>
                   </h6>
                 </div>
                   {actionItemNodes}
