@@ -32,8 +32,7 @@ var Goals = React.createClass({
                  created_at: obj.goal.created_at,
                  editing: false };
       });
-      this.setState({ goals : goals });
-      this.toggleNewGoal();
+      this.setState({ goals : goals, newGoal: !this.state.newGoal});
     }.bind(this));
   },
   newGoal: function(){
