@@ -44,7 +44,7 @@
   </div>
 
   <div class="row">
-    <div class="file-field input-field col s12 m6">
+    <div class="file-field input-field col s12">
       <div class="btn teal darken-4">
         <span>Display Photo</span>
         <%= f.file_field :photo %>
@@ -54,8 +54,10 @@
           placeholder="Upload one photo" value="<%= @project.photo.original_filename %>">
       </div>
     </div>
+  </div>
 
-    <div class="file-field input-field col s12 m6">
+  <div class="row">
+    <div class="file-field input-field col s12">
       <div class="btn teal darken-4">
         <span>ATTACHMENTS</span>
         <%= file_field_tag('project_project_attachments_document', 
@@ -63,7 +65,7 @@
       </div>
       <div class="file-path-wrapper">
         <% pa_str = @project.project_attachments.map { |pa| pa.document.original_filename }.join(", ") %>
-        <input class="file-path" type="text" placeholder="Upload one or more documents" value="">
+        <input class="file-path" type="text" placeholder="Upload one or more documents" value="<%= pa_str %>" >
       </div>
     </div>
   </div>

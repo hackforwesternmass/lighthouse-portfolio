@@ -12,7 +12,6 @@ var GoalItem = React.createClass({
              show_checklist: false };
   },
   componentWillReceiveProps: function(nextProps) {
-
     var action_items = $.map(nextProps.goal.action_items, function(v, i){
       return v.action_item;
     });

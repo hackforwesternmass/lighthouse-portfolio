@@ -2,7 +2,7 @@ class ProjectAttachmentsController < ApplicationController
 
   def download
     project_attachment = ProjectAttachment.find params[:id]
-    send_file project_attachment.document.path, :filename => project_attachment.document.original_filename
+    redirect_to project_attachment.download_url
   end
 
 end
