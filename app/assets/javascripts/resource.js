@@ -5,7 +5,7 @@ $(document).on('page:change', function(){
   $(".resource-category .modal-trigger").click(function(){
 
     var $edit_category_modal = $("#edit-category-modal"),
-        $this       = $(this);
+        $this = $(this);
 
     $category = $this;
     $edit_category_modal.find("input[type='hidden']").val($this.text());

@@ -1,8 +1,6 @@
 class MeetingsController < SessionsController
   before_action :signed_in
 
-  layout "student"
-
   def create
     meeting_params[:action_items_attributes] = meeting_params[:action_items_attributes].map { | k,v | [ k, v ] unless v[:description].empty? }.compact.to_h
     @meeting = Meeting.new(meeting_params)

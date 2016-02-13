@@ -64,19 +64,20 @@
   .row{
     margin-bottom: 0;
   }
+
+  .weekday{
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    line-height: 1;
+    padding: 1rem 0;
+  }
 }
 
 .row .col.m-fifth{
   width: calc(100%/5);
 }
 
-.weekday{
-  text-align: center;
-  text-transform: uppercase;
-  font-weight: 700;
-  line-height: 1;
-  padding: 1rem 0;
-}
 
 .clear{
   &::after {

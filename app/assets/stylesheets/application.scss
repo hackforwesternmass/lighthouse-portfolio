@@ -13,6 +13,7 @@ $secondary-color: color("orange", "darken-3") !default;
 $success-color: color("teal", "base") !default;
 $error-color: color("red", "lighten-1") !default;
 $link-color: color("orange", "darken-1") !default;
+$background-color: rgb(250,250,250);
 @import "materialize";
 @import "action_plan";
 @import "calendar";
@@ -23,6 +24,7 @@ $link-color: color("orange", "darken-1") !default;
 @import "users";
 @import "resources";
 @import "sessions";
+@import "dashboard";
 
 
 body{
@@ -30,6 +32,14 @@ body{
   margin: 0;
   overflow-x: hidden;
   font-family: 'Roboto', helvetica, sans-serif;
+}
+
+.section-container{
+  overflow: hidden;
+  padding: 2rem 20px 3rem;
+  min-height: calc(100vh - 5rem);
+  background-color: $background-color;
+  width: 100%;
 }
 
 strong{
@@ -173,14 +183,6 @@ input:-webkit-autofill {
   -webkit-text-fill-color: #eee;
 }
 
-.section-container{
-  overflow: hidden;
-  padding: 2rem 5% 3rem;
-  min-height: 100vh;
-  background-color: #eee;
-  width: 100%;
-}
-
 .tag-container{
   padding: 0.5rem 0;
 }
@@ -247,6 +249,11 @@ main{
   h2 {
     font-size: 2.25rem;
   }
+
+.section-container{
+  padding-left: 0px;
+  padding-right: 0px;
+}
 
 /*  div.header-bg{
     margin-top: 70px;

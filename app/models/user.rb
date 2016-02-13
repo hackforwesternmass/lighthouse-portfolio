@@ -44,6 +44,14 @@ class User < ActiveRecord::Base
     "#{self.first_name} #{self.last_name}"
   end
 
+  def admin?
+    role == "Admin"
+  end
+
+  def student?
+    role == "Student"
+  end
+  
   def pword
     @pword ||= Password.new(password)
   end

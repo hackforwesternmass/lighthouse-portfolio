@@ -2,11 +2,11 @@
   <i class="mdi-navigation-menu grey-text "></i>
 </a>
 
-
 <ul id="slide-out" class="side-nav fixed grey darken-4 z-depth-4">
 
   <div class="side-title">C<%= image_tag "logo.png"%>MPASS</div>
 
+  <%= side_panel_link(dashboard_path, "user", "Admin") if current_user.admin? %>
   <%= side_panel_link(action_plan_path, "desktop", "Action Plan") %>
   <%= side_panel_link(calendar_path, "calendar-o", "Class Calendar") %>
   <%= side_panel_link(user_resources_path(@user), "bookmark", "Resources") %>

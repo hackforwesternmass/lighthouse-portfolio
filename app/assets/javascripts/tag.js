@@ -25,13 +25,6 @@ $(document).on('page:change', function(){
       }
     }
 
-    // UNFOCUS INPUT
-    if(e.which === 0){
-      if($input.val() !== ""){
-        setTag($input, tags);
-      }
-    }
-
   });
 
   $(document).on('click.chip', '.tag-container .chip i.fa', function () {

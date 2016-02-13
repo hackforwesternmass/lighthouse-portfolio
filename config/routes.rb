@@ -14,6 +14,10 @@ Rails.application.routes.draw do
   resources :action_items
   resources :goals
 
+  namespace :dashboard do
+    get '/', action: :index
+  end
+
   namespace :project_attachments do
     get 'download/:id', action: :download
   end

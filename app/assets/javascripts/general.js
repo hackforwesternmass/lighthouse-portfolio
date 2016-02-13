@@ -12,6 +12,13 @@ $(document).on('page:change', function(){
     Materialize.toast($('#alert').data("alert"), 3500, "red");
   }
 
+  // $(".box a").hover(function(){
+
+  //   $(this).find("i").velocity({ paddingRight: "20px" }, [ 1000, 80 ]);
+  // }, function(){
+  //   $(this).find("i").velocity({ paddingRight: "0px" }, [ 1000, 80 ]);
+  // });
+
 });
 
 

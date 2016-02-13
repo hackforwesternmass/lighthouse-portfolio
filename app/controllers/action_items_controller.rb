@@ -1,8 +1,6 @@
 class ActionItemsController < SessionsController
   before_action :signed_in
 
-  layout "student"
-
   def create
   end
 

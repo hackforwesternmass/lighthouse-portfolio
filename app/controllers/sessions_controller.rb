@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
 
     if @user
       session[:user_id] = @user.id
-      redirect_to user_projects_path(user_id: @user.id)
+      @user.admin? ? redirect_to(dashboard_path) : redirect_to(user_projects_path(user_id: @user.id))
     else
       flash[:alert] = "Your email or password were incorrect."
       redirect_to root_path
@@ -25,8 +25,9 @@ class SessionsController < ApplicationController
 
   def login
     if signed_in?
-      redirect_to user_projects_path(user_id: @user.id)
+      return redirect_to user_projects_path(user_id: @user.id)
     end
+    render layout: "public"
   end
   
   def signed_in

@@ -1,5 +1,4 @@
 class UsersController < SessionsController
-  layout "student", only: [:edit]
 
   def index
     @users = User.all

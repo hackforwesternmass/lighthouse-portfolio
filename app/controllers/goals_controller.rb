@@ -1,8 +1,6 @@
 class GoalsController < SessionsController
   before_action :signed_in
 
-  layout "student"
-
   def create
     goal_params[:action_items_attributes] = goal_params[:action_items_attributes].map { | k,v | [ k, v ] unless v[:description].empty? }.compact.to_h if goal_params[:action_items_attributes]
     @goal = Goal.new(goal_params)

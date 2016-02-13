@@ -1,0 +1,100 @@
+#dashboard{
+
+  .manager{
+    float: left;
+    width: calc(100% - 420px);
+    max-width: 100%;
+    margin-left: 20px;
+  }
+
+  .box a{
+    position: relative;
+    display: block;
+    color: #fff;
+    font-weight: 300;
+    font-size: 1.5rem;
+    padding: 20px 30px;
+    margin-bottom: 20px;
+
+    i{
+      transition: 200ms cubic-bezier(0.7,0,0.3,1);
+    }
+
+    .icon{
+      // float: right;
+      position: absolute;
+      right: 20px;
+      width: 40px;
+      text-align: center;
+      font-size: 2.1rem;
+    }
+  
+    &:hover i:not(.icon){
+      padding-right: 30px;
+    }
+
+  }
+
+  .card{
+    float: left;
+    width: 400px;
+    max-width: 100%;
+    margin-top: 0;
+
+
+    .card-action-item{
+      color: #777;
+
+      &:last-child .action-item{
+        border-bottom: none;
+      }
+    }
+
+    .weekday{
+      float: left;
+      width: 90px;
+      text-align: center;
+      height: 70px;
+      padding-top: 5px;
+      font-size: 0.85rem;
+    }
+
+    .action-item{
+      float: left;
+      border-left: 3px solid $background-color;
+      width: calc(100% - 90px);
+      padding: 10px;
+      padding-top: 2px;
+      border-bottom: 3px solid $background-color;
+    }
+
+    .name{
+      font-size: 1.2rem;
+      color: #333;
+    }
+
+    .desc{
+      padding-bottom: 5px;
+    }
+  }
+
+  .card-header{
+    font-weight: 500;
+    font-size: 1.5rem;
+    padding: 15px;
+    color: #333;
+    border-bottom: 3px solid $background-color;
+  }
+}
+
+@media screen and (max-width: $small-screen){
+  .manager{
+    width: calc(100% - 30px) !important;
+    margin: 0 15px !important;
+  }
+
+  .card{
+    width: calc(100% - 30px) !important;
+    margin: 0 15px 20px !important;
+  }
+}

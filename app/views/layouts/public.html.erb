@@ -9,11 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
-  <%= render "layouts/flash", :flash => flash %>
-  <%= render 'layouts/side_panel' %>
-  <main> 
-    <%= yield %>
-  </main>
+  <%= yield %>
   <%= javascript_include_tag "salvattore.min", :debug => false %>
 </body>
 </html>

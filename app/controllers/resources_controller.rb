@@ -1,8 +1,6 @@
 class ResourcesController < SessionsController
   before_action :signed_in
   before_action :set_resource, only: [:show, :edit, :update, :destroy]
-  
-  layout "student"
 
   def index
     @resources = current_user.resources

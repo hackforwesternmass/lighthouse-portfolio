@@ -2,8 +2,6 @@ class ProjectsController < SessionsController
   before_action :signed_in
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
-  layout "student"
-  
   def index
     @projects = @user.projects
   end
