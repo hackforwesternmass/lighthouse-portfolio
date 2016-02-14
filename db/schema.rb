@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160207124522) do
+ActiveRecord::Schema.define(version: 20160213210011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,15 +31,6 @@ ActiveRecord::Schema.define(version: 20160207124522) do
   add_index "action_items", ["goal_id"], name: "index_action_items_on_goal_id", using: :btree
   add_index "action_items", ["meeting_id"], name: "index_action_items_on_meeting_id", using: :btree
 
-  create_table "actions", force: :cascade do |t|
-    t.text     "note"
-    t.integer  "goal_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "actions", ["goal_id"], name: "index_actions_on_goal_id", using: :btree
-
   create_table "activities", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "name"
@@ -50,25 +41,16 @@ ActiveRecord::Schema.define(version: 20160207124522) do
 
   add_index "activities", ["user_id"], name: "index_activities_on_user_id", using: :btree
 
-  create_table "courses", force: :cascade do |t|
+  create_table "enrolls", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "name"
-    t.string   "description"
-    t.string   "category"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.string   "photo_file_name"
-    t.string   "photo_content_type"
-    t.integer  "photo_file_size"
-    t.datetime "photo_updated_at"
+    t.integer  "klass_id"
+    t.boolean  "completed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "courses", ["user_id"], name: "index_courses_on_user_id", using: :btree
-
-  create_table "courses_users", id: false, force: :cascade do |t|
-    t.integer "user_id",   null: false
-    t.integer "course_id", null: false
-  end
+  add_index "enrolls", ["klass_id"], name: "index_enrolls_on_klass_id", using: :btree
+  add_index "enrolls", ["user_id"], name: "index_enrolls_on_user_id", using: :btree
 
   create_table "goals", force: :cascade do |t|
     t.string   "title"
@@ -79,6 +61,16 @@ ActiveRecord::Schema.define(version: 20160207124522) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "user_id"
+  end
+
+  create_table "klasses", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "weekday"
+    t.string   "time"
+    t.string   "instructor"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "meetings", force: :cascade do |t|
@@ -199,12 +191,11 @@ ActiveRecord::Schema.define(version: 20160207124522) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  add_foreign_key "action_items", "actions"
   add_foreign_key "action_items", "goals"
   add_foreign_key "action_items", "meetings"
-  add_foreign_key "actions", "goals"
   add_foreign_key "activities", "users"
-  add_foreign_key "courses", "users"
+  add_foreign_key "enrolls", "klasses"
+  add_foreign_key "enrolls", "users"
   add_foreign_key "meetings", "users"
   add_foreign_key "portfolios", "users"
   add_foreign_key "project_attachments", "projects"

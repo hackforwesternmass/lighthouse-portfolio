@@ -23,7 +23,8 @@ div.side-title{
 	    padding-left: 35px !important;
 		  font: 300 1.2rem 'Roboto', helvetica, sans-serif;
 		  i{
-		  	padding-right: 15px;
+        width: 30px;
+        text-align: center;
 		  }
 
 		  &:hover{
@@ -54,5 +55,48 @@ div.side-title{
 	border-left-width: 5px;
 	border-left-style: solid;
 	border-left-color: #ee6508;
+}
+
+.ellipsis-link i{
+  padding: 0 !important;
+  width: 40px;
+  text-align: center;
+}
+
+.dropdown-wrapper{
+  width: 40px;
+  float: right;
+  position: relative;
+
+  &:after{
+    content: "";
+    clear: both;
+    display: table;
+  }
+}
+
+ul.dropdown{
+  position: absolute;
+  top: 64px;
+  right: 0;
+  display: none;
+
+  li{
+    display: block;
+    background-color: #343434 !important;
+    width: 150px;
+
+    a{
+      height: 35px;
+      line-height: 35px;
+      font-weight: 300;
+      color: #ddd;
+      transition: 200ms;
+
+      &:hover{
+        background-color: #555;
+      }
+    }
+  }
 }
 

@@ -1,10 +1,10 @@
-$(document).on('click', '.category-autocomplete .autocomplete-dropdown li', function(){
-	$input = $(this).closest(".category-autocomplete").find("input");
-	$(this).closest(".category-autocomplete").find("label").addClass('active');
-	setCategory($input, $(this).text(), true);
-});
-
 $(document).on('page:change', function(){
+
+  $(document).on('click', '.category-autocomplete .autocomplete-dropdown li', function(){
+    $input = $(this).closest(".category-autocomplete").find("input");
+    $(this).closest(".category-autocomplete").find("label").addClass('active');
+    setCategory($input, $(this).text(), true);
+  });
 
 	$(".category-autocomplete").each(function(){
 		$(this).append("<ul class='autocomplete-dropdown'>");
@@ -18,12 +18,12 @@ $(document).on('page:change', function(){
 	  }
 
 	  $.ajax({
-		  url: window.location.pathname.slice(0,18),
+		  url: "/resources",
 		  dataType: "json",
 		  data: { q: $input.val() }
 		})
 		.done( function(data) {
-			populateCategoryDropdown(data, $input);
+			populateCategoryDropdown(Object.keys(data), $input);
 		});
 
 	});
@@ -75,7 +75,7 @@ $(document).on('page:change', function(){
 });
 
 function populateCategoryDropdown(data, $input){
-	var html = HandlebarsTemplates['resources/category'](data);
+	var html = HandlebarsTemplates['resources/category']({ data: data, input: $input.val() });
 	$dropdown = $input.siblings(".autocomplete-dropdown");
   $dropdown.html(html);
   openAutoComplete($input, $dropdown);
@@ -98,4 +98,3 @@ function closeAutoComplete() {
 	$(".autocomplete-dropdown").slideUp(200);
 	$(".autocomplete-dropdown").html("");
 }
-

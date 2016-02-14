@@ -1,3 +1,3 @@
 collection @resources
 
-attributes :category
+attributes :link, :category, :title, :description

@@ -1,3 +1,9 @@
-{{#each this}}
-	<li>{{resource/category}}</li>
+{{#if input}}
+  {{#same-tag input data}}
+  {{/same-tag}}
+{{/if}}
+{{#each data}}
+  <li>
+  {{this}}
+  </li>
 {{/each}}

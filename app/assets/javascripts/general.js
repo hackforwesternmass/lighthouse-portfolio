@@ -12,12 +12,15 @@ $(document).on('page:change', function(){
     Materialize.toast($('#alert').data("alert"), 3500, "red");
   }
 
-  // $(".box a").hover(function(){
-
-  //   $(this).find("i").velocity({ paddingRight: "20px" }, [ 1000, 80 ]);
-  // }, function(){
-  //   $(this).find("i").velocity({ paddingRight: "0px" }, [ 1000, 80 ]);
-  // });
+  $(".ellipsis-link").click(function(e){
+    e.preventDefault();
+    $(".dropdown").show(200, function(){
+      $(document).on("click", function(){
+        $(".dropdown").hide(200);
+        $(document).off("click");
+      });
+    });
+  });
 
 });
 

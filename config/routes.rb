@@ -3,9 +3,6 @@ Rails.application.routes.draw do
   root "sessions#login"
 
   resources :users do
-    resources :resources do
-      post :change_category, on: :collection
-    end
     resources :projects do
     end
   end
@@ -13,6 +10,10 @@ Rails.application.routes.draw do
   resources :meetings
   resources :action_items
   resources :goals
+  resources :klasses, path: :class
+  resources :resources do
+    post :change_category, on: :collection
+  end
 
   namespace :dashboard do
     get '/', action: :index

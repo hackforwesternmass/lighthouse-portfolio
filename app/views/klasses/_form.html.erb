@@ -1,0 +1,43 @@
+<%= form_for @klass, html: { class: "col s12 new-resource", multipart: true } do |f| %>
+
+  <div class="row">
+    <div class="input-field col s12 m9 l5">
+      <%= f.text_field :name %>
+      <%= f.label :name, "Title" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12 m9 l5">
+      <%= f.text_area :description, class: "materialize-textarea" %>
+      <%= f.label :description %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12 m9 l5">
+      <%= f.text_field :weekday %>
+      <%= f.label :weekday %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12 m9 l5">
+      <%= f.text_field :time %>
+      <%= f.label :time %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12 m9 l5">
+      <%= f.text_field :instructor %>
+      <%= f.label :instructor %>
+    </div>
+  </div>
+
+  <div>
+    <%= content_tag :button, "Save", type: :submit, class: "waves-effect waves-light btn teal" %>
+    <%= link_to 'Delete', @klass, method: :delete, 
+      class: "waves-effect waves-light btn red" unless @klass.new_record? %>
+  </div>
+<% end %>

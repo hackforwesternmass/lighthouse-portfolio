@@ -66,8 +66,17 @@
         </div>
     </div>
     <div class="manager">
+
+ 
+      <div class="list-header">General</div>
+      <ul class="fa-ul">
+        <li><%= link_to fa_icon("angle-double-right li", text: ' Create admin account'), "#" %></li>
+        <li><%= link_to fa_icon("angle-double-right li", text: ' Manage account settings'), "#" %></li>
+        <li><%= link_to fa_icon("angle-double-right li", text: ' Setting calendar id'), "#" %></li>
+      </ul> 
+
       <div class="box orange darken-4">
-        <%= link_to "#" do %>
+        <%= link_to klasses_path do %>
           <%= fa_icon("angle-double-right", text: ' Classes') %>
           <%= fa_icon "dot-circle-o", class:  "icon no-padding" %>
         <% end %>
@@ -84,28 +93,13 @@
           <%= fa_icon "users", class:  "icon no-padding" %>
         <% end %>
       </div>
-      <div class="box orange darken-1">
+<!--       <div class="box orange darken-1">
         <%= link_to "#" do %>
           <%= fa_icon("angle-double-right", text: ' Action Items') %>
           <%= fa_icon "check-square-o", class:  "icon no-padding" %>
         <% end %>
+      </div> -->
       </div>
-      <div class="box orange">
-        <%= link_to "#" do %>
-          <%= fa_icon("angle-double-right", text: ' Administration') %>
-          <%= fa_icon "bank", class:  "icon no-padding" %>
-        <% end %>
-      </div>
-<!-- 
-      <div class="list-header">General</div>
-      <ul class="fa-ul">
-        <li><%= link_to fa_icon("angle-double-right li", text: ' Manage classes'), "#" %></li>
-        <li><%= link_to fa_icon("angle-double-right li", text: ' Manage resources'), "#" %></li>
-        <li><%= link_to fa_icon("angle-double-right li", text: ' Manage Administration'), "#" %></li>
-        <li><%= link_to fa_icon("angle-double-right li", text: ' Access student account'), "#" %></li>
-        <li><%= link_to fa_icon("angle-double-right li", text: ' Manage student accounts'), "#" %></li>
-        <li><%= link_to fa_icon("angle-double-right li", text: ' List all incomplete action items'), "#" %></li>
-      </ul> -->
     </div>
   </div>
 

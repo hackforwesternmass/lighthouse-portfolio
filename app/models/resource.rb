@@ -11,5 +11,5 @@ class Resource < ActiveRecord::Base
 
   validates :category,
   	presence: { message: "Category is required" }
-
+    
 end

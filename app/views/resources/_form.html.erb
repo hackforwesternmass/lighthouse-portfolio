@@ -1,6 +1,6 @@
 <% @category = params[:category].present? ? params[:category] : @resource.category %>
 
-<%= form_for [@user, @resource], html: { class: "col s12 new-resource", multipart: true } do |f| %>
+<%= form_for @resource, html: { class: "col s12 new-resource", multipart: true } do |f| %>
 
   <div class="row">
     <div class="input-field col s12 m9 l5">
@@ -34,7 +34,7 @@
 
   <div>
     <%= content_tag :button, "Save", type: :submit, class: "waves-effect waves-light btn teal" %>
-    <%= link_to 'Delete', [@resource.user, @resource], method: :delete, 
+    <%= link_to 'Delete', @resource, method: :delete, 
       class: "waves-effect waves-light btn red" unless @resource.new_record? %>
   </div>
 <% end %>

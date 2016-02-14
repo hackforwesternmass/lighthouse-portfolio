@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   has_many :resources, dependent: :destroy
   has_many :meetings, dependent: :destroy
   has_many :goals, dependent: :destroy
+  has_many :enrolls, dependent: :destroy
+  has_many :klasses, through: :enrolls
   
   has_many :social_mediums, dependent: :destroy
   accepts_nested_attributes_for :social_mediums, allow_destroy: true

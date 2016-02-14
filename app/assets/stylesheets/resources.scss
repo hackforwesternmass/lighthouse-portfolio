@@ -3,11 +3,15 @@
 	background-color: #fff;
 	border-left: 5px solid purple;
 
-	a{
+	.category-name{
 		font-size: 1.2rem;
 		padding: 1.3rem 2rem;
-		display: block;
 	}
+}
+
+#changing_resource_category{
+  width: calc(100% - 30px);
+  padding: 10px 15px;
 }
 
 .resource-item{

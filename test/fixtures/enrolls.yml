@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  note: MyString
-  goal_id: 
+  user_id: 
+  klass_id: 
+  completed: false
 
 two:
-  note: MyString
-  goal_id: 
+  user_id: 
+  klass_id: 
+  completed: false

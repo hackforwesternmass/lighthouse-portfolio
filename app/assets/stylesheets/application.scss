@@ -37,7 +37,7 @@ body{
 .section-container{
   overflow: hidden;
   padding: 2rem 20px 3rem;
-  min-height: calc(100vh - 5rem);
+  min-height: calc(100vh - 4rem);
   background-color: $background-color;
   width: 100%;
 }
@@ -48,7 +48,18 @@ strong{
 
 nav{
   background-color: #343434;
-  padding: 0 5%;
+  padding: 0 40px;
+
+  a.bc{
+    float: left;
+  }
+
+  i.bc, a.bc{
+    display: inline-block !important;
+    height: inherit !important;
+    line-height: inherit !important;
+    opacity: 0.6;
+  }
 }
 
 .tabs, .tab{
@@ -238,9 +249,27 @@ main{
   main{
     padding-left: 0;
   }
+
+  nav .brand-logo{
+    left: 0;
+    transform: none;
+  }
 }
 
 @media only screen and (max-width : 590px){
+
+  nav{
+    padding: 0 15px;
+  }
+
+  nav .brand-logo{
+    font-size: 1rem;
+    line-height: 56px;
+
+    i{
+      font-size: 1rem;
+    }
+  }
 
   h1 {
     font-size: 3rem;
@@ -250,13 +279,10 @@ main{
     font-size: 2.25rem;
   }
 
-.section-container{
-  padding-left: 0px;
-  padding-right: 0px;
-}
+  .section-container{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
 
-/*  div.header-bg{
-    margin-top: 70px;
-  }*/
 }
 

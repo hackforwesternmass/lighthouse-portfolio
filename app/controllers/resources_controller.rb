@@ -4,6 +4,12 @@ class ResourcesController < SessionsController
 
   def index
     @resources = current_user.resources
+
+    respond_to do |format|
+      format.json { render json: @resources.group_by(&:category) }
+      format.html 
+    end
+
   end
 
   def new
@@ -13,7 +19,7 @@ class ResourcesController < SessionsController
   def create
     @resource = current_user.resources.build(resource_params)
       if @resource.save
-        redirect_to user_resources_path(current_user), flash: { notice: 'Resource created' }
+        redirect_to resources_path, flash: { notice: 'Resource created' }
       else
         flash.now[:alert] = 'Could not create your resource, try again!'
         render :new
@@ -22,7 +28,7 @@ class ResourcesController < SessionsController
 
   def update
     if @resource.update_attributes(resource_params)
-      redirect_to user_resources_path(current_user), flash: { notice: "Resource updated" }
+      redirect_to resources_path, flash: { notice: "Resource updated" }
     else
       flash.now[:alert] = "Could not update resource"
       render :edit
@@ -49,7 +55,7 @@ class ResourcesController < SessionsController
 
   def destroy
     @resource.destroy
-    redirect_to [current_user, @resource], flash: { notice: "Resource removed" }
+    render json: {}
   end
 
   private

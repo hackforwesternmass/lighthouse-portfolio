@@ -23,6 +23,11 @@
     background-color: #fff;
     cursor: pointer;
 
+    &:first-child > span{
+      float: right;
+      color: #aaa;
+    }
+    
     &.selected{
       background-color: #eee;
     }

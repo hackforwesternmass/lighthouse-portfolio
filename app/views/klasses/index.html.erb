@@ -1,0 +1,31 @@
+<nav>
+  <div class="nav-wrapper">
+    <div class="brand-logo">
+      <%= link_to "Admin Dashboard", dashboard_path, class: "bc" %>
+      &nbsp;
+      <%= fa_icon "angle-double-right", class: "no-padding bc", text: "Classes" %>
+    </div>
+    <div class="dropdown-wrapper hide-on-small-only">
+      <%= link_to fa_icon("ellipsis-h"), "#", class: "right ellipsis-link" %>
+      <ul class="dropdown z-depth-1">
+        <li><%= link_to "Create class", new_klass_path %></li>
+        <li><%= link_to "Edit class", "#" %></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<section id="dashboard" class="section-container" style="padding-left: 40px;">
+
+  <% if @klasses.empty? %>
+    <h3>No classes currently exist.</h3>
+    <%= link_to "Create one", new_klass_path, class: "btn wave cyan lighter-2" %>
+  <% end %>
+
+  <% @klasses.each do |klass| %>
+    <h5 class="no-margin bold"><%= klass.name %></h5>
+    <div class="instructor"><%= klass.instructor %></div>
+    <div class="time"><%= "#{klass.weekday}, #{klass.time}" %></div>
+  <% end %>
+
+</section>
