@@ -70,9 +70,9 @@
  
       <div class="list-header">General</div>
       <ul class="fa-ul">
-        <li><%= link_to fa_icon("angle-double-right li", text: ' Create admin account'), "#" %></li>
-        <li><%= link_to fa_icon("angle-double-right li", text: ' Manage account settings'), "#" %></li>
-        <li><%= link_to fa_icon("angle-double-right li", text: ' Setting calendar id'), "#" %></li>
+        <li><%= link_to fa_icon("angle-double-right li", text: ' Create admin account'), new_user_path(role: :admin) %></li>
+        <li><%= link_to fa_icon("angle-double-right li", text: ' Manage account settings'), edit_user_path(current_user) %></li>
+        <li><%= link_to fa_icon("angle-double-right li", text: ' Manage calendar'), manage_calendar_path %></li>
       </ul> 
 
       <div class="box orange darken-4">

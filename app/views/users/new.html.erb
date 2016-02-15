@@ -1,40 +1,10 @@
-<section id="home-1">
-  <span class="thetitle">Compass<br><small>centre for self-directed learning</small></span>
+<section  class="section-container" style="min-height: 100vh;">
 
-  <div id="login-signup-container">
-
-    <div class="login-signup-header">
-      <div class="login-header">
-        <%= link_to "Login", root_path %>
-      </div>
-      <div class="signup-header" style="border-bottom: 5px solid #ee6508;">
-        <%= link_to "Sign Up", new_user_path %>
-      </div>
-    </div>
-      <% if @user.errors.any? %>
-        <div id="error_explanation">
-          <ul>
-          <% @user.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
-    <%= form_for(@user) do |f| %>
-    <div class="halfer">
-      <%= f.text_field :first_name, placeholder: "FIRST NAME", class: "half-login-field" %>
-      <%= f.text_field :last_name, placeholder: "LAST NAME", class: "half-login-field", style: "float: right;" %>
-    </div>
-      <%= f.email_field :email, placeholder: "EMAIL", class: "login-field" %>
-    <div class="halfer">
-      <%= f.password_field :password, placeholder: "PASSWORD", class: "half-login-field" %>
-      <%= f.password_field :password_confirmation, placeholder: "PASSWORD CONFIRMATION", class: "half-login-field", 
-      style: "float: right;" %>
-    </div>
-      <%= f.submit "Sign Up", class: "login_button" %>
-    <% end %>
+  <div class="row">
+    <h1 class="teal-text center-align">New Admin Account</h1>
   </div>
+
+  <%= render 'form' %>
+
 </section>
-
-
 

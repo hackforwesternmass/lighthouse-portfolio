@@ -1,4 +1,5 @@
 class UsersController < SessionsController
+  before_action :admin_only, only: [:create, :new, :edit, :update]
 
   def index
     @users = User.all
@@ -12,22 +13,29 @@ class UsersController < SessionsController
   end
 
   def edit
+    @user = User.find params[:id]
+  end
+
+  def edit_profile
   end
 
   def create
     @user = User.new(user_params)
-    @user.role = "Student"
     @user.pword = params[:user][:password] if @user.valid?
 
     if @user.save
-      session[:user_id] = @user.id
-      redirect_to user_projects_path(@user), notice: 'Your account was successfully created.'
+      if @user.admin?
+        redirect_to admin_dashboard_path, notice: 'Admin account successfully created.'
+      else
+        redirect_to admin_dashboard_path, notice: 'Student account successfully created.'
+      end
     else
       render 'new'
     end
   end
 
   def update
+
     prefix = ['Darn! ', 'Dang! ', 'Oh Snap! '].sample
 
     if current_user.update(user_params)
@@ -49,7 +57,7 @@ class UsersController < SessionsController
   private
     def user_params
       params.require(:user).permit(:first_name, :last_name, :avatar,
-        :username, :email, :password, :password_confirmation, :description, 
+        :role, :email, :password, :password_confirmation, :description, 
         social_mediums_attributes: [:link, :name,:_destroy, :id])
     end
 end

@@ -3,10 +3,15 @@ Rails.application.routes.draw do
   root "sessions#login"
 
   resources :users do
+    get :edit_profile
     resources :projects do
     end
   end
 
+  resource  :calendar, except: [:new, :edit, :show, :destroy] do 
+    get :manage
+    get "/", action: :calendar
+  end
   resources :meetings
   resources :action_items
   resources :goals
@@ -15,8 +20,8 @@ Rails.application.routes.draw do
     post :change_category, on: :collection
   end
 
-  namespace :dashboard do
-    get '/', action: :index
+  namespace :admin do
+    get :dashboard
   end
 
   namespace :project_attachments do
@@ -27,10 +32,6 @@ Rails.application.routes.draw do
     post :login_authentication
     get  :logout
     get  :login
-  end
-
-  namespace :calendar, path: '/', as: nil do
-    get :calendar
   end
 
   namespace :action_plan, path: '/', as: nil do

@@ -30,6 +30,7 @@ $(document).on('page:change', function(){
 
 function loadUpcomingWeekEvents(week_start){
 
+  var calendar_id = document.querySelector('#calendar-id').dataset.calendarId;
   week_end = moment(week_start).add(5, 'days').format("YYYY-MM-DDT00:00:00Z");
   var calendar_url = "https://www.googleapis.com/calendar/v3/calendars/"+calendar_id 
                     +"/events?orderBy=startTime&singleEvents=true&timeMin="+week_start
@@ -62,6 +63,9 @@ function loadUpcomingWeekEvents(week_start){
 
     doubleDecker();
 
+  }).fail(function(){
+    $("#week-calendar").html("<h5 class='center-align'>Failed to load data using the following calendar id: <br><b>" + calendar_id +  "</b><h5>")
+    $("#agenda-calendar").html("<h5 class='center-align'>Failed to load data using the following calendar id: <br><b>" + calendar_id +  "</b><h5>")
   });
 
 

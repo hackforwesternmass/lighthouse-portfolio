@@ -1,78 +1,21 @@
-<section  class="section-container">
+<section  class="section-container" style="min-height: 100vh;">
 
   <div class="row">
-    <h1 class="teal-text center-align">Edit Profile</h1>
+    <h3 class="teal-text col s12">Edit Account</h3>
   </div>
 
-  <%= form_for current_user, html: { class: "col s12 edit-student" } do |f| %>
+  <%= render 'form' %>
 
-    <div class="row">
+  <br>
+  <br>
 
-      <div class="col s12 m3">
-
-        <div class="row">
-          <div class="avatar-column">
-            <%= image_tag current_user.avatar.url, class: 'edit-avatar' %>
-          </div>
-
-          <label class="custom-file-upload waves-effect waves-light btn teal">
-            <%= f.file_field :avatar %>
-            <%= fa_icon "camera", text: "CHANGE" %> 
-          </label>
-        </div>
-      
-      </div>
-
-      <div class="col s12 m9">
-
-        <div class="row">
-          <div class="input-field col m6 s12">
-          <%= f.text_field :first_name %>
-          <%= f.label :first_name, "FIRST NAME" %>
-          </div>
-
-          <div class="input-field col m6 s12">
-          <%= f.text_field :last_name %>
-          <%= f.label :last_name, "LAST NAME" %>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s12">
-          <%= f.text_area :description, placeholder: '140 characters maximum', length: "140", class: "materialize-textarea"  %>
-          <%= f.label :description, "SHORT BIO" %>
-          </div> 
-        </div>
-
-    </div>
+  <div class="delete-user">
+    Delete Account<br>
+    <span>Once you delete your account there is no going back. It is deleted permanently.</span>
   </div>
 
+  <%= link_to 'Delete account', @user, method: :delete, data: 
+    { confirm: 'Are you positive that you want to delete this account?' }, 
+    class: 'delete btn red' %>
 
-    <div class="row teal-text">
-      <h5>You on the web</h5>
-    </div>
-    <%= f.nested_fields_for :social_mediums do |ff| %>
-      <div class="row">
-        <div class="input-field col s12 m5">
-          <%= ff.url_field :link %>
-          <%= ff.label :link, "LINK" %>
-        </div>
-        <div class="input-field col s12 m6">
-          <%= ff.text_field :name %>
-          <%= ff.label :name, "SHORT TITLE"%>
-        </div>
-        <div class="input-field col s12 m1">
-        <%= ff.remove_nested_fields_link fa_icon("trash-o", class: "no-padding"), 
-          class: "waves-effect waves-light btn red" %>
-        </div>
-      </div>
-    <% end %>
-    <%= f.add_nested_fields_link :social_mediums, fa_icon("plus-circle", text: "Add Link"), class: " waves-effect waves-light btn cyan" %>
-    <br>
-    <br>
-
-
-    <%= content_tag :button, "Save", type: :submit, class: "waves-effect waves-light btn teal" %>
-
-  <% end %>
 </section>

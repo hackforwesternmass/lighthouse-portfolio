@@ -188,12 +188,6 @@ hr.light{
   height: 4px;
 }
 
-input:-webkit-autofill {
-  background-color: #222 !important;
-  -webkit-box-shadow:0 0 0 50px #222 inset;
-  -webkit-text-fill-color: #eee;
-}
-
 .tag-container{
   padding: 0.5rem 0;
 }
@@ -208,36 +202,46 @@ input:-webkit-autofill {
   }
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  transition: background-color 5000s ease-in-out 0s;
-}
+#login-signup-container{
 
-input{
-    &::selection {
-      background: #aaa;
+  input:-webkit-autofill {
+    background-color: #222 !important;
+    -webkit-box-shadow:0 0 0 50px #222 inset;
+    -webkit-text-fill-color: #eee;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  input{
+      &::selection {
+        background: #aaa;
+      }
+      &::-moz-selection {
+        background: #aaa
+      }
+      &:-webkit-autofill {
+        -webkit-text-fill-color: #222 !important;
+      }
     }
-    &::-moz-selection {
-      background: #aaa
-    }
-    &:-webkit-autofill {
-      -webkit-text-fill-color: #222 !important;
+  #new_user{
+    & input{
+      &::selection {
+        background: #aaa;
+      }
+      &::-moz-selection {
+        background: #aaa
+      }
+      &:-webkit-autofill {
+        -webkit-text-fill-color: white !important;
+      }
     }
   }
-#new_user{
-  & input{
-    &::selection {
-      background: #aaa;
-    }
-    &::-moz-selection {
-      background: #aaa
-    }
-    &:-webkit-autofill {
-      -webkit-text-fill-color: white !important;
-    }
-  }
+
 }
 
 main{

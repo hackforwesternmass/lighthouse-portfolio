@@ -1,0 +1,50 @@
+<nav>
+  <div class="nav-wrapper">
+    <div class="brand-logo">
+      <%= link_to "Admin Dashboard", admin_dashboard_path, class: "bc" %>
+      &nbsp;
+      <%= fa_icon "angle-double-right", class: "no-padding bc", text: "Manage Calendar" %>
+    </div>
+  </div>
+</nav>
+
+<section id="dashboard" class="section-container" style="padding-left: 40px;">
+
+  <div class="row">
+    <h3 class="teal-text col s12">Manage Calendar</h3>
+  </div>
+
+
+  <%= form_for @calendar, url: calendar_path do |f| %>
+
+    <div class="row">
+      <div class="input-field col s12 m6">
+        <%= f.text_field :calendar_id %>
+        <%= f.label :calendar_id, "Calendar Id" %>
+        <div class="grey-text" style="font-size: 0.9rem; font-weight: 300;">The calendar id is not validated when saved.</div>
+
+      </div>
+    </div>
+
+
+    <br>
+
+    <div class="row">
+
+      <div class="switch col s12 m9 l5">
+
+        <label for="_calendar_show" style="font-size: 1rem; margin-bottom: 15px; display: block;">Calendar Page</label>
+        <%= f.label :show do %>
+          Hide
+          <%= f.check_box :show %>
+          <span class="lever"></span>
+          Show
+        <% end %>
+      </div>
+    </div>
+
+    <%= content_tag :button, "Save", type: :submit, class: "waves-effect waves-light btn teal" %>
+
+  <% end %>
+
+</section>

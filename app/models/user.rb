@@ -14,10 +14,10 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :projects
 
   validates :first_name, 
-    presence: { message: "First name is required"}
+    presence: { message: "First name is required" }
 
   validates :last_name, 
-    presence: { message: "Last name is required"}
+    presence: { message: "Last name is required" }
 
   validates :description,
     length: { maximum: 140, message: "140 character max" }
@@ -47,11 +47,11 @@ class User < ActiveRecord::Base
   end
 
   def admin?
-    role == "Admin"
+    role == "admin"
   end
 
   def student?
-    role == "Student"
+    role == "student"
   end
   
   def pword

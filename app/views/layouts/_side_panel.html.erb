@@ -6,9 +6,9 @@
 
   <div class="side-title">C<%= image_tag "logo.png"%>MPASS</div>
 
-  <%= side_panel_link(dashboard_path, "user", "Admin") if current_user.admin? %>
+  <%= side_panel_link(admin_dashboard_path, "user", "Admin") if current_user.admin? %>
   <%= side_panel_link(action_plan_path, "desktop", "Action Plan") %>
-  <%= side_panel_link(calendar_path, "calendar-o", "Class Calendar") %>
+  <%= side_panel_link(calendar_path, "calendar-o", "Class Calendar") if Calendar.first.try(:show) %>
   <%= side_panel_link(resources_path, "bookmark", "Resources") %>
   <%= side_panel_link(user_projects_path(@user), "user", "Portfolio") %>
 

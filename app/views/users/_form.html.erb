@@ -1,42 +1,38 @@
-<%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<%= form_for @user do |f| %>
 
-      <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-      
-    </div>
-  <% end %>
+  <%= f.hidden_field :role, value: params[:role] %>
 
-  <div class="field">
-    <%= f.label :first_name %><br>
+  <div class="row">
+    <div class="input-field col m6 s12">
     <%= f.text_field :first_name %>
-  </div>
-  <div class="field">
-    <%= f.label :last_name %><br>
+    <%= f.label :first_name, "FIRST NAME" %>
+    </div>
+
+    <div class="input-field col m6 s12">
     <%= f.text_field :last_name %>
+    <%= f.label :last_name, "LAST NAME" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :username %><br>
-    <%= f.text_field :username %>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.email_field :email %>
+    <%= f.label :email  %>
+    </div> 
   </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.email_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :password %><br>
+
+  <div class="row">
+    <div class="input-field col m6 s12">
     <%= f.password_field :password %>
-  </div>
-  <div class="field">
-    <%= f.label :password_confirmation %><br>
+    <%= f.label :password %>
+    </div>
+
+    <div class="input-field col m6 s12">
     <%= f.password_field :password_confirmation %>
+    <%= f.label :password_confirmation %>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+  <%= content_tag :button, "Save", type: :submit, class: "waves-effect waves-light btn teal" %>
+
 <% end %>

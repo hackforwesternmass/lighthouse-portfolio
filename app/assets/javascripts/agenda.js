@@ -1,4 +1,3 @@
-var calendar_id = "compassteens.org_37shup3jm2eldvqhcj9r018hec@group.calendar.google.com"
 var calendar_max_time;
 var no_events = false;
 
@@ -23,6 +22,8 @@ $(document).on('click', '.agenda-event', function(){
 });
 
 function loadUpcomingAgendaEvents(calendar_min_time, first_iteration){
+
+  var calendar_id = document.querySelector('#calendar-id').dataset.calendarId;
   calendar_max_time = moment(calendar_min_time).add(30, 'days').format("YYYY-MM-DDT00:00:00Z");
   var calendar_url = "https://www.googleapis.com/calendar/v3/calendars/"+calendar_id 
                     +"/events?orderBy=startTime&singleEvents=true&timeMin="+calendar_min_time

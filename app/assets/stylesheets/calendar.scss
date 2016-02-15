@@ -58,7 +58,9 @@
 
 #week-calendar{
   @include transition(200ms);
-  padding: 0;
+  // padding: 0;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
   min-height: calc(100vh - 124px);
 
   .row{
