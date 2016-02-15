@@ -1,8 +1,11 @@
 class SocialMedium < ActiveRecord::Base
   belongs_to :user
   
-  validates :name, presence: true
-  validates :link, presence: true
+  validates :name, 
+    presence: { message: "Short title is required." }
+    
+  validates :link, 
+    presence: { message: "Link is required." }
 
   before_save do
     self.icon = find_icon

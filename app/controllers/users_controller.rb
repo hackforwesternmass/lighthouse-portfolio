@@ -44,9 +44,8 @@ class UsersController < SessionsController
     if @user.update(user_params)
       redirect_to user_projects_path(user_id: @user.id), flash: { notice: "Profile successfully updated!" }
     else
-      byebug
       flash.now[:alert] = prefix << "Change a few things up and try submitting again."
-      if (request.referrer == edit_user_url(current_user)) then render :edit else render :edit_profile end
+      if (request.referrer == edit_user_url(@user)) then render :edit else render :edit_profile end
     end
   end
 
