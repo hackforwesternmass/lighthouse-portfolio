@@ -4,10 +4,12 @@ class KlassesController < SessionsController
 
   def index
     @klasses = Klass.all
+    @highlight_sidebar = "Admin"
   end
 
   def new
     @klass = Klass.new
+    @highlight_sidebar = "Admin"
   end
 
   def create

@@ -1,7 +1,17 @@
-<section  class="section-container" style="min-height: 100vh;">
+<nav>
+  <div class="nav-wrapper">
+    <div class="brand-logo">
+      <%= link_to "Admin Dashboard", admin_dashboard_path, class: "bc" %>
+      &nbsp;
+      <%= fa_icon "angle-double-right", class: "no-padding bc", text: "Account Settings" %>
+    </div>
+  </div>
+</nav>
+
+<section  class="section-container"
 
   <div class="row">
-    <h3 class="teal-text col s12">Edit Account</h3>
+    <h3 class="teal-text col s12">Account Settings</h3>
   </div>
 
   <%= render 'form' %>

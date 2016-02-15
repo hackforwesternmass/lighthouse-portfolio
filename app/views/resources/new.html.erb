@@ -1,8 +1,14 @@
-<section class="section-container" style="min-height: 100vh;">
-
-  <div class="row">
-    <h3 class="teal-text col s12">New Resource</h3>
+<nav>
+  <div class="nav-wrapper">
+    <div class="brand-logo">
+      <%= link_to (params[:general].nil? ? "Resources" : "Admin Dashboard"), resources_path, class: "bc" %>
+      &nbsp;
+      <%= fa_icon "angle-double-right", class: "no-padding bc", text: "New Resource" %>
+    </div>
   </div>
+</nav>
+
+<section class="section-container" style="min-height: 100vh;">
 
   <%= render 'form' %>
 

@@ -14,6 +14,7 @@ class ResourcesController < SessionsController
 
   def new
     @resource = Resource.new
+    params[:general].nil? ? @highlight_sidebar = "Resources" : @highlight_sidebar = "Admin"
   end
 
   def create
@@ -48,6 +49,7 @@ class ResourcesController < SessionsController
   end
   
   def edit
+    @highlight_sidebar = "Resources"
   end
 
   def show
@@ -65,7 +67,7 @@ class ResourcesController < SessionsController
     end
 
     def resource_params
-      params.require(:resource).permit(:link, :category, :title, :description)
+      params.require(:resource).permit(:link, :category, :title, :description, :general)
     end
 
 end

@@ -1,5 +1,6 @@
 class ProjectsController < SessionsController
   before_action :signed_in
+  before_action :set_sidebar
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -10,6 +11,7 @@ class ProjectsController < SessionsController
     @project = current_user.projects.build
     @project.project_attachments.build
     @project.tags.build
+
   end
 
   def create
@@ -41,6 +43,10 @@ class ProjectsController < SessionsController
   end
 
   private
+
+    def set_sidebar
+      @highlight_sidebar = "Portfolio"
+    end
 
     def set_project
       @project = Project.find(params[:id])

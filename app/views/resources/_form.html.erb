@@ -1,6 +1,6 @@
 <% @category = params[:category].present? ? params[:category] : @resource.category %>
 
-<%= form_for @resource, html: { class: "col s12 new-resource", multipart: true } do |f| %>
+<%= form_for @resource, html: { multipart: true } do |f| %>
 
   <div class="row">
     <div class="input-field col s12 m9 l5">
@@ -31,6 +31,17 @@
     </div>
   </div>
 
+  <% if current_user.admin? %>
+    <div class="row">
+      <div class="switch col s12 m9 l5">
+        <label for="_calendar_show" style="font-size: 1rem; margin-bottom: 15px; display: block;">Set general resource</label>
+        <%= f.label :general do %>
+          <%= f.check_box :general, checked: params[:general].present? %>
+          <span class="lever"></span>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 
   <div>
     <%= content_tag :button, "Save", type: :submit, class: "waves-effect waves-light btn teal" %>

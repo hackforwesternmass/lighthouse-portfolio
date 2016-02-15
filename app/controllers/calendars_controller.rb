@@ -6,6 +6,7 @@ class CalendarsController < SessionsController
 
   def manage
     @calendar = Calendar.first || Calendar.new
+    @highlight_sidebar = "Admin"
   end
 
   def create
