@@ -1,7 +1,11 @@
 <nav>
   <div class="nav-wrapper">
     <div class="brand-logo">
-      <%= link_to (params[:general].nil? ? "Resources" : "Admin Dashboard"), resources_path, class: "bc" %>
+      <% if params[:general] %>
+        <%= link_to "Admin Dashboard", admin_dashboard_path, class: "bc" %>
+      <% else %>
+        <%= link_to "Resources", resources_path, class: "bc" %>
+      <% end %>
       &nbsp;
       <%= fa_icon "angle-double-right", class: "no-padding bc", text: "New Resource" %>
     </div>
@@ -9,6 +13,10 @@
 </nav>
 
 <section class="section-container" style="min-height: 100vh;">
+
+  <div class="row">
+    <h3 class="teal-text col s12">New Resource</h3>
+  </div>
 
   <%= render 'form' %>
 

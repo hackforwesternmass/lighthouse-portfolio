@@ -16,7 +16,7 @@ class Project < ActiveRecord::Base
     presence: { message: "Title is required" }
 
   validates :description,
-    length: { maximum: 200, message: "200 character max" }
+    length: { maximum: 200, too_long: "%{count} characters is the maximum allowed" }
 
   def next
     ids = Project.where(user_id: self.user_id).pluck :id

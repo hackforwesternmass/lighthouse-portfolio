@@ -249,6 +249,11 @@ main{
   width: 100vw;
 }
 
+.small-input{
+  width: 500px;
+  padding: 0 0.75rem;
+}
+
 @media only screen and (max-width : 992px) {
   main{
     padding-left: 0;
@@ -261,6 +266,10 @@ main{
 }
 
 @media only screen and (max-width : 590px){
+
+.small-input{
+  width: 100% !important;
+}
 
   nav{
     padding: 0 15px;

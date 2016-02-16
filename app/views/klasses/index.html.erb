@@ -3,7 +3,7 @@
     <div class="brand-logo">
       <%= link_to "Admin Dashboard", admin_dashboard_path, class: "bc" %>
       &nbsp;
-      <%= fa_icon "angle-double-right", class: "no-padding bc", text: "Classes" %>
+      <%= fa_icon "angle-double-right", class: "no-padding bc", text: "Manage Classes" %>
     </div>
     <div class="dropdown-wrapper hide-on-small-only">
       <%= link_to fa_icon("ellipsis-h"), "#", class: "right ellipsis-link" %>
@@ -15,7 +15,7 @@
   </div>
 </nav>
 
-<section id="dashboard" class="section-container" style="padding-left: 40px;">
+<section id="dashboard" class="section-container">
 
   <% if @klasses.empty? %>
     <h3>No classes currently exist.</h3>

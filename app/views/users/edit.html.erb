@@ -3,7 +3,7 @@
     <div class="brand-logo">
       <%= link_to "Admin Dashboard", admin_dashboard_path, class: "bc" %>
       &nbsp;
-      <%= fa_icon "angle-double-right", class: "no-padding bc", text: "Account Settings" %>
+      <%= fa_icon "angle-double-right", class: "no-padding bc", text: ((params[:role] == "student") ? "Student Account Settings" : "Account Settings" ) %>
     </div>
   </div>
 </nav>
@@ -21,7 +21,7 @@
 
   <div class="delete-user">
     Delete Account<br>
-    <span>Once you delete your account there is no going back. It is deleted permanently.</span>
+    <span>Once you delete this account there is no going back. It is deleted permanently.</span>
   </div>
 
   <%= link_to 'Delete account', @user, method: :delete, data: 

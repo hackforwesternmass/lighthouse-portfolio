@@ -23,7 +23,7 @@ class ResourcesController < SessionsController
       if @resource.save
         redirect_to resources_path, flash: { notice: 'Resource created' }
       else
-        flash.now[:alert] = 'Could not create your resource, try again!'
+        # flash.now[:alert] = 'Could not create your resource, try again!'
         render :new
       end
   end

@@ -38,7 +38,7 @@ class KlassesController < SessionsController
 
   def destroy
     @klass.destroy
-    redirect_to [current_user, @klass], flash: { notice: "Class removed" }
+    redirect_to @klass, flash: { notice: "Class removed" }
   end
 
   private

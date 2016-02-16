@@ -2,7 +2,8 @@ class UsersController < SessionsController
   before_action :admin_only, only: [:create, :new, :edit, :update]
 
   def index
-    @users = User.all
+    @students = User.students
+    @highlight_sidebar = "Admin"
   end
 
   def show

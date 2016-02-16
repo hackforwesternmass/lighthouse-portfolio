@@ -1,0 +1,38 @@
+<nav>
+  <div class="nav-wrapper">
+    <div class="brand-logo">
+      <%= link_to "Admin Dashboard", admin_dashboard_path, class: "bc" %>
+      &nbsp;
+      <%= fa_icon "angle-double-right", class: "no-padding bc", text: "Manage Students" %>
+    </div>
+    <div class="dropdown-wrapper hide-on-small-only">
+      <%= link_to fa_icon("ellipsis-h"), "#", class: "right ellipsis-link" %>
+      <ul class="dropdown z-depth-1">
+        <li><%= link_to "Register student", new_user_path(role: :student) %></li>
+        <li><%= link_to "Edit class", "#" %></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<section id="dashboard" class="section-container">
+
+<table>
+  <tr>
+    <th>Student Name</th>
+    <th>Access</th>
+    <th>Account setting</th>
+    <th>Enroll into classes</th>
+  </tr>
+
+  <% @students.each do |student| %>
+  <tr>
+    <td><%= student.full_name %></td>
+    <td><%= link_to fa_icon("dot-circle-o"), "#" %></td>
+    <td><%= link_to fa_icon("pencil"), edit_user_path(role: "student", id: student.id) %></td>
+    <td><%= link_to fa_icon("book"), "#" %></td>
+  </tr>
+  <% end %>
+</table>  
+
+</section>

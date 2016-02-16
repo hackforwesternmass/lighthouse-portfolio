@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   include BCrypt
 
+  scope :students, -> { where(role: "student" ) }
   has_many :resources, dependent: :destroy
   has_many :meetings, dependent: :destroy
   has_many :goals, dependent: :destroy
