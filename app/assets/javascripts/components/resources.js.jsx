@@ -133,10 +133,18 @@ var ResourceCategories = React.createClass({
 
     var categoryName;
 
-    if(this.state.editing){
-      categoryName = <input type="text" id="changing_resource_category" onBlur={this.changeCategoryName} defaultValue={this.state.categoryName} />;
+    if(this.state.general){
+      if(this.state.editing && this.props.isAdmin){
+        categoryName = <input type="text" id="changing_resource_category" onBlur={this.changeCategoryName} defaultValue={this.state.categoryName} />;
+      }else{
+        categoryName = <div className="category-name truncate" href="#">{this.state.categoryName}</div>;
+      }
     }else{
-      categoryName = <div className="category-name truncate" href="#">{this.state.categoryName}</div>;
+      if(this.state.editing){
+        categoryName = <input type="text" id="changing_resource_category" onBlur={this.changeCategoryName} defaultValue={this.state.categoryName} />;
+      }else{
+        categoryName = <div className="category-name truncate" href="#">{this.state.categoryName}</div>;
+      }   
     }
 
     var resourceNodes = this.state.resources.map(function(resource, i){
