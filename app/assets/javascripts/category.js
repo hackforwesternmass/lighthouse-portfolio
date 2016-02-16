@@ -3,7 +3,7 @@ $(document).on('page:change', function(){
   $(document).on('click', '.category-autocomplete .autocomplete-dropdown li', function(){
     $input = $(this).closest(".category-autocomplete").find("input");
     $(this).closest(".category-autocomplete").find("label").addClass('active');
-    setCategory($input, $(this).text(), true);
+    setCategory($input, $(this).text().replace("Create category", "").trim(), true);
   });
 
 	$(".category-autocomplete").each(function(){
@@ -23,7 +23,7 @@ $(document).on('page:change', function(){
 		  data: { q: $input.val() }
 		})
 		.done( function(data) {
-			populateCategoryDropdown(Object.keys(data), $input);
+			populateCategoryDropdown( $.unique(Object.keys(data.resources).concat(Object.keys(data.general_resources))), $input);
 		});
 
 	});

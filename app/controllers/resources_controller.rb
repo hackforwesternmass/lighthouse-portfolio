@@ -3,10 +3,11 @@ class ResourcesController < SessionsController
   before_action :set_resource, only: [:show, :edit, :update, :destroy]
 
   def index
-    @resources = current_user.resources
+    @resources = current_user.resources.where(general: [nil, false]).group_by(&:category)
+    @general_resources = Resource.where(general: true).group_by(&:category)
 
     respond_to do |format|
-      format.json { render json: @resources.group_by(&:category) }
+      format.json { render json: { general_resources: @general_resources, resources: @resources } }
       format.html 
     end
 

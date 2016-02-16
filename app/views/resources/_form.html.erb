@@ -1,5 +1,3 @@
-<% @category = params[:category].present? ? params[:category] : @resource.category %>
-
 <%= form_for @resource, html: { multipart: true } do |f| %>
 
   <div class="row">
@@ -26,7 +24,7 @@
 
   <div class="row">
     <div class="input-field col s12 m9 l5 category-autocomplete">
-      <%= f.text_field :category, value: @category %>
+      <%= f.text_field :category %>
       <%= f.label :category %>
     </div>
   </div>
@@ -36,7 +34,7 @@
       <div class="switch col s12 m9 l5">
         <label for="_calendar_show" style="font-size: 1rem; margin-bottom: 15px; display: block;">Set general resource</label>
         <%= f.label :general do %>
-          <%= f.check_box :general, checked: params[:general].present? %>
+          <%= f.check_box :general, checked: (params[:general].present? || @resource.general) %>
           <span class="lever"></span>
         <% end %>
       </div>

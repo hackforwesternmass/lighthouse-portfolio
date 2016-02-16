@@ -7,6 +7,10 @@
 		font-size: 1.2rem;
 		padding: 1.3rem 2rem;
 	}
+
+  &.general{
+    border-color: $secondary-color;
+  }
 }
 
 #changing_resource_category{
@@ -17,6 +21,15 @@
 .resource-item{
 	min-height: 325px;
 	font-size: 1.1rem;
+
+  .resource-link{
+    color: purple;
+  }
+
+  .general.resource-link{
+    color: $secondary-color;
+  }
+
 	& li{
 		padding: 0.5rem 0;
 

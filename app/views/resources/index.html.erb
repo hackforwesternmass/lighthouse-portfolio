@@ -1,1 +1,1 @@
-<%= react_component "Resources", { userId: current_user.id, authenticityToken: form_authenticity_token } %>
+<%= react_component "Resources", { isAdmin: @user.admin?, authenticityToken: form_authenticity_token } %>

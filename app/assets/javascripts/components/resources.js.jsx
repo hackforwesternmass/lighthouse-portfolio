@@ -1,11 +1,12 @@
 var Resources = React.createClass({
 
   getInitialState: function() {
-    return { resourceGrouping: {}, editing: false }
+    return { generalResourceGrouping: {} ,resourceGrouping: {}, editing: false }
   },
   componentDidMount: function() {
     $.getJSON("/resources" , function(data){
-      this.setState({ resourceGrouping : data });
+      this.setState({ generalResourceGrouping: data.general_resources, 
+        resourceGrouping: data.resources });
       salvattore.init();
     }.bind(this));
   },
@@ -21,6 +22,7 @@ var Resources = React.createClass({
   render: function() {
 
     var categories = [];
+    var generalCategories = [];
 
     for (var key in this.state.resourceGrouping) {
       if (this.state.resourceGrouping.hasOwnProperty(key)) {
@@ -28,11 +30,28 @@ var Resources = React.createClass({
       }
     }
 
+    for (var key in this.state.generalResourceGrouping) {
+      if (this.state.generalResourceGrouping.hasOwnProperty(key)) {
+        generalCategories.push(key);
+      }
+    }
+
     var resourceCategories = categories.map(function(category, i){
       return (
-        <ResourceCategories {...this.props} updateResourceGroup={this.updateResourceGroup} editing={this.state.editing} resources={this.state.resourceGrouping[category]} categoryName={category} key={i} />
+        <ResourceCategories {...this.props} updateResourceGroup={this.updateResourceGroup} 
+          editing={this.state.editing} resources={this.state.resourceGrouping[category]} 
+          categoryName={category} key={i} general={false}/>
       );
     }.bind(this));
+
+    var generalResourceCategories = generalCategories.map(function(category, i){
+      return (
+        <ResourceCategories {...this.props} updateResourceGroup={this.updateResourceGroup} 
+          editing={this.state.editing} resources={this.state.generalResourceGrouping[category]} 
+          categoryName={category} key={i} general={true}/>
+      );
+    }.bind(this));
+
 
     var editing;
 
@@ -58,6 +77,7 @@ var Resources = React.createClass({
         </nav>
         <section className="section-container">
           <div id="category-grid" data-columns className="row">
+            {generalResourceCategories}
             {resourceCategories}
           </div>
         </section>
@@ -70,10 +90,16 @@ var Resources = React.createClass({
 var ResourceCategories = React.createClass({
 
   getInitialState: function() {
-    return { categoryName: this.props.categoryName, resources: this.props.resources, editing: this.props.editing }
+    return { categoryName: this.props.categoryName, 
+             resources: this.props.resources,
+             editing: this.props.editing,
+             general: this.props.general };
   },
   componentWillReceiveProps: function(nextProps) {
-    this.setState({ categoryName: nextProps.categoryName, resources: nextProps.resources, editing: nextProps.editing });
+    this.setState({ categoryName: nextProps.categoryName,
+                    resources: nextProps.resources,
+                    editing: nextProps.editing,
+                    general: nextProps.general });
   },
   changeCategoryName: function(e){
     e.preventDefault();
@@ -117,13 +143,21 @@ var ResourceCategories = React.createClass({
 
       var editing, deleting;
 
-      if(this.state.editing){
-        deleting = <a className="right" rel="nofollow" onClick={this.deleteResource} href={"/resources/" + resource.id }><i className="fa fa-trash-o"></i></a>;
-        editing  =  <a className="right" href={"/resources/"+ resource.id +"/edit"}><i className="fa fa-pencil"></i></a>;
+      if(this.state.general){
+        if(this.state.editing && this.props.isAdmin){
+          deleting = <a className="right" rel="nofollow" onClick={this.deleteResource} href={"/resources/" + resource.id }><i className="fa fa-trash-o"></i></a>;
+          editing  =  <a className="right" href={"/resources/"+ resource.id +"/edit"}><i className="fa fa-pencil"></i></a>;
+        } 
+      }else{
+        if(this.state.editing){
+          deleting = <a className="right" rel="nofollow" onClick={this.deleteResource} href={"/resources/" + resource.id }><i className="fa fa-trash-o"></i></a>;
+          editing  =  <a className="right" href={"/resources/"+ resource.id +"/edit"}><i className="fa fa-pencil"></i></a>;
+        }
       }
 
+
       return  <li key={i}>
-                <a className="purple-text thick" target="_blank" href="https://github.com/">{resource.title}</a>
+                <a className={"resource-link thick " + (this.state.general ? "general" : "")} target="_blank" href={resource.link} >{resource.title}</a>
                 {deleting}
                 {editing}
                 <p>{resource.description}</p>
@@ -133,7 +167,7 @@ var ResourceCategories = React.createClass({
 
     return (
         <div className="resource-item col s12">
-          <div className="resource-category thick z-depth-1">
+          <div className={"resource-category thick z-depth-1 " + (this.state.general ? "general" : "") }>
           {categoryName}
           </div>
           <ul>
