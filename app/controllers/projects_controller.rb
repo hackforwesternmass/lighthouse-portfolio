@@ -1,6 +1,6 @@
 class ProjectsController < SessionsController
   before_action :signed_in
-  before_action :set_sidebar
+  before_action :set_sidebar_highlight
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -44,7 +44,7 @@ class ProjectsController < SessionsController
 
   private
 
-    def set_sidebar
+    def set_sidebar_highlight
       @highlight_sidebar = "Portfolio"
     end
 

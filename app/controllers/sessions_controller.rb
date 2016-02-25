@@ -19,8 +19,23 @@ class SessionsController < ApplicationController
     end
   
     rescue
-      flash[:alert] = "Ugh, something went wrong. Try again."
+      flash[:alert] = "Oops, something went wrong. Try again."
       redirect_to root_path
+  end
+
+  def access_student
+    session[:admin_id] = session[:user_id]
+    session[:user_id] = params[:student_id]
+    current_user
+
+    redirect_to action_plan_path
+  end
+
+  def access_admin
+    session[:user_id] = params[:admin_id]
+    current_user
+
+    redirect_to admin_dashboard_path
   end
 
   def login

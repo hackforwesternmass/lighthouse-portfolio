@@ -28,7 +28,7 @@
   <% @students.each do |student| %>
   <tr>
     <td><%= student.full_name %></td>
-    <td><%= link_to fa_icon("dot-circle-o"), "#" %></td>
+    <td><%= link_to fa_icon("dot-circle-o"), access_student_path(student_id: student.id) %></td>
     <td><%= link_to fa_icon("pencil"), edit_user_path(role: "student", id: student.id) %></td>
     <td><%= link_to fa_icon("book"), "#" %></td>
   </tr>
