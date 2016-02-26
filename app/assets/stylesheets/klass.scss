@@ -1,0 +1,33 @@
+.class.row{
+  margin: 0;
+  text-align: center;
+  padding: 20px 0;
+  color: #555;
+  border-bottom: 4px double #bbb;
+
+  &:last-child{
+    border: none;
+  }
+
+  .title{
+    font-weight: 500;
+    font-size: 1.2rem;
+  }
+
+  .instructor{
+    font-size: 0.9rem;
+  }
+
+  .time{
+    font-size: 0.9rem;
+  }
+
+  .students{
+    & span{
+      font-size: 1.1rem;
+    }
+  }
+}
+
+.filter-classes{
+}

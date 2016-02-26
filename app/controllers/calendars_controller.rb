@@ -21,7 +21,9 @@ class CalendarsController < SessionsController
   end
 
   def update
-    if Calendar.first.update(calendar_params)
+    @calendar = Calendar.first
+
+    if @calendar.update(calendar_params)
       redirect_to admin_dashboard_path, flash: { notice: "Calendar updated successfully." }
     else
       render :manage
