@@ -17,7 +17,7 @@ class ProjectsController < SessionsController
   def create
     @project = current_user.projects.build(project_params)
       if @project.save
-        redirect_to user_projects_path(user_id: @user.id), flash: { notice: 'Portfolio piece created!' }
+        redirect_to projects_path, flash: { notice: 'Portfolio piece created!' }
       else
         flash.now[:alert] = 'Could not create your project, try again!'
         render :new
@@ -26,11 +26,16 @@ class ProjectsController < SessionsController
 
   def update
     if @project.update_attributes(project_params)
-      redirect_to [@project.user, @project], flash: { notice: 'Portfolio piece updated!' }
+      redirect_to @project, flash: { notice: 'Portfolio piece updated!' }
     else
       flash.now[:alert] = "Portfolio piece could not be updated."
       render :edit
     end
+  end
+
+  def tags
+    @tags = current_user.tags
+    @tags = @tags.where('name like ?', "%#{params[:q]}%") if params[:q]
   end
 
   def edit; end
@@ -39,7 +44,7 @@ class ProjectsController < SessionsController
 
   def destroy
     @project.destroy
-    redirect_to user_projects_path(user_id: @user.id), flash: { notice: 'Portfolio piece deleted' }
+    redirect_to projects_path, flash: { notice: 'Portfolio piece deleted' }
   end
 
   private

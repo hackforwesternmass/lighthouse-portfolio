@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
   has_many :projects, dependent: :destroy
   accepts_nested_attributes_for :projects
 
+  has_many :tags, through: :projects
+
   validates :first_name, 
     presence: { message: "First name is required" }
 

@@ -4,8 +4,10 @@ Rails.application.routes.draw do
 
   resources :users do
     get :edit_profile
-    resources :projects do
-    end
+  end
+
+  resources :projects do
+    get :tags, on: :collection
   end
 
   resource  :calendar, except: [:new, :edit, :show, :destroy] do 

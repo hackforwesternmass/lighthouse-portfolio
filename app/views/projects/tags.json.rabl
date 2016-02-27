@@ -1,0 +1,4 @@
+collection @tags
+
+attributes :name
+

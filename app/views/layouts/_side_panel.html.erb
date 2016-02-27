@@ -4,14 +4,14 @@
 
 <ul id="slide-out" class="side-nav fixed grey darken-4 z-depth-4">
 
-  <div class="side-title">C<%= image_tag "logo.png"%>MPASS</div>
+  <%= image_tag "compass_logo_small.png", class: "logo" %>
 
   <%= side_panel_link(admin_dashboard_path, "user", "Admin") if current_user.admin? %>
 <!--    <%= side_panel_link("#", "users", "Meetings") if current_user.admin? %>  -->
   <%= side_panel_link(action_plan_path, "desktop", "Action Plan") %>
   <%= side_panel_link(calendar_path, "calendar-o", "Class Calendar") if Calendar.first.try(:show) %>
   <%= side_panel_link(resources_path, "bookmark", "Resources") %>
-  <%= side_panel_link(user_projects_path(@user), "user", "Portfolio") %>
+  <%= side_panel_link(projects_path, "user", "Portfolio") %>
 
   <li data-no-turbolink>
     <%= link_to fa_icon("sign-out", text: "Sign Out"), logout_path, class: "grey-text text-darken-1" %>

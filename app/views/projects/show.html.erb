@@ -3,7 +3,7 @@
   <div class="row">
 
     <div class="col m1 hide-on-small-only project-nav">
-      <%= link_to fa_icon("angle-left"), [@project.user, @project.previous], class: "nav-left" %>
+      <%= link_to fa_icon("angle-left"), @project.previous, class: "nav-left" %>
     </div>
 
     <div class="col s12 m10 project-content">
@@ -11,10 +11,10 @@
 
         <div class="menu"></div>
        
-        <%= link_to fa_icon("pencil"), edit_user_project_path(@project.user, @project), 
+        <%= link_to fa_icon("pencil"), edit_project_path(@project), 
           class: "btn-floating btn-large waves-effect waves-light teal right" %> 
 
-        <%= link_to fa_icon("th"), user_projects_path, 
+        <%= link_to fa_icon("th"), projects_path, 
           class: "btn-floating btn-large waves-effect waves-light teal left" %> 
 
         <h1 class="center-align thick"><%= @project.title %></h1>
@@ -61,7 +61,7 @@
     </div>
 
     <div class="col m1 hide-on-small-only project-nav">
-      <%= link_to fa_icon("angle-right"),[@project.user, @project.next], class: "nav-right" %>
+      <%= link_to fa_icon("angle-right"), @project.next, class: "nav-right" %>
     </div>
   </div>
 

@@ -2,6 +2,7 @@ class ProjectAttachment < ActiveRecord::Base
   belongs_to :project
 
   has_attached_file :document
+  validates_attachment_size :document, less_than: 25.megabytes
   do_not_validate_attachment_file_type :document
 
   def download_url

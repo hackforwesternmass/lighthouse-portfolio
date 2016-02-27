@@ -43,7 +43,6 @@ function loadUpcomingAgendaEvents(calendar_min_time, first_iteration){
     var current_event, prev_event, date_class, html, input;
     for(var i = 0; i < events.items.length; i++){
       current_event = events.items[i];
-      console.log(current_event);
       prev_event = events.items[i-1];
       first_iteration = first_iteration && i === 0;
 

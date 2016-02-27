@@ -1,0 +1,9 @@
+{{#if input}}
+  {{#same-tag input data}}
+  {{/same-tag}}
+{{/if}}
+{{#each data}}
+  {{#highlight-input ../input}}
+    {{this.tag.name}}
+  {{/highlight-input}}
+{{/each}}

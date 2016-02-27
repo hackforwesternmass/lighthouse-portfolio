@@ -1,6 +1,6 @@
 <% date_completed = @project.date_completed.strftime("%d %B, %Y") if @project.date_completed.present? %>
 
-<%= form_for [@user, @project], html: { class: "col s12 new-project", multipart: true } do |f| %>
+<%= form_for @project, html: { class: "col s12 new-project", multipart: true } do |f| %>
 
   <div class="row">
     <div class="input-field col s12 m6">
@@ -30,6 +30,8 @@
     <div class="input-field col s12 tagger">
       <%= text_field_tag :tag, nil, class: "tag", placeholder: "Enter tag and press enter" %>
       <%= label_tag :tag %>
+      <ul class='autocomplete-dropdown'>
+      </ul>
       <div class="tag-container">
         <!-- This is here just to initiate tags. -->
         <%= f.fields_for :tags do |ff| %>
@@ -65,7 +67,8 @@
       </div>
       <div class="file-path-wrapper">
         <% pa_str = @project.project_attachments.map { |pa| pa.document.original_filename }.join(", ") %>
-        <input class="file-path" type="text" placeholder="Upload one or more documents" value="<%= pa_str %>" >
+        <input class="file-path <%= 'invalid' if @project.errors.messages[:"project_attachments.document"].present? %>" type="text" placeholder="Upload one or more documents" value="<%= pa_str %>" >
+        <%= content_tag :span, "Attachments must be less than 25 MB", class: "error-message" if @project.errors.messages[:"project_attachments.document"].present? %>
       </div>
     </div>
   </div>
@@ -82,7 +85,7 @@
   </div>
 
   <%= f.button "Save", class: "waves-effect waves-light btn teal" %>
-  <%= link_to 'Delete', [@project.user, @project], method: :delete,
+  <%= link_to 'Delete', @project, method: :delete,
     class: "waves-effect waves-light btn red" unless @project.new_record? %>
 
 <% end %>

@@ -14,9 +14,9 @@
     <div class="col s12">
       <div class="card-panel project-wrapper hoverable">
         <div class="card-content">
-          <%= link_to "", new_user_project_path, class: "project-link" %>
+          <%= link_to "", new_project_path, class: "project-link" %>
           <div class="add-project">
-            <%= link_to fa_icon("plus-circle"), new_user_project_path %>
+            <%= link_to fa_icon("plus-circle"), new_project_path %>
             <br><br>Add portfolio piece
           </div>
         </div>
@@ -35,7 +35,7 @@
             <%= project.description %> 
             </p>  
           </div>
-          <%= link_to "", user_project_path(@user, project), class: "project-link", title: project.title %>
+          <%= link_to "", project_path(project), class: "project-link", title: project.title %>
         </div>
       </div>
     <% end %>

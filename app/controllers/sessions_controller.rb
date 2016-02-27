@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
 
     if @user
       session[:user_id] = @user.id
-      @user.admin? ? redirect_to(admin_dashboard_path) : redirect_to(user_projects_path(user_id: @user.id))
+      @user.admin? ? redirect_to(admin_dashboard_path) : redirect_to(projects_path)
     else
       flash[:alert] = "Your email or password were incorrect."
       redirect_to root_path
@@ -69,7 +69,7 @@ class SessionsController < ApplicationController
 
   def admin_only
     if current_user.student?
-      return redirect_to user_projects_path(user_id: current_user.id), 
+      return redirect_to projects_path, 
         flash: { alert: "Admin accounts only, restricted area!" }
     end
   end
