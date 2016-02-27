@@ -16,7 +16,7 @@ var Resources = React.createClass({
   },
   updateResourceGroup: function() {
     $.getJSON("/resources" , function(data){
-      this.setState({ resourceGrouping : data });
+      this.setState({ resourceGrouping : data.resources });
     }.bind(this));
   },
   render: function() {
@@ -146,6 +146,8 @@ var ResourceCategories = React.createClass({
         categoryName = <div className="category-name truncate" href="#">{this.state.categoryName}</div>;
       }   
     }
+
+    console.log(this.state.resources);
 
     var resourceNodes = this.state.resources.map(function(resource, i){
 
