@@ -68,6 +68,11 @@
   }
 }
 
+.blue-check[type="checkbox"]:checked + label:before{
+  border-right-color: color("blue", "lighten-4");
+  border-bottom-color: color("blue", "lighten-4");
+}
+
 .add-checklist{
   color: #999;
   cursor: pointer;

@@ -42,22 +42,28 @@ var ActionItem = React.createClass({
       }
     });
   },
+  toggleCheck: function(){
+    $.ajax({
+      url: "/action_items/" + this.state.id ,
+      dataType: "JSON",
+      type: "PATCH",
+      data: { action_item: { completed: !this.state.completed } },
+      success: function(data) {
+        this.setState({ completed: !this.state.completed });
+      }.bind(this),
+      error: function(data) {
+        console.log(data);
+      }
+    });
+  },
   render: function(){
-
-    var completed;
-
-    if(this.state.completed){
-      completed = <a className="btn-floating waves-effect waves-light orange darken-4" onClick={this.setIncomplete}><i className="fa fa-check"></i></a>;
-    }else{
-      completed = <a className="btn-floating waves-effect waves-light grey lighten-2" onClick={this.setComplete}></a>;
-    }
 
     return (
       <div className="row body">
-        <div className="col m2 checkmark hide-on-small-only">
-          {completed}
+        <div className="col s9 m10">
+          <input type="checkbox" className="blue-check" id={"check-" + this.state.id} onChange={this.toggleCheck} checked={this.state.completed ? "checked" : false }/>
+          <label htmlFor={"check-" + this.state.id}>{this.state.description}</label>
         </div>
-        <div className="col s9 m8">{this.state.description}</div>
         <div className="col s3 m2 capitalize">{ this.state.due_date ? moment(this.state.due_date).fromNow() : "∞" }</div>
       </div>
     );

@@ -30,7 +30,7 @@ var GoalActionItem = React.createClass({
   },
   render: function(){
     return <div style={{paddingLeft: "1.5rem", paddingBottom: "10px"}}>
-              <input type="checkbox" id={"check-" + this.state.id} onChange={this.toggleCheck} checked={this.state.completed ? "checked" : false }/>
+              <input type="checkbox" className="blue-check" id={"check-" + this.state.id} onChange={this.toggleCheck} checked={this.state.completed ? "checked" : false }/>
               <label htmlFor={"check-" + this.state.id}>{this.state.description}</label>
             </div>;
   }
