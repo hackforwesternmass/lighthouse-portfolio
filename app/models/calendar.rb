@@ -1,5 +1,7 @@
 class Calendar < ActiveRecord::Base
 
-  validates :calendar_id, presence: { message: "Calendar id is required"}
+  before_save do
+   self.show = true if self.calendar_id == ""
+  end
 
 end

@@ -55,8 +55,9 @@
 
 
     <div class="row teal-text">
-      <h5>You on the web</h5>
+      <h5 class="col s12">You on the web</h5>
     </div>
+
     <%= f.nested_fields_for :social_mediums do |ff| %>
       <div class="row">
         <div class="input-field col s12 m5">
@@ -73,7 +74,7 @@
         </div>
       </div>
     <% end %>
-    <%= f.add_nested_fields_link :social_mediums, fa_icon("plus-circle", text: "Add Link"), class: " waves-effect waves-light btn cyan" %>
+    <%= f.add_nested_fields_link :social_mediums, fa_icon("plus-circle", text: "Add Link"), class: "waves-effect waves-light btn cyan" %>
     <br>
     <br>
 

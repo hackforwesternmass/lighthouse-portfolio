@@ -40,7 +40,7 @@ class SessionsController < ApplicationController
 
   def login
     if signed_in?
-      return redirect_to user_projects_path(user_id: @user.id)
+      return @user.admin? ? redirect_to(admin_dashboard_path) : redirect_to(projects_path)
     end
     render layout: "public"
   end

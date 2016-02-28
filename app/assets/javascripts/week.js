@@ -64,8 +64,8 @@ function loadUpcomingWeekEvents(week_start){
     doubleDecker();
 
   }).fail(function(){
-    $("#week-calendar").html("<h5 class='center-align'>Failed to load data using the following calendar id: <br><b>" + calendar_id +  "</b><h5>")
-    $("#agenda-calendar").html("<h5 class='center-align'>Failed to load data using the following calendar id: <br><b>" + calendar_id +  "</b><h5>")
+    $("#week-calendar").html("<h5 class='center-align'>Failed to load calendar.<h5>");
+    $("#agenda-calendar").html("<h5 class='center-align'>Failed to load calendar.<h5>");
   });
 
 
