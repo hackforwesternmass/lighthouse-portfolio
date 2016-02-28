@@ -49,8 +49,17 @@ var NewMeeting = React.createClass({
   },
   handleSubmit: function(e) {
     e.preventDefault();
+
+
     tinymce.get('meeting_notes').save();
-    var form = new FormData($(e.currentTarget)[0]);
+
+
+    if(e.target.querySelector("#meeting_notes").value == ""){
+      Materialize.toast("Meetings notes are required.", 3500, "red darken-4");
+      return false;
+    }
+
+    var form = new FormData(e.currentTarget);
 
     $.ajax({
       url: "/meetings" ,
@@ -63,7 +72,7 @@ var NewMeeting = React.createClass({
         this.props.updateMeetings();
       }.bind(this),
       error: function(data) {
-        console.log(data);
+        Materialize.toast("An error has occurred and the meeting could not be saved. Try reloading the page.", 3500, "red darken-4");
       }
     });
 

@@ -20,7 +20,14 @@ var NewGoal = React.createClass({
   },
   handleSubmit: function(e){
     e.preventDefault();
-    var form = new FormData($(e.currentTarget)[0]);
+
+    if(e.target.querySelector("#goal_title").value == ""){
+      Materialize.toast("Goal title is required.", 3500, "red darken-4");
+      return false;
+    }
+
+    var form = new FormData(e.currentTarget);
+
     $.ajax({
       url: "/goals" ,
       dataType: "JSON",
@@ -79,7 +86,7 @@ var NewGoal = React.createClass({
       <div className="row new-meeting"> 
         <div className="col s12">
           <div className="card">
-            <div className="card-date grey darken-1 white-text">
+            <div className="card-date grey darken-3 white-text">
               New Goal
               <a className="right white-text" onClick={this.closeNewGoal}>
                 <i className="fa fa-times"></i>

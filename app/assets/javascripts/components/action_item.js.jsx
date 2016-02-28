@@ -4,43 +4,17 @@ var ActionItem = React.createClass({
     return { description : this.props.action_item.description,
              due_date: this.props.action_item.due_date,
              completed: this.props.action_item.completed,
-             id: this.props.action_item.id
+             id: this.props.action_item.id,
+             reactKey: this.props.reactKey
            };
   },
   componentWillReceiveProps: function(nextProps) {
     this.setState({ description : nextProps.action_item.description,
                     due_date: nextProps.action_item.due_date,
                     completed: nextProps.action_item.completed,
-                    id: nextProps.action_item.id
+                    id: nextProps.action_item.id,
+                    reactKey: nextProps.reactKey
                    });
-  },
-  setComplete: function(){
-    $.ajax({
-      url: "/action_items/" + this.state.id ,
-      dataType: "JSON",
-      type: "PATCH",
-      data: { action_item: { completed: true } },
-      success: function(data) {
-        this.setState({ completed: true });
-      }.bind(this),
-      error: function(data) {
-        console.log(data);
-      }
-    });
-  },
-  setIncomplete: function(){
-    $.ajax({
-      url: "/action_items/" + this.state.id ,
-      dataType: "JSON",
-      type: "PATCH",
-      data: { action_item: { completed: false } },
-      success: function(data) {
-        this.setState({ completed: false });
-      }.bind(this),
-      error: function(data) {
-        console.log(data);
-      }
-    });
   },
   toggleCheck: function(){
     $.ajax({
@@ -49,7 +23,7 @@ var ActionItem = React.createClass({
       type: "PATCH",
       data: { action_item: { completed: !this.state.completed } },
       success: function(data) {
-        this.setState({ completed: !this.state.completed });
+        this.props.setActionItemComplete(this.state.reactKey, !this.state.completed, this.props.meetingIndex);
       }.bind(this),
       error: function(data) {
         console.log(data);

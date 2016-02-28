@@ -42,7 +42,7 @@ var Goals = React.createClass({
       return <a onClick={this.toggleNewGoal} className="hide-on-small-only">
                <div className="row">
                <div className="col s12">
-                 <div className="card grey darken-1 no-margin hoverable">
+                 <div className="card grey darken-3 no-margin hoverable">
                    <div className="card-content white-text center-align">
                      <h6><i className="fa fa-plus-circle"></i> ADD GOAL</h6>
                    </div>

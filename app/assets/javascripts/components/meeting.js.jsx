@@ -17,6 +17,9 @@ var Meeting = React.createClass({
     e.preventDefault();
     this.setState({  newMeeting : true });
   },
+  setActionItemComplete: function(index, val, meetingIndex){
+    this.setState({ meetings: React.addons.update(this.state.meetings, {[meetingIndex]: { action_items: { [index]: {action_item: { completed: {$set: val } } } } } })  });
+  },
   closeAllMeetings: function(index){
 
     $.each(this.state.meetings, function(i,v){
@@ -73,7 +76,7 @@ var Meeting = React.createClass({
 
     var meetingItemNodes = this.state.meetings.map(function(meeting, i){
       return (
-        <MeetingItem {...this.props} meeting={meeting} key={i} reactKey={i} updateMeetings={this.updateMeetings} closeNewMeeting={this.closeNewMeeting} closeAllMeetings={this.closeAllMeetings}/>
+        <MeetingItem {...this.props} meeting={meeting} meetingIndex={i} key={i} reactKey={i} updateMeetings={this.updateMeetings} closeNewMeeting={this.closeNewMeeting} closeAllMeetings={this.closeAllMeetings} setActionItemComplete={this.setActionItemComplete}/>
       );
     }.bind(this));
 

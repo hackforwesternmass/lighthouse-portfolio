@@ -9,7 +9,7 @@ $(document).on('page:change', function(){
   }
 
   if($('#alert').length){
-    Materialize.toast($('#alert').data("alert"), 3500, "red");
+    Materialize.toast($('#alert').data("alert"), 3500, "red darken-4");
   }
 
   $(".ellipsis-link").click(function(e){

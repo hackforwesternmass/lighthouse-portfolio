@@ -30,7 +30,6 @@ var MeetingItem = React.createClass({
       dataType: "JSON",
       type: "DELETE",
       success: function(data) {
-        Materialize.toast("Meeting entry removed", 3500, "teal");
         this.props.updateMeetings();
       }.bind(this)
     });
@@ -38,7 +37,7 @@ var MeetingItem = React.createClass({
   actionItems: function(){
     var actionItemNodes = this.state.action_items.map(function(action_item, i){
       return (
-        <ActionItem  {...this.props} action_item={action_item} key={i} />
+        <ActionItem  {...this.props} action_item={action_item} key={i} reactKey={i} />
       );
     }.bind(this));
 
