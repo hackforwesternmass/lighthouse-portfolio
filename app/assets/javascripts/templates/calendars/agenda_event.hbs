@@ -12,7 +12,16 @@
       <div class="event-instructor">{{display_name}}</div>
       <div class="event-description">
         {{{description}}}
+        {{#if attachments}}
+          <div class="event-attachments">Attachments</div>
+          <ul class="attachment-list">
+          {{#each attachments}}
+            <li><a href="{{this.fileUrl}}" target="_blank">{{this.title}}</a></li>
+          {{/each}}
+          </ul>
+        {{/if}}
       </div>
+      <div>
     </div>
   </div>
 </div>

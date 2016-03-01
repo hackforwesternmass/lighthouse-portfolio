@@ -106,7 +106,7 @@ function multipleDays(current_event){
 
 function formatEvent(event){
 
-  var description, start_time, end_time;
+  var description, start_time, end_time, attachments;
 
   if(event.description){
     description = event.description.replace(/\n\r?/g, '<br>');
@@ -117,12 +117,17 @@ function formatEvent(event){
     end_time = moment(event.end.dateTime).format("h:mm");
   }
 
+  if(event.attachments){
+    attachments = event.attachments;
+  }
+  
   return { 
             start_time: start_time,
             end_time: end_time,
             title: event.summary,
             display_name: event.creator.displayName,
-            description: description
+            description: description,
+            attachments: attachments
           }
 }
 

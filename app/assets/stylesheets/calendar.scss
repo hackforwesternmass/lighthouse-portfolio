@@ -5,6 +5,7 @@
   padding-right: 0 !important;
 }
 
+
 .agenda-date{
   font-weight: 700;
   text-align: center;
@@ -20,7 +21,6 @@
 .agenda-event{
   padding: 10px 0;
   border-top: 1px solid #aaa;
-  cursor: pointer;
 
   .row{
     margin-bottom: 0;
@@ -46,6 +46,25 @@
 .event-description{
   padding-top: 30px;
   display: none;
+}
+
+.event-attachments{
+  padding-top: 15px;
+  font-weight: 500;
+}
+
+.attachment-list{
+  padding-left: 20px;
+}
+
+.attachment-list li{
+  list-style-type: disc !important;
+
+  a{
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: underline;
+  }
 }
 
 @media screen and (max-width: $small-screen){

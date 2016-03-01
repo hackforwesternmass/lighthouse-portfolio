@@ -1,3 +1,7 @@
+$(document).on("click", ".attachment-list a", function(e){
+  e.stopPropagation();
+});
+
 $(document).on('page:change', function(){
 
   var fieldsCount,
