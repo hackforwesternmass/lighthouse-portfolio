@@ -120,26 +120,10 @@ var NewMeeting = React.createClass({
 
                  <div className="row no-margin action-items">
                     <div className="col s12">  
-                      <ul className="collection with-header">
-
-                        <li className="collection-header grey lighten-3">
-                          
-                          <div className="row no-margin grey-text text-darken-2">
-
-                            <div className="col s9 push-s1">
-                            Description
-                            </div>
-                            <div className="col s2 push-s1 no-padding right-align">
-                            Due Date
-                            </div>
-                          </div>
-
-                        </li>
-
+                      <ul className="collection">
                         <ReactTransitionGroup >
                           {actionItemNodes}
                         </ReactTransitionGroup>
-
                       </ul>
                     </div>
                   </div>

@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     get "/", action: :calendar
   end
   resources :meetings
-  resources :action_items
+  resources :action_items, only: [:update, :destroy]
   resources :goals
   resources :klasses, path: :class
   resources :resources do

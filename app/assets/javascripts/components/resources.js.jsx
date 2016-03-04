@@ -147,8 +147,6 @@ var ResourceCategories = React.createClass({
       }   
     }
 
-    console.log(this.state.resources);
-
     var resourceNodes = this.state.resources.map(function(resource, i){
 
       var editing, deleting;

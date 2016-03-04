@@ -32,14 +32,8 @@
     }
   }
 
-  .close{
-    cursor: pointer;
-    &:hover{
-      i{
-        @include transition(250ms);
-        color: color("blue", "darken-4");
-      }
-    } 
+  .collection-item{
+    position: relative;
   }
 
 }

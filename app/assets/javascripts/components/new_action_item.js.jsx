@@ -1,10 +1,14 @@
 var NewActionItem = React.createClass({
 
   getInitialState: function() {
-    return { description: this.props.action_item.description, due_date: this.props.action_item.due_date, id: this.props.action_item.id }
+    return { description: this.props.action_item.description,
+             due_date: this.props.action_item.due_date,
+             id: this.props.action_item.id,
+             admin: false }
   },
   componentDidMount: function() {
     $(ReactDOM.findDOMNode(this)).find('.datepicker').pickadate();
+    $(ReactDOM.findDOMNode(this)).find('.tooltipped').tooltip();
   },
   componentWillReceiveProps: function(nextProps) {
     this.setState({ description: nextProps.action_item.description, due_date: nextProps.action_item.due_date, id: nextProps.action_item.id });
@@ -12,11 +16,14 @@ var NewActionItem = React.createClass({
   componentDidEnter: function(e) {
     $(ReactDOM.findDOMNode(this)).velocity("slideDown", { duration: 500, easing: "easeOutQuad" });
   },
-  changeDescription: function(e){
+  changeDescription: function(e) {
     this.props.addActionItem(this.props.reactKey, { description: e.target.value, due_date: this.state.due_date, id: this.state.id });
   },
-  changeDueDate: function(e){
+  changeDueDate: function(e) {
     this.props.addActionItem(this.props.reactKey, { description: this.state.description, due_date: $("input.datepicker")[ this.props.reactKey ].value, id: this.state.id });
+  },
+  toggleAdmin: function() {
+    this.setState({ admin: !this.state.admin });
   },
   handleClickClose: function(e) {
     e.preventDefault();
@@ -41,12 +48,12 @@ var NewActionItem = React.createClass({
 
       <li key={this.props.reactKey} className='collection-item'>
         <input type="hidden" value={this.state.id} name={"meeting[action_items_attributes][" + this.props.reactKey + "][id]"} id={"meeting_action_items_attributes_" + this.props.reactKey + "_id"} />
-        <a style={ { right: '0', position: 'absolute' } } className="right close grey-text text-darken-2" onClick={this.handleClickClose} ><i className="fa fa-times"></i></a>
-        <div className="row no-margin">
-          <div className="col s1 right-align no-padding">
-            <h4 className="blue-text text-darken-1">{this.props.reactKey + 1}</h4>
-          </div>
-          <div className="input-field col s8">
+        <div className="row">
+          <i style={ { fontSize: "12px", right: '20px', top: '5px', position: 'absolute' } } data-position="top" data-delay="50" data-tooltip={this.state.admin ? "Unassign teacher" : "Assign to teacher" } className={ this.state.admin ? "fa fa-user blue-text tooltipped" : "fa fa-user grey-text text-darken-2 tooltipped"} onClick={this.toggleAdmin}></i>
+          <a style={ { right: '0', top: 0, position: 'absolute' } } className="close grey-text text-darken-2" onClick={this.handleClickClose} ><i className="fa fa-times"></i></a>
+          <input type="hidden" value={this.state.admin ?  this.props.admin_id : "" } name={"meeting[action_items_attributes][" + this.props.reactKey + "][user_id]"} id={"meeting_action_items_attributes_" + this.props.reactKey + "_user_id"} />
+
+          <div className="input-field col s9">
             <input type="text" 
                     name={"meeting[action_items_attributes][" + this.props.reactKey + "][description]"} 
                     id={"meeting_action_items_attributes_" + this.props.reactKey + "_description"}
@@ -57,7 +64,7 @@ var NewActionItem = React.createClass({
                     />
 
           </div>
-          <div className="input-field col s3 no-padding" onBlur={this.changeDueDate}>
+          <div className="input-field col s3" onBlur={this.changeDueDate}>
              <input type='text' 
                     className='datepicker'
                     name={"meeting[action_items_attributes]" + this.props.reactKey + "[due_date]"} 

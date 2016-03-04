@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160227000850) do
+ActiveRecord::Schema.define(version: 20160304203915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,11 +25,13 @@ ActiveRecord::Schema.define(version: 20160227000850) do
     t.datetime "updated_at",  null: false
     t.integer  "meeting_id"
     t.integer  "goal_id"
+    t.integer  "user_id"
   end
 
   add_index "action_items", ["action_id"], name: "index_action_items_on_action_id", using: :btree
   add_index "action_items", ["goal_id"], name: "index_action_items_on_goal_id", using: :btree
   add_index "action_items", ["meeting_id"], name: "index_action_items_on_meeting_id", using: :btree
+  add_index "action_items", ["user_id"], name: "index_action_items_on_user_id", using: :btree
 
   create_table "activities", force: :cascade do |t|
     t.integer  "user_id"
@@ -190,6 +192,7 @@ ActiveRecord::Schema.define(version: 20160227000850) do
 
   add_foreign_key "action_items", "goals"
   add_foreign_key "action_items", "meetings"
+  add_foreign_key "action_items", "users"
   add_foreign_key "activities", "users"
   add_foreign_key "enrolls", "klasses"
   add_foreign_key "enrolls", "users"

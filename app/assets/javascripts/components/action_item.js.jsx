@@ -5,6 +5,7 @@ var ActionItem = React.createClass({
              due_date: this.props.action_item.due_date,
              completed: this.props.action_item.completed,
              id: this.props.action_item.id,
+             admin_id: this.props.action_item.user_id,
              reactKey: this.props.reactKey
            };
   },
@@ -13,6 +14,7 @@ var ActionItem = React.createClass({
                     due_date: nextProps.action_item.due_date,
                     completed: nextProps.action_item.completed,
                     id: nextProps.action_item.id,
+                    admin_id: nextProps.action_item.user_id,
                     reactKey: nextProps.reactKey
                    });
   },
@@ -36,7 +38,7 @@ var ActionItem = React.createClass({
       <div className="row body">
         <div className="col s9 m10">
           <input type="checkbox" className="blue-check" id={"check-" + this.state.id} onChange={this.toggleCheck} checked={this.state.completed ? "checked" : false }/>
-          <label htmlFor={"check-" + this.state.id}>{this.state.description}</label>
+          <label htmlFor={"check-" + this.state.id}><span className="blue-text text-lighten-2">{this.state.admin_id ? "Teacher task: " : ""}</span>{this.state.description}</label>
         </div>
         <div className="col s3 m2 capitalize">{ this.state.due_date ? moment(this.state.due_date).fromNow() : "∞" }</div>
       </div>

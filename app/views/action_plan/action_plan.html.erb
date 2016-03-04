@@ -11,7 +11,9 @@
 </ul>
 
 <section class="section-container" id="meetings-action-plan">
-  <%= react_component "Meeting", {userId: current_user.id, authenticityToken: form_authenticity_token} %>
+  <% session[:admin_id] ? @admin_id = session[:admin_id] : @admin_id = params[:admin_id] %>
+  <%= react_component "Meeting", {userId: current_user.id, 
+    authenticityToken: form_authenticity_token, admin_id: @admin_id} %>
 </section>
 
 <section class="section-container" id="goals-action-plan">
