@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include BCrypt
+  default_scope { order(first_name: :asc) }
 
   scope :students, -> { where(role: "student" ) }
   has_many :resources, dependent: :destroy
@@ -31,7 +32,8 @@ class User < ActiveRecord::Base
 
   validates :password, 
     presence: { message: "Password is required." },
-    confirmation: {message: "Passwords do not match."}
+    confirmation: {message: "Passwords do not match."},
+    on: :create
 
   validates :password_confirmation, 
     presence: { message: "Password confirmation is required." },

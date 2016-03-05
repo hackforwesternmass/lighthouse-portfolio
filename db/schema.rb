@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160304203915) do
+ActiveRecord::Schema.define(version: 20160305040325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,16 +32,6 @@ ActiveRecord::Schema.define(version: 20160304203915) do
   add_index "action_items", ["goal_id"], name: "index_action_items_on_goal_id", using: :btree
   add_index "action_items", ["meeting_id"], name: "index_action_items_on_meeting_id", using: :btree
   add_index "action_items", ["user_id"], name: "index_action_items_on_user_id", using: :btree
-
-  create_table "activities", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "name"
-    t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "activities", ["user_id"], name: "index_activities_on_user_id", using: :btree
 
   create_table "calendars", force: :cascade do |t|
     t.string   "calendar_id"
@@ -92,20 +82,6 @@ ActiveRecord::Schema.define(version: 20160304203915) do
   end
 
   add_index "meetings", ["user_id"], name: "index_meetings_on_user_id", using: :btree
-
-  create_table "portfolios", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "title"
-    t.text     "description"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
-    t.datetime "avatar_updated_at"
-  end
-
-  add_index "portfolios", ["user_id"], name: "index_portfolios_on_user_id", using: :btree
 
   create_table "project_attachments", force: :cascade do |t|
     t.integer  "project_id"
@@ -186,6 +162,7 @@ ActiveRecord::Schema.define(version: 20160304203915) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.text     "description"
+    t.string   "meeting_time"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -193,11 +170,9 @@ ActiveRecord::Schema.define(version: 20160304203915) do
   add_foreign_key "action_items", "goals"
   add_foreign_key "action_items", "meetings"
   add_foreign_key "action_items", "users"
-  add_foreign_key "activities", "users"
   add_foreign_key "enrolls", "klasses"
   add_foreign_key "enrolls", "users"
   add_foreign_key "meetings", "users"
-  add_foreign_key "portfolios", "users"
   add_foreign_key "project_attachments", "projects"
   add_foreign_key "resources", "users"
   add_foreign_key "social_media", "users"

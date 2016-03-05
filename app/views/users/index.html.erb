@@ -9,7 +9,7 @@
       <%= link_to fa_icon("ellipsis-h"), "#", class: "right ellipsis-link" %>
       <ul class="dropdown z-depth-1">
         <li><%= link_to "Register student", new_user_path(role: :student) %></li>
-        <li><%= link_to "Edit class", "#" %></li>
+        <li><%= link_to "Enroll to Classes", "#" %></li>
       </ul>
     </div>
   </div>
@@ -22,7 +22,7 @@
     <th>Student Name</th>
     <th>Access</th>
     <th>Account setting</th>
-    <th>Enroll into classes</th>
+    <th>Meeting time</th>
   </tr>
 
   <% @students.each do |student| %>
@@ -30,9 +30,28 @@
     <td><%= student.full_name %></td>
     <td><%= link_to fa_icon("dot-circle-o"), access_student_path(student_id: student.id) %></td>
     <td><%= link_to fa_icon("pencil"), edit_user_path(role: "student", id: student.id) %></td>
-    <td><%= link_to fa_icon("book"), "#" %></td>
+    <td><%= link_to fa_icon("calendar"), "#meeting-time-modal", class: "modal-trigger", data: { student_id: student.id } %> 
+    <span class=<%= "meeting-time-#{student.id}"%> ><%= student.meeting_time %></span></td>
   </tr>
+
   <% end %>
 </table>  
 
 </section>
+
+  <!-- Modal Structure -->
+  <div id="meeting-time-modal" class="modal" style="max-width: 500px">
+    <div class="modal-content">
+      <h4>Set Meeting Time</h4>
+      <form class="edit_user" accept-charset="UTF-8">
+          <div class="row">
+            <div class="input-field col s12">
+              <input type="text" name="user[meeting_time]" id="user_meeting_time">
+              <label for="user_meeting_time">Meeting time</label>
+            </div>
+          </div>
+      </form>
+      <a href="#!" class="set-meeting-time btn modal-action modal-close waves-effect">Set</a>
+    </div>
+  </div>
+

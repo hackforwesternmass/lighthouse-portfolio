@@ -39,18 +39,27 @@ class UsersController < SessionsController
   end
 
   def update
+    @user = User.find(params[:id])
 
     prefix = ['Darn! ', 'Dang! ', 'Oh Snap! '].sample
-
-    if @user.update(user_params)
-      redirect_to projects_path, flash: { notice: "Profile successfully updated!" }
-    else
-      flash.now[:alert] = prefix << "Change a few things up and try submitting again."
-      if (request.referrer == edit_user_url(@user)) then render :edit else render :edit_profile end
+    respond_to do |format|
+      if @user.update(user_params)
+        if current_user.admin?
+          format.html { redirect_to users_path, flash: { notice: "Profile successfully updated!" } }
+        else
+          format.html { redirect_to projects_path, flash: { notice: "Profile successfully updated!" } }
+        end
+          format.json { render json: {} }
+      else
+        flash.now[:alert] = prefix << "Change a few things up and try submitting again."
+        format.html { if (request.referrer.split("?").first == edit_user_url(@user)) then render(:edit) else render(:edit_profile) end }
+        format.json { render json: {}, status: 400 }
+      end
     end
   end
 
   def destroy
+    @user = User.find(params[:id])
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url, flash: { notice: 'User was successfully destroyed.' } }
@@ -60,7 +69,7 @@ class UsersController < SessionsController
 
   private
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :avatar,
+      params.require(:user).permit(:first_name, :last_name, :avatar, :meeting_time,
         :role, :email, :password, :password_confirmation, :description, 
         social_mediums_attributes: [:link, :name,:_destroy, :id])
     end
