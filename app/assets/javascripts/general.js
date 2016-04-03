@@ -4,6 +4,10 @@ $(document).on("click", ".attachment-list a", function(e){
 
 $(document).on('page:change', function(){
 
+  $("a.complete").bind("ajax:success", function(event, data){
+    $(".action-item-id-" + data.id).slideUp(200);
+  });
+
   var fieldsCount,
       maxFieldsCount = 3,
       $addLink = $('a.add_nested_fields_link');

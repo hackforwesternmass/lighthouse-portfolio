@@ -61,14 +61,12 @@
   <div class="row">
     <div class="file-field input-field col s12">
       <div class="btn teal darken-4">
-        <span>ATTACHMENTS</span>
-        <%= file_field_tag('project_project_attachments_document', 
-          multiple: true, name: "project[project_attachments_attributes][][document]") %>
+        <span>ATTACHMENT</span>
+        <%= f.file_field :document %>
       </div>
       <div class="file-path-wrapper">
-        <% pa_str = @project.project_attachments.map { |pa| pa.document.original_filename }.join(", ") %>
-        <input class="file-path <%= 'invalid' if @project.errors.messages[:"project_attachments.document"].present? %>" type="text" placeholder="Upload one or more documents" value="<%= pa_str %>" >
-        <%= content_tag :span, "Attachments must be less than 25 MB", class: "error-message" if @project.errors.messages[:"project_attachments.document"].present? %>
+        <input class="file-path" type="text" 
+          placeholder="Upload a document" value="<%= @project.document.original_filename %>">
       </div>
     </div>
   </div>

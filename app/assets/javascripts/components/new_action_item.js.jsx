@@ -4,7 +4,7 @@ var NewActionItem = React.createClass({
     return { description: this.props.action_item.description,
              due_date: this.props.action_item.due_date,
              id: this.props.action_item.id,
-             admin: false }
+             admin: this.props.action_item.user_id }
   },
   componentDidMount: function() {
     $(ReactDOM.findDOMNode(this)).find('.datepicker').pickadate();
@@ -51,7 +51,7 @@ var NewActionItem = React.createClass({
         <div className="row">
           <i style={ { fontSize: "12px", right: '20px', top: '5px', position: 'absolute' } } data-position="top" data-delay="50" data-tooltip={this.state.admin ? "Unassign teacher" : "Assign to teacher" } className={ this.state.admin ? "fa fa-user blue-text tooltipped" : "fa fa-user grey-text text-darken-2 tooltipped"} onClick={this.toggleAdmin}></i>
           <a style={ { right: '0', top: 0, position: 'absolute' } } className="close grey-text text-darken-2" onClick={this.handleClickClose} ><i className="fa fa-times"></i></a>
-          <input type="hidden" value={this.state.admin ?  this.props.admin_id : "" } name={"meeting[action_items_attributes][" + this.props.reactKey + "][user_id]"} id={"meeting_action_items_attributes_" + this.props.reactKey + "_user_id"} />
+          <input type="hidden" value={this.state.admin ? this.props.admin_id : "" } name={"meeting[action_items_attributes][" + this.props.reactKey + "][user_id]"} id={"meeting_action_items_attributes_" + this.props.reactKey + "_user_id"} />
 
           <div className="input-field col s9">
             <input type="text" 

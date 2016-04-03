@@ -14,5 +14,14 @@ module ApplicationHelper
   		link_to fa_icon(icon, text: text), url, class: "grey-text text-darken-1" 
   	end
   end
+
+  def from_now(time)
+    if time < Time.now
+      str = "#{distance_of_time_in_words(Time.now, time)} ago".capitalize
+    else
+      str = "In #{distance_of_time_in_words(Time.now, time)}".capitalize
+    end
+    return str
+  end
   
 end

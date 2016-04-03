@@ -8,14 +8,22 @@ Rails.application.routes.draw do
 
   resources :projects do
     get :tags, on: :collection
+    get :download, on: :member
   end
 
   resource  :calendar, except: [:new, :edit, :show, :destroy] do 
     get :manage
     get "/", action: :calendar
   end
+
+  resource  :background_image, except: [:new, :edit, :show, :destroy] do 
+    get :manage
+  end
+
   resources :meetings
-  resources :action_items, only: [:update, :destroy]
+  resources :action_items, only: [:update, :destroy] do
+    put :complete, on: :member
+  end 
   resources :goals
   resources :klasses, path: :class
   resources :resources do

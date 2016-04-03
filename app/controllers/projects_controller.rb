@@ -1,7 +1,7 @@
 class ProjectsController < SessionsController
   before_action :signed_in
   before_action :set_sidebar_highlight
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :download]
 
   def index
     @projects = @user.projects
@@ -42,6 +42,11 @@ class ProjectsController < SessionsController
 
   def show; end
 
+  def download
+    redirect_to @project.download_url
+  end
+
+
   def destroy
     @project.destroy
     redirect_to projects_path, flash: { notice: 'Portfolio piece deleted' }
@@ -58,7 +63,7 @@ class ProjectsController < SessionsController
     end
 
     def project_params
-      params.require(:project).permit(:title, :description, :link, :priority, 
+      params.require(:project).permit(:title, :description, :link, :priority, :document,
         :body, :photo, :location, :date_completed, project_attachments_attributes: [:document, :_destroy, :id],
         tags_attributes: [:name, :_destroy, :id])
     end

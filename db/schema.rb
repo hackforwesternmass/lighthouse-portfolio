@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160305040325) do
+ActiveRecord::Schema.define(version: 20160403044032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,11 +33,21 @@ ActiveRecord::Schema.define(version: 20160305040325) do
   add_index "action_items", ["meeting_id"], name: "index_action_items_on_meeting_id", using: :btree
   add_index "action_items", ["user_id"], name: "index_action_items_on_user_id", using: :btree
 
+  create_table "background_images", force: :cascade do |t|
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
   create_table "calendars", force: :cascade do |t|
     t.string   "calendar_id"
     t.boolean  "show"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.boolean  "hide_week_view"
   end
 
   create_table "enrolls", force: :cascade do |t|
@@ -68,10 +78,11 @@ ActiveRecord::Schema.define(version: 20160305040325) do
     t.string   "weekday"
     t.string   "time"
     t.string   "instructor"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.date     "start_date"
     t.date     "end_date"
+    t.string   "google_drive_url"
   end
 
   create_table "meetings", force: :cascade do |t|
@@ -100,8 +111,8 @@ ActiveRecord::Schema.define(version: 20160305040325) do
     t.text     "description"
     t.text     "resume"
     t.integer  "difficulty"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
@@ -113,6 +124,10 @@ ActiveRecord::Schema.define(version: 20160305040325) do
     t.time     "time_spent"
     t.text     "body"
     t.boolean  "priority"
+    t.string   "document_file_name"
+    t.string   "document_content_type"
+    t.integer  "document_file_size"
+    t.datetime "document_updated_at"
   end
 
   create_table "resources", force: :cascade do |t|
@@ -155,14 +170,18 @@ ActiveRecord::Schema.define(version: 20160305040325) do
     t.string   "email"
     t.string   "password"
     t.string   "role"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.text     "description"
     t.string   "meeting_time"
+    t.string   "profile_background_file_name"
+    t.string   "profile_background_content_type"
+    t.integer  "profile_background_file_size"
+    t.datetime "profile_background_updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

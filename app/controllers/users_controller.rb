@@ -39,12 +39,15 @@ class UsersController < SessionsController
   end
 
   def update
-    @user = User.find(params[:id])
+    @current_user = User.find(params[:id])
 
     prefix = ['Darn! ', 'Dang! ', 'Oh Snap! '].sample
+
     respond_to do |format|
-      if @user.update(user_params)
-        if current_user.admin?
+      if @current_user.update(user_params)
+          @current_user.pword = params[:user][:password] unless params[:user][:password].blank?
+          @current_user.save
+        if (request.referrer.split("?").first == edit_user_url(@current_user))
           format.html { redirect_to users_path, flash: { notice: "Profile successfully updated!" } }
         else
           format.html { redirect_to projects_path, flash: { notice: "Profile successfully updated!" } }
@@ -62,14 +65,14 @@ class UsersController < SessionsController
     @user = User.find(params[:id])
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, flash: { notice: 'User was successfully destroyed.' } }
+      format.html { redirect_to users_url, flash: { notice: 'User was successfully deleted.' } }
       format.json { head :no_content }
     end
   end
 
   private
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :avatar, :meeting_time,
+      params.require(:user).permit(:first_name, :last_name, :avatar, :meeting_time, :profile_background,
         :role, :email, :password, :password_confirmation, :description, 
         social_mediums_attributes: [:link, :name,:_destroy, :id])
     end

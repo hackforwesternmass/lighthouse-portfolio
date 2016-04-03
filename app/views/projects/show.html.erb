@@ -49,12 +49,10 @@
         </div>
       </div>
 
-      <% if @project.project_attachments.present? %>
-        <h6 class="bold">Attachments</h6>
+      <% if @project.document.present? %>
+        <h6 class="bold">Attachment</h6>
           <ul>
-        <% @project.project_attachments.each do |pa| %>
-          <li><%= link_to pa.document.original_filename, project_attachments_path(pa.id) %></li>
-        <% end %>
+            <li><%= link_to @project.document.original_filename, download_project_path(@project) %></li>
           </ul>
       <% end %>
 

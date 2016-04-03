@@ -5,32 +5,40 @@
       &nbsp;
       <%= fa_icon "angle-double-right", class: "no-padding bc", text: "Manage Students" %>
     </div>
-    <div class="dropdown-wrapper hide-on-small-only">
-      <%= link_to fa_icon("ellipsis-h"), "#", class: "right ellipsis-link" %>
-      <ul class="dropdown z-depth-1">
-        <li><%= link_to "Register student", new_user_path(role: :student) %></li>
-        <li><%= link_to "Enroll to Classes", "#" %></li>
-      </ul>
-    </div>
   </div>
 </nav>
 
-<section id="dashboard" class="section-container">
+<section id="students" class="section-container">
 
-<table>
-  <tr>
-    <th>Student Name</th>
-    <th>Access</th>
-    <th>Account setting</th>
-    <th>Meeting time</th>
+  <div class="row grey-text text-darken-2">
+
+    <div class="input-field col s12 m9">
+      <%= fa_icon "search", class: "prefix" %>
+      <input id="student-search" class="search" type="text" />
+      <label for="student-search">Search</label>
+    </div>
+
+    <div class="input-field col s12 m3">
+      <%= link_to new_user_path(role: :student), class: "btn" do %>
+        <%= fa_icon("plus", text: "Register New", class: "no-padding") %>
+      <% end %>
+    </div>
+  </div>
+
+<table class="bordered z-depth-1">
+  <tr class="grey darken-4 white-text">
+    <th class="student-name">NAME</th>
+    <th>ACCOUNT</th>
+    <th>ENROLL</th>
+    <th>MEETING TIME</th>
   </tr>
 
   <% @students.each do |student| %>
   <tr>
-    <td><%= student.full_name %></td>
-    <td><%= link_to fa_icon("dot-circle-o"), access_student_path(student_id: student.id) %></td>
-    <td><%= link_to fa_icon("pencil"), edit_user_path(role: "student", id: student.id) %></td>
-    <td><%= link_to fa_icon("calendar"), "#meeting-time-modal", class: "modal-trigger", data: { student_id: student.id } %> 
+    <td class="student-name name"><%= link_to student.full_name, edit_user_path(role: "student", id: student.id) %></td>
+    <td><%= link_to fa_icon("user"), access_student_path(student_id: student.id) %></td>
+    <td><%= link_to fa_icon("pencil"), "#" %></td>
+    <td><%= link_to fa_icon("calendar-o"), "#meeting-time-modal", class: "modal-trigger", data: { student_id: student.id } %> 
     <span class=<%= "meeting-time-#{student.id}"%> ><%= student.meeting_time %></span></td>
   </tr>
 

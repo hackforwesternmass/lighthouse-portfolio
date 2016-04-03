@@ -4,10 +4,11 @@
     float: left;
     width: calc(100% - 420px);
     max-width: 100%;
-    margin-left: 20px;
+    margin-right: 20px;
   }
 
   .box a{
+    text-transform: uppercase;
     position: relative;
     display: block;
     color: #fff;
@@ -29,23 +30,50 @@
     }
   
     &:hover i:not(.icon){
-      padding-right: 25px;
+      padding-right: 20px;
     }
 
   }
 
   .card{
-    float: left;
+    float: right;
     width: 400px;
     max-width: 100%;
     margin-top: 0;
-
+    max-height: 80vh;
+    overflow-y: scroll;
 
     .card-action-item{
       color: #777;
+      position: relative;
+
+      &:hover .complete{
+        opacity: 1;
+      }
 
       &:last-child .action-item{
         border-bottom: none;
+      }
+    }
+
+    .empty-action-items{
+      text-align: center;
+      font-style: italic;
+      padding: 20px 10px;
+    }
+
+    .complete{
+      opacity: 0;
+      position: absolute;
+      width: 70px;
+      text-align: center;
+      bottom: 20px;
+      left: 10px;
+      font-size: 12px;
+      transition: 200ms;
+
+      &:hover{
+        color: $secondary-color;
       }
     }
 
@@ -60,11 +88,9 @@
 
     .action-item{
       float: left;
-      border-left: 3px solid $background-color;
       width: calc(100% - 90px);
       padding: 10px;
       padding-top: 2px;
-      border-bottom: 3px solid $background-color;
     }
 
     .name{

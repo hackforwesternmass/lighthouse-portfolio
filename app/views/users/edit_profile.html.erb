@@ -50,6 +50,19 @@
           </div> 
         </div>
 
+        <div class="row">
+          <div class="file-field input-field col s12">
+            <div class="btn teal">
+              <span>Profile background</span>
+              <%= f.file_field :profile_background %>
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path" type="text" 
+                placeholder="Upload backgroung image" value="<%= @user.profile_background.original_filename %>">
+            </div>
+          </div>
+        </div>
+
     </div>
   </div>
 

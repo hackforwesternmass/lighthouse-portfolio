@@ -12,12 +12,24 @@ class Project < ActiveRecord::Base
   has_attached_file :photo, :default_url => "blue-space-cloud.jpg"
   validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
 
+  has_attached_file :document
+  validates_attachment_size :document, less_than: 25.megabytes
+  do_not_validate_attachment_file_type :document
+
   validates :title, 
     presence: { message: "Title is required" }
 
   validates :description,
     length: { maximum: 200, too_long: "%{count} characters is the maximum allowed" }
 
+  def download_url
+    s3 = AWS::S3.new.buckets[ 'compassteens' ]
+    s3.objects[ self.document.path[1..-1] ].url_for( :read,
+      expires_in: 60.minutes, 
+      use_ssl:    true, 
+      response_content_disposition: "attachment; filename=\"#{document.original_filename}\"" ).to_s
+  end
+  
   def next
     ids = Project.where(user_id: self.user_id).pluck :id
     pos = ids.index(self.id)

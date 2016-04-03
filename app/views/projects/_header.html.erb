@@ -1,5 +1,5 @@
 <section id="header">
-  <div class="header-bg-wrapper">
+  <div class="header-bg-wrapper" style=<%= "background-image:url('#{@user.profile_background.url}')" unless @user.profile_background.blank? %>>
     <div class="header-bg">
 
       <%= link_to fa_icon("cog", text: "Edit", right: true), user_edit_profile_path(@user), class: "student-edit"%>

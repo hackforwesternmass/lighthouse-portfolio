@@ -1,0 +1,41 @@
+<nav>
+  <div class="nav-wrapper">
+    <div class="brand-logo">
+      <%= link_to "Admin Dashboard", admin_dashboard_path, class: "bc" %>
+      &nbsp;
+      <%= fa_icon "angle-double-right", class: "no-padding bc", text: "Manage Background Image" %>
+    </div>
+  </div>
+</nav>
+
+<section id="dashboard" class="section-container">
+
+  <div class="row">
+    <h3 class="teal-text col s12">Manage Background Image</h3>
+  </div>
+
+
+  <%= form_for @background_image, url: background_image_path do |f| %>
+
+  <div class="row">
+    <div class="file-field input-field col s12">
+      <div class="btn teal darken-4">
+        <span>Image</span>
+        <%= f.file_field :image %>
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path" type="text" 
+          placeholder="Upload backgroung image" value="<%= @background_image.image.original_filename %>">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12">
+    <%= content_tag :button, "Save", type: :submit, class: "waves-effect waves-light btn teal" %>
+    </div>
+  </div>
+
+  <% end %>
+
+</section>

@@ -41,6 +41,17 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="switch col s12 m9 l5">
+        <label for="_calendar_show" style="font-size: 1rem; margin-bottom: 15px; display: block;">Hide Week View</label>
+        <%= f.label :hide_week_view do %>
+          No
+          <%= f.check_box :hide_week_view %>
+          <span class="lever"></span>
+          Yes
+        <% end %>
+      </div>
+    </div>
     <%= content_tag :button, "Save", type: :submit, class: "waves-effect waves-light btn teal" %>
 
   <% end %>

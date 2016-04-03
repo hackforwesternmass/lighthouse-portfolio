@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   has_many :goals, dependent: :destroy
   has_many :enrolls, dependent: :destroy
   has_many :klasses, through: :enrolls
+  has_many :action_items, through: :meetings
+  has_many :admin_action_items, foreign_key: "user_id", class_name: "ActionItem"
   
   has_many :social_mediums, dependent: :destroy
   accepts_nested_attributes_for :social_mediums, allow_destroy: true
@@ -41,7 +43,10 @@ class User < ActiveRecord::Base
 
   has_attached_file :avatar, :default_url => "default-avatar.png"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
- 
+
+  has_attached_file :profile_background, :default_url => "tibetan-mountains.jpg"
+  validates_attachment_content_type :profile_background, :content_type => /\Aimage\/.*\Z/
+
   def self.authenticate(email, password)
     user = User.find_by_email(email)
     user if user && user.pword == password

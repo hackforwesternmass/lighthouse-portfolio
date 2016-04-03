@@ -22,12 +22,12 @@ class KlassesController < SessionsController
   end
 
   def update
-    # if @klasse.update_attributes(klasse_params)
-    #   redirect_to user_klasses_path(current_user), flash: { notice: "klasse updated" }
-    # else
-    #   flash.now[:alert] = "Could not update klasse"
-    #   render :edit
-    # end
+    if @klass.update(klass_params)
+      redirect_to klasses_path, flash: { notice: 'Class successfully updated!' }
+    else
+      flash.now[:alert] = "Could not update klasse"
+      render :edit
+    end
   end
   
   def edit
@@ -48,7 +48,7 @@ class KlassesController < SessionsController
     end
 
     def klass_params
-      params.require(:klass).permit(:name, :description, :time, :weekday, :instructor)
+      params.require(:klass).permit(:name, :description, :time, :weekday, :instructor, :google_drive_url)
     end
 
 end
