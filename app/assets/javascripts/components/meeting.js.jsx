@@ -82,7 +82,7 @@ var Meeting = React.createClass({
 
     return (
       <div>
-        {newMeeting}
+        {this.props.admin_id ? newMeeting : null}
         <ReactCSSTransitionGroup transitionName="fade-in" transitionEnterTimeout={350} transitionLeaveTimeout={350}>
           {meetingItemNodes}
         </ReactCSSTransitionGroup>

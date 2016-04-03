@@ -15,7 +15,14 @@
   </div>
 
   <div class="row">
-    <div class="input-field col s12">
+    <% if params[:role] == "student" %>
+      <div class="input-field col s12 m6">
+        <%= f.text_field :username %>
+      <%= f.label :username  %>
+      </div> 
+    <% end %>
+    
+    <div class="input-field col s12 m6">
       <%= f.email_field :email %>
     <%= f.label :email  %>
     </div> 

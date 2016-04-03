@@ -49,8 +49,8 @@ var NewActionItem = React.createClass({
       <li key={this.props.reactKey} className='collection-item'>
         <input type="hidden" value={this.state.id} name={"meeting[action_items_attributes][" + this.props.reactKey + "][id]"} id={"meeting_action_items_attributes_" + this.props.reactKey + "_id"} />
         <div className="row">
-          <i style={ { fontSize: "12px", right: '20px', top: '5px', position: 'absolute' } } data-position="top" data-delay="50" data-tooltip={this.state.admin ? "Unassign teacher" : "Assign to teacher" } className={ this.state.admin ? "fa fa-user blue-text tooltipped" : "fa fa-user grey-text text-darken-2 tooltipped"} onClick={this.toggleAdmin}></i>
-          <a style={ { right: '0', top: 0, position: 'absolute' } } className="close grey-text text-darken-2" onClick={this.handleClickClose} ><i className="fa fa-times"></i></a>
+          {<i style={ { fontSize: 16, right: 20, top: 5, position: 'absolute' } } data-position="top" data-delay="50" data-tooltip={this.state.admin ? "Unassign teacher" : "Assign to teacher" } className={ this.state.admin ? "fa fa-user blue-text tooltipped" : "fa fa-user grey-text text-darken-2 tooltipped"} onClick={this.toggleAdmin}></i>}
+          <a style={ { fontSize: 25, right: 10, top: 2, position: 'absolute' } } className="close grey-text text-darken-2" onClick={this.handleClickClose} >×</a>
           <input type="hidden" value={this.state.admin ? this.props.admin_id : "" } name={"meeting[action_items_attributes][" + this.props.reactKey + "][user_id]"} id={"meeting_action_items_attributes_" + this.props.reactKey + "_user_id"} />
 
           <div className="input-field col s9">
@@ -82,3 +82,6 @@ var NewActionItem = React.createClass({
   }
 
 });
+
+          // {this.props.admin_id ? <i style={ { fontSize: "12px", right: '20px', top: '5px', position: 'absolute' } } data-position="top" data-delay="50" data-tooltip={this.state.admin ? "Unassign teacher" : "Assign to teacher" } className={ this.state.admin ? "fa fa-user blue-text tooltipped" : "fa fa-user grey-text text-darken-2 tooltipped"} onClick={this.toggleAdmin}></i> : null}
+
