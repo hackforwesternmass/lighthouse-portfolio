@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160403044032) do
+ActiveRecord::Schema.define(version: 20160421015647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,6 +143,18 @@ ActiveRecord::Schema.define(version: 20160403044032) do
 
   add_index "resources", ["user_id"], name: "index_resources_on_user_id", using: :btree
 
+  create_table "resume_entries", force: :cascade do |t|
+    t.string   "title"
+    t.string   "subtitle"
+    t.string   "date"
+    t.text     "description"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "resume_entries", ["user_id"], name: "index_resume_entries_on_user_id", using: :btree
+
   create_table "social_media", force: :cascade do |t|
     t.string   "link"
     t.string   "name"
@@ -194,6 +206,7 @@ ActiveRecord::Schema.define(version: 20160403044032) do
   add_foreign_key "meetings", "users"
   add_foreign_key "project_attachments", "projects"
   add_foreign_key "resources", "users"
+  add_foreign_key "resume_entries", "users"
   add_foreign_key "social_media", "users"
   add_foreign_key "tags", "projects"
 end

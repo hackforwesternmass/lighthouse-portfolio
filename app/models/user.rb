@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :klasses, through: :enrolls
   has_many :action_items, through: :meetings
   has_many :admin_action_items, foreign_key: "user_id", class_name: "ActionItem"
+  has_many :resume_entries, dependent: :destroy
   
   has_many :social_mediums, dependent: :destroy
   accepts_nested_attributes_for :social_mediums, allow_destroy: true

@@ -15,15 +15,6 @@ class ActionItemsController < SessionsController
     end
   end
 
-  def complete
-    action_item = ActionItem.find params[:id]
-    if action_item.update(completed: true)
-      render json: { id: action_item.id }, status: 200
-    else
-      render json: {}, status: 400
-    end 
-  end
-
   def destroy
     ActionItem.find(params[:id]).destroy
     render json: {}, status: 200
