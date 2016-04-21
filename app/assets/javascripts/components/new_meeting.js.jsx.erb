@@ -49,11 +49,7 @@ var NewMeeting = React.createClass({
   },
   handleSubmit: function(e) {
     e.preventDefault();
-
-
     tinymce.get('meeting_notes').save();
-
-
     if(e.target.querySelector("#meeting_notes").value == ""){
       Materialize.toast("Meetings notes are required.", 3500, "red darken-4");
       return false;

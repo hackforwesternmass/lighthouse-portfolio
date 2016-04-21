@@ -38,29 +38,55 @@
 
 }
 
-.goal-title{
-  font-weight: 700;
-  font-size: 1.5rem;
-  margin: 10px 0;
-  padding-left: 0.75rem;
-}
+#goals-action-plan{
 
-.new-goal{
-  margin-bottom: 10px;
-
-  .input-field{
-    margin: 0;
-    position: relative;
+  .goal-title{
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin: 10px 0;
+    padding-left: 0.75rem;
   }
 
-  .close-goal{
-    position: absolute;
-    right: 0;
-    top: 0;
+  .new-goal{
+    margin-bottom: 10px;
+
+    .input-field{
+      margin: 0;
+      position: relative;
+    }
+
+    .close-goal{
+      position: absolute;
+      right: 0;
+      top: 0;
+      color: #999;
+      cursor: pointer;
+    }
+  }
+
+  .delete{
+    display: block;
     color: #999;
+    padding: 0 0.75rem;
     cursor: pointer;
+    font-weight: 400;
+    font-size: 1rem; 
   }
+
+  .complete-btn{
+  text-decoration: none;
+  display: block;
+  padding: 10px 15px;
+  background-color: #4682b4;
+  letter-spacing: .5px;
+  transition: 0.2s ease-out;
+  cursor: pointer;
+  color: white;
+  text-align: center;
+  }
+
 }
+
 
 .blue-check[type="checkbox"]:checked + label:before{
   border-right-color: color("blue", "lighten-4");

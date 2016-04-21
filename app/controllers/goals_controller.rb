@@ -22,9 +22,9 @@ class GoalsController < SessionsController
 
   def update
     goal_params[:action_items_attributes] = goal_params[:action_items_attributes].map { | k,v | [ k, v ] unless v[:description].empty? }.compact.to_h if goal_params[:action_items_attributes]
-    @goal = goal.find(params[:id])
+    @goal = Goal.find(params[:id])
     if @goal.update(goal_params)
-      render json: {goal: @goal}, status: 200 
+      render json: { goal: @goal }, status: 200 
     else
       render json: @goal.errors, status: 406
     end

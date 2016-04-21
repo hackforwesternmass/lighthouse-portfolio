@@ -9,13 +9,6 @@
   <div class="row">
 
     <div class="manager">
- 
-<!--       <div class="list-header">General</div>
-      <ul class="fa-ul">
-        <li><%= link_to fa_icon("angle-double-right li", text: ' Create admin account'), new_user_path(role: :admin) %></li>
-        <li><%= link_to fa_icon("angle-double-right li", text: ' Manage account settings'), edit_user_path(@user) %></li>
-        <li><%= link_to fa_icon("angle-double-right li", text: ' Manage calendar'), manage_calendar_path %></li>
-      </ul>  -->
 
       <div class="box orange darken-4">
         <%= link_to users_path do %>
@@ -59,64 +52,9 @@
           <%= fa_icon "picture-o", class:  "icon no-padding" %>
         <% end %>
       </div>
-      </div>
-
-
-      <div class="card">
-        <div class="card-header">Things to do
-        </div>
-
-        <% if @user.admin_action_items.where(completed: [false, nil]).empty? %>
-
-          <div class="empty-action-items">
-            You currently have no task to complete.
-          </div>
-
-        <% end %>
-
-
-        <% @user.admin_action_items.order( due_date: :asc ).each do | action_item |%>
-        <div class="card-action-item row no-margin action-item-id-<%= action_item.id %>" >
-          <div class="weekday"><%=  from_now action_item.due_date %></div>
-          <div class="action-item">
-            <div class="name"><%= action_item.owner_name %></div>
-            <div class="desc"><%= action_item.description %></div>
-          </div>
-          <%= link_to fa_icon("check", class: "no-padding", text: "Complete"), 
-            complete_action_item_path(action_item), class: "complete", method: :put, remote: true %>
-        </div>
-        <% end %>
-
-      </div>
-
-
-      <div class="card">
-        <div class="card-header">Complete
-        </div>
-
-        <% if @user.admin_action_items.where(completed: true ).empty? %>
-
-          <div class="empty-action-items">
-            You currently have no task to complete.
-          </div>
-
-        <% end %>
-
-
-        <% @user.admin_action_items.where(completed: true).order( updated_at: :desc).each do | action_item |%>
-        <div class="card-action-item row no-margin action-item-id-<%= action_item.id %>" >
-          <div class="weekday"><%= fa_icon "check" %></div>
-          <div class="action-item">
-            <div class="name"><%= action_item.owner_name %></div>
-            <div class="desc truncate"><%= action_item.description %></div>
-          </div>
-          <%= link_to "undo", 
-            complete_action_item_path(action_item), class: "complete", method: :put, remote: true %>
-        </div>
-        <% end %>
-
-      </div>
     </div>
+
+    <%= react_component "AdminToDoList", {} %>
   </div>
 
 </section>

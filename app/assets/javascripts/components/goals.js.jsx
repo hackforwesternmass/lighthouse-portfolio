@@ -1,43 +1,49 @@
 var Goals = React.createClass({
-
   getInitialState: function() {
     return { newGoal: false, goals: [] };
   },
   componentDidMount: function() {
-    $.get("/goals", function(data){
-      var goals = $.map(data, function(obj){
-        return { title: obj.goal.title,
-                 action_items: obj.goal.action_items,
-                 due_date: obj.goal.due_date,
-                 id: obj.goal.id,
-                 created_at: obj.goal.created_at,
-                 editing: false };
-      });
+    $.getJSON("/goals", function(goals){
       this.setState({ goals: goals });
     }.bind(this));
   },
   toggleNewGoal: function(){
     this.setState({ newGoal: !this.state.newGoal });
   },
-  setActionItemComplete: function(index, val, goal_index){
-    this.setState({ goals: React.addons.update(this.state.goals, {[goal_index]: { action_items: { [index]: {action_item: { completed: {$set: val } } } } } })  });
-  },
   updateGoals: function(){
-    $.get("/goals", function(data){
-      var goals = $.map(data, function(obj){
-        return { title: obj.goal.title,
-                 action_items: obj.goal.action_items,
-                 due_date: obj.goal.due_date,
-                 id: obj.goal.id,
-                 created_at: obj.goal.created_at,
-                 editing: false };
-      });
-      this.setState({ goals : goals, newGoal: !this.state.newGoal});
+    $.getJSON("/goals", function(goals){
+      this.setState({ goals: goals, newGoal: false });
     }.bind(this));
+  },
+  render: function(){
+    var goalItemNodes = this.state.goals.map(function(goal, i){
+      return (
+        <GoalItem {...this.props} goal={goal} key={i} reactKey={i} goalIndex={i} updateGoals={this.updateGoals}/>
+      );
+    }.bind(this));
+
+    return (
+      <div>
+        <Goals.NewGoal {...this.props} updateGoals={this.updateGoals} newGoal={this.state.newGoal}/>
+        {goalItemNodes}
+      </div>
+    );
+  }
+});
+
+Goals.NewGoal = React.createClass({
+  getInitialState: function() {
+    return { newGoal: false };
+  },
+  componentWillReceiveProps: function(nextProps) {
+    this.setState({ newGoal: nextProps.newGoal });
+  },
+  toggleNewGoal: function(){
+    this.setState({ newGoal: !this.state.newGoal });
   },
   newGoal: function(){
     if( this.state.newGoal ){
-      return <NewGoal {...this.props} toggleNewGoal={this.toggleNewGoal} updateGoals={this.updateGoals}/>
+      return <NewGoal {...this.props} toggleNewGoal={this.toggleNewGoal}/>
     }else{
       return <a onClick={this.toggleNewGoal} className="hide-on-small-only">
                <div className="row">
@@ -53,17 +59,6 @@ var Goals = React.createClass({
     }
   },
   render: function(){
-    var goalItemNodes = this.state.goals.map(function(goal, i){
-      return (
-        <GoalItem {...this.props} goal={goal} key={i} reactKey={i} goalIndex={i} setActionItemComplete={this.setActionItemComplete}/>
-      );
-    }.bind(this));
-
-    return (
-      <div>
-        {this.newGoal()}
-        {goalItemNodes}
-      </div>
-    );
+    return <div>{this.newGoal()}</div>
   }
 });

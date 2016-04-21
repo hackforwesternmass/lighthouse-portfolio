@@ -1,30 +1,44 @@
 var GoalItem = React.createClass({
   getInitialState: function() {
-    var action_items = $.map(this.props.goal.action_items, function(v, i){
-      return v.action_item;
-    });
-
-    return { title: this.props.goal.title,
-             action_items: action_items,
-             editing: this.props.goal.editing,
-             created_at: this.props.goal.created_at,
-             due_date: this.props.goal.due_date,
-             show_checklist: false };
+    return { show_checklist: false };
   },
-  componentWillReceiveProps: function(nextProps) {
-    var action_items = $.map(nextProps.goal.action_items, function(v, i){
-      return v.action_item;
+  setComplete: function(e){
+    e.preventDefault();
+    $.ajax({
+      url: "/goals/" + this.props.goal.id ,
+      dataType: "JSON",
+      type: "PATCH",
+      data: { goal: { is_completed: true } },
+      success: function() {
+        this.props.updateGoals();
+      }.bind(this),
+      error: function() {
+        console.log("ERROR - SETTING GOAL COMPLETE");
+      }
     });
+  },
+  delete: function(e){
+    e.preventDefault();
 
-    this.setState({ title: nextProps.goal.title, 
-                    action_items: action_items,
-                    editing: nextProps.goal.editing,
-                    created_at: nextProps.goal.created_at,
-                    due_date: nextProps.goal.due_date });
+    if(!confirm("Are you sure you would like to delete this goal?")){
+      return false;
+    }
+
+    $.ajax({
+      url: "/goals/" + this.props.goal.id ,
+      dataType: "JSON",
+      type: "DELETE",
+      success: function() {
+        this.props.updateGoals();
+      }.bind(this),
+      error: function() {
+        console.log("ERROR - DELETING GOAL");
+      }
+    });
   },
   calculateProgress: function(){
     var counter = 0;
-    $.each(this.state.action_items, function(i, action_item){
+    $.each(this.props.goal.action_items, function(i, action_item){
       if(action_item.completed){
         counter += 1;
       }
@@ -32,15 +46,15 @@ var GoalItem = React.createClass({
 
     var progress = 0;
 
-    if(this.state.action_items.length > 0){
-      progress = (counter/this.state.action_items.length * 100).toFixed(0);
+    if(this.props.goal.action_items.length > 0){
+      progress = (counter/this.props.goal.action_items.length * 100).toFixed(0);
     }
 
     return progress;
   },
   progress: function(){
     var progress = this.calculateProgress();
-    if(this.state.action_items.length > 0){
+    if(this.props.goal.action_items.length > 0){
       return <div style={{padding: "0 0.75rem"}}>
               <div className="row">
                 <div className="grey-text">
@@ -60,9 +74,8 @@ var GoalItem = React.createClass({
     this.setState({ show_checklist: !this.state.show_checklist });
   },
   checklist: function(){
-
-    var actionItemNodes = this.state.action_items.map(function(action_item, i){
-      return <GoalActionItem {...this.props} action_item={action_item} key={i} reactKey={i}/>;
+    var actionItemNodes = this.props.goal.action_items.map(function(action_item, i){
+      return <GoalItem.ActionItem {...this.props} action_item={action_item} key={i} reactKey={i}/>;
     }.bind(this));
 
     if(this.state.show_checklist){
@@ -76,7 +89,7 @@ var GoalItem = React.createClass({
                   {actionItemNodes}
                 </form>
              </div>;
-    }else if(!this.state.show_checklist && this.state.action_items.length > 0){
+    }else if(!this.state.show_checklist && this.props.goal.action_items.length > 0){
       return <a onClick={this.toggleShowActionItems} className="add-checklist" style={{padding: "0 0.75rem"}}>Show Checklist...</a>;
     }
   },
@@ -88,26 +101,66 @@ var GoalItem = React.createClass({
           <div className="card">
             <div className="card-content">
             <div className="goal-title">
-              {this.state.title}
+              {this.props.goal.title}
             </div>
             <div className="row grey-text no-margin">
               <div className="col s6">DATE SET</div>
               <div className="col s6 right-align">DEADLINE</div>
             </div>
             <div className="row">
-              <div className="col s6">{moment(this.state.created_at).format("MMMM D YYYY")}</div>
-              <div className="col s6 right right-align">{ this.state.due_date ? moment(this.state.due_date).format("MMMM D YYYY") : "∞" }</div>
+              <div className="col s6">{moment(this.props.goal.created_at).format("MMMM D YYYY")}</div>
+              <div className="col s6 right right-align">{ this.props.goal.due_date ? moment(this.props.goal.due_date).format("MMMM D YYYY") : "∞" }</div>
             </div> 
 
             {this.progress()}
 
             {this.checklist()}
+            <a href="#" className="delete" onClick={this.delete} >Delete...</a>
 
             </div>
+            <a href="#" className="complete-btn" onClick={this.setComplete} >Complete</a>
           </div>
         </div>
       </div>
 
     )
   }
+});
+
+GoalItem.ActionItem = React.createClass({
+  getInitialState: function() {
+    return { description : this.props.action_item.description,
+             completed: this.props.action_item.completed,
+             id: this.props.action_item.id,
+             reactKey: this.props.reactKey
+           };
+  },
+  componentWillReceiveProps: function(nextProps) {
+    this.setState({ description : nextProps.action_item.description,
+                    completed: nextProps.action_item.completed,
+                    id: nextProps.action_item.id,
+                    reactKey: this.props.reactKey
+                   });
+  },
+  toggleCheck: function(){
+    $.ajax({
+      url: "/action_items/" + this.state.id ,
+      dataType: "JSON",
+      type: "PATCH",
+      data: { action_item: { completed: !this.state.completed } },
+      success: function(data) {
+        this.props.updateGoals();
+      }.bind(this),
+      error: function(data) {
+        console.log(data);
+      }
+    });
+  },
+  render: function(){
+    return <div style={{paddingLeft: "1.5rem", paddingBottom: "10px"}}>
+              <input type="checkbox" className="blue-check" id={"check-" + this.state.id} onChange={this.toggleCheck} checked={this.state.completed ? "checked" : false }/>
+              <label htmlFor={"check-" + this.state.id}>{this.state.description}</label>
+            </div>;
+  }
+
 });

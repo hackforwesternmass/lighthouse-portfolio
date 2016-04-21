@@ -1,5 +1,4 @@
 var NewActionItem = React.createClass({
-
   getInitialState: function() {
     return { description: this.props.action_item.description,
              due_date: this.props.action_item.due_date,

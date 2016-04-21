@@ -5,10 +5,9 @@ var Meeting = React.createClass({
     return { newMeeting : false, meetings: [] };
   },
   componentDidMount: function() {
-    var url = "/meetings";
-    $.get(url, function(data){
+    $.getJSON("/meetings", function(data){
       var meetings = $.map(data, function(obj){
-        return { action_items: obj.meeting.action_items, created_at: obj.meeting.created_at, id: obj.meeting.id, notes: obj.meeting.notes, editing: false };
+        return { action_items: obj.action_items, created_at: obj.created_at, id: obj.id, notes: obj.notes, editing: false };
       });
       this.setState({ meetings : meetings });
     }.bind(this));
@@ -21,7 +20,6 @@ var Meeting = React.createClass({
     this.setState({ meetings: React.addons.update(this.state.meetings, {[meetingIndex]: { action_items: { [index]: {action_item: { completed: {$set: val } } } } } })  });
   },
   closeAllMeetings: function(index){
-
     $.each(this.state.meetings, function(i,v){
       if(index !== i){
         v.editing = false;
@@ -40,10 +38,9 @@ var Meeting = React.createClass({
     this.setState({ newMeeting : false });
   },
   updateMeetings: function(){
-    var url = "/meetings";
-    $.get(url, function(data){
+    $.getJSON("/meetings", function(data){
       var meetings = $.map(data, function(obj){
-        return { action_items: obj.meeting.action_items, created_at: obj.meeting.created_at, id: obj.meeting.id, notes: obj.meeting.notes, editing: false };
+        return { action_items: obj.action_items, created_at: obj.created_at, id: obj.id, notes: obj.notes, editing: false };
       });
 
       this.setState({ meetings : meetings });

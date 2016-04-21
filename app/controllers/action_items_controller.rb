@@ -1,6 +1,11 @@
 class ActionItemsController < SessionsController
   before_action :signed_in
 
+  def index
+    @incomplete = @user.admin_action_items.where(completed: [false, nil]).order(due_date: :asc)
+    @complete = @user.admin_action_items.where(completed: true).order( updated_at: :desc)
+  end
+
   def update
     action_item = ActionItem.find params[:id]
     if action_item.update(action_item_params)

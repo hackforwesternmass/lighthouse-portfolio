@@ -3,7 +3,7 @@ var ReactTransitionGroup = React.addons.TransitionGroup;
 var EditMeeting = React.createClass({
   getInitialState: function() {
     var action_items = $.map(this.props.meeting.action_items, function(obj){
-      return { user_id: obj.action_item.user_id, description: obj.action_item.description, due_date: obj.action_item.due_date, id: obj.action_item.id };
+      return { user_id: obj.user_id, description: obj.description, due_date: obj.due_date, id: obj.id };
     });
     return { notes: this.props.meeting.notes, action_items: action_items }
   },

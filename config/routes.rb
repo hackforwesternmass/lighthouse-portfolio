@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   end
 
   resources :meetings
-  resources :action_items, only: [:update, :destroy] do
+  resources :action_items, only: [:index, :update, :destroy] do
     put :complete, on: :member
   end 
   resources :goals

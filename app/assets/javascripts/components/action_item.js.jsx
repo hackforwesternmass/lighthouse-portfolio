@@ -1,20 +1,20 @@
 var ActionItem = React.createClass({
 
   getInitialState: function() {
-    return { description : this.props.action_item.description,
-             due_date: this.props.action_item.due_date,
-             completed: this.props.action_item.completed,
-             id: this.props.action_item.id,
-             admin_id: this.props.action_item.user_id,
+    return { description : this.props.description,
+             due_date: this.props.due_date,
+             completed: this.props.completed,
+             id: this.props.id,
+             admin_id: this.props.user_id,
              reactKey: this.props.reactKey
            };
   },
   componentWillReceiveProps: function(nextProps) {
-    this.setState({ description : nextProps.action_item.description,
-                    due_date: nextProps.action_item.due_date,
-                    completed: nextProps.action_item.completed,
-                    id: nextProps.action_item.id,
-                    admin_id: nextProps.action_item.user_id,
+    this.setState({ description : nextProps.description,
+                    due_date: nextProps.due_date,
+                    completed: nextProps.completed,
+                    id: nextProps.id,
+                    admin_id: nextProps.user_id,
                     reactKey: nextProps.reactKey
                    });
   },
@@ -25,7 +25,8 @@ var ActionItem = React.createClass({
       type: "PATCH",
       data: { action_item: { completed: !this.state.completed } },
       success: function(data) {
-        this.props.setActionItemComplete(this.state.reactKey, !this.state.completed, this.props.meetingIndex);
+        this.props.updateMeetings();
+        // this.props.setActionItemComplete(this.state.reactKey, !this.state.completed, this.props.meetingIndex);
       }.bind(this),
       error: function(data) {
         console.log(data);
