@@ -8,10 +8,10 @@
   }
 
   .box a{
-    text-transform: uppercase;
     position: relative;
     display: block;
     color: #fff;
+    background-color: $secondary-color;
     font-weight: 300;
     font-size: 1.25rem;
     padding: 10px 20px;

@@ -5,10 +5,14 @@
 </nav>
 
 <ul class="tabs z-depth-1">
-  <li class="tab"><a href="#completed-action-plan">Todo List</a></li>
+  <li class="tab"><a href="#todo-action-plan">Todo List</a></li>
   <li class="tab"><a href="#meetings-action-plan">Meetings</a></li>
   <li class="tab"><a href="#goals-action-plan">Goals</a></li>
 </ul>
+
+<section class="section-container" id="todo-action-plan">
+  <%= react_component "ToDo", { userId: current_user.id, meetingTime: current_user.meeting_time, authenticityToken: form_authenticity_token } %>
+</section>
 
 <section class="section-container" id="meetings-action-plan">
   <%= react_component "Meeting", {userId: current_user.id, 
@@ -19,5 +23,3 @@
   <%= react_component "Goals", {userId: current_user.id, authenticityToken: form_authenticity_token} %>
 </section>
 
-<section class="section-container" id="completed-action-plan">
-</section>

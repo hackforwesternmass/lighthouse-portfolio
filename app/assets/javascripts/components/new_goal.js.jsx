@@ -8,7 +8,7 @@ var NewGoal = React.createClass({
   closeNewGoal: function(){
     this.props.toggleNewGoal();
   },
-  handleAddActionItem: function(e) {
+  addNewActionItem: function(e) {
     e.preventDefault();
     this.setState({ action_items: React.addons.update(this.state.action_items, {$push: [{description: "", due_date: ""}] }) });
   },
@@ -55,7 +55,7 @@ var NewGoal = React.createClass({
   checklist: function(){
     var actionItemNodes = this.state.action_items.map(function(action_item, i){
       return (
-        <NewGoalActionItem  {...this.props} key={i} reactKey={i} action_item={action_item} removeActionItem={this.removeActionItem} addActionItem={this.addActionItem} />
+        <NewGoal.ActionItem  {...this.props} key={i} reactKey={i} action_item={action_item} removeActionItem={this.removeActionItem} addNewActionItem={this.addNewActionItem} addActionItem={this.addActionItem} />
       );
     }.bind(this));
 
@@ -72,7 +72,7 @@ var NewGoal = React.createClass({
                   <button name="button"
                           type="button"
                           className="btn waves-effect waves-light blue darken-1"
-                          onClick={this.handleAddActionItem}>
+                          onClick={this.addNewActionItem}>
                           Add
                   </button>
                 </div>
@@ -136,3 +136,42 @@ var NewGoal = React.createClass({
   }
 });
 
+NewGoal.ActionItem = React.createClass({
+  changeDescription: function(e){
+    this.props.addActionItem(this.props.reactKey, { description: e.target.value, due_date: this.props.action_item.due_date });
+  },
+  componentDidMount: function() {
+    $(ReactDOM.findDOMNode(this)).find("#goal_action_items_attributes_" + this.props.reactKey + "_description").focus();
+  },
+  removeActionItem: function(){
+    this.props.removeActionItem(this.props.reactKey);
+  },
+  tabbed: function(e){
+    if(e.which === 9){
+      if( $("#goal_action_items_attributes_" + (this.props.reactKey + 1) + "_description").length > 0 ){
+        $(ReactDOM.findDOMNode(this)).find("#goal_action_items_attributes_" + (this.props.reactKey + 1) + "_description").focus();
+      }else{
+        this.props.addNewActionItem(e);
+      }
+    }
+  },
+  render: function(){
+    return(
+      <div className="row new-goal">
+        <div className="input-field col s12 m6">
+          <input type="hidden" value={this.props.action_item.id} name={"goal[action_items_attributes][" + this.props.reactKey + "][id]"} id={"goal_action_items_attributes_" + this.props.reactKey + "_id"} />
+          <input type='text'
+                 name={"goal[action_items_attributes][" + this.props.reactKey + "][description]"}
+                 id={"goal_action_items_attributes_" + this.props.reactKey + "_description"}
+                 value={this.props.action_item.description}
+                 onChange={this.changeDescription}
+                 onKeyDown={this.tabbed}
+                 placeholder="Add an item..."
+                 />
+          <a className="close-goal" onClick={this.removeActionItem} ><i className="fa fa-times"/></a>
+        </div>
+      </div>
+    );
+  }
+
+});

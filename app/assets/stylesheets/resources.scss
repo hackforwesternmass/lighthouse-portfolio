@@ -22,6 +22,10 @@
 	min-height: 325px;
 	font-size: 1.1rem;
 
+    @media #{$small-and-down} {
+      min-height: auto;
+    }
+
   .resource-link{
     color: purple;
   }
@@ -50,12 +54,6 @@
 			color: #777;
 			overflow-wrap: break-word;
 		}
-	}
-}
-
-@media #{$small-and-down} {
-	.resource-item{
-		min-height: auto;
 	}
 }
 

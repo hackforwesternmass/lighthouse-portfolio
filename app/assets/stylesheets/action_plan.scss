@@ -129,3 +129,27 @@
   text-align: center;
   color: #fff;
 }
+
+#to-do{
+  .item{
+    padding: 8px 0;
+    font-size: 1.25rem;
+
+    .text{
+      display: inline-block;
+      width: calc(100% - 20px);
+    }
+
+    .secondary-icons{
+      display: inline-block;
+      width: 20px;
+
+      i{
+        padding: 0;
+        float: right;
+      }
+    }
+
+
+  }
+}

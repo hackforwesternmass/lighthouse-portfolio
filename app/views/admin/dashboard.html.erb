@@ -10,43 +10,43 @@
 
     <div class="manager">
 
-      <div class="box orange darken-4">
+      <div class="box">
         <%= link_to users_path do %>
           <%= fa_icon("angle-double-right", text: ' Manage students') %>
           <%= fa_icon "users", class:  "icon no-padding" %>
         <% end %>
       </div>
-      <div class="box orange darken-3">
+      <div class="box">
         <%= link_to klasses_path do %>
           <%= fa_icon("angle-double-right", text: ' Manage classes') %>
           <%= fa_icon "book", class:  "icon no-padding" %>
         <% end %>
       </div>
-      <div class="box orange darken-2">
+      <div class="box">
         <%= link_to manage_calendar_path do %>
           <%= fa_icon("angle-double-right", text: ' Manage calendar') %>
           <%= fa_icon "calendar", class:  "icon no-padding" %>
         <% end %>
       </div>
-      <div class="box orange darken-1">
+      <div class="box">
         <%= link_to new_resource_path(general: true) do %>
           <%= fa_icon("angle-double-right", text: ' Create general resource') %>
           <%= fa_icon "bookmark", class:  "icon no-padding" %>
         <% end %>
       </div>
-      <div class="box orange">
+      <div class="box">
         <%= link_to edit_user_path(role: "admin", id: @user.id) do %>
           <%= fa_icon("angle-double-right", text: ' Account settings') %>
           <%= fa_icon "cogs", class:  "icon no-padding" %>
         <% end %>
       </div>
-       <div class="box orange lighten-1">
+       <div class="box">
         <%= link_to new_user_path(role: :admin) do %>
           <%= fa_icon("angle-double-right", text: ' Create admin account') %>
           <%= fa_icon "dot-circle-o", class:  "icon no-padding" %>
         <% end %>
       </div>
-       <div class="box orange lighten-2">
+       <div class="box">
         <%= link_to manage_background_image_path do %>
           <%= fa_icon("angle-double-right", text: ' Manage Background Image') %>
           <%= fa_icon "picture-o", class:  "icon no-padding" %>

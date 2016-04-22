@@ -1,58 +1,53 @@
 <%= form_for @klass do |f| %>
 
   <div class="row">
-    <div class="input-field small-input">
+    <div class="input-field col s12 m6">
       <%= f.text_field :name %>
       <%= f.label :name, "Title" %>
     </div>
+
+    <div class="input-field col s12 m6">
+      <%= f.text_field :instructor %>
+      <%= f.label :instructor %>
+    </div>
+
   </div>
 
   <div class="row">
-    <div class="input-field small-input">
-      <%= f.text_area :description, class: "materialize-textarea" %>
+    <div class="input-field col s12">
+      <%= f.text_area :description, class: "materialize-textarea", value: @klass.description %>
       <%= f.label :description %>
     </div>
   </div>
 
   <div class="row">
-    <div class="input-field small-input">
-      <%= f.text_field :weekday %>
+    <div class="input-field col s12 m6">
+      <%= f.select :weekday, options_for_select(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], selected: @klass.weekday) %>
       <%= f.label :weekday %>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="input-field small-input">
-      <%= f.text_field :time %>
+    <div class="input-field col s12 m6">
+      <%= f.text_field :time, placeholder: "ex. 9:30AM - 11:30AM" %>
       <%= f.label :time %>
     </div>
   </div>
 
   <div class="row">
-    <div class="input-field small-input">
+    <div class="input-field col s12 m6">
+      <%= f.select :year, options_for_select(((Time.now.year - 1)..(Time.now.year + 4)), selected: @klass.year) %>
+      <%= f.label :year %>
+    </div>
+
+    <div class="input-field col s12 m6">
+      <%= f.select :season, options_for_select(["Fall", "Winter"], selected: @klass.season) %>
+      <%= f.label :season %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12 m6">
       <%= f.url_field :google_drive_url %>
       <%= f.label :google_drive_url %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="input-field small-input">
-      <%= f.text_field :instructor %>
-      <%= f.label :instructor %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="input-field small-input">
-      <%= f.text_field :start_date, class: "datepicker" %>
-      <%= f.label :start_date %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="input-field small-input">
-      <%= f.text_field :end_date, class: "datepicker" %>
-      <%= f.label :end_date %>
     </div>
   </div>
 

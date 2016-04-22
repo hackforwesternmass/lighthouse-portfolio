@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   include BCrypt
+  include PgSearch
+  pg_search_scope :default_search, :against => [:first_name, :last_name, :username], :using => {:tsearch => {:prefix => true} }
   default_scope { order(first_name: :asc) }
 
   scope :students, -> { where(role: "student" ) }
@@ -26,6 +28,9 @@ class User < ActiveRecord::Base
   validates :last_name, 
     presence: { message: "Last name is required" }
 
+  validates :username, 
+    presence: { message: "Username is required" }
+
   validates :description,
     length: { maximum: 140, message: "140 character max" }
 
@@ -48,9 +53,14 @@ class User < ActiveRecord::Base
   has_attached_file :profile_background, :default_url => "tibetan-mountains.jpg"
   validates_attachment_content_type :profile_background, :content_type => /\Aimage\/.*\Z/
 
-  def self.authenticate(email, password)
-    user = User.find_by_email(email)
+  def self.authenticate(username_email, password)
+    user = User.username_or_email(username_email)
     user if user && user.pword == password
+  end
+
+  def self.username_or_email(username_email)
+    a = self.arel_table
+    user = self.where(a[:username].eq(username_email).or(a[:email].eq(username_email))).first
   end
 
   def full_name

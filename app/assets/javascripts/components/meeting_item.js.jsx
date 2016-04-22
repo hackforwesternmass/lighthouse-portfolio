@@ -83,51 +83,29 @@ var MeetingItem = React.createClass({
 });
 
 MeetingItem.ActionItem = React.createClass({
-
-  getInitialState: function() {
-    return { description : this.props.action_item.description,
-             due_date: this.props.action_item.due_date,
-             completed: this.props.action_item.completed,
-             id: this.props.action_item.id,
-             admin_id: this.props.action_item.user_id,
-             reactKey: this.props.reactKey
-           };
-  },
-  componentWillReceiveProps: function(nextProps) {
-    this.setState({ description : nextProps.action_item.description,
-                    due_date: nextProps.action_item.due_date,
-                    completed: nextProps.action_item.completed,
-                    id: nextProps.action_item.id,
-                    admin_id: nextProps.action_item.user_id,
-                    reactKey: nextProps.reactKey
-                   });
-  },
   toggleCheck: function(){
     $.ajax({
-      url: "/action_items/" + this.state.id ,
+      url: "/action_items/" + this.props.action_item.id,
       dataType: "JSON",
       type: "PATCH",
-      data: { action_item: { completed: !this.state.completed } },
-      success: function(data) {
+      data: { action_item: { completed: !this.props.action_item.completed } },
+      success: function() {
         this.props.updateMeetings();
       }.bind(this),
-      error: function(data) {
-        console.log(data);
+      error: function() {
+        console.log("ERROR - UPDATING ACTION ITEM");
       }
     });
   },
   render: function(){
-
     return (
       <div className="row body">
         <div className="col s9 m10">
-          <input type="checkbox" className="blue-check" id={"check-" + this.state.id} onChange={this.toggleCheck} checked={this.state.completed ? "checked" : false }/>
-          <label htmlFor={"check-" + this.state.id}><span className="blue-text text-lighten-2">{this.state.admin_id ? "Teacher task: " : ""}</span>{this.state.description}</label>
+          <input type="checkbox" className="blue-check" id={"meeting-check-" + this.props.action_item.id} onChange={this.toggleCheck} checked={this.props.action_item.completed ? "checked" : false }/>
+          <label htmlFor={"meeting-check-" + this.props.action_item.id}><span className="blue-text text-lighten-2">{this.props.action_item.admin_id ? "Teacher task: " : ""}</span>{this.props.action_item.description}</label>
         </div>
-        <div className="col s3 m2 capitalize">{ this.state.due_date ? moment(this.state.due_date).fromNow() : "∞" }</div>
+        <div className="col s3 m2 capitalize">{ this.props.action_item.due_date ? moment(this.props.action_item.due_date).fromNow() : "∞" }</div>
       </div>
     );
-
   }
-
 });

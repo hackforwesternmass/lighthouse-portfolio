@@ -26,7 +26,6 @@ module Compass
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
 
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| 
-
       if(instance.class.to_s.eql?("ActionView::Helpers::Tags::Label"))
         html_tag << "<span class=\"error-message\">#{instance.error_message.join(" and ")}</span>".html_safe
       else

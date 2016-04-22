@@ -6,7 +6,6 @@ var ResumeEntries = React.createClass({
   },
   componentDidMount: function(){
     $.getJSON( "/resume_entries", function(resumeEntries){
-      console.log(resumeEntries);
       this.setState({ resumeEntries: resumeEntries });
     }.bind(this));
   },

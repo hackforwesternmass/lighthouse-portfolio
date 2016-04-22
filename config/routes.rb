@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :users do
     get :edit_profile
+    get :search, on: :collection
   end
 
   resources :projects do
@@ -21,14 +22,16 @@ Rails.application.routes.draw do
   end
 
 
-  resources :action_items, only: [:index, :update, :destroy] do
-    put :complete, on: :member
-  end 
-  
+  resources :action_items
   resources :meetings
+  resources :enrolls do
+    post :bulk_create, on: :collection
+  end
   resources :resume_entries
   resources :goals
-  resources :klasses, path: :class
+  resources :klasses, path: :class do 
+    get :search, on: :collection
+  end
   resources :resources do
     post :change_category, on: :collection
   end

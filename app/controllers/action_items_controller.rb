@@ -4,6 +4,15 @@ class ActionItemsController < SessionsController
   def index
     @incomplete = @user.admin_action_items.where(completed: [false, nil]).order(due_date: :asc)
     @complete = @user.admin_action_items.where(completed: true).order( updated_at: :desc)
+    @action_items = @user.action_items.order(due_date: :asc)
+  end
+  
+  def create
+    if current_user.action_items.create(action_item_params)
+      render json: {}, status: 200
+    else
+      render json: {}, status: 400
+    end
   end
 
   def update

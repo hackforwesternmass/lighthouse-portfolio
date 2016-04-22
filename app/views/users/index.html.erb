@@ -8,58 +8,6 @@
   </div>
 </nav>
 
-<section id="students" class="section-container">
+<%= react_component "Students", { userId: current_user.id } %>
 
-  <div class="row grey-text text-darken-2">
-
-    <div class="input-field col s12 m9">
-      <%= fa_icon "search", class: "prefix" %>
-      <input id="student-search" class="search" type="text" />
-      <label for="student-search">Search</label>
-    </div>
-
-    <div class="input-field col s12 m3">
-      <%= link_to new_user_path(role: :student), class: "btn" do %>
-        <%= fa_icon("plus", text: "Register New", class: "no-padding") %>
-      <% end %>
-    </div>
-  </div>
-
-<table class="bordered z-depth-1">
-  <tr class="grey darken-4 white-text">
-    <th class="student-name">NAME</th>
-    <th>ACCOUNT</th>
-    <th>ENROLL</th>
-    <th>MEETING TIME</th>
-  </tr>
-
-  <% @students.each do |student| %>
-  <tr>
-    <td class="student-name name"><%= link_to student.full_name, edit_user_path(role: "student", id: student.id) %></td>
-    <td><%= link_to fa_icon("user"), access_student_path(student_id: student.id) %></td>
-    <td><%= link_to fa_icon("pencil"), "#" %></td>
-    <td><%= link_to fa_icon("calendar-o"), "#meeting-time-modal", class: "modal-trigger", data: { student_id: student.id } %> 
-    <span class=<%= "meeting-time-#{student.id}"%> ><%= student.meeting_time %></span></td>
-  </tr>
-
-  <% end %>
-</table>  
-
-</section>
-
-  <!-- Modal Structure -->
-  <div id="meeting-time-modal" class="modal" style="max-width: 500px">
-    <div class="modal-content">
-      <h4>Set Meeting Time</h4>
-      <form class="edit_user" accept-charset="UTF-8">
-          <div class="row">
-            <div class="input-field col s12">
-              <input type="text" name="user[meeting_time]" id="user_meeting_time">
-              <label for="user_meeting_time">Meeting time</label>
-            </div>
-          </div>
-      </form>
-      <a href="#!" class="set-meeting-time btn modal-action modal-close waves-effect">Set</a>
-    </div>
-  </div>
 

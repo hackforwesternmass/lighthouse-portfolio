@@ -12,9 +12,6 @@ var NewActionItem = React.createClass({
   componentWillReceiveProps: function(nextProps) {
     this.setState({ description: nextProps.action_item.description, due_date: nextProps.action_item.due_date, id: nextProps.action_item.id });
   },
-  componentDidEnter: function(e) {
-    $(ReactDOM.findDOMNode(this)).velocity("slideDown", { duration: 500, easing: "easeOutQuad" });
-  },
   changeDescription: function(e) {
     this.props.addActionItem(this.props.reactKey, { description: e.target.value, due_date: this.state.due_date, id: this.state.id });
   },
@@ -48,8 +45,8 @@ var NewActionItem = React.createClass({
       <li key={this.props.reactKey} className='collection-item'>
         <input type="hidden" value={this.state.id} name={"meeting[action_items_attributes][" + this.props.reactKey + "][id]"} id={"meeting_action_items_attributes_" + this.props.reactKey + "_id"} />
         <div className="row">
-          {<i style={ { fontSize: 16, right: 20, top: 5, position: 'absolute' } } data-position="top" data-delay="50" data-tooltip={this.state.admin ? "Unassign teacher" : "Assign to teacher" } className={ this.state.admin ? "fa fa-user blue-text tooltipped" : "fa fa-user grey-text text-darken-2 tooltipped"} onClick={this.toggleAdmin}></i>}
-          <a style={ { fontSize: 25, right: 10, top: 2, position: 'absolute' } } className="close grey-text text-darken-2" onClick={this.handleClickClose} >×</a>
+          {<i style={ { fontSize: 19, right: 20, top: 5, position: 'absolute' } } data-position="top" data-delay="50" data-tooltip={this.state.admin ? "Unassign advisor" : "Assign advisor" } className={ this.state.admin ? "fa fa-user blue-text tooltipped" : "fa fa-user grey-text text-darken-2 tooltipped"} onClick={this.toggleAdmin}></i>}
+          <a style={ { fontSize: 33, right: 6, top: 4, position: 'absolute' } } className="close grey-text text-darken-2" onClick={this.handleClickClose} >×</a>
           <input type="hidden" value={this.state.admin ? this.props.admin_id : "" } name={"meeting[action_items_attributes][" + this.props.reactKey + "][user_id]"} id={"meeting_action_items_attributes_" + this.props.reactKey + "_user_id"} />
 
           <div className="input-field col s9">

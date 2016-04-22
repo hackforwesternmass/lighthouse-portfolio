@@ -3,6 +3,9 @@ form.edit-student{
 
 	.custom-file-upload{
 		width: 150px;
+    display: block;
+    margin: 0 auto;
+
 
 	  input[type="file"] {
 	      display: none;
@@ -18,14 +21,15 @@ form.edit-student{
 }
 
 .avatar-column{
-  width: 150px;
+  width: 180px;
 	padding: 10px;
+  margin: 0 auto;
 
   img{
   	display: block;
   	margin: 0 auto;
-    height: 120px;
-    width: 120px;
+    height: 150px;
+    width: 150px;
     object-fit: cover;
     border-radius: 10rem;
     border: 5px solid teal;
@@ -44,6 +48,8 @@ form.edit-student{
     color: #777;
   }
 }
+
+// RESUME SCSS
 
 .entry{
   &:hover .secondary-content{

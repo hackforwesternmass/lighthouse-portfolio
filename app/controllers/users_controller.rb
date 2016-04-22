@@ -1,9 +1,25 @@
 class UsersController < SessionsController
-  before_action :admin_only, only: [:create, :new, :edit, :update]
+  before_action :admin_only, only: [:create, :new, :edit]
 
   def index
     @students = User.students
     @highlight_sidebar = "Admin"
+
+    respond_to do |format|
+      format.json { render json: @students.to_json(include: :enrolls) }
+      format.html 
+    end
+
+  end
+
+  def search
+    students = User.students
+
+    if params[:q].present?
+      students =  User.default_search(params[:q]).where(role: "student")
+    end
+
+    render json: students.to_json(include: :enrolls)
   end
 
   def show
@@ -73,7 +89,7 @@ class UsersController < SessionsController
   private
     def user_params
       params.require(:user).permit(:first_name, :last_name, :avatar, :meeting_time, :profile_background,
-        :role, :email, :password, :password_confirmation, :description, 
+        :role, :email, :password, :password_confirmation, :description, :username,
         social_mediums_attributes: [:link, :name,:_destroy, :id])
     end
 end

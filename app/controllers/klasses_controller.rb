@@ -5,6 +5,30 @@ class KlassesController < SessionsController
   def index
     @klasses = Klass.all
     @highlight_sidebar = "Admin"
+
+    respond_to do |format|
+      format.json { render json: @klasses.to_json(methods: :enrolled) }
+      format.html 
+    end
+  end
+
+  def search
+    klasses = Klass.all
+
+    if params[:q].present?
+      klasses =  Klass.default_search(params[:q])
+    end
+
+    if params[:year].present? && params[:year] != "All"
+      klasses = klasses.where(year: params[:year]) 
+    end
+
+    if params[:season].present? && params[:season] != "All"
+      klasses = klasses.where(season: params[:season])
+    end
+
+    render json: klasses.to_json(methods: :enrolled) 
+
   end
 
   def new
@@ -13,7 +37,8 @@ class KlassesController < SessionsController
   end
 
   def create
-    if Klass.create(klass_params)
+    @klass = Klass.new(klass_params)
+    if @klass.save
       redirect_to klasses_path, flash: { notice: 'Class successfully created!' }
     else
       flash.now[:alert] = 'Could not create your class, try again!'
@@ -48,7 +73,7 @@ class KlassesController < SessionsController
     end
 
     def klass_params
-      params.require(:klass).permit(:name, :description, :time, :weekday, :instructor, :google_drive_url)
+      params.require(:klass).permit(:name, :description, :time, :weekday, :year, :season, :instructor, :google_drive_url)
     end
 
 end
