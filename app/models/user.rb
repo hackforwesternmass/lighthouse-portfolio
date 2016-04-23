@@ -29,7 +29,8 @@ class User < ActiveRecord::Base
     presence: { message: "Last name is required" }
 
   validates :username, 
-    presence: { message: "Username is required" }
+    presence: { message: "Username is required" },
+    format: { with: /\A[a-zA-Z]+\z/, message: "Letters only" }
 
   validates :description,
     length: { maximum: 140, message: "140 character max" }
@@ -39,13 +40,12 @@ class User < ActiveRecord::Base
     uniqueness: { message: "is already in use." }
 
   validates :password, 
-    presence: { message: "Password is required." },
-    confirmation: {message: "Passwords do not match."},
-    on: :create
+    presence: { message: "Password is required.", on: :create },
+    confirmation: {message: "Passwords do not match."}
 
-  validates :password_confirmation, 
-    presence: { message: "Password confirmation is required." },
-    on: :create
+  # validates :password_confirmation, 
+  #   presence: { message: "Password confirmation is required." },
+  #   on: :create
 
   has_attached_file :avatar, :default_url => "default-avatar.png"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/

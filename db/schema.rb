@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160421132621) do
+ActiveRecord::Schema.define(version: 20160423225720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20160421132621) do
     t.integer  "meeting_id"
     t.integer  "goal_id"
     t.integer  "user_id"
+    t.boolean  "archive"
   end
 
   add_index "action_items", ["action_id"], name: "index_action_items_on_action_id", using: :btree
@@ -194,6 +195,7 @@ ActiveRecord::Schema.define(version: 20160421132621) do
     t.string   "profile_background_content_type"
     t.integer  "profile_background_file_size"
     t.datetime "profile_background_updated_at"
+    t.string   "profile_color"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

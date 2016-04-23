@@ -2,14 +2,17 @@ Rails.application.routes.draw do
 
   root "sessions#login"
 
+
   resources :users do
     get :edit_profile
+    get :unfound, on: :collection
     get :search, on: :collection
   end
 
   resources :projects do
     get :tags, on: :collection
     get :download, on: :member
+    get :public, on: :member
   end
 
   resource  :calendar, except: [:new, :edit, :show, :destroy] do 
@@ -55,5 +58,7 @@ Rails.application.routes.draw do
   namespace :action_plan, path: '/', as: nil do
     get :action_plan
   end
+
+  get '/:username', to: 'users#profile'
 
 end

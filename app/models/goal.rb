@@ -1,6 +1,6 @@
 class Goal < ActiveRecord::Base
 
-  default_scope { order(created_at: :desc) }
+  default_scope { order(is_completed: :asc, created_at: :desc) }
   # default_scope { order(due_date: :desc) }
 
   belongs_to :user

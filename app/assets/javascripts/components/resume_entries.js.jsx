@@ -30,7 +30,7 @@ var ResumeEntries = React.createClass({
 
     return  <div>
               {resumeEntryNodes}
-              {!this.state.newResumeEntry ? <a href="#" onClick={this.addnewResumeEntry} className="cyan btn">add</a> : null}
+              {!this.state.newResumeEntry ? <a href="#" onClick={this.addnewResumeEntry} className="btn" style={{backgroundColor: this.props.profile_color}}>Add Resume Entry</a> : null}
               {this.state.newResumeEntry ? <ResumeEntries.ResumeEntryForm {...this.props} resumeEntry={{}} save={this.save} close={this.close} newResumeEntry={this.state.newResumeEntry}/> : null}
             </div>;
 
@@ -97,8 +97,8 @@ ResumeEntries.ResumeEntryShow = React.createClass({
               <div className="title">
                 {this.state.resumeEntry.title}
                 <span className="secondary-content">
-                  <a href="#" onClick={this.props.toggleEdit}><i className="fa fa-pencil-square-o cyan-text"></i></a>
-                  {' '}<a href="#" rel="nofollow" onClick={this.delete} ><i className="fa fa-trash cyan-text"></i></a>
+                  <a href="#" onClick={this.props.toggleEdit}><i className="fa fa-pencil-square-o" style={{color: this.props.profile_color}}></i></a>
+                  {' '}<a href="#" rel="nofollow" onClick={this.delete} ><i className="fa fa-trash" style={{color: this.props.profile_color}}></i></a>
                 </span>
               </div>
 
@@ -189,39 +189,39 @@ ResumeEntries.ResumeEntryForm = React.createClass({
 
               <div className="row">
                 <div className="input-field col s12">
-                  <label htmlFor="resume_entry_title">Title</label>
-                  <input valueLink={this.linkState('title')} type="text" name="resume_entry[title]" id="resume_entry_title"/>
+                  <label htmlFor="resume_entry_title" className="active">Title</label>
+                  <input valueLink={this.linkState('title')} type="text" name="resume_entry[title]" id="resume_entry_title" placeholder="Web Developer"/>
                   {(this.state.error && this.state.errorMessages.title) ? <div className="error-message"> {this.state.errorMessages.title} </div> : null}
                 </div>
               </div>
 
               <div className="row">
                 <div className="input-field col s12">
-                  <label htmlFor="resume_entry_subtitle">Subtitle</label>
-                  <input valueLink={this.linkState('subtitle')} type="text" name="resume_entry[subtitle]" id="resume_entry_subtitle"/>
+                  <label htmlFor="resume_entry_subtitle" className="active">Subtitle</label>
+                  <input valueLink={this.linkState('subtitle')} type="text" name="resume_entry[subtitle]" id="resume_entry_subtitle" placeholder="BiteSite"/>
                   {(this.state.error && this.state.errorMessages.subtitle) ? <div className="error-message"> {this.state.errorMessages.subtitle} </div> : null}
                 </div>
               </div>
 
               <div className="row">
                 <div className="input-field col s12">
-                  <label htmlFor="resume_entry_date">Date</label>
-                  <input valueLink={this.linkState('date')} type="text" name="resume_entry[date]" id="resume_entry_date"/>
+                  <label htmlFor="resume_entry_date" className="active">Date</label>
+                  <input valueLink={this.linkState('date')} type="text" name="resume_entry[date]" id="resume_entry_date" placeholder="September 2015 - Present"/>
                   {(this.state.error && this.state.errorMessages.date) ? <div className="error-message"> {this.state.errorMessages.date} </div> : null}
                 </div>
               </div>
 
               <div className="row">
                 <div className="input-field col s12">
-                  <label htmlFor="resume_entry_description">Description</label>
-                  <textarea valueLink={this.linkState('description')} className="materialize-textarea" name="resume_entry[description]" id="resume_entry_description"/>
+                  <label htmlFor="resume_entry_description" className="active">Description</label>
+                  <textarea valueLink={this.linkState('description')} className="materialize-textarea" name="resume_entry[description]" id="resume_entry_description" placeholder="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."/>
                   {(this.state.error && this.state.errorMessages.description) ? <div className="error-message"> {this.state.errorMessages.description} </div> : null}
                 </div>
               </div>
 
               <div className="row">
                 <div className="input-field col s12">
-                  <button name="commit" type="submit" className="cyan btn">{this.state.sendingForm ? <i className="fa fa-spinner fa-spin"></i> : "Save" }</button>
+                  <button name="commit" type="submit" className="btn" style={{backgroundColor: this.props.profile_color}}>{this.state.sendingForm ? <i className="fa fa-spinner fa-spin"></i> : "Save" }</button>
                   {' '}<button className="red darken-1 btn" onClick={this.closeForm} name="button" type="button" >Close</button>
                   {this.state.success ? <span className="success">Resume updated!</span> : null}
                   {this.state.error ? <span className="error">Resume failed to update!</span> : null}

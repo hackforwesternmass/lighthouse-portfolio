@@ -1,5 +1,6 @@
 class UsersController < SessionsController
   before_action :admin_only, only: [:create, :new, :edit]
+  before_action :signed_in, except: [:profile, :unfound]
 
   def index
     @students = User.students
@@ -12,6 +13,16 @@ class UsersController < SessionsController
 
   end
 
+  def profile
+    @user = User.find_by(username: params[:username])
+    if @user
+      @projects = @user.projects
+      render layout: "public"
+    else
+      redirect_to unfound_users_path(q: params[:username])
+    end
+  end
+
   def search
     students = User.students
 
@@ -20,6 +31,11 @@ class UsersController < SessionsController
     end
 
     render json: students.to_json(include: :enrolls)
+  end
+
+  def unfound
+    @students = User.students
+    render layout: "public"
   end
 
   def show
@@ -56,22 +72,20 @@ class UsersController < SessionsController
 
   def update
     @current_user = User.find(params[:id])
-
-    prefix = ['Darn! ', 'Dang! ', 'Oh Snap! '].sample
-
+    @user = @current_user
     respond_to do |format|
-      if @current_user.update(user_params)
+      if @current_user.update(user_params.except(:password, :password_confirmation))
           @current_user.pword = params[:user][:password] unless params[:user][:password].blank?
           @current_user.save
-        if (request.referrer.split("?").first == edit_user_url(@current_user))
+        if admin_redirect_direction?
           format.html { redirect_to users_path, flash: { notice: "Profile successfully updated!" } }
         else
           format.html { redirect_to projects_path, flash: { notice: "Profile successfully updated!" } }
         end
           format.json { render json: {} }
       else
-        flash.now[:alert] = prefix << "Change a few things up and try submitting again."
-        format.html { if (request.referrer.split("?").first == edit_user_url(@user)) then render(:edit) else render(:edit_profile) end }
+        @highlight_sidebar = ( admin_redirect_direction? ? "Admin" : "Portfolio" )
+        format.html { admin_redirect_direction? ? render(:edit) : render(:edit_profile) }
         format.json { render json: {}, status: 400 }
       end
     end
@@ -79,17 +93,23 @@ class UsersController < SessionsController
 
   def destroy
     @user = User.find(params[:id])
+    name = @user.full_name
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, flash: { notice: 'User was successfully deleted.' } }
+      format.html { redirect_to users_url, flash: { notice: "#{name} account was successfully deleted." } }
       format.json { head :no_content }
     end
   end
 
   private
+
+    def admin_redirect_direction?
+      request.referrer.split("?").first == edit_user_url(@current_user) || request.referrer.split("?").first == user_url(@current_user)
+    end
+
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :avatar, :meeting_time, :profile_background,
-        :role, :email, :password, :password_confirmation, :description, :username,
+      @user_params ||= params.require(:user).permit(:first_name, :last_name, :avatar, :meeting_time, :profile_background,
+        :role, :email, :password, :password_confirmation, :description, :username, :profile_color,
         social_mediums_attributes: [:link, :name,:_destroy, :id])
     end
 end

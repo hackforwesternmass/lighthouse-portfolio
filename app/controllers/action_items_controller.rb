@@ -4,7 +4,7 @@ class ActionItemsController < SessionsController
   def index
     @incomplete = @user.admin_action_items.where(completed: [false, nil]).order(due_date: :asc)
     @complete = @user.admin_action_items.where(completed: true).order( updated_at: :desc)
-    @action_items = @user.action_items.order(due_date: :asc)
+    @action_items = @user.action_items.order(due_date: :asc).where(archive: [false, nil])
   end
   
   def create
@@ -31,6 +31,6 @@ class ActionItemsController < SessionsController
 
   private
     def action_item_params
-      params.require(:action_item).permit(:id, :due_date, :completed, :description, :user_id)
+      params.require(:action_item).permit(:id, :due_date, :completed, :description, :user_id, :archive)
     end 
 end

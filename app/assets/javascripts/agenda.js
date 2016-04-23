@@ -23,6 +23,10 @@ $(document).on('click', '.agenda-event', function(){
 
 function loadUpcomingAgendaEvents(calendar_min_time, first_iteration){
 
+  if(document.querySelector('#calendar-id') === null){
+    return;
+  }
+
   var calendar_id = document.querySelector('#calendar-id').dataset.calendarId;
   calendar_max_time = moment(calendar_min_time).add(30, 'days').format("YYYY-MM-DDT00:00:00Z");
   var calendar_url = "https://www.googleapis.com/calendar/v3/calendars/"+calendar_id 

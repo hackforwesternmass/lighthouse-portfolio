@@ -1,16 +1,20 @@
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-
 var Meeting = React.createClass({
   getInitialState: function() {
     return { newMeeting : false, meetings: [] };
   },
   componentDidMount: function() {
-    $.getJSON("/meetings", function(data){
-      var meetings = $.map(data, function(obj){
-        return { action_items: obj.action_items, created_at: obj.created_at, id: obj.id, notes: obj.notes, editing: false };
-      });
-      this.setState({ meetings : meetings });
-    }.bind(this));
+    this.loadMeetings();
+    EventSystem.subscribe('meetings.updated', this.loadMeetings);
+  },
+  loadMeetings: function(){
+    if(this.isMounted()){
+      $.getJSON("/meetings", function(data){
+        var meetings = $.map(data, function(obj){
+          return { action_items: obj.action_items, created_at: obj.created_at, id: obj.id, notes: obj.notes, editing: false };
+        });
+        this.setState({ meetings : meetings });
+      }.bind(this));
+    }
   },
   handleClickNewMeeting: function(e) {
     e.preventDefault();
@@ -45,6 +49,7 @@ var Meeting = React.createClass({
 
       this.setState({ meetings : meetings });
     }.bind(this));
+    EventSystem.publish('action.items.updated', null);
     this.closeNewMeeting();
   },
   render: function(){
@@ -80,9 +85,7 @@ var Meeting = React.createClass({
     return (
       <div>
         {this.props.admin_id ? newMeeting : null}
-        <ReactCSSTransitionGroup transitionName="fade-in" transitionEnterTimeout={350} transitionLeaveTimeout={350}>
           {meetingItemNodes}
-        </ReactCSSTransitionGroup>
       </div>
     );
 

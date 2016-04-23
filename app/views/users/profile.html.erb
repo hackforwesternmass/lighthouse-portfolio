@@ -3,9 +3,6 @@
     <div class="dark-overlay">
     <div class="header-container">
 
-      <%= link_to fa_icon("cog", text: "Edit", right: true), user_edit_profile_path(@user),
-        class: "student-edit"%>
-        
         <div class="row">
           <div class="col s6 m3 l3">
             <div class="student-avatar">
@@ -50,4 +47,65 @@
       </div>
     </div>
   </div>
+</section>
+<section class="section-container no-padding">
+
+<div class="row z-depth-1">
+  <ul class="tabs">
+    <li class="tab col s6"><a href="#portfolio">Portfolio</a></li>
+    <li class="tab col s6"><a href="#resume">Resume</a></li>
+  </ul>
+</div>
+
+    <div id="portfolio">
+
+      <% if @projects.count == 0 %>
+        <h3 class="center-align" style="width: 100%;"> <b><%= @user.username %></b> current has no portfolio pieces.</h3>
+      <% end %>
+
+      <div id="portfolio-piece-grid" data-columns class="row container">
+
+        <% @projects.each do |project| %>
+          <div class="col s12">
+            <div class="card project-wrapper hoverable" style="border-color: <%= @user.profile_color%>">
+              <div class="card-image">
+                <%= image_tag project.photo if project.photo.present? %>
+              </div>
+              <div class="card-content">
+                <span class="card-title black-text truncate"><%= project.title %></span>
+                <p class="grey-text text-darken-1">
+                <%= project.description %> 
+                </p>  
+              </div>
+              <%= link_to "", public_project_path(project), class: "project-link", title: project.title %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+  <div id="resume" class="thin-container">
+    <h2><b>Resume</b></h2>
+
+    <% @user.resume_entries.each do |resume_entry| %>
+
+      <div class="entry">
+        <div class="title">
+          <%= resume_entry.title %>
+        </div>
+
+        <div class="sub-title">
+          <%= resume_entry.subtitle%> <br/>
+          <%= resume_entry.date%>
+        </div>
+
+        <div class="description">
+          <%= resume_entry.description%>
+        </div>
+      </div>
+
+    <% end %>
+
+  </div>
+
 </section>

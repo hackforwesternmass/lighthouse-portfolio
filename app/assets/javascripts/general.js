@@ -2,6 +2,10 @@ $(document).on("click", ".attachment-list a", function(e){
   e.stopPropagation();
 });
 
+$(document).on("click", 'tr[data-href]',function() {
+  Turbolinks.visit($(this).data('href'));
+});
+
 $(document).on('page:change', function(){
 
   var fieldsCount,

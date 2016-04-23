@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
     session[:admin_id] = session[:user_id]
     session[:user_id] = params[:student_id]
 
-    redirect_to action_plan_path, notice: "Accessed #{current_user.full_name} account successfully"
+    redirect_to action_plan_path
   end
 
   def access_admin
@@ -35,7 +35,7 @@ class SessionsController < ApplicationController
     session[:admin_id] = nil
     current_user
 
-    redirect_to admin_dashboard_path, notice: "All admin permissions restored"
+    redirect_to admin_dashboard_path
   end
 
   def login

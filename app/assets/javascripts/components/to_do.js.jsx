@@ -3,18 +3,20 @@ var ToDo = React.createClass({
     return { actionItems: [] };
   },
   componentDidMount: function() {
-    $.getJSON("/action_items", function(data){
-      this.setState({ actionItems: data.all })
-    }.bind(this));
+    this.loadActionItems();
+    EventSystem.subscribe('action.items.updated', this.loadActionItems);
   },
-  updateActionItems: function() {
-    $.getJSON("/action_items", function(data){
-      this.setState({ actionItems: data.all })
-    }.bind(this));
+  loadActionItems: function(){
+    if(this.isMounted()){
+      $.getJSON("/action_items", function(data){
+        this.setState({ actionItems: data.all })
+      }.bind(this));
+    }
+    EventSystem.publish('meetings.updated', null);
   },
   actionItems: function(){
     var actionItemNodes = this.state.actionItems.map(function(actionItem){
-      return <ToDo.ActionItem key={actionItem.id} actionItem={actionItem} updateActionItems={this.updateActionItems} />;
+      return <ToDo.ActionItem key={actionItem.id} actionItem={actionItem} updateActionItems={this.loadActionItems} />;
     }.bind(this));
     return actionItemNodes;
   },
@@ -58,12 +60,13 @@ ToDo.ActionItem = React.createClass({
       }
     });
   },
-  delete: function(e) {
+  archive: function(e) {
     e.preventDefault();
     $.ajax({
       url: "/action_items/" + this.props.actionItem.id,
       dataType: "JSON",
-      type: "DELETE",
+      type: "PATCH",
+      data: { action_item: { archive: true } },
       success: function() {
         this.props.updateActionItems();
       }.bind(this)
@@ -76,7 +79,7 @@ ToDo.ActionItem = React.createClass({
                   <label htmlFor={"check-" + this.props.actionItem.id}>{this.props.actionItem.description}</label>
                 </div>
                 <div className="secondary-icons">
-                  <i className="fa fa-times-circle" onClick={this.delete}/>
+                  <i className="fa fa-times-circle" onClick={this.archive}/>
                 </div>
               </div>;
   }

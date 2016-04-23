@@ -2,13 +2,13 @@ var GoalItem = React.createClass({
   getInitialState: function() {
     return { show_checklist: false };
   },
-  setComplete: function(e){
+  toggleComplete: function(e){
     e.preventDefault();
     $.ajax({
       url: "/goals/" + this.props.goal.id ,
       dataType: "JSON",
       type: "PATCH",
-      data: { goal: { is_completed: true } },
+      data: { goal: { is_completed: !this.props.goal.is_completed } },
       success: function() {
         this.props.updateGoals();
       }.bind(this),
@@ -118,7 +118,7 @@ var GoalItem = React.createClass({
             <a href="#" className="delete" onClick={this.delete} >Delete...</a>
 
             </div>
-            <a href="#" className="complete-btn" onClick={this.setComplete} >Complete</a>
+            <a href="#" className={this.props.goal.is_completed ? "complete-btn" : "incomplete-btn"} onClick={this.toggleComplete}>{this.props.goal.is_completed ? "Completed" : "Finished?" }</a>
           </div>
         </div>
       </div>

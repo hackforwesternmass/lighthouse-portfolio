@@ -1,7 +1,7 @@
 class ProjectsController < SessionsController
-  before_action :signed_in
+  before_action :signed_in, except: [:public]
   before_action :set_sidebar_highlight
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :download]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :download, :public]
 
   def index
     @projects = @user.projects
@@ -41,6 +41,10 @@ class ProjectsController < SessionsController
   def edit; end
 
   def show; end
+
+  def public
+    render layout: "public"
+  end
 
   def download
     redirect_to @project.download_url

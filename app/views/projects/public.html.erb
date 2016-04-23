@@ -1,19 +1,15 @@
-<section class="section-container no-padding">
-
+<section class="section-container no-padding public-project">
 
     <div class="hide-on-small-only project-nav left-arrow">
-      <%= link_to fa_icon("angle-left"), @project.previous, class: "nav-left" %>
+      <%= link_to fa_icon("angle-left"), public_project_path(@project.previous), class: "nav-left" %>
     </div>
 
     <div class="project-content">
-      <div class="container">
+      <div class="thin-container">
 
         <div class="menu"></div>
-       
-        <%= link_to fa_icon("pencil"), edit_project_path(@project), 
-          class: "btn-floating btn-large waves-effect waves-light teal right" %> 
 
-        <%= link_to fa_icon("th"), projects_path, 
+        <%= link_to fa_icon("th"), "/#{@project.user.username}", 
           class: "btn-floating btn-large waves-effect waves-light teal left" %> 
 
         <h1 class="center-align thick"><%= @project.title %></h1>
@@ -46,19 +42,20 @@
         <div class="project-body">
         <%= @project.body.html_safe %>
         </div>
-      </div>
 
-      <% if @project.document.present? %>
-        <h6 class="bold">Attachment</h6>
-          <ul>
-            <li><%= link_to @project.document.original_filename, download_project_path(@project) %></li>
-          </ul>
-      <% end %>
+        <% if @project.document.present? %>
+          <h6 class="bold">Attachment</h6>
+            <ul>
+              <li><%= link_to @project.document.original_filename, download_project_path(@project) %></li>
+            </ul>
+        <% end %>
+
+      </div>
 
     </div>
 
     <div class="hide-on-small-only project-nav right-arrow">
-      <%= link_to fa_icon("angle-right"), @project.next, class: "nav-right" %>
+      <%= link_to fa_icon("angle-right"),public_project_path(@project.next), class: "nav-right" %>
     </div>
   </div>
 

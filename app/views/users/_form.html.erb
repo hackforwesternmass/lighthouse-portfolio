@@ -1,6 +1,6 @@
 <%= form_for @user do |f| %>
 
-  <%= f.hidden_field :role, value: params[:role] %>
+  <%= f.hidden_field :role, value: (@user.role || params[:role]) %>
 
   <div class="row">
     <div class="input-field col m6 s12">

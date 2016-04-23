@@ -74,15 +74,27 @@
   }
 
   .complete-btn{
-  text-decoration: none;
-  display: block;
-  padding: 10px 15px;
-  background-color: #4682b4;
-  letter-spacing: .5px;
-  transition: 0.2s ease-out;
-  cursor: pointer;
-  color: white;
-  text-align: center;
+    text-decoration: none;
+    display: block;
+    padding: 10px 15px;
+    background-color: #4682b4;
+    letter-spacing: .5px;
+    transition: 0.2s ease-out;
+    cursor: pointer;
+    color: white;
+    text-align: center;
+  }
+
+  .incomplete-btn{
+    text-decoration: none;
+    display: block;
+    padding: 10px 15px;
+    background-color: #aaa;
+    letter-spacing: .5px;
+    transition: 0.2s ease-out;
+    cursor: pointer;
+    color: white;
+    text-align: center;
   }
 
 }
