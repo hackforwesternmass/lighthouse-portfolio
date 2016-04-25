@@ -11,11 +11,6 @@ class MeetingsController < SessionsController
     end
   end
 
-  def new
-    @meeting = current_user.meetings.build
-    @meeting.action_items.build
-  end
-
   def index
     @meetings = current_user.meetings
   end
@@ -28,9 +23,6 @@ class MeetingsController < SessionsController
     else
       render json: @meeting.errors, status: 406
     end
-  end
-
-  def edit
   end
 
   def destroy

@@ -16,22 +16,20 @@
           <div class="col s6 m9 l9">
             <div class="row">
               <div class="col s12">
-                <h2 style="color: <%= @user.profile_color%>"><%= @user.full_name %></h2>   
+                <h2 style="color: <%= @user.profile_color%>; text-align: center;"><%= @user.full_name %></h2>   
               </div>
               <div class="col s12 hide-on-small-only">
-                <span class="white-text thin med-opacity"><%= @user.description %></span>
+                <div class="white-text thin med-opacity center-align"><%= @user.description %></div>
               </div>
             </div>
             <div class="social-media row hide-on-small-only">
-
-            <% @user.social_mediums.first(3).each do |sm| %>
-              <div class="col s4 m4 l4">
-                <span class="white-text thin med-opacity truncate">
-                  <%= link_to fa_icon(sm.icon, text: sm.name), sm.link, target: "_blank", title: sm.name %>
-                </span>
-              </div>
-            <% end %>
-
+              <% @user.social_mediums.first(3).each do |sm| %>
+                  <div class="item white-text thin med-opacity">
+                    <%= link_to sm.link, target: "_blank", title: sm.name do %>
+                      <%= fa_icon(sm.icon) %> <br/><%= sm.name %> 
+                    <% end %>
+                  </div>
+              <% end %>
             </div>
           </div>
         </div>

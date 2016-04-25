@@ -76,11 +76,8 @@
 // WEEK VIEW
 
 #week-calendar{
-  @include transition(200ms);
-  // padding: 0;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  min-height: calc(100vh - 124px);
+  transition: 200ms;
+  padding: 50px 0;
 
   .row{
     margin-bottom: 0;
@@ -97,6 +94,7 @@
 
 .row .col.m-fifth{
   width: calc(100%/5);
+  padding: 0;
 }
 
 
@@ -113,8 +111,11 @@
   border-bottom: 2px solid #aaa;
 }
 
-.w1, .w2, .w3, .w4, .w5{
-  height: 68px;
+
+.week-item{
+  padding: 15px 20px;
+  height: 40px;
+  box-sizing: content-box;
   border-top: 1px solid #aaa;
   border-right: 1px solid #aaa;
   background-color: #fff;
@@ -122,14 +123,6 @@
   h6{
     margin: 0;
   }
-
-  &:nth-child(5n){
-    border-right: none;
-  }
-}
-
-.week-item{
-  padding: 1rem 0.75rem;
 
   &.col{
     padding: 1rem 0;
@@ -163,10 +156,6 @@
   }
 }
 
-.calendar-spinner{
-  visibility: hidden;
-  // display: none;
-}
 
 @media screen and (max-width: $medium-screen){
   h5.weekday{
@@ -179,13 +168,10 @@
     font-size: 0.8rem;
   }
 
-  .w1, .w2, .w3, .w4, .w5{
-    height: 41px;
-  }
-
   .week-item{
     padding: 0.5rem;
     font-size: 0.7rem;
+    height: 41px;
 
     h6{
       font-size: 0.8rem;

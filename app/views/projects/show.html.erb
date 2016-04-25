@@ -11,16 +11,16 @@
         <div class="menu"></div>
        
         <%= link_to fa_icon("pencil"), edit_project_path(@project), 
-          class: "btn-floating btn-large waves-effect waves-light teal right" %> 
+          class: "btn-floating btn-large waves-effect waves-light right", style: "background-color: #{@project.user.profile_color}" %> 
 
         <%= link_to fa_icon("th"), projects_path, 
-          class: "btn-floating btn-large waves-effect waves-light teal left" %> 
+          class: "btn-floating btn-large waves-effect waves-light left", style: "background-color: #{@project.user.profile_color}" %> 
 
         <h1 class="center-align thick"><%= @project.title %></h1>
 
         <hr>
 
-        <div class="center-align thin teal-text">
+        <div class="center-align thin" style="color: <%= @project.user.profile_color %>">
           <%= @project.date_completed.strftime("%B %d, %Y / ") if @project.date_completed.present? %>
           <%= " By <span class=\"normal\">#{@project.user.full_name}</span>".html_safe %>
         </div>
@@ -46,14 +46,17 @@
         <div class="project-body">
         <%= @project.body.html_safe %>
         </div>
-      </div>
 
-      <% if @project.document.present? %>
-        <h6 class="bold">Attachment</h6>
-          <ul>
-            <li><%= link_to @project.document.original_filename, download_project_path(@project) %></li>
-          </ul>
-      <% end %>
+        <% if @project.document.present? %>
+          <h6 class="bold">Attachment</h6>
+            <ul>
+              <li><%= link_to @project.document.original_filename, download_project_path(@project) %></li>
+            </ul>
+        <% end %>
+
+        <br/>
+        <br/>
+      </div>
 
     </div>
 

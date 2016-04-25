@@ -17,7 +17,7 @@
           <div class="card-content">
             <%= link_to "", new_project_path, class: "project-link" %>
             <div class="add-project">
-              <%= link_to fa_icon("plus-circle"), new_project_path %>
+              <%= link_to fa_icon("plus-circle", style: "color: #{@user.profile_color}"), new_project_path %>
               <br><br>Add portfolio piece
             </div>
           </div>
@@ -48,6 +48,9 @@
     <h2>Resume</h2>
     <%= react_component "ResumeEntries", {authenticityToken: form_authenticity_token, 
                                             profile_color: @user.profile_color} %>
+
+    <br/>
+    <br/>
   </div>
 
 </section>

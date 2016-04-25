@@ -5,6 +5,13 @@ module ApplicationHelper
     @user ||= User.new
   end
 
+  def admin_only
+    if current_user.student?
+      return redirect_to projects_path, 
+        flash: { alert: "Admin accounts only, restricted area!" }
+    end
+  end
+  
   def signed_in?
     session[:user_id].present?
   end

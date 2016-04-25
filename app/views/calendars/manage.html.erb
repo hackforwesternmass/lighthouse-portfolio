@@ -52,8 +52,18 @@
         <% end %>
       </div>
     </div>
-    <%= content_tag :button, "Save", type: :submit, class: "waves-effect waves-light btn teal" %>
+    <div class="row">
+      <div class="input-field col s12">
+        <%= content_tag :button, "Save", type: :submit, class: "waves-effect waves-light btn teal" %>
+      </div>
+    </div>
 
   <% end %>
+
+  <div class="row">
+    <h3 class="teal-text col s12">Class Schedule</h3>
+  </div>
+
+  <%= react_component "ClassPeriods", { authenticityToken: form_authenticity_token } %>
 
 </section>

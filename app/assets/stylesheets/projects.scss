@@ -9,7 +9,7 @@
     background-size: cover;
 
     .dark-overlay{
-      background-color: rgba(0,0,0, 0.3);
+      background-color: rgba(0,0,0, 0.2);
     }
 
     .header-container{
@@ -46,11 +46,18 @@
         right: 0;
         object-fit: cover;
         border-radius: 10rem;
-        border: 5px solid #61c6d8;
+        border: 5px solid #000;
       }
     }
 
     .social-media{
+
+      text-align: center;
+
+      .item{
+        display:inline-block;
+        padding: 0 20px;
+      }
 
       i{
         font-size: 1.5rem;
@@ -154,7 +161,7 @@ a.project-link{
 
 .project-wrapper{
   position: relative;
-  border-top: 10px solid #61c6d8;
+  border-top: 10px solid #000;
   font: 300 0.9rem 'Roboto', helvetica, sans-serif;
 
   .card-image img{

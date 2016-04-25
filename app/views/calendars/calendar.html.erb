@@ -14,10 +14,10 @@
 <section class="section-container" id="agenda-calendar"></section>
 
 <% unless Calendar.first.try(:hide_week_view) %>
-  <section class="section-container" id="week-calendar">
-
-    <div class="week">
-
+  <section id="week-calendar">
+  <%= react_component "Week", { calendarId: Calendar.first.try(:calendar_id) } %>
+  
+<!--     <div class="week">
       <% for i in 1..5 %>
         <div class="row p<%= i %>">
             <div class="col m-fifth w1"></div>
@@ -28,13 +28,13 @@
         </div>
       <% end %>
 
-    </div>
+    </div> -->
 
-    <div class="week-navigation clear row">
+<!--     <div class="week-navigation clear row">
       <div class="last-week col s5"><%= fa_icon "chevron-left" %> <span>Last week</span></div>
       <div class="col s2 center-align calendar-spinner"> <%= fa_icon "spinner spin" %></div>
       <div class="next-week col s5 right-align"><span>Next week</span><%= fa_icon "chevron-right", right: true %></div>
-    </div>
+    </div> -->
 
   </section>
 <% end %>

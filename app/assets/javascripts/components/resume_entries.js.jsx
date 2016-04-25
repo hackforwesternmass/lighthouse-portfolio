@@ -74,7 +74,7 @@ ResumeEntries.ResumeEntryShow = React.createClass({
   delete: function(e){
     e.preventDefault();
     $.ajax({
-      url: "resume_entries/" + this.props.resumeEntry.id ,
+      url: "/resume_entries/" + this.props.resumeEntry.id ,
       dataType: "JSON",
       type: "DELETE",
       success: function() {
@@ -103,7 +103,7 @@ ResumeEntries.ResumeEntryShow = React.createClass({
               </div>
 
               <div className="sub-title">
-                {this.state.resumeEntry.subtitle} <br/>
+                {this.state.resumeEntry.subtitle ? <div> {this.state.resumeEntry.subtitle} </div> : null}
                 {this.state.resumeEntry.date} 
               </div>
 

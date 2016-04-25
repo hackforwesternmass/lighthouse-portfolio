@@ -1,167 +1,208 @@
-.card-date{
-  background-color: color("blue", "lighten-4");
-  padding: 3px 20px;
-  padding-right: 0;
+#action-plan{
 
-  a{
-    cursor: pointer;
-  } 
-}
+  .card-date{
+    background-color: color("blue", "lighten-4");
+    padding: 3px 20px;
+    padding-right: 0;
 
-.action-items{
-
-  padding-top: 10px;
-
-  .title .col{
-    color: #aaa;
-
-    &:last-child{
-      text-align: right;
-    }
-  }
-
-  .checkmark a{
-    margin: 0 auto;
-    display: block !important;
-  }
-
-  .body .col{
-
-    &:last-child{
-      text-align: right;
-    }
-  }
-
-  .collection-item{
-    position: relative;
-  }
-
-}
-
-#goals-action-plan{
-
-  .goal-title{
-    font-weight: 700;
-    font-size: 1.5rem;
-    margin: 10px 0;
-    padding-left: 0.75rem;
-  }
-
-  .new-goal{
-    margin-bottom: 10px;
-
-    .input-field{
-      margin: 0;
-      position: relative;
-    }
-
-    .close-goal{
-      position: absolute;
-      right: 0;
-      top: 0;
-      color: #999;
+    a{
       cursor: pointer;
+    } 
+  }
+
+  .courses{
+    width: 250px;
+    float: left;
+    margin-top: 30px;
+    background-color: rgb(245,245,245);
+
+    .header{
+      background-color: #fff;
+      border-left: 5px solid color("blue", "lighten-4");
+      padding: 15px 20px;
+      box-sizing: border-box;
+      color: #555;
+    }
+
+    li{
+      cursor: pointer;
+      padding: 15px 20px 15px 25px;
+      transition: 200ms;
+
+      &:hover{
+        background-color: #ddd;
+      }
     }
   }
 
-  .delete{
-    display: block;
-    color: #999;
-    padding: 0 0.75rem;
-    cursor: pointer;
-    font-weight: 400;
-    font-size: 1rem; 
-  }
+  .action-plan-container{
+    width: calc(100% - 250px);
+    padding: 30px;
+    float: left;
+    box-sizing: border-box;
 
-  .complete-btn{
-    text-decoration: none;
-    display: block;
-    padding: 10px 15px;
-    background-color: #4682b4;
-    letter-spacing: .5px;
-    transition: 0.2s ease-out;
-    cursor: pointer;
-    color: white;
-    text-align: center;
-  }
-
-  .incomplete-btn{
-    text-decoration: none;
-    display: block;
-    padding: 10px 15px;
-    background-color: #aaa;
-    letter-spacing: .5px;
-    transition: 0.2s ease-out;
-    cursor: pointer;
-    color: white;
-    text-align: center;
-  }
-
-}
-
-
-.blue-check[type="checkbox"]:checked + label:before{
-  border-right-color: color("blue", "lighten-4");
-  border-bottom-color: color("blue", "lighten-4");
-}
-
-.add-checklist{
-  color: #999;
-  cursor: pointer;
-  font-weight: 400;
-  font-size: 1rem;
-}
-
-.progress-bar{
-  position: relative;
-  background-color: #81d4fa;
-  height: 50px;
-  border-radius: 50px;
-  overflow: hidden !important;
-}
-
-.completed-progress-bar{
-  transition: 500ms cubic-bezier(0.7,0,0.3,1);
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 50px;
-  border-bottom-left-radius: 50px;
-  border-top-left-radius: 50px;
-  background-color: #29b6f6;
-}
-
-.progress-bar-text{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 50px;
-  line-height: 50px;
-  text-align: center;
-  color: #fff;
-}
-
-#to-do{
-  .item{
-    padding: 8px 0;
-    font-size: 1.25rem;
-
-    .text{
-      display: inline-block;
-      width: calc(100% - 20px);
+    @media #{$small-and-down} {
+      width: 100%;
+      padding: 30px 15px;
     }
+  }
 
-    .secondary-icons{
-      display: inline-block;
-      width: 20px;
+  .action-items{
 
-      i{
-        padding: 0;
-        float: right;
+    padding-top: 10px;
+
+    .title .col{
+      color: #aaa;
+
+      &:last-child{
+        text-align: right;
       }
     }
 
+    .checkmark a{
+      margin: 0 auto;
+      display: block !important;
+    }
+
+    .body .col{
+
+      &:last-child{
+        text-align: right;
+      }
+    }
+
+    .collection-item{
+      position: relative;
+    }
 
   }
+
+  #goals-action-plan{
+
+    .goal-title{
+      font-weight: 700;
+      font-size: 1.5rem;
+      margin: 10px 0;
+      padding-left: 0.75rem;
+    }
+
+    .new-goal{
+      margin-bottom: 10px;
+
+      .input-field{
+        margin: 0;
+        position: relative;
+      }
+
+      .close-goal{
+        position: absolute;
+        right: 0;
+        top: 0;
+        color: #999;
+        cursor: pointer;
+      }
+    }
+
+    .delete{
+      display: block;
+      color: #999;
+      padding: 0 0.75rem;
+      cursor: pointer;
+      font-weight: 400;
+      font-size: 1rem; 
+    }
+
+    .complete-btn{
+      text-decoration: none;
+      display: block;
+      padding: 10px 15px;
+      background-color: #4682b4;
+      letter-spacing: .5px;
+      transition: 0.2s ease-out;
+      cursor: pointer;
+      color: white;
+      text-align: center;
+    }
+
+    .incomplete-btn{
+      text-decoration: none;
+      display: block;
+      padding: 10px 15px;
+      background-color: #aaa;
+      letter-spacing: .5px;
+      transition: 0.2s ease-out;
+      cursor: pointer;
+      color: white;
+      text-align: center;
+    }
+
+  }
+
+
+  .blue-check[type="checkbox"]:checked + label:before{
+    border-right-color: color("blue", "lighten-4");
+    border-bottom-color: color("blue", "lighten-4");
+  }
+
+  .add-checklist{
+    color: #999;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 1rem;
+  }
+
+  .progress-bar{
+    position: relative;
+    background-color: #81d4fa;
+    height: 50px;
+    border-radius: 50px;
+    overflow: hidden !important;
+  }
+
+  .completed-progress-bar{
+    transition: 500ms cubic-bezier(0.7,0,0.3,1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 50px;
+    border-bottom-left-radius: 50px;
+    border-top-left-radius: 50px;
+    background-color: #29b6f6;
+  }
+
+  .progress-bar-text{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    color: #fff;
+  }
+
+  #to-do{
+    .item{
+      padding: 8px 0;
+      font-size: 1.25rem;
+
+      .text{
+        display: inline-block;
+        width: calc(100% - 20px);
+      }
+
+      .secondary-icons{
+        display: inline-block;
+        width: 20px;
+
+        i{
+          padding: 0;
+          float: right;
+        }
+      }
+
+
+    }
+  }
+
 }

@@ -11,11 +11,6 @@ class GoalsController < SessionsController
     end
   end
 
-  def new
-    @goal = current_user.goals.build
-    @goal.action_items.build
-  end
-
   def index
     @goals = current_user.goals
   end
@@ -28,9 +23,6 @@ class GoalsController < SessionsController
     else
       render json: @goal.errors, status: 406
     end
-  end
-
-  def edit
   end
 
   def destroy

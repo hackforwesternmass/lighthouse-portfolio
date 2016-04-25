@@ -12,6 +12,10 @@ class KlassesController < SessionsController
     end
   end
 
+  def user_index
+    render json: current_user.klasses
+  end
+
   def search
     klasses = Klass.all
 
@@ -41,7 +45,7 @@ class KlassesController < SessionsController
     if @klass.save
       redirect_to klasses_path, flash: { notice: 'Class successfully created!' }
     else
-      flash.now[:alert] = 'Could not create your class, try again!'
+      flash.now[:alert] = 'Class unsuccessfully created.'
       render :new
     end
   end
@@ -50,7 +54,7 @@ class KlassesController < SessionsController
     if @klass.update(klass_params)
       redirect_to klasses_path, flash: { notice: 'Class successfully updated!' }
     else
-      flash.now[:alert] = "Could not update klasse"
+      flash.now[:alert] = "Class unsuccessfully updated."
       render :edit
     end
   end
@@ -63,7 +67,7 @@ class KlassesController < SessionsController
 
   def destroy
     @klass.destroy
-    redirect_to @klass, flash: { notice: "Class removed" }
+    redirect_to @klass, flash: { notice: "Class successfull deleted" }
   end
 
   private

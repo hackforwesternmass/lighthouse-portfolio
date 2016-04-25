@@ -39,6 +39,7 @@ class SessionsController < ApplicationController
   end
 
   def login
+    @background = BackgroundImage.first
     if signed_in?
       return @user.admin? ? redirect_to(admin_dashboard_path) : redirect_to(projects_path)
     end
@@ -65,13 +66,6 @@ class SessionsController < ApplicationController
 
   def update_activity_time
     session[:expires_at] = 24.hours.from_now
-  end
-
-  def admin_only
-    if current_user.student?
-      return redirect_to projects_path, 
-        flash: { alert: "Admin accounts only, restricted area!" }
-    end
   end
 
 private

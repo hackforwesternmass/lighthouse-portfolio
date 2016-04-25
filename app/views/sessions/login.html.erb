@@ -1,10 +1,13 @@
-<section id="home-1" style=<%= "background-image:url('#{BackgroundImage.first.image.url}')" unless BackgroundImage.first.nil? %>>
+<section id="login" style=<%= "background-image:url('#{@background.image.url}')" unless @background.nil? %>>
 
-  <h1 class="center-align grey-text text-lighten-5">
-    Compass<br><small class="hide-on-small-only">Centre for Self-Directed Learning</small>
-  </h1>
+  <div class="title">
+    Compass
+    <small>Centre for Self-Directed Learning</small>
+  </div>
 
-  <div id="login-signup-container">
+  <div class="divider"></div>
+
+  <div class="login-form">
 
     <%= form_for @user, url: login_authentication_path, 
       html: {method: "post", class: "col s12", autocomplete: "off" } do |f| %>
@@ -23,12 +26,22 @@
         </div>
       </div>
 
-      <% if flash[:alert] %>
-        <div class="login-refused"><%= flash[:alert] %></div>
-      <% end %>
+      <div class="row">
+        <div class="input-field col s12">
+          <% if flash[:alert] %>
+            <div class="login-refused"><%= flash[:alert] %></div>
+          <% end %>
+        </div>
+      </div>
 
-      <%= content_tag :button, "Submit",type: :submit, class: "waves-effect waves-light btn login-submit" %>
+      <div class="row no-margin">
+        <div class="input-field col s12">
+          <%= content_tag :button, "Submit",type: :submit, class: "waves-effect waves-light btn" %>
+        </div>
+      </div>
 
     <% end %>
+
   </div>
+  
 </section>

@@ -21,6 +21,13 @@ var ToDo = React.createClass({
     return actionItemNodes;
   },
   render: function(){
+
+    var noActionItems;
+
+    if(this.state.actionItems.length === 0){
+      noActionItems = <h4 className="center-align">You currently have no action items to complete.</h4>
+    }
+
     return  <div id="to-do" className="row">
               <div className="col s12">
 
@@ -28,13 +35,14 @@ var ToDo = React.createClass({
                 <div className="card blue darken-1 no-margin">
                   <div className="card-content white-text center-align">
                     <small style={{fontWeight: 300, fontSize: 13 }} >Meeting Time</small><br/>
-                    <h6>{this.props.meetingTime}</h6>
+                    <h6>{this.props.meetingTime ? this.props.meetingTime : "Anytime - Be Ready"}</h6>
                   </div>
                 </div>
               </div>
 
                 <div className="card">
                   <div className="card-content">
+                    {noActionItems}
                     {this.actionItems()}
                   </div>
                 </div>

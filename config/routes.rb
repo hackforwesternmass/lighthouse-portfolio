@@ -31,8 +31,10 @@ Rails.application.routes.draw do
     post :bulk_create, on: :collection
   end
   resources :resume_entries
+  resources :class_periods
   resources :goals
   resources :klasses, path: :class do 
+    get :user_index, on: :collection
     get :search, on: :collection
   end
   resources :resources do
