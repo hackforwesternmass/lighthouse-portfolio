@@ -47,7 +47,7 @@ var Week = React.createClass({
     return weekdayNodes;
   },
   parseEvents: function(events){
-    var parsedEvents = Array.apply(null, Array(5 * this.state.classPeriods.length)).map(function() { return { title: "", startTime: "", endTime: "" } });
+    var parsedEvents = Array.apply(null, Array(5 * this.state.classPeriods.length)).map(function() { return [] });
     var startTime, endTime, weekday, timePeriod;
     // var periods = [ "1991-12-14T06:00", "1991-12-14T10:59", "1991-12-14T12:29", "1991-12-14T13:29", "1991-12-14T14:29", "1991-12-14T18:00"];
     
@@ -74,7 +74,7 @@ var Week = React.createClass({
       //   }
       // }
 
-      parsedEvents[ (5 * timePeriod) + weekday ] = { title: event.summary, startTime: startTime, endTime: endTime };
+      parsedEvents[ (5 * timePeriod) + weekday ].push({ title: event.summary, startTime: startTime, endTime: endTime });
 
     }.bind(this));
 
@@ -82,12 +82,69 @@ var Week = React.createClass({
   },
   weekItems: function(){
     var weekItemNodes = this.state.events.map(function(event, i){
-      return  <div className="col m-fifth" key={i}>
-                <div className="week-item">
-                  <h6 className="purple-text bold truncate" title={event.title}>{event.title}</h6>
-                  <div className="time truncate">{ event.startTime !== "" ? <span>{event.startTime} - {event.endTime}</span> : null}</div>
-                </div>
-              </div>
+      var weekItemNodeEntries;
+
+      if(event.length === 0){
+        weekItemNodeEntries = <div className="col m-fifth" key={i}>
+                                <div className="week-item">
+                                  <h6 className="purple-text bold truncate"></h6>
+                                  <div className="time truncate"></div>
+                                </div>
+                              </div>;
+      }else if(event.length === 1){
+        weekItemNodeEntries = <div className="col m-fifth" key={i}>
+                                <div className="week-item">
+                                  <h6 className="purple-text bold truncate" title={event[0].title}>{event[0].title}</h6>
+                                  <div className="time truncate">{ event[0].startTime !== "" ? <span>{event[0].startTime} - {event[0].endTime}</span> : null}</div>
+                                </div>
+                              </div>;
+      }else if(event.length === 2){
+        weekItemNodeEntries = <div className="col m-fifth" key={i}>
+                                <div className="multiple-week-item col s6">
+                                  <h6 className="purple-text bold truncate" title={event[0].title}>{event[0].title}</h6>
+                                  <div className="time truncate">{ event[0].startTime !== "" ? <span>{event[0].startTime} - {event[0].endTime}</span> : null}</div>
+                                </div>
+                                <div className="multiple-week-item col s6">
+                                  <h6 className="purple-text bold truncate" title={event[1].title}>{event[1].title}</h6>
+                                  <div className="time truncate">{ event[1].startTime !== "" ? <span>{event[1].startTime} - {event[1].endTime}</span> : null}</div>
+                                </div>
+                              </div>; 
+      }else if(event.length === 3){
+        weekItemNodeEntries = <div className="col m-fifth" key={i}>
+                                <div className="multiple-week-item col s4">
+                                  <h6 className="purple-text bold truncate" title={event[0].title}>{event[0].title}</h6>
+                                  <div className="time truncate">{ event[0].startTime !== "" ? <span>{event[0].startTime} - {event[0].endTime}</span> : null}</div>
+                                </div>
+                                <div className="multiple-week-item col s4">
+                                  <h6 className="purple-text bold truncate" title={event[1].title}>{event[1].title}</h6>
+                                  <div className="time truncate">{ event[1].startTime !== "" ? <span>{event[1].startTime} - {event[1].endTime}</span> : null}</div>
+                                </div>
+                                <div className="multiple-week-item col s4">
+                                  <h6 className="purple-text bold truncate" title={event[2].title}>{event[2].title}</h6>
+                                  <div className="time truncate">{ event[2].startTime !== "" ? <span>{event[2].startTime} - {event[2].endTime}</span> : null}</div>
+                                </div>
+                              </div>; 
+      }else if(event.length === 3){
+        weekItemNodeEntries = <div className="col m-fifth" key={i}>
+                                <div className="week-item col s3">
+                                  <h6 className="purple-text bold truncate" title={event[0].title}>{event[0].title}</h6>
+                                  <div className="time truncate">{ event[0].startTime !== "" ? <span>{event[0].startTime} - {event[0].endTime}</span> : null}</div>
+                                </div>
+                                <div className="week-item col s3">
+                                  <h6 className="purple-text bold truncate" title={event[1].title}>{event[1].title}</h6>
+                                  <div className="time truncate">{ event[1].startTime !== "" ? <span>{event[1].startTime} - {event[1].endTime}</span> : null}</div>
+                                </div>
+                                <div className="week-item col s3">
+                                  <h6 className="purple-text bold truncate" title={event[2].title}>{event[2].title}</h6>
+                                  <div className="time truncate">{ event[2].startTime !== "" ? <span>{event[2].startTime} - {event[2].endTime}</span> : null}</div>
+                                </div>
+                                <div className="week-item col s3">
+                                  <h6 className="purple-text bold truncate" title={event[3].title}>{event[3].title}</h6>
+                                  <div className="time truncate">{ event[3].startTime !== "" ? <span>{event[3].startTime} - {event[3].endTime}</span> : null}</div>
+                                </div>
+                              </div>;  
+      }
+      return  weekItemNodeEntries;
     }.bind(this));
     return weekItemNodes;
   },

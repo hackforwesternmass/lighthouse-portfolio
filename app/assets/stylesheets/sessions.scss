@@ -52,7 +52,7 @@
     }
 
     input{
-      color: $primary-color;
+      color: #eee;
       &::selection {
         background: #aaa;
       }
@@ -60,7 +60,7 @@
         background: #aaa
       }
       &:-webkit-autofill {
-        -webkit-text-fill-color: $primary-color !important;
+        -webkit-text-fill-color: #eee !important;
       }
     }
   }
