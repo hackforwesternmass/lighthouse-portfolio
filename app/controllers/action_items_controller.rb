@@ -3,10 +3,10 @@ class ActionItemsController < SessionsController
 
   def index
     @incomplete = @user.admin_action_items.where(completed: [false, nil]).order(due_date: :asc)
-    @complete = @user.admin_action_items.where(completed: true).order( updated_at: :desc)
+    @complete = @user.admin_action_items.where(completed: true, archive: [false, nil]).order( updated_at: :desc)
     @action_items = @user.action_items.order(due_date: :asc).where(archive: [false, nil])
   end
-  
+
   def create
     if current_user.action_items.create(action_item_params)
       render json: {}, status: 200
@@ -32,5 +32,5 @@ class ActionItemsController < SessionsController
   private
     def action_item_params
       params.require(:action_item).permit(:id, :due_date, :completed, :description, :user_id, :archive)
-    end 
+    end
 end

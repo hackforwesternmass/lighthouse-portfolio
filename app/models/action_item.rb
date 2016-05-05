@@ -4,8 +4,8 @@ class ActionItem < ActiveRecord::Base
 
   belongs_to :meeting
   belongs_to :goal
-  belongs_to :user
-  has_one :owner, through: :meeting, source: :user
+  belongs_to :user # Advisor
+  has_one :owner, through: :meeting, source: :user # Student
 
   def owner_name
     owner.full_name

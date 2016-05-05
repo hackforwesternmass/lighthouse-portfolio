@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160425031349) do
+ActiveRecord::Schema.define(version: 20160429124259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,10 @@ ActiveRecord::Schema.define(version: 20160425031349) do
     t.string   "google_drive_url"
     t.string   "season"
     t.string   "year"
+    t.string   "instructor_email"
+    t.string   "instructor_phone"
+    t.boolean  "one_on_one"
+    t.string   "location"
   end
 
   create_table "meetings", force: :cascade do |t|

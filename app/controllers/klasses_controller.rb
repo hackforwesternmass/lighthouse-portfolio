@@ -3,12 +3,12 @@ class KlassesController < SessionsController
   before_action :set_klass, only: [:show, :edit, :update, :destroy]
 
   def index
-    @klasses = Klass.all
+    @klasses = Klass.where("(klasses.season = 'Winter' AND klasses.year = '2016') OR (klasses.season = 'Fall' AND klasses.year = '2015')")
     @highlight_sidebar = "Admin"
 
     respond_to do |format|
       format.json { render json: @klasses.to_json(methods: :enrolled) }
-      format.html 
+      format.html
     end
   end
 
@@ -24,14 +24,14 @@ class KlassesController < SessionsController
     end
 
     if params[:year].present? && params[:year] != "All"
-      klasses = klasses.where(year: params[:year]) 
+      klasses = klasses.where(year: params[:year])
     end
 
     if params[:season].present? && params[:season] != "All"
       klasses = klasses.where(season: params[:season])
     end
 
-    render json: klasses.to_json(methods: :enrolled) 
+    render json: klasses.to_json(methods: :enrolled)
 
   end
 
@@ -58,8 +58,9 @@ class KlassesController < SessionsController
       render :edit
     end
   end
-  
+
   def edit
+    @highlight_sidebar = "Admin"
   end
 
   def show
@@ -67,7 +68,7 @@ class KlassesController < SessionsController
 
   def destroy
     @klass.destroy
-    redirect_to @klass, flash: { notice: "Class successfull deleted" }
+    redirect_to @klass, flash: { notice: "Class successfully deleted." }
   end
 
   private
@@ -77,7 +78,8 @@ class KlassesController < SessionsController
     end
 
     def klass_params
-      params.require(:klass).permit(:name, :description, :time, :weekday, :year, :season, :instructor, :google_drive_url)
+      params.require(:klass).permit(:name, :description, :time, :weekday, :year, :season,
+        :instructor, :instructor_email, :instructor_phone, :location, :one_on_one, :google_drive_url)
     end
 
 end

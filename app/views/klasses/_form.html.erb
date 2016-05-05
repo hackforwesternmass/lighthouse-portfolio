@@ -10,7 +10,18 @@
       <%= f.text_field :instructor %>
       <%= f.label :instructor %>
     </div>
+  </div>
 
+  <div class="row">
+    <div class="input-field col s12 m6">
+      <%= f.text_field :instructor_email %>
+      <%= f.label :instructor_email %>
+    </div>
+
+    <div class="input-field col s12 m6">
+      <%= f.text_field :instructor_phone %>
+      <%= f.label :instructor_phone %>
+    </div>
   </div>
 
   <div class="row">
@@ -22,7 +33,7 @@
 
   <div class="row">
     <div class="input-field col s12 m6">
-      <%= f.select :weekday, options_for_select(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], selected: @klass.weekday) %>
+      <%= f.select :weekday, options_for_select(Klass::VALID_WEEKDAYS_TYPES, selected: @klass.weekday), include_blank: true %>
       <%= f.label :weekday %>
     </div>
 
@@ -34,12 +45,12 @@
 
   <div class="row">
     <div class="input-field col s12 m6">
-      <%= f.select :year, options_for_select(((Time.now.year - 1)..(Time.now.year + 4)), selected: @klass.year) %>
+      <%= f.select :year, options_for_select(((Time.now.year - 1)..(Time.now.year + 4)), selected: @klass.year), include_blank: true %>
       <%= f.label :year %>
     </div>
 
     <div class="input-field col s12 m6">
-      <%= f.select :season, options_for_select(["Fall", "Winter"], selected: @klass.season) %>
+      <%= f.select :season, options_for_select(Klass::VALID_SEASON_TYPES, selected: @klass.season), include_blank: true %>
       <%= f.label :season %>
     </div>
   </div>
@@ -49,11 +60,23 @@
       <%= f.url_field :google_drive_url %>
       <%= f.label :google_drive_url %>
     </div>
+    <div class="input-field col s12 m6">
+      <%= f.text_field :location %>
+      <%= f.label :location %>
+    </div>
   </div>
 
-  <div style="padding-left: 0.75rem;">
+
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.check_box :one_on_one %>
+      <%= f.label :one_on_one %>
+    </div>
+  </div>
+
+  <div style="padding-left: 0.75rem; padding-top: 2rem;">
     <%= content_tag :button, "Save", type: :submit, class: "waves-effect waves-light btn teal" %>
-    <%= link_to 'Delete', @klass, method: :delete, 
+    <%= link_to 'Delete', @klass, method: :delete,
       class: "waves-effect waves-light btn red" unless @klass.new_record? %>
   </div>
 <% end %>

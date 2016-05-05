@@ -35,7 +35,7 @@ $(document).on('page:change', function(){
       plugins: "image, link, preview, media, paste",
       setup: function(ed) {
           ed.on('keydown', function(event) {
-              if (event.keyCode == 9) { 
+              if (event.keyCode == 9) {
                 if (event.shiftKey) {
                   ed.execCommand('Outdent');
                 }
@@ -64,7 +64,7 @@ $(document).on('page:change', function(){
       plugins: "image, link, preview, media, paste",
       setup: function(ed) {
           ed.on('keydown', function(event) {
-              if (event.keyCode == 9) { 
+              if (event.keyCode == 9) {
                 if (event.shiftKey) {
                   ed.execCommand('Outdent');
                 }
@@ -88,7 +88,7 @@ function initTiny(){
 
    if (typeof tinyMCE != 'undefined') {
     tinyMCE.init({
-      selector: "textarea.tinymce-meetings-notes",
+      selector: "textarea.tinymce",
       menubar: false,
       statusbar: false,
       height: 200,
@@ -98,7 +98,7 @@ function initTiny(){
       plugins: "image, link, preview, media, paste",
       setup: function(ed) {
           ed.on('keydown', function(event) {
-              if (event.keyCode == 9) { 
+              if (event.keyCode == 9) {
                 if (event.shiftKey) {
                   ed.execCommand('Outdent');
                 }
@@ -116,4 +116,3 @@ function initTiny(){
   }
 
 }
-

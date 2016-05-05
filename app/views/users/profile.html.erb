@@ -16,7 +16,7 @@
                 <h2 style="color: <%= @user.profile_color%>; text-align: center;"><%= @user.full_name %></h2>   
               </div>
               <div class="col s12 hide-on-small-only">
-                <div class="white-text thin med-opacity center-align"><%= @user.description %></div>
+                <div class="white-text thin med-opacity center-align description"><%= @user.description %></div>
               </div>
             </div>
             <div class="social-media row hide-on-small-only">
@@ -84,8 +84,6 @@
     </div>
 
   <div id="resume" class="thin-container">
-    <h2><b>Resume</b></h2>
-
     <% @user.resume_entries.each do |resume_entry| %>
 
       <div class="entry">

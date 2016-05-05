@@ -104,7 +104,7 @@ ResumeEntries.ResumeEntryShow = React.createClass({
 
               <div className="sub-title">
                 {this.state.resumeEntry.subtitle ? <div> {this.state.resumeEntry.subtitle} </div> : null}
-                {this.state.resumeEntry.date} 
+                {this.state.resumeEntry.date}
               </div>
 
               <div className="description">
@@ -127,6 +127,10 @@ ResumeEntries.ResumeEntryForm = React.createClass({
              success: false,
              error: false };
   },
+  componentDidMount: function(){
+    tinymce.remove();
+    initTiny();
+  },
   closeForm: function(e){
     if(this.props.newResumeEntry){
       this.props.close(e);
@@ -144,8 +148,8 @@ ResumeEntries.ResumeEntryForm = React.createClass({
     if(!this.state.date) errorMessages.date = "Date is required."
 
     if(Object.keys(errorMessages).length > 0){
-      this.setState({error: true, success: false, errorMessages: errorMessages }); 
-      return false;     
+      this.setState({error: true, success: false, errorMessages: errorMessages });
+      return false;
     }
 
     var url, type;
@@ -213,8 +217,7 @@ ResumeEntries.ResumeEntryForm = React.createClass({
 
               <div className="row">
                 <div className="input-field col s12">
-                  <label htmlFor="resume_entry_description" className="active">Description</label>
-                  <textarea valueLink={this.linkState('description')} className="materialize-textarea" name="resume_entry[description]" id="resume_entry_description" placeholder="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."/>
+                  <textarea valueLink={this.linkState('description')} className="tinymce" name="resume_entry[description]" id="resume_entry_description" placeholder="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."/>
                   {(this.state.error && this.state.errorMessages.description) ? <div className="error-message"> {this.state.errorMessages.description} </div> : null}
                 </div>
               </div>
@@ -231,5 +234,3 @@ ResumeEntries.ResumeEntryForm = React.createClass({
             </form>
   }
 });
-
-

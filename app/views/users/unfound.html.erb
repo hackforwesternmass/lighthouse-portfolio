@@ -1,33 +1,10 @@
 <section class="section-container" id="unfound" style="min-height: 100vh;">
   <div class="thin-container">
-      <h4 class="center-align">The user <b><%= params[:q] %></b> does not exist</h4>
+    <h4 class="center-align">The user <b><%= params[:q] %></b> does not exist</h4>
 
-      <br/>
-      <br/>
-      <br/>
+    <br/>
 
-      <h6 class="center-align bold"><u>Students Index</u></h6>
+    <h5 class="center-align">Please contact Compass at john.doe@compass.com</h5>
 
-      <br/>
-      <br/>
-
-      <table class="highlight centered" style="table-layout: fixed;">
-        <thead>
-        <tr>
-          <th>Name</th>
-          <th>Username</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @students.each do |student| %>
-
-            <tr data-href=<%= "/#{student.username}" %> style="cursor: pointer;">
-              <td><%= student.full_name %></td>
-              <td><%= student.username %></td>
-            </tr>
-
-        <% end %>
-        </tbody>
-      </table>
   </div>
 </section>

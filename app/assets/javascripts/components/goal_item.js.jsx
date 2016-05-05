@@ -10,6 +10,9 @@ var GoalItem = React.createClass({
       type: "PATCH",
       data: { goal: { is_completed: !this.props.goal.is_completed } },
       success: function() {
+        if(!this.props.goal.is_completed){
+          Materialize.toast("Goal complete!!!", 3500, "teal");
+        }
         this.props.updateGoals();
       }.bind(this),
       error: function() {

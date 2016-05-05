@@ -90,8 +90,22 @@ Klasses.Index = React.createClass({
                   </div>
                   {klass.description}
                 </td>
-                <td className="hide-on-small-only">{klass.instructor}</td>
-                <td className="hide-on-small-only">{klass.weekday} <br/> {klass.time} </td>
+                <td className="hide-on-small-only">
+                  {klass.instructor ? <div>{klass.instructor}</div> : null}
+                  {klass.instructor_email ? <div><a href={"mailto:" + klass.instructor_email}>{klass.instructor_email}</a></div> : null}
+                  {klass.instructor_phone ? <div>{klass.instructor_phone}</div> : null}
+                </td>
+                <td className="hide-on-small-only">
+                  <div>
+                    <b>
+                      {klass.season ? <span>{klass.season} </span> : null}
+                      {klass.year ? <span> {klass.year}</span> : null}
+                    </b>
+                  </div>
+                  {klass.location ? <div>{klass.location}</div> : null}
+                  {klass.weekday ? <div>{klass.weekday}</div> : null}
+                  {klass.time ? <div>{klass.time}</div> : null}
+                </td>
                 <td className="hide-on-small-only">{klass.enrolled}</td>
               </tr>;
     }.bind(this));
@@ -104,7 +118,7 @@ Klasses.Index = React.createClass({
                 <tr>
                   <th className="name-desc">CLASS AND DESCRIPTION</th>
                   <th className="hide-on-small-only">INSTRUCTOR</th>
-                  <th className="hide-on-small-only">TIME</th>
+                  <th className="hide-on-small-only">WHERE AND WHEN</th>
                   <th className="hide-on-small-only"># OF STUDENTS</th>
                 </tr>
               </thead>
