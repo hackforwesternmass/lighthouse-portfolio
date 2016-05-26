@@ -8,7 +8,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'pg'
 gem 'tinymce-rails'
 gem 'nested_form_fields'
-gem "paperclip", "~> 4.2"
+gem 'paperclip', '~> 4.2'
 gem 'aws-sdk', '< 2.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'font-awesome-rails'
@@ -24,7 +24,6 @@ gem 'pry', '~> 0.10.1'
 gem 'turbolinks'
 gem 'materialize-sass'
 gem 'react-rails'
-gem 'jbuilder', '~> 2.0'
 gem 'handlebars_assets'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'email_validator'
@@ -35,5 +34,14 @@ group :development, :test do
   gem 'spring', '~> 1.3.4'
 end
 
+group :test do
+  gem 'rspec-rails', '~> 3.3'
+  gem 'factory_girl_rails', '~> 4.2.1'
+  gem 'capybara', '~> 2.2.0'
+  gem 'database_cleaner'
+  gem 'ffaker'
+end
+
 gem 'rails_12factor', group: :production
 
+#ruby-gemset=compass

@@ -7,18 +7,18 @@ module ApplicationHelper
 
   def admin_only
     if current_user.student?
-      return redirect_to projects_path, 
+      return redirect_to projects_path,
         flash: { alert: "Admin accounts only, restricted area!" }
     end
   end
-  
+
   def signed_in?
     session[:user_id].present?
   end
 
   def side_panel_link(url, icon, text)
   	content_tag :li, class: ("active-tab" if current_page?(url) || @highlight_sidebar == text ) do
-  		link_to fa_icon(icon, text: text), url, class: "grey-text text-darken-1" 
+  		link_to fa_icon(icon, text: text), url, class: "grey-text text-darken-1"
   	end
   end
 
@@ -30,5 +30,5 @@ module ApplicationHelper
     end
     return str
   end
-  
+
 end

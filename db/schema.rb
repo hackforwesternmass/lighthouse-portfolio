@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160429124259) do
+ActiveRecord::Schema.define(version: 20160526124543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -207,6 +207,7 @@ ActiveRecord::Schema.define(version: 20160429124259) do
     t.integer  "profile_background_file_size"
     t.datetime "profile_background_updated_at"
     t.string   "profile_color"
+    t.boolean  "private"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

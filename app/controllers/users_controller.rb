@@ -8,13 +8,12 @@ class UsersController < SessionsController
 
     respond_to do |format|
       format.json { render json: @students.to_json(include: :enrolls) }
-      format.html 
+      format.html
     end
-
   end
 
   def profile
-    @user = User.find_by(username: params[:username])
+    @user = User.find_by(username: params[:username], private: [nil, false])
     if @user
       @projects = @user.projects
       render layout: "public"
@@ -25,11 +24,9 @@ class UsersController < SessionsController
 
   def search
     students = User.students
-
     if params[:q].present?
       students =  User.default_search(params[:q]).where(role: "student")
     end
-
     render json: students.to_json(include: :enrolls)
   end
 
@@ -58,7 +55,6 @@ class UsersController < SessionsController
   def create
     @user = User.new(user_params)
     @user.pword = params[:user][:password] if @user.valid?
-
     if @user.save
       if @user.admin?
         redirect_to admin_dashboard_path, notice: 'Admin account successfully created.'
@@ -102,14 +98,13 @@ class UsersController < SessionsController
   end
 
   private
-
     def admin_redirect_direction?
       request.referrer.split("?").first == edit_user_url(@current_user) || request.referrer.split("?").first == user_url(@current_user)
     end
 
     def user_params
       @user_params ||= params.require(:user).permit(:first_name, :last_name, :avatar, :meeting_time, :profile_background,
-        :role, :email, :password, :password_confirmation, :description, :username, :profile_color,
+        :role, :email, :password, :password_confirmation, :description, :username, :profile_color, :private,
         social_mediums_attributes: [:link, :name,:_destroy, :id])
     end
 end

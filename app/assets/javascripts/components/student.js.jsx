@@ -111,7 +111,7 @@ Students.Index = React.createClass({
                 <label htmlFor={"check-" + klass.id}>{klass.name}</label>
               </div>
     }.bind(this));
-    return klassNodes; 
+    return klassNodes;
   },
   render: function(){
     return  <div>
@@ -174,9 +174,9 @@ Students.Show = React.createClass({
   },
   render: function(){
     return <tr key={this.props.student.id}>
-              <td className="student-name name"><a href={"/users/"+ this.props.student.id +"/edit?role=student"}>{this.props.student.first_name +" "+ this.props.student.last_name}</a></td>
-              <td><a href={"/access_student?student_id=" + this.props.student.id}><i className="fa fa-user"></i></a></td>
-              <td><a href="#"><i className="fa fa-pencil modal-trigger" onClick={this.triggerEnrollModal}></i></a></td>
+              <td className="student-name name"><a href={"/access_student?student_id=" + this.props.student.id}>{this.props.student.first_name +" "+ this.props.student.last_name}</a></td>
+              <td><a href={"/users/"+ this.props.student.id +"/edit?role=student"}><i className="fa fa-pencil"></i></a></td>
+              <td><a href="#"><i className="fa fa-user modal-trigger" onClick={this.triggerEnrollModal}></i></a></td>
               <td><a href="#" className="modal-trigger" onClick={this.triggerMeetingModal}><i className="fa fa-calendar-o"></i> {this.props.student.meeting_time}</a></td>
             </tr>;
   }

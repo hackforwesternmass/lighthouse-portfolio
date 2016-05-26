@@ -1,7 +1,7 @@
 var Week = React.createClass({
   getInitialState: function() {
     return { classPeriods: [], events: [], weekStartDate: "", loading: true };
-  },  
+  },
   componentDidMount: function(){
     var weekStartDate, weekEndDate;
 
@@ -49,8 +49,7 @@ var Week = React.createClass({
   parseEvents: function(events){
     var parsedEvents = Array.apply(null, Array(5 * this.state.classPeriods.length)).map(function() { return [] });
     var startTime, endTime, weekday, timePeriod;
-    // var periods = [ "1991-12-14T06:00", "1991-12-14T10:59", "1991-12-14T12:29", "1991-12-14T13:29", "1991-12-14T14:29", "1991-12-14T18:00"];
-    
+
     events.forEach(function(event){
 
       timePeriod = NaN;
@@ -67,12 +66,6 @@ var Week = React.createClass({
           timePeriod = i;
         }
       }.bind(this));
-
-      // for (var i = 0; i < (periods.length - 1); i++) {
-      //   if(moment(moment(event.start.dateTime).format("1991-12-14THH:mm")).isBetween(periods[i], periods[i+1])){
-      //     timePeriod = i;
-      //   }
-      // }
 
       parsedEvents[ (5 * timePeriod) + weekday ].push({ title: event.summary, startTime: startTime, endTime: endTime });
 
@@ -108,7 +101,7 @@ var Week = React.createClass({
                                   <h6 className="purple-text bold truncate" title={event[1].title}>{event[1].title}</h6>
                                   <div className="time truncate">{ event[1].startTime !== "" ? <span>{event[1].startTime} - {event[1].endTime}</span> : null}</div>
                                 </div>
-                              </div>; 
+                              </div>;
       }else if(event.length === 3){
         weekItemNodeEntries = <div className="col m-fifth" key={i}>
                                 <div className="multiple-week-item col s4">
@@ -123,8 +116,8 @@ var Week = React.createClass({
                                   <h6 className="purple-text bold truncate" title={event[2].title}>{event[2].title}</h6>
                                   <div className="time truncate">{ event[2].startTime !== "" ? <span>{event[2].startTime} - {event[2].endTime}</span> : null}</div>
                                 </div>
-                              </div>; 
-      }else if(event.length === 3){
+                              </div>;
+      }else if(event.length > 3){
         weekItemNodeEntries = <div className="col m-fifth" key={i}>
                                 <div className="week-item col s3">
                                   <h6 className="purple-text bold truncate" title={event[0].title}>{event[0].title}</h6>
@@ -142,7 +135,7 @@ var Week = React.createClass({
                                   <h6 className="purple-text bold truncate" title={event[3].title}>{event[3].title}</h6>
                                   <div className="time truncate">{ event[3].startTime !== "" ? <span>{event[3].startTime} - {event[3].endTime}</span> : null}</div>
                                 </div>
-                              </div>;  
+                              </div>;
       }
       return  weekItemNodeEntries;
     }.bind(this));

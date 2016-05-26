@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   has_many :action_items, through: :meetings
   has_many :admin_action_items, foreign_key: "user_id", class_name: "ActionItem"
   has_many :resume_entries, dependent: :destroy
-  
+
   has_many :social_mediums, dependent: :destroy
   accepts_nested_attributes_for :social_mediums, allow_destroy: true
 
@@ -22,30 +22,26 @@ class User < ActiveRecord::Base
 
   has_many :tags, through: :projects
 
-  validates :first_name, 
+  validates :first_name,
     presence: { message: "First name is required" }
 
-  validates :last_name, 
+  validates :last_name,
     presence: { message: "Last name is required" }
 
-  validates :username, 
+  validates :username,
     presence: { message: "Username is required" },
     format: { with: /\A[a-zA-Z]+\z/, message: "Letters only" }
 
   validates :description,
     length: { maximum: 140, message: "140 character max" }
 
-  validates :email, 
+  validates :email,
     presence: { message: "Email is required." },
     uniqueness: { message: "is already in use." }
 
-  validates :password, 
+  validates :password,
     presence: { message: "Password is required.", on: :create },
     confirmation: {message: "Passwords do not match."}
-
-  # validates :password_confirmation, 
-  #   presence: { message: "Password confirmation is required." },
-  #   on: :create
 
   has_attached_file :avatar, :default_url => "default-avatar.png"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
@@ -74,7 +70,7 @@ class User < ActiveRecord::Base
   def student?
     role == "student"
   end
-  
+
   def pword
     @pword ||= Password.new(password)
   end

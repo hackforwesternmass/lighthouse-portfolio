@@ -22,12 +22,9 @@ $(document).on('page:change', function(){
 
 
   $('#edit-category-modal form').on('ajax:success', function(e, data, status, xhr){
-
     $(this).find("input[type='text']").val("");
     $("#edit-category-modal").closeModal();
     $category.text(data.category);
-
   });
 
 });
-

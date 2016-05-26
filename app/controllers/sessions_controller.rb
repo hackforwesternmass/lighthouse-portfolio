@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :session_expiry, except: [:login_authentication] 
+  before_action :session_expiry, except: [:login_authentication]
   before_action :update_activity_time
   before_action :current_user
 
@@ -10,6 +10,8 @@ class SessionsController < ApplicationController
 
     @user = User.authenticate(email, password)
 
+    
+
     if @user
       session[:user_id] = @user.id
       @user.admin? ? redirect_to(admin_dashboard_path) : redirect_to(projects_path)
@@ -17,7 +19,7 @@ class SessionsController < ApplicationController
       flash[:alert] = "Your email or password were incorrect."
       redirect_to root_path
     end
-  
+
     rescue
       flash[:alert] = "Oops, something went wrong. Try again."
       redirect_to root_path
@@ -45,11 +47,11 @@ class SessionsController < ApplicationController
     end
     render layout: "public"
   end
-  
+
   def signed_in
     return redirect_to root_path unless signed_in?
   end
-  
+
   def logout
     disconnect_user
     redirect_to root_path

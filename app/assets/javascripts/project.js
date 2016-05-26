@@ -9,6 +9,4 @@ $(document).on('page:change', function(){
     setTimeout(function() { Turbolinks.visit(link) }, 250);
   });
 
-	$('.datepicker').pickadate();
-
 });

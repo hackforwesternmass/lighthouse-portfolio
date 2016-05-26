@@ -2,7 +2,6 @@ Rails.application.routes.draw do
 
   root "sessions#login"
 
-
   resources :users do
     get :edit_profile
     get :unfound, on: :collection
@@ -15,12 +14,12 @@ Rails.application.routes.draw do
     get :public, on: :member
   end
 
-  resource  :calendar, except: [:new, :edit, :show, :destroy] do 
+  resource  :calendar, except: [:new, :edit, :show, :destroy] do
     get :manage
     get "/", action: :calendar
   end
 
-  resource  :background_image, except: [:new, :edit, :show, :destroy] do 
+  resource  :background_image, except: [:new, :edit, :show, :destroy] do
     get :manage
   end
 
@@ -33,7 +32,7 @@ Rails.application.routes.draw do
   resources :resume_entries
   resources :class_periods
   resources :goals
-  resources :klasses, path: :class do 
+  resources :klasses, path: :class do
     get :user_index, on: :collection
     get :search, on: :collection
   end

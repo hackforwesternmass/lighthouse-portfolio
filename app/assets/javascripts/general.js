@@ -8,6 +8,7 @@ $(document).on("click", 'tr[data-href]',function() {
 
 $(document).on('page:change', function(){
 
+
   var fieldsCount,
       maxFieldsCount = 3,
       $addLink = $('a.add_nested_fields_link');
@@ -24,7 +25,7 @@ $(document).on('page:change', function(){
   $(document).on("fields_removed.nested_form_fields", function() {
     fieldsCount -= 1;
     toggleAddLink();
-  });  
+  });
 
   fieldsCount = $('form .nested_fields').length;
   toggleAddLink();
@@ -33,6 +34,7 @@ $(document).on('page:change', function(){
   $('.button-collapse').sideNav();
   $('select').material_select();
   $('.modal-trigger').leanModal();
+  $('.datepicker').pickadate();
 
   if($('#notice').length){
     Materialize.toast($('#notice').data("notice"), 3500, "teal");
@@ -51,7 +53,7 @@ $(document).on('page:change', function(){
       $("#calendar_show").attr("disabled", true);
     }else{
       $("#calendar_show").attr("disabled", false);
-    } 
+    }
   });
 
   $(".ellipsis-link").click(function(e){

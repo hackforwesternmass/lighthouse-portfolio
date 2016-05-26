@@ -7,7 +7,7 @@ class KlassesController < SessionsController
     @highlight_sidebar = "Admin"
 
     respond_to do |format|
-      format.json { render json: @klasses.to_json(methods: :enrolled) }
+      format.json { render json: @klasses.to_json(methods: :enrolled, include: :users) }
       format.html
     end
   end
@@ -31,7 +31,7 @@ class KlassesController < SessionsController
       klasses = klasses.where(season: params[:season])
     end
 
-    render json: klasses.to_json(methods: :enrolled)
+    render json: klasses.to_json(methods: :enrolled, include: :users)
 
   end
 

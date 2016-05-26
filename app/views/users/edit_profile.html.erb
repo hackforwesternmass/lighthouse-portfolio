@@ -23,10 +23,10 @@
 
           <label class="custom-file-upload waves-effect waves-light btn teal">
             <%= f.file_field :avatar %>
-            <%= fa_icon "camera", text: "CHANGE" %> 
+            <%= fa_icon "camera", text: "CHANGE" %>
           </label>
         </div>
-      
+
       </div>
 
       <div class="col s12 m8">
@@ -35,14 +35,14 @@
           <div class="input-field col s12">
           <%= f.text_area :description, placeholder: '140 characters maximum', length: "140", class: "materialize-textarea"  %>
           <%= f.label :description, "SHORT BIO" %>
-          </div> 
+          </div>
         </div>
 
         <div class="row">
           <div class="col s12">
           <%= f.label :profile_color %><br/><br/>
           <%= color_field(:user, :profile_color) %>
-          </div> 
+          </div>
         </div>
 
         <div class="row">
@@ -52,12 +52,23 @@
               <%= f.file_field :profile_background %>
             </div>
             <div class="file-path-wrapper">
-              <input class="file-path" type="text" 
+              <input class="file-path" type="text"
                 placeholder="Upload backgroung image" value="<%= @user.profile_background.original_filename %>">
             </div>
           </div>
         </div>
 
+        <div class="row">
+          <div class="switch col s12">
+            <label style="font-size: 1rem; margin-bottom: 15px; display: block;">Make profile private</label>
+            <%= f.label :private do %>
+              No
+              <%= f.check_box :private %>
+              <span class="lever"></span>
+              Yes
+            <% end %>
+          </div>
+        </div>
     </div>
   </div>
 
@@ -78,16 +89,15 @@
             <%= ff.label :name, "SHORT TITLE"%>
           </div>
           <div class="input-field col s12 m1">
-          <%= ff.remove_nested_fields_link fa_icon("trash-o", class: "no-padding"), 
+          <%= ff.remove_nested_fields_link fa_icon("trash-o", class: "no-padding"),
             class: "waves-effect waves-light btn red" %>
           </div>
         </div>
       <% end %>
       <%= f.add_nested_fields_link :social_mediums, fa_icon("plus-circle", text: "Add Link"), class: "waves-effect waves-light btn cyan" %>
-
     <br>
     <br>
-    <%= content_tag :button, "Save", type: :submit, class: "waves-effect waves-light btn teal" %> 
+    <%= content_tag :button, "Save", type: :submit, class: "waves-effect waves-light btn teal" %>
     </div>
 
   </div>

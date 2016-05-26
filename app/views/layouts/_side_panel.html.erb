@@ -7,7 +7,7 @@
   <%= image_tag "compass_logo_small.png", class: "logo" %>
 
   <%= side_panel_link(admin_dashboard_path, "user", "Admin") if current_user.admin? %>
-  <%= side_panel_link(action_plan_path, "desktop", "Action Plan") %>
+  <%= side_panel_link(action_plan_path, "desktop", "Action Plan") unless current_user.admin? %>
   <%= side_panel_link(calendar_path, "calendar-o", "Class Calendar") if (Calendar.first.try(:show) && Calendar.first.try(:calendar_id) != "") %>
   <%= side_panel_link(resources_path, "bookmark", "Resources") %>
   <%= side_panel_link(projects_path, "user", "Portfolio") %>

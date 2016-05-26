@@ -107,8 +107,7 @@ ResumeEntries.ResumeEntryShow = React.createClass({
                 {this.state.resumeEntry.date}
               </div>
 
-              <div className="description">
-                {this.state.resumeEntry.description}
+              <div className="description" dangerouslySetInnerHTML={{__html: this.state.resumeEntry.description}}>
               </div>
             </div>;
   }
@@ -142,9 +141,9 @@ ResumeEntries.ResumeEntryForm = React.createClass({
     e.preventDefault();
 
     var errorMessages = {};
+    tinymce.get('resume_entry_description').save();
 
     if(!this.state.title) errorMessages.title = "Title is required."
-    if(!this.state.description) errorMessages.description = "Description is required."
     if(!this.state.date) errorMessages.date = "Date is required."
 
     if(Object.keys(errorMessages).length > 0){

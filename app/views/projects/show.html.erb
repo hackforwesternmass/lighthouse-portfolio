@@ -1,6 +1,5 @@
 <section class="section-container no-padding">
 
-
     <div class="hide-on-small-only project-nav left-arrow">
       <%= link_to fa_icon("angle-left"), @project.previous, class: "nav-left" %>
     </div>
@@ -9,12 +8,12 @@
       <div class="container">
 
         <div class="menu"></div>
-       
-        <%= link_to fa_icon("pencil"), edit_project_path(@project), 
-          class: "btn-floating btn-large waves-effect waves-light right", style: "background-color: #{@project.user.profile_color}" %> 
 
-        <%= link_to fa_icon("th"), projects_path, 
-          class: "btn-floating btn-large waves-effect waves-light left", style: "background-color: #{@project.user.profile_color}" %> 
+        <%= link_to fa_icon("pencil"), edit_project_path(@project),
+          class: "btn-floating btn-large waves-effect waves-light right", style: "background-color: #{@project.user.profile_color}" %>
+
+        <%= link_to fa_icon("th"), projects_path,
+          class: "btn-floating btn-large waves-effect waves-light left", style: "background-color: #{@project.user.profile_color}" %>
 
         <h1 class="center-align thick"><%= @project.title %></h1>
 
@@ -67,4 +66,3 @@
 
 
 </section>
-

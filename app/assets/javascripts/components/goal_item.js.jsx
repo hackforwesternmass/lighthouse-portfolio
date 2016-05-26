@@ -23,7 +23,7 @@ var GoalItem = React.createClass({
   delete: function(e){
     e.preventDefault();
 
-    if(!confirm("Are you sure you would like to delete this goal?")){
+    if(!confirm("Are you sure you would like to remove this goal?")){
       return false;
     }
 
@@ -113,12 +113,12 @@ var GoalItem = React.createClass({
             <div className="row">
               <div className="col s6">{moment(this.props.goal.created_at).format("MMMM D YYYY")}</div>
               <div className="col s6 right right-align">{ this.props.goal.due_date ? moment(this.props.goal.due_date).format("MMMM D YYYY") : "∞" }</div>
-            </div> 
+            </div>
 
             {this.progress()}
 
             {this.checklist()}
-            <a href="#" className="delete" onClick={this.delete} >Delete...</a>
+            <a href="#" className="delete" onClick={this.delete} >Remove...</a>
 
             </div>
             <a href="#" className={this.props.goal.is_completed ? "complete-btn" : "incomplete-btn"} onClick={this.toggleComplete}>{this.props.goal.is_completed ? "Completed" : "Finished?" }</a>

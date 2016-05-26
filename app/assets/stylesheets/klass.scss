@@ -10,7 +10,6 @@
 
     td{
       text-align: center;
-      // font-size: 1.25rem;
     }
 
     .name-desc, .student-name{
@@ -33,8 +32,6 @@
 
 
       a{
-        color: $secondary-color;
-
         i{
           transition: 200ms;
           opacity: 0;
