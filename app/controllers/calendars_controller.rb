@@ -33,7 +33,7 @@ class CalendarsController < SessionsController
   private
 
     def calendar_params
-      params.require(:calendar).permit(:calendar_id, :show, :hide_week_view)
+      params.require(:calendar).permit(:calendar_id, :show, :hide_week_view, :calendar_url)
     end
 
 end

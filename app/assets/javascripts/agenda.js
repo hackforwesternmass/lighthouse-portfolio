@@ -29,7 +29,7 @@ function loadUpcomingAgendaEvents(calendar_min_time, first_iteration){
 
   var calendar_id = document.querySelector('#calendar-id').dataset.calendarId;
   calendar_max_time = moment(calendar_min_time).add(30, 'days').format("YYYY-MM-DDT00:00:00Z");
-  var calendar_url = "https://www.googleapis.com/calendar/v3/calendars/"+calendar_id 
+  var calendar_url = "https://www.googleapis.com/calendar/v3/calendars/"+calendar_id
                     +"/events?orderBy=startTime&singleEvents=true&timeMin="+calendar_min_time
                     +"&timeMax="+calendar_max_time+"&key=AIzaSyB-xMDC9mt9b1nj_df2pjVgHOlkIZzIxWs";
 
@@ -40,9 +40,8 @@ function loadUpcomingAgendaEvents(calendar_min_time, first_iteration){
     }
 
     if(events.items.length === 0  && first_iteration){
-      $("#agenda-calendar").append("<h1>There's nothing on your calendar</h1>")
+      $("#agenda-calendar").append("<h2>There's nothing on your calendar</h2>")
     }
-
 
     var current_event, prev_event, date_class, html, input;
     for(var i = 0; i < events.items.length; i++){
@@ -69,7 +68,7 @@ function loadUpcomingAgendaEvents(calendar_min_time, first_iteration){
       }else{
         input = { date: moment(current_event.start.dateTime).format("dddd MMMM D YYYY"), date_class: date_class }
         html = HandlebarsTemplates['calendars/agenda_item'](input);
-        $("#agenda-calendar").append(html); 
+        $("#agenda-calendar").append(html);
 
         html = HandlebarsTemplates['calendars/agenda_event']( formatEvent(current_event) );
         $(".agenda-item."+date_class).find(".agenda-events").append(html);
@@ -101,7 +100,7 @@ function multipleDays(current_event){
   input = { date: date, date_class: date_class };
 
   html = HandlebarsTemplates['calendars/agenda_item'](input);
-  $("#agenda-calendar").append(html); 
+  $("#agenda-calendar").append(html);
 
   html = HandlebarsTemplates['calendars/agenda_event']( formatEvent(current_event) );
   $(".agenda-item."+date_class).find(".agenda-events").append(html);
@@ -124,8 +123,8 @@ function formatEvent(event){
   if(event.attachments){
     attachments = event.attachments;
   }
-  
-  return { 
+
+  return {
             start_time: start_time,
             end_time: end_time,
             title: event.summary,
@@ -143,5 +142,3 @@ function getDocHeight() {
         D.body.clientHeight, D.documentElement.clientHeight
     );
 }
-
-

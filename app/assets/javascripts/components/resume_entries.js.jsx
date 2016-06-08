@@ -73,6 +73,11 @@ ResumeEntries.ResumeEntryShow = React.createClass({
   },
   delete: function(e){
     e.preventDefault();
+
+    if(!confirm("Are you sure you would like to remove this resume entry?")){
+      return false;
+    }
+
     $.ajax({
       url: "/resume_entries/" + this.props.resumeEntry.id ,
       dataType: "JSON",

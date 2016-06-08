@@ -155,7 +155,7 @@ GoalItem.ActionItem = React.createClass({
         this.props.updateGoals();
       }.bind(this),
       error: function(data) {
-        console.log(data);
+        // TODO
       }
     });
   },

@@ -1,6 +1,7 @@
 <nav>
   <div class="nav-wrapper">
     <span class="brand-logo">Class Calendar</span>
+    <%= link_to "Source Calendar", Calendar.first.try(:calendar_url), class: 'btn right', target: "_blank", style: 'position:absolute;top:12px;right:0px;' if Calendar.first.try(:calendar_url).present? %>
   </div>
 </nav>
 

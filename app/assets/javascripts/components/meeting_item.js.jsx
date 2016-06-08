@@ -1,8 +1,8 @@
 var MeetingItem = React.createClass({
   getInitialState: function() {
-    return { action_items: this.props.meeting.action_items, 
+    return { action_items: this.props.meeting.action_items,
              editing: this.props.meeting.editing,
-             notes: this.props.meeting.notes, 
+             notes: this.props.meeting.notes,
              created_at: this.props.meeting.created_at };
   },
   componentWillReceiveProps: function(nextProps) {
@@ -102,7 +102,7 @@ MeetingItem.ActionItem = React.createClass({
       <div className="row body">
         <div className="col s9 m10">
           <input type="checkbox" className="blue-check" id={"meeting-check-" + this.props.action_item.id} onChange={this.toggleCheck} checked={this.props.action_item.completed ? "checked" : false }/>
-          <label htmlFor={"meeting-check-" + this.props.action_item.id}><span className="blue-text text-lighten-2">{this.props.action_item.admin_id ? "Teacher task: " : ""}</span>{this.props.action_item.description}</label>
+          <label htmlFor={"meeting-check-" + this.props.action_item.id}><span className="blue-text text-lighten-2">{this.props.action_item.user_id ? "Teacher task: " : ""}</span>{this.props.action_item.description}</label>
         </div>
         <div className="col s3 m2 capitalize">{ this.props.action_item.due_date ? moment(this.props.action_item.due_date).fromNow() : "∞" }</div>
       </div>

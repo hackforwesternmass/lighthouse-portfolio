@@ -1,6 +1,6 @@
 var Week = React.createClass({
   getInitialState: function() {
-    return { classPeriods: [], events: [], weekStartDate: "", loading: true };
+    return { classPeriods: [], events: [], weekStartDate: "", loading: true, hasEvents: false };
   },
   componentDidMount: function(){
     var weekStartDate, weekEndDate;
@@ -24,7 +24,7 @@ var Week = React.createClass({
                     +"&timeMax="+ weekEndDate +"&key=AIzaSyB-xMDC9mt9b1nj_df2pjVgHOlkIZzIxWs";
 
     $.getJSON( calendarUrl, function(events) {
-      this.setState({ weekStartDate: weekStartDate, events: this.parseEvents(events.items), loading: false });
+      this.setState({ weekStartDate: weekStartDate, events: this.parseEvents(events.items), loading: false, hasEvents: events.length > 0  });
     }.bind(this));
   },
   previousWeek: function(){
@@ -141,21 +141,26 @@ var Week = React.createClass({
     }.bind(this));
     return weekItemNodes;
   },
+  weekView: function(){
+    return <div>
+      <div className="row weekdays">
+        {this.weekdayHeader()}
+      </div>
+      <div className="week">
+        <div className="row">
+          {this.weekItems()}
+        </div>
+      </div>
+      <div className="week-navigation clear row">
+        <div className="last-week col s5" onClick={this.previousWeek}><i className="fa fa-chevron-left"></i> <span>Last week</span></div>
+        <div className="col s2 center-align calendar-spinner">{this.state.loading ? <i className="fa fa-spinner fa-spin"></i> : "·"}</div>
+        <div className="next-week col s5 right-align" onClick={this.nextWeek}><span>Next week</span><i className="fa fa-chevron-right"></i></div>
+      </div>
+    </div>
+  },
   render: function(){
     return  <div>
-              <div className="row weekdays">
-                {this.weekdayHeader()}
-              </div>
-              <div className="week">
-                <div className="row">
-                  {this.weekItems()}
-                </div>
-              </div>
-              <div className="week-navigation clear row">
-                <div className="last-week col s5" onClick={this.previousWeek}><i className="fa fa-chevron-left"></i> <span>Last week</span></div>
-                <div className="col s2 center-align calendar-spinner">{this.state.loading ? <i className="fa fa-spinner fa-spin"></i> : "·"}</div>
-                <div className="next-week col s5 right-align" onClick={this.nextWeek}><span>Next week</span><i className="fa fa-chevron-right"></i></div>
-              </div>
+              {!this.state.hasEvents ? this.weekView() : <h2 className="center-align">There's nothing on your calendar</h2> }
             </div>
   }
 });

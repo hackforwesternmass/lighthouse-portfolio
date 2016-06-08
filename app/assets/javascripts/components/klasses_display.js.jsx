@@ -48,7 +48,6 @@ var KlassesDisplay = React.createClass({
 KlassesDisplay.Show = React.createClass({
   triggerMeetingModal: function(e){
     e.preventDefault();
-    console.log(this.props.klass);
     this.props.openModal("#klasse-modal", { name: this.props.klass.name,
     description: this.props.klass.description,
     location: this.props.klass.location,
