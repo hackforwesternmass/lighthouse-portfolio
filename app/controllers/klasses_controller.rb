@@ -31,8 +31,13 @@ class KlassesController < SessionsController
       klasses = klasses.where(season: params[:season])
     end
 
-    render json: klasses.to_json(methods: :enrolled, include: :users)
+    if params[:type].present? && params[:type] == "Tutorial"
+      klasses = klasses.where(one_on_one: true)
+    elsif params[:type].present? && params[:type] != "All"
+      klasses = klasses.where(one_on_one: false)
+    end
 
+    render json: klasses.to_json(methods: :enrolled, include: :users)
   end
 
   def new

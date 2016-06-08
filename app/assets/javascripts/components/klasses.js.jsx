@@ -22,19 +22,24 @@ var Klasses = React.createClass({
 
 Klasses.Search = React.createClass({
   getInitialState: function(){
-    return { q: "", year: "", season: "" };
+    return { q: "", year: "", season: "", type: "" };
   },
   componentDidMount: function(){
     $('select').material_select();
 
     $(ReactDOM.findDOMNode(this)).find('select.filter-year').change(function(e){
-      this.props.search({ q: this.state.q, year: e.target.value, season: this.state.season });
+      this.props.search({ q: this.state.q, year: e.target.value, season: this.state.season, type: this.state.type });
       this.setState({ year: e.target.value });
     }.bind(this));
 
     $(ReactDOM.findDOMNode(this)).find('select.filter-season').change(function(e){
-      this.props.search({ q: this.state.q, year: this.state.year, season: e.target.value });
+      this.props.search({ q: this.state.q, year: this.state.year, season: e.target.value, type: this.state.type });
       this.setState({ season: e.target.value });
+    }.bind(this));
+
+    $(ReactDOM.findDOMNode(this)).find('select.filter-type').change(function(e){
+      this.props.search({ q: this.state.q, year: this.state.year, season: this.state.season, type: e.target.value });
+      this.setState({ type: e.target.value });
     }.bind(this));
 
   },
@@ -44,13 +49,13 @@ Klasses.Search = React.createClass({
   },
   render: function(){
     return  <div className="row grey-text text-darken-2">
-      <div className="input-field col s12 m5">
+      <div className="input-field col s12 m5 l5">
         <i className="fa fa-search prefix"></i>
         <input id="class-search" className="search" type="text" onChange={this.searchText}/>
         <label htmlFor="class-search" className="">Search</label>
       </div>
 
-      <div className="input-field col s12 m2">
+      <div className="input-field col s12 m1 l1">
         <select className="filter-year" defaultValue="YEAR">
           <option value="YEAR" disabled>YEAR</option>
           <option value="All">All</option>
@@ -60,7 +65,7 @@ Klasses.Search = React.createClass({
         </select>
       </div>
 
-      <div className="input-field col s12 m2">
+      <div className="input-field col s12 m2 l2">
         <select className="filter-season" defaultValue="SEASON">
           <option value="SEASON" disabled>SEASON</option>
           <option value="All">All</option>
@@ -69,9 +74,18 @@ Klasses.Search = React.createClass({
         </select>
       </div>
 
-      <div className="input-field col s12 m2">
-        <a className="btn" href="/class/new">
-          <i className="fa fa-plus no-padding"></i> Create
+      <div className="input-field col s12 m2 l2">
+        <select className="filter-type" defaultValue="TYPE">
+          <option value="TYPE" disabled>TYPE</option>
+          <option value="All">All</option>
+          <option value="Regular">REGULAR</option>
+          <option value="Tutorial">TUTORIAL</option>
+        </select>
+      </div>
+
+      <div className="input-field col s12 m2 l2">
+        <a className="btn" href="/class/new" style={{fontSize: 10}}>
+          <i className="fa fa-plus no-padding" style={{fontSize: 10}}></i> Create
           </a>
         </div>
       </div>;

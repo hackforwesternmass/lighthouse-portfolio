@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
 
     @user = User.authenticate(email, password)
 
-    
+
 
     if @user
       session[:user_id] = @user.id
@@ -59,6 +59,7 @@ class SessionsController < ApplicationController
 
   def disconnect_user
     session[:user_id] = nil
+    session[:admin_id] = nil
   end
 
   def session_expiry

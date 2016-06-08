@@ -35,8 +35,8 @@ Students.Search = React.createClass({
               </div>
 
               <div className="input-field col s12 m3">
-                <a className="btn" href="/users/new?role=student">
-                  <i className="fa fa-plus no-padding"></i> Register New
+                <a className="btn" href="/users/new?role=student" style={{fontSize: 10}}>
+                  <i className="fa fa-plus no-padding" style={{fontSize: 10}}></i> Register New
                 </a>
               </div>
             </div>;
