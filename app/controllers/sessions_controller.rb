@@ -10,8 +10,6 @@ class SessionsController < ApplicationController
 
     @user = User.authenticate(email, password)
 
-
-
     if @user
       session[:user_id] = @user.id
       @user.admin? ? redirect_to(admin_dashboard_path) : redirect_to(projects_path)

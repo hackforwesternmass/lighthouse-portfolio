@@ -75,10 +75,12 @@ class User < ActiveRecord::Base
     @pword ||= Password.new(password)
   end
 
-  def pword=(new_password)
-    @pword = Password.create(new_password)
-    self.password = @pword
-    self.password_confirmation = @pword
+  before_save do
+    if valid? && password.present?
+      @pword = Password.create(password)
+      self.password = @pword
+      self.password_confirmation = @pword
+    end
   end
 
 end

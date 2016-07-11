@@ -54,7 +54,6 @@ class UsersController < SessionsController
 
   def create
     @user = User.new(user_params)
-    @user.pword = params[:user][:password] if @user.valid?
     if @user.save
       if @user.admin?
         redirect_to admin_dashboard_path, notice: 'Admin account successfully created.'
@@ -71,7 +70,6 @@ class UsersController < SessionsController
     @user = @current_user
     respond_to do |format|
       if @current_user.update(user_params.except(:password, :password_confirmation))
-          @current_user.pword = params[:user][:password] unless params[:user][:password].blank?
           @current_user.save
         if admin_redirect_direction?
           format.html { redirect_to users_path, flash: { notice: "Profile successfully updated!" } }
