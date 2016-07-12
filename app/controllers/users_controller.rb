@@ -70,6 +70,7 @@ class UsersController < SessionsController
     @user = @current_user
     respond_to do |format|
       if @current_user.update(user_params.except(:password, :password_confirmation))
+          @current_user.pword = params[:user][:password] unless params[:user][:password].blank?
           @current_user.save
         if admin_redirect_direction?
           format.html { redirect_to users_path, flash: { notice: "Profile successfully updated!" } }

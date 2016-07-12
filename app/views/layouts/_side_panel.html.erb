@@ -4,7 +4,7 @@
 
 <ul id="slide-out" class="side-nav fixed grey darken-4">
 
-  <%= image_tag "compass_logo_small.png", class: "logo" %>
+  <%= image_tag ENV['LOGO_LINK'], class: "logo" %>
 
   <%= side_panel_link(admin_dashboard_path, "user", "Admin") if current_user.admin? %>
   <%= side_panel_link(action_plan_path, "desktop", "Action Plan") unless current_user.admin? %>

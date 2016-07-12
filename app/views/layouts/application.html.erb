@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-  <title>Compass</title>
+  <title><%= ENV['TITLE'] %></title>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 
@@ -12,7 +12,7 @@
 <body>
   <%= render "layouts/flash", :flash => flash %>
   <%= render 'layouts/side_panel' %>
-  <main> 
+  <main>
     <%= yield %>
   </main>
   <%= javascript_include_tag "salvattore.min", :debug => false %>

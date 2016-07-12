@@ -1,15 +1,15 @@
 <section id="login" style=<%= "background-image:url('#{@background.image.url}')" unless @background.nil? %>>
 
   <div class="title">
-    Compass
-    <small>Centre for Self-Directed Learning</small>
+    <%= ENV['TITLE'] %>
+    <small><%= ENV['SLOGAN'] %></small>
   </div>
 
   <div class="divider"></div>
 
   <div class="login-form">
 
-    <%= form_for @user, url: login_authentication_path, 
+    <%= form_for @user, url: login_authentication_path,
       html: {method: "post", class: "col s12", autocomplete: "off" } do |f| %>
 
       <div class="row">
@@ -43,5 +43,5 @@
     <% end %>
 
   </div>
-  
+
 </section>
