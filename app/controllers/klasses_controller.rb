@@ -3,7 +3,7 @@ class KlassesController < SessionsController
   before_action :set_klass, only: [:show, :edit, :update, :destroy]
 
   def index
-    @klasses = Klass.where("(klasses.season = 'Winter' AND klasses.year = '2016') OR (klasses.season = 'Fall' AND klasses.year = '2015')")
+    @klasses = Klass.where(year: 2016..Float::INFINITY)
     @highlight_sidebar = "Admin"
 
     respond_to do |format|
