@@ -68,6 +68,9 @@ $(document).on('page:change', function(){
 
 });
 
+$(document).ready(function() {
+  $.ajaxSetup({ cache: false });
+});
 
 function readURL(input) {
   if (input.files && input.files[0]) {
