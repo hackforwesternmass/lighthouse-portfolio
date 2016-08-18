@@ -2,7 +2,7 @@
   <i class="mdi-navigation-menu grey-text "></i>
 </a>
 
-<ul id="slide-out" class="side-nav fixed grey darken-4">
+<ul id="slide-out" class="side-nav fixed grey darken-4" data-no-turbolink>
 
   <%= image_tag ENV['LOGO_LINK'], class: "logo" %>
 
@@ -12,7 +12,7 @@
   <%= side_panel_link(resources_path, "bookmark", "Resources") %>
   <%= side_panel_link(projects_path, "user", "Portfolio") %>
 
-  <li data-no-turbolink>
+  <li>
     <%= link_to fa_icon("sign-out", text: "Sign Out"), logout_path, class: "grey-text text-darken-1" %>
   </li>
 
