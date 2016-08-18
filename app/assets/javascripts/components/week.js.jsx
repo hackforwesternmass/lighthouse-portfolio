@@ -67,6 +67,8 @@ var Week = React.createClass({
         }
       }.bind(this));
 
+      if( isNaN(timePeriod) ) return;
+
       parsedEvents[ (5 * timePeriod) + weekday ].push({ title: event.summary, startTime: startTime, endTime: endTime });
 
     }.bind(this));
