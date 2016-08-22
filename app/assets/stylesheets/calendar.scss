@@ -27,11 +27,11 @@
 
   .row{
     margin-bottom: 0;
+    
+    .agenda-event-content{
+      padding: 1rem;
+    }
   }
-}
-
-.agenda-event-content{
-    padding: 1rem;
 }
 
 .event-instructor{
