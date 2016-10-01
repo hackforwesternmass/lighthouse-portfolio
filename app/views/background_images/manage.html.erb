@@ -1,10 +1,7 @@
 <nav>
   <div class="nav-wrapper">
-    <div class="brand-logo">
-      <%= link_to "Admin Dashboard", admin_dashboard_path, class: "bc" %>
-      &nbsp;
-      <%= fa_icon "angle-double-right", class: "no-padding bc", text: "Manage Background Image" %>
-    </div>
+    <%= link_to "Admin Dashboard", admin_dashboard_path, class: "breadcrumb" %>
+    <span class="breadcrumb">Manage Background Image</span>
   </div>
 </nav>
 
@@ -15,7 +12,7 @@
   </div>
 
 
-  <%= form_for @background_image, url: background_image_path do |f| %>
+  <%= form_for @background_image, url: background_image_path, html: { class: 'one-page' } do |f| %>
 
   <div class="row">
     <div class="file-field input-field col s12 ">
@@ -24,7 +21,7 @@
         <%= f.file_field :image %>
       </div>
       <div class="file-path-wrapper">
-        <input class="file-path" type="text" 
+        <input class="file-path" type="text"
           placeholder="Upload backgroung image" value="<%= @background_image.image.original_filename %>">
       </div>
     </div>

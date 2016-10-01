@@ -1,0 +1,38 @@
+.entry{
+  &:hover .secondary-content{
+    opacity: 1;
+  }
+}
+
+.entry{
+  padding-bottom: 20px;
+  font-size: 14px;
+
+  .title{
+    color: #333;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 20px;
+    text-align: left;
+    margin: 0;
+  }
+
+  i {
+    font-size: 16px;
+    color: #333;
+  }
+
+  .description{
+    padding-top: 10px;
+  }
+
+  .secondary-content{
+    transition: 200ms;
+    opacity: 0;
+    a{
+      &:first-child{
+        padding-left: 10px;
+      }
+    }
+  }
+}

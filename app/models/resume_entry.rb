@@ -1,6 +1,7 @@
 class ResumeEntry < ActiveRecord::Base
+  default_scope { order(created_at: :desc) }
   belongs_to :user
 
-  default_scope { order(created_at: :desc) }
-
+  validates :title, presence: { message: 'Title is required' }
+  validates :date, presence: { message: 'Date is required' }
 end

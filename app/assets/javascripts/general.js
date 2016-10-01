@@ -8,28 +8,11 @@ $(document).on("click", 'tr[data-href]',function() {
 
 $(document).on('page:change', function(){
 
+  $('.lean-overlay').remove();
 
-  var fieldsCount,
-      maxFieldsCount = 3,
-      $addLink = $('a.add_nested_fields_link');
-
-  function toggleAddLink() {
-    $addLink.toggle(fieldsCount < maxFieldsCount);
+  if($('#login').length){
+    $('label.active').css({ paddingBottom: '5px' })
   }
-
-  $(document).on("fields_added.nested_form_fields", function() {
-    fieldsCount += 1;
-    toggleAddLink();
-  });
-
-  $(document).on("fields_removed.nested_form_fields", function() {
-    fieldsCount -= 1;
-    toggleAddLink();
-  });
-
-  fieldsCount = $('form .nested_fields').length;
-  toggleAddLink();
-
 
   $('.button-collapse').sideNav();
   $('select').material_select();

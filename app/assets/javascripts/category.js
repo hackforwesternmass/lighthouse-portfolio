@@ -3,7 +3,7 @@ $(document).on('page:change', function(){
   $(document).on('click', '.category-autocomplete .autocomplete-dropdown li', function(){
     $input = $(this).closest(".category-autocomplete").find("input");
     $(this).closest(".category-autocomplete").find("label").addClass('active');
-    setCategory($input, $(this).text().replace("Create category", "").trim(), true);
+    setCategory($input, $(this).text().replace(/Create/g, "").trim(), true);
   });
 
 	$(".category-autocomplete").each(function(){
@@ -18,11 +18,12 @@ $(document).on('page:change', function(){
 	  }
 
 	  $.ajax({
-		  url: "/resources",
+		  url: "/users/" + document.body.dataset.userId + "/resources",
 		  dataType: "json",
 		  data: { q: $input.val() }
 		})
-		.done( function(data) {
+		.done(function(data) {
+      console.log(data);
 			populateCategoryDropdown( $.unique(Object.keys(data.resources).concat(Object.keys(data.general_resources))), $input);
 		});
 
@@ -37,7 +38,7 @@ $(document).on('page:change', function(){
 		// TAB
 		if(e.which === 9){
 			closeAutoComplete();
-			($selected.length === 0) ? setCategory($input, null) 
+			($selected.length === 0) ? setCategory($input, null)
 															 : setCategory($input, $selected.text());
     }
 
@@ -45,14 +46,14 @@ $(document).on('page:change', function(){
     if(e.which === 13){
     	e.preventDefault();
 			closeAutoComplete();
-			($selected.length === 0) ? setCategory($input, null) 
+			($selected.length === 0) ? setCategory($input, null)
 															 : setCategory($input, $selected.text());
     }
 
     // ESC
  		if(e.which === 27){
 			closeAutoComplete();
-    } 
+    }
 
     // ARROW DOWN
  		if(e.which === 40){
@@ -62,13 +63,13 @@ $(document).on('page:change', function(){
  			}
  			$selected.next().toggleClass("selected");
  			$selected.toggleClass("selected");
-    } 
+    }
 
     // ARROW UP
  		if(e.which === 38){
  			$selected.prev().toggleClass("selected");
  			$selected.toggleClass("selected");
-    } 
+    }
 
 	});
 

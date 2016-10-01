@@ -1,10 +1,7 @@
 <nav>
   <div class="nav-wrapper">
-    <div class="brand-logo">
-      <%= link_to "Resources", resources_path, class: "bc" %>
-      &nbsp;
-      <%= fa_icon "angle-double-right", class: "no-padding bc", text: "Edit Resource" %>
-    </div>
+    <%= link_to "Resources", user_resources_path(@user), class: "breadcrumb" %>
+    <span class="breadcrumb">Edit Resource</span>
   </div>
 </nav>
 

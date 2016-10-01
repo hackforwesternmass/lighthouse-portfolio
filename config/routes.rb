@@ -1,43 +1,44 @@
 Rails.application.routes.draw do
 
-  root "sessions#login"
+  root 'sessions#login'
 
   resources :users do
-    get :edit_profile
+    get :action_plan, on: :member
+    resource :portfolio, only: [:edit, :update, :show]
+    resources :resume_entries, except: [:new, :edit]
+    resources :meetings, except: [:new, :edit]
+    resources :action_items, only: [:index, :update]
+    resources :resources do
+      post :change_category, on: :collection
+    end
+
+    resources :projects, except: [:index] do
+      get :tags, on: :collection
+      get :download, on: :member
+      get :public, on: :member
+    end
+
     get :unfound, on: :collection
     get :search, on: :collection
   end
 
-  resources :projects do
-    get :tags, on: :collection
-    get :download, on: :member
-    get :public, on: :member
-  end
-
   resource  :calendar, except: [:new, :edit, :show, :destroy] do
     get :manage
-    get "/", action: :calendar
+    get '/', action: :calendar
   end
 
   resource  :background_image, except: [:new, :edit, :show, :destroy] do
     get :manage
   end
 
-
-  resources :action_items
-  resources :meetings
-  resources :enrolls do
-    post :bulk_create, on: :collection
-  end
-  resources :resume_entries
   resources :class_periods
   resources :goals
   resources :klasses, path: :class do
     get :user_index, on: :collection
     get :search, on: :collection
   end
-  resources :resources do
-    post :change_category, on: :collection
+  resources :enrolls do
+    post :bulk_create, on: :collection
   end
 
   namespace :admin do
@@ -55,11 +56,5 @@ Rails.application.routes.draw do
     get  :login
     get  :logout
   end
-
-  namespace :action_plan, path: '/', as: nil do
-    get :action_plan
-  end
-
-  get '/:username', to: 'users#profile'
 
 end

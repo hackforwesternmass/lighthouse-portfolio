@@ -1,104 +1,82 @@
 class UsersController < SessionsController
-  before_action :admin_only, only: [:create, :new, :edit]
-  before_action :signed_in, except: [:profile, :unfound]
+  load_and_authorize_resource
 
   def index
-    @students = User.students
-    @highlight_sidebar = "Admin"
+    @users = @users.students
+    @highlight_sidebar = 'Admin'
 
     respond_to do |format|
-      format.json { render json: @students.to_json(include: :enrolls) }
+      format.json
       format.html
     end
   end
 
-  def profile
-    @user = User.find_by(username: params[:username], private: [nil, false])
-    if @user
-      @projects = @user.projects
-      render layout: "public"
-    else
-      redirect_to unfound_users_path(q: params[:username])
-    end
-  end
+  # def search
+  #   students = User.students
+  #   if params[:q].present?
+  #     students =  User.default_search(params[:q]).where(role: 'student')
+  #   end
+  #   render json: students.to_json(include: :enrolls)
+  # end
 
-  def search
-    students = User.students
-    if params[:q].present?
-      students =  User.default_search(params[:q]).where(role: "student")
-    end
-    render json: students.to_json(include: :enrolls)
-  end
+  # def unfound
+  #   @students = User.students
+  #   render layout: 'public'
+  # end
 
-  def unfound
-    @students = User.students
-    render layout: "public"
+  def action_plan
+    @highlight_sidebar = 'Action Plan'
   end
 
   def show
   end
 
   def new
-    @user = User.new
-    @highlight_sidebar = "Admin"
+    @highlight_sidebar = 'Admin'
   end
 
   def edit
-    @user = User.find params[:id]
-    @highlight_sidebar = "Admin"
-  end
-
-  def edit_profile
-    @highlight_sidebar = "Portfolio"
+    @highlight_sidebar = 'Admin'
   end
 
   def create
-    @user = User.new(user_params)
     if @user.save
-      if @user.admin?
-        redirect_to admin_dashboard_path, notice: 'Admin account successfully created.'
-      else
-        redirect_to admin_dashboard_path, notice: 'Student account successfully created.'
-      end
+      @user.guardians.create(student_id: params[:user][:student_id]) if @user.parent?
+      redirect_to redirect_to_path, notice: "#{@user.role.capitalize} account successfully created."
     else
       render 'new'
     end
   end
 
   def update
-    @current_user = User.find(params[:id])
-    @user = @current_user
     respond_to do |format|
-      if @current_user.update(user_params.except(:password, :password_confirmation))
-          @current_user.pword = params[:user][:password] unless params[:user][:password].blank?
-          @current_user.save
-        if admin_redirect_direction?
-          format.html { redirect_to users_path, flash: { notice: "Profile successfully updated!" } }
-        else
-          format.html { redirect_to projects_path, flash: { notice: "Profile successfully updated!" } }
-        end
-          format.json { render json: {} }
+      if @user.update(user_params.except(:password, :password_confirmation))
+          @user.pword = params[:user][:password] if params[:user][:password].present?
+          @user.save
+          format.html { redirect_to redirect_to_path, flash: { notice: 'Account successfully updated!' } }
+          format.json { render :show }
       else
-        @highlight_sidebar = ( admin_redirect_direction? ? "Admin" : "Portfolio" )
-        format.html { admin_redirect_direction? ? render(:edit) : render(:edit_profile) }
-        format.json { render json: {}, status: 400 }
+        @highlight_sidebar = 'Admin'
+        format.html { render :edit }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def destroy
-    @user = User.find(params[:id])
-    name = @user.full_name
+    name = @user.full_name.capitalize
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, flash: { notice: "#{name} account was successfully deleted." } }
+      format.html { redirect_to users_path, flash: { notice: "#{name} account was successfully deleted." } }
       format.json { head :no_content }
     end
   end
 
   private
-    def admin_redirect_direction?
-      request.referrer.split("?").first == edit_user_url(@current_user) || request.referrer.split("?").first == user_url(@current_user)
+    def redirect_to_path
+      return admin_dashboard_path if @user.admin?
+      return admin_dashboard_path if @user.student?
+      return users_path if @user.parent?
     end
 
     def user_params

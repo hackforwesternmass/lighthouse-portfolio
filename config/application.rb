@@ -25,7 +25,7 @@ module Compass
 
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
 
-    config.action_view.field_error_proc = Proc.new { |html_tag, instance| 
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance|
       if(instance.class.to_s.eql?("ActionView::Helpers::Tags::Label"))
         html_tag << "<span class=\"error-message\">#{instance.error_message.join(" and ")}</span>".html_safe
       else
@@ -38,6 +38,17 @@ module Compass
       html_tag.html_safe
 
     }
+
+    config.generators do |g|
+      g.test_framework :rspec,
+      fixtures: true,
+      view_specs: false,
+      helper_specs: false,
+      routing_specs: false,
+      controller_specs: true,
+      request_specs: false
+      g.fixture_replacement :factory_girl, dir: "spec/factories"
+    end
 
   end
 end

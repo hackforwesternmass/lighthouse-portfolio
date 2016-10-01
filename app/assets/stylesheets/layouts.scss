@@ -1,5 +1,5 @@
 .side-nav{
-
+  width: 240px;
   padding: 3rem 0;
 
   .logo{
@@ -14,10 +14,14 @@
     opacity: 1;
     border-left-width: 5px;
     border-left-style: solid;
-    border-left-color: #ee6508;
+    border-left-color: $secondary-color;
   }
 
-	li{ 
+  .btn {
+    margin: 10px 0 !important;
+  }
+
+	li{
 
 		padding: 0 !important;
 
@@ -27,8 +31,11 @@
 			padding: 8px 15px !important;
 	    padding-left: 35px !important;
 		  font: 300 1.2rem 'Roboto', helvetica, sans-serif;
+
 		  i{
         width: 30px;
+        line-height: normal;
+        color: inherit;
         text-align: center;
 		  }
 
@@ -36,7 +43,7 @@
 		  	opacity: 1;
 		  	color:#ddd !important;
 		  	background-color: #333;
-		  }	
+		  }
 		}
 
     &.active-tab a{
@@ -46,15 +53,20 @@
 	}
 }
 
-nav{
+nav {
   background-color: #343434;
   padding: 0 40px;
 
-  a.bc{
+  a.bc {
     float: left;
   }
 
-  i.bc, a.bc{
+  i.bc {
+    margin: 0;
+    margin-left: 15px;
+  }
+
+  i.bc, a.bc {
     display: inline-block !important;
     height: inherit !important;
     line-height: inherit !important;
@@ -63,6 +75,7 @@ nav{
 }
 
 .button-collapse{
+  padding-top: 5px;
 	padding-left: 10px;
   display: block;
   background-color: $primary-color-dark;
@@ -113,4 +126,3 @@ ul.dropdown{
     }
   }
 }
-

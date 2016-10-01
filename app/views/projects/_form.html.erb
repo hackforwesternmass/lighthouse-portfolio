@@ -1,6 +1,6 @@
 <% date_completed = @project.date_completed.strftime("%d %B, %Y") if @project.date_completed.present? %>
 
-<%= form_for @project, html: { class: "col s12 new-project", multipart: true } do |f| %>
+<%= form_for [@user, @project], html: { class: "col s12 new-project one-page", multipart: true } do |f| %>
 
   <div class="row">
     <div class="input-field col s12 m6">
@@ -52,7 +52,7 @@
         <%= f.file_field :photo %>
       </div>
       <div class="file-path-wrapper">
-        <input class="file-path" type="text" 
+        <input class="file-path" type="text"
           placeholder="Upload one photo" value="<%= @project.photo.original_filename %>">
       </div>
     </div>
@@ -65,7 +65,7 @@
         <%= f.file_field :document %>
       </div>
       <div class="file-path-wrapper">
-        <input class="file-path" type="text" 
+        <input class="file-path" type="text"
           placeholder="Upload a document" value="<%= @project.document.original_filename %>">
       </div>
     </div>

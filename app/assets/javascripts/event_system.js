@@ -4,17 +4,17 @@ var EventSystem = (function() {
   self.queue = {};
 
   return {
-    publish: function (event, data) {
+    publish: function (event) {
       var queue = self.queue[event];
 
       if (typeof queue === 'undefined') {
         return false;
       }
 
-      for (var i = 0; i < queue.length; i++) { 
-        (queue[i])(data);
+      for (var i = 0; i < queue.length; i++) {
+        (queue[i])();
       }
-      
+
       return true;
     },
     subscribe: function(event, callback) {

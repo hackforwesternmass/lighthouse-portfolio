@@ -1,5 +1,6 @@
 class ActionItemsController < SessionsController
-  before_action :signed_in
+  load_and_authorize_resource :user
+  load_and_authorize_resource :action_item, through: :user
 
   def index
     @incomplete = @user.admin_action_items.where(completed: [false, nil]).order(due_date: :asc)
@@ -7,26 +8,12 @@ class ActionItemsController < SessionsController
     @action_items = @user.action_items.order(due_date: :asc).where(archive: [false, nil])
   end
 
-  def create
-    if current_user.action_items.create(action_item_params)
-      render json: {}, status: 200
-    else
-      render json: {}, status: 400
-    end
-  end
-
   def update
-    action_item = ActionItem.find params[:id]
-    if action_item.update(action_item_params)
+    if @action_item.update(action_item_params)
       render json: {}, status: 200
     else
-      render json: {}, status: 400
+      render json: @action_item.errors, status: 422
     end
-  end
-
-  def destroy
-    ActionItem.find(params[:id]).destroy
-    render json: {}, status: 200
   end
 
   private

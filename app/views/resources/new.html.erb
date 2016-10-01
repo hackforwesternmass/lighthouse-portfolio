@@ -1,14 +1,11 @@
 <nav>
   <div class="nav-wrapper">
-    <div class="brand-logo">
-      <% if params[:general] %>
-        <%= link_to "Admin Dashboard", admin_dashboard_path, class: "bc" %>
-      <% else %>
-        <%= link_to "Resources", resources_path, class: "bc" %>
-      <% end %>
-      &nbsp;
-      <%= fa_icon "angle-double-right", class: "no-padding bc", text: "New Resource" %>
-    </div>
+    <% if params[:general] %>
+      <%= link_to "Admin Dashboard", admin_dashboard_path, class: "breadcrumb" %>
+    <% else %>
+      <%= link_to "Resources", user_resources_path(current_user), class: "breadcrumb" %>
+    <% end %>
+    <span class="breadcrumb">New Resource</span>
   </div>
 </nav>
 

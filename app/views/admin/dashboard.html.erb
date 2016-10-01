@@ -1,6 +1,6 @@
 <nav>
   <div class="nav-wrapper">
-    <span class="brand-logo">Admin Dashboard</span>
+    <span class="breadcrumb">Admin Dashboard</span>
   </div>
 </nav>
 
@@ -29,7 +29,7 @@
         <% end %>
       </div>
       <div class="box">
-        <%= link_to new_resource_path(general: true) do %>
+        <%= link_to new_user_resource_path(user_id: current_user, general: true) do %>
           <%= fa_icon("angle-double-right", text: ' Create general resource') %>
           <%= fa_icon "bookmark", class:  "icon no-padding" %>
         <% end %>

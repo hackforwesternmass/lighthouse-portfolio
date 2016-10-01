@@ -1,39 +1,36 @@
 class MeetingsController < SessionsController
-  before_action :signed_in
+  load_and_authorize_resource :user
+  load_and_authorize_resource :meeting, through: :user
+
+  def index
+  end
 
   def create
-    meeting_params[:action_items_attributes] = meeting_params[:action_items_attributes].map { | k,v | [ k, v ] unless v[:description].empty? }.compact.to_h
-    @meeting = Meeting.new(meeting_params)
     if @meeting.save
-      render json: {meeting: @meeting, action_items: @meeting.action_items}, status: 200 
+      render :show, status: 200
     else
-      render json: @meeting.errors, status: 406
+      render json: @meeting.errors, status: 422
     end
   end
 
-  def index
-    @meetings = current_user.meetings
+  def show
   end
 
   def update
-    meeting_params[:action_items_attributes] = meeting_params[:action_items_attributes].map { | k,v | [ k, v ] unless v[:description].empty? }.compact.to_h
-    @meeting = Meeting.find(params[:id])
     if @meeting.update(meeting_params)
-      render json: {meeting: @meeting, action_items: @meeting.action_items}, status: 200 
+      render json: :show, status: 200
     else
-      render json: @meeting.errors, status: 406
+      render json: @meeting.errors, status: 422
     end
   end
 
   def destroy
-    Meeting.find(params[:id]).destroy
-    render json: {}, status: 200 
+    @meeting.destroy
+    head :no_content
   end
-  
+
   private
     def meeting_params
-      @meeting_params ||= params.require(:meeting).permit(:notes, :user_id,
-        action_items_attributes: [:description, :due_date, :id, :user_id])
+      params.require(:meeting).permit(:notes, :user_id, action_items_attributes: [:description, :due_date, :id, :user_id, :completed, :_destroy])
     end
-
 end

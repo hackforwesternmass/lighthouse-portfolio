@@ -84,11 +84,11 @@ $(document).on('page:change', function(){
 
 });
 
-function initTiny(){
+function initTiny(selector){
 
    if (typeof tinyMCE != 'undefined') {
     tinyMCE.init({
-      selector: "textarea.tinymce",
+      selector: selector,
       menubar: false,
       statusbar: false,
       height: 200,
