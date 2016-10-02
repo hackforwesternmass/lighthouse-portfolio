@@ -32,9 +32,13 @@ const ResumeEntries = React.createClass({
           })
         }
         {
+          !this.props.editable && this.state.resumeEntries.length == 0 &&
+          <h4 className='center-align'>Resume has not been created yet.</h4>
+        }
+        {
           this.state.newResumeEntry
           ? <ResumeEntries.ResumeEntryForm {...this.props} resumeEntry={{}} save={this.save} close={this.close} newResumeEntry={this.state.newResumeEntry}/>
-          : <a href='#' onClick={this.addnewResumeEntry} className='btn'>Add Resume Entry</a>
+          : this.props.editable && <a href='#' onClick={this.addnewResumeEntry} className='btn'>Add Resume Entry</a>
         }
       </div>
     );
@@ -90,10 +94,13 @@ ResumeEntries.ResumeEntryShow = React.createClass({
       <div className='entry'>
         <div className='title'>
           {title}
-          <span className='secondary-content'>
-            <a href='#' onClick={this.props.toggleEdit}><i className='fa fa-pencil-square-o'></i></a>
-            {' '}<a href='#' rel='nofollow' onClick={this.delete} ><i className='fa fa-trash'></i></a>
-          </span>
+          {
+            this.props.editable &&
+            <span className='secondary-content'>
+              <a href='#' onClick={this.props.toggleEdit}><i className='fa fa-pencil-square-o'></i></a>
+              <a href='#' rel='nofollow' onClick={this.delete} ><i className='fa fa-trash'></i></a>
+            </span>
+          }
         </div>
 
         <div className='sub-title'>
@@ -117,7 +124,7 @@ ResumeEntries.ResumeEntryForm = React.createClass({
   },
   componentDidMount(){
     tinymce.remove();
-    initTiny();
+    initTiny('#resume_entry_description');
   },
   closeForm(){
     if(this.props.newResumeEntry){

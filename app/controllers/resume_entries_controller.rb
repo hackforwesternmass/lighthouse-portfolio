@@ -30,7 +30,14 @@ class ResumeEntriesController < SessionsController
   end
 
   private
+  
     def resume_entry_params
-      params.require(:resume_entry).permit(:id, :title, :subtitle, :description, :date)
+      params.require(:resume_entry).permit(
+        :id,
+        :title,
+        :subtitle,
+        :description,
+        :date
+      )
     end
 end

@@ -1,14 +1,14 @@
 <nav>
-  <div class="nav-wrapper">
-    <%= link_to "Resources", user_resources_path(@user), class: "breadcrumb" %>
-    <span class="breadcrumb">Edit Resource</span>
+  <div class='nav-wrapper'>
+    <%= link_to 'Resources', user_resources_path(@user), class: 'breadcrumb' %>
+    <span class='breadcrumb'>Edit Resource</span>
   </div>
 </nav>
 
-<section class="section-container" style="min-height: 100vh;">
+<section class='section-container'>
 
-  <div class="row">
-    <h3 class="teal-text col s12">Edit Resource</h3>
+  <div class='row'>
+    <h3 class='teal-text col s12'>Edit Resource</h3>
   </div>
 
   <%= render 'form' %>

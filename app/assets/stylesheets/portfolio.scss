@@ -95,3 +95,36 @@
 
 
 }
+
+.unfound {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  padding: 20px;
+
+
+  h4 {
+    color: #aaa;
+  }
+
+  .icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .material-icons {
+      font-size: 15vw;
+      color: #bbb;
+    }
+
+    .close {
+      font-size: 5vw;
+      color: #ccc;
+    }
+  }
+
+}

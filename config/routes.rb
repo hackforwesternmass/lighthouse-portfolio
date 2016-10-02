@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'sessions#login'
 
   resources :users do
+    get :search, on: :collection
     get :action_plan, on: :member
     resource :portfolio, only: [:edit, :update, :show]
     resources :resume_entries, except: [:new, :edit]
@@ -12,18 +13,17 @@ Rails.application.routes.draw do
     resources :resources do
       post :change_category, on: :collection
     end
-
     resources :projects, except: [:index] do
       get :tags, on: :collection
       get :download, on: :member
-      get :public, on: :member
     end
-
-    get :unfound, on: :collection
-    get :search, on: :collection
   end
 
-  resource  :calendar, except: [:new, :edit, :show, :destroy] do
+  namespace :enrolls do
+    post :bulk_create
+  end
+  
+  resource :calendar, except: [:new, :edit, :show, :destroy] do
     get :manage
     get '/', action: :calendar
   end
@@ -36,9 +36,6 @@ Rails.application.routes.draw do
   resources :klasses, path: :class do
     get :user_index, on: :collection
     get :search, on: :collection
-  end
-  resources :enrolls do
-    post :bulk_create, on: :collection
   end
 
   namespace :admin do
@@ -56,5 +53,8 @@ Rails.application.routes.draw do
     get  :login
     get  :logout
   end
+
+  get '/unfound', to: 'portfolios#unfound'
+  get '/:username', to: 'portfolios#public'
 
 end

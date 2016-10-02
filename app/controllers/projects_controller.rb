@@ -9,12 +9,12 @@ class ProjectsController < SessionsController
   end
 
   def create
-      if @project.save
-        redirect_to [@user, @project], flash: { notice: 'Project successfully created!' }
-      else
-        flash.now[:alert] = 'Could not create your project, some fields may have been missing!'
-        render :new
-      end
+    if @project.save
+      redirect_to [@user, @project], flash: { notice: 'Project successfully created!' }
+    else
+      flash.now[:alert] = 'Could not create your project, some fields may have been missing!'
+      render :new
+    end
   end
 
   def update
@@ -27,15 +27,13 @@ class ProjectsController < SessionsController
   end
 
   def tags
-    @tags = current_user.tags
-    @tags = @tags.where('name like ?', '%#{params[:q]}%') if params[:q]
+    @tags = @user.tags
+    @tags = @tags.where('name like ?', '%#{params[:q]}%') if params[:q].present?
   end
 
   def edit; end
 
-  def show; end
-
-  def public
+  def show
     render layout: 'public'
   end
 
@@ -49,14 +47,27 @@ class ProjectsController < SessionsController
   end
 
   private
-    def set_sidebar_highlight
-      @highlight_sidebar = 'Portfolio'
-    end
 
-    def project_params
-      params.require(:project).permit(:title, :description, :link, :priority, :document,
-        :body, :photo, :location, :date_completed, project_attachments_attributes: [:document, :_destroy, :id],
-        tags_attributes: [:name, :_destroy, :id])
-    end
+  def set_sidebar_highlight
+    @highlight_sidebar = 'Portfolio'
+  end
 
+  def project_params
+    params.require(:project).permit(
+      :title,
+      :description,
+      :link,
+      :priority,
+      :document,
+      :body,
+      :photo,
+      :location,
+      :date_completed,
+      tags_attributes: [
+        :name,
+        :_destroy,
+        :id
+      ]
+    )
+  end
 end

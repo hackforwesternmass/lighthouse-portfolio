@@ -8,7 +8,7 @@ class Project < ActiveRecord::Base
   has_many :tags, dependent: :destroy
   accepts_nested_attributes_for :tags, allow_destroy: true
 
-  has_attached_file :photo, :default_url => "blue-space-cloud.jpg"
+  has_attached_file :photo, :default_url => 'blue-space-cloud.jpg'
   validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
 
   has_attached_file :document
@@ -16,10 +16,10 @@ class Project < ActiveRecord::Base
   do_not_validate_attachment_file_type :document
 
   validates :title,
-    presence: { message: "Title is required" }
+    presence: { message: 'Title is required' }
 
   validates :description,
-    length: { maximum: 200, too_long: "%{count} characters is the maximum allowed" }
+    length: { maximum: 200, too_long: '%{count} characters is the maximum allowed' }
 
   def download_url
     s3 = AWS::S3.new.buckets[ENV['S3_BUCKET_NAME']]
@@ -46,6 +46,5 @@ class Project < ActiveRecord::Base
   before_save do
     self.date_completed = created_at if date_completed.blank?
   end
-
 
 end

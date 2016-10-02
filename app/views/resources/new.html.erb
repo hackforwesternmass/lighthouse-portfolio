@@ -1,18 +1,18 @@
 <nav>
-  <div class="nav-wrapper">
-    <% if params[:general] %>
-      <%= link_to "Admin Dashboard", admin_dashboard_path, class: "breadcrumb" %>
+  <div class='nav-wrapper'>
+    <% if params[:general].present? %>
+      <%= link_to 'Admin Dashboard', admin_dashboard_path, class: 'breadcrumb' %>
     <% else %>
-      <%= link_to "Resources", user_resources_path(current_user), class: "breadcrumb" %>
+      <%= link_to 'Resources', user_resources_path(current_user), class: 'breadcrumb' %>
     <% end %>
-    <span class="breadcrumb">New Resource</span>
+    <span class='breadcrumb'>New Resource</span>
   </div>
 </nav>
 
-<section class="section-container" style="min-height: 100vh;">
+<section class='section-container'>
 
-  <div class="row">
-    <h3 class="teal-text col s12">New Resource</h3>
+  <div class='row'>
+    <h3 class='teal-text col s12'>New Resource</h3>
   </div>
 
   <%= render 'form' %>

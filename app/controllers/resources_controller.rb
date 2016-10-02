@@ -28,7 +28,7 @@ class ResourcesController < SessionsController
     if @resource.update(resource_params)
       redirect_to user_resources_path(current_user), flash: { notice: 'Resource updated successfully!' }
     else
-      flash.now[:alert] = 'Could not update resource'
+      flash.now[:alert] = 'Failed to update resource.'
       render :edit
     end
   end
@@ -52,8 +52,14 @@ class ResourcesController < SessionsController
   end
 
   private
-    def resource_params
-      params.require(:resource).permit(:link, :category, :title, :description, :general)
-    end
 
+    def resource_params
+      params.require(:resource).permit(
+        :link,
+        :category,
+        :title,
+        :description,
+        :general
+      )
+    end
 end

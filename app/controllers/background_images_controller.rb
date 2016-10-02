@@ -1,5 +1,5 @@
 class BackgroundImagesController < SessionsController
-  before_action :signed_in
+  load_and_authorize_resource
 
   def manage
     @background_image = BackgroundImage.first || BackgroundImage.new
@@ -7,22 +7,20 @@ class BackgroundImagesController < SessionsController
   end
 
   def create
-    @background_image = BackgroundImage.new(background_image_params)
-
     if @background_image.save
       redirect_to admin_dashboard_path, flash: { notice: "Background image setup successfully." }
     else
+      flash.now[:alert] = 'Failed to update background image.'
       render :manage
     end
-
   end
 
   def update
     @background_image = BackgroundImage.first
-
     if @background_image.update(background_image_params)
       redirect_to admin_dashboard_path, flash: { notice: "Background image updated successfully." }
     else
+      flash.now[:alert] = 'Failed to update background image.'
       render :manage
     end
   end
@@ -32,5 +30,4 @@ class BackgroundImagesController < SessionsController
     def background_image_params
       params.require(:background_image).permit(:image)
     end
-
 end

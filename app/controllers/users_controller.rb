@@ -5,24 +5,13 @@ class UsersController < SessionsController
     @users = @users.students
     @highlight_sidebar = 'Admin'
 
+    @users = @users.default_search(params[:q]) if params[:q].present?
+
     respond_to do |format|
       format.json
       format.html
     end
   end
-
-  # def search
-  #   students = User.students
-  #   if params[:q].present?
-  #     students =  User.default_search(params[:q]).where(role: 'student')
-  #   end
-  #   render json: students.to_json(include: :enrolls)
-  # end
-
-  # def unfound
-  #   @students = User.students
-  #   render layout: 'public'
-  # end
 
   def action_plan
     @highlight_sidebar = 'Action Plan'
@@ -73,15 +62,28 @@ class UsersController < SessionsController
   end
 
   private
+  
     def redirect_to_path
-      return admin_dashboard_path if @user.admin?
-      return admin_dashboard_path if @user.student?
+      return admin_dashboard_path if @user.admin? || @user.student?
       return users_path if @user.parent?
     end
 
     def user_params
-      @user_params ||= params.require(:user).permit(:first_name, :last_name, :avatar, :meeting_time, :profile_background,
-        :role, :email, :password, :password_confirmation, :description, :username, :profile_color, :private,
-        social_mediums_attributes: [:link, :name,:_destroy, :id])
+      @user_params ||= params.require(:user).permit(
+        :first_name,
+        :last_name,
+        :meeting_time,
+        :role,
+        :email,
+        :password,
+        :password_confirmation,
+        :username,
+        social_mediums_attributes: [
+          :link,
+          :name,
+          :_destroy,
+          :id
+        ]
+      )
     end
 end

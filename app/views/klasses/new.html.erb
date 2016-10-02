@@ -1,17 +1,17 @@
 <nav>
-  <div class="nav-wrapper">
-    <%= link_to "Admin Dashboard", admin_dashboard_path, class: "breadcrumb" %>
-    <span class="breadcrumb">New Class</span>
+  <div class='nav-wrapper'>
+    <%= link_to 'Admin Dashboard', admin_dashboard_path, class: 'breadcrumb' %>
+    <span class='breadcrumb'>New Class</span>
   </div>
 </nav>
 
-<section class="section-container" style="min-height: 100vh;">
+<section class='section-container'>
 
-  <div class="row">
-    <h3 class="teal-text col s12">New Class</h3>
+  <div class='row'>
+    <h3 class='teal-text col s12'>New Class</h3>
   </div>
 
-  <div class="row">
+  <div class='row'>
     <%= render 'form' %>
   </div>
 </section>

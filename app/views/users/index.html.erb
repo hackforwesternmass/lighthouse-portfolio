@@ -1,8 +1,8 @@
 <nav>
-  <div class="nav-wrapper">
-    <%= link_to "Admin Dashboard", admin_dashboard_path, class: "breadcrumb" %>
-    <span class="breadcrumb">Manage Students</span>
+  <div class='nav-wrapper'>
+    <%= link_to 'Admin Dashboard', admin_dashboard_path, class: 'breadcrumb' %>
+    <span class='breadcrumb'>Manage Students</span>
   </div>
 </nav>
 
-<%= react_component "Students", { userId: current_user.id } %>
+<%= react_component 'Students', {} %>

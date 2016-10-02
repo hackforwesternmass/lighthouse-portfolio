@@ -30,7 +30,19 @@ class MeetingsController < SessionsController
   end
 
   private
+  
     def meeting_params
-      params.require(:meeting).permit(:notes, :user_id, action_items_attributes: [:description, :due_date, :id, :user_id, :completed, :_destroy])
+      params.require(:meeting).permit(
+        :notes,
+        :user_id,
+        action_items_attributes: [
+          :description,
+          :due_date,
+          :id,
+          :user_id,
+          :completed,
+          :_destroy
+        ]
+      )
     end
 end

@@ -2,6 +2,9 @@ class GoalsController < SessionsController
   load_and_authorize_resource :user
   load_and_authorize_resource :goal, through: :user
 
+  def index
+  end
+  
   def create
     if @goal.save
       render json: :show, status: 200
@@ -11,9 +14,6 @@ class GoalsController < SessionsController
   end
 
   def show
-  end
-
-  def index
   end
 
   def update
@@ -30,7 +30,20 @@ class GoalsController < SessionsController
   end
 
   private
+
     def goal_params
-      params.require(:goal).permit(:title, :description, :is_completed, :due_date, :user_id, action_items_attributes: [:description, :due_date, :id, :_destroy])
+      params.require(:goal).permit(
+        :title,
+        :description,
+        :is_completed,
+        :due_date,
+        :user_id,
+        action_items_attributes: [
+          :description,
+          :due_date,
+          :id,
+          :_destroy
+        ]
+      )
     end
 end

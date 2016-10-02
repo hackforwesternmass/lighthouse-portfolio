@@ -1,14 +1,14 @@
 <nav>
-  <div class="nav-wrapper">
-    <%= link_to "Portfolio", user_projects_path(@user), class: "breadcrumb" %>
-    <span class="breadcrumb">New Portfolio Piece</span>
+  <div class='nav-wrapper'>
+    <%= link_to 'Portfolio', user_portfolio_path, class: 'breadcrumb' %>
+    <span class='breadcrumb'>New Portfolio Piece</span>
   </div>
 </nav>
 
-<section class="section-container">
+<section class='section-container'>
 
-  <div class="row">
-    <h3 class="teal-text col s12">New Portfolio Piece</h3>
+  <div class='row'>
+    <h3 class='teal-text'>New Portfolio Piece</h3>
   </div>
 
   <%= render 'form' %>

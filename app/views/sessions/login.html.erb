@@ -1,50 +1,49 @@
-<section id="login" style=<%= "background-image:url('#{@background.image.url}')" unless @background.nil? %>>
+<section id='login' style=<%= "background-image:url('#{@background.image.url}')" unless @background.nil? %>>
   <div>
 
-    <div class="title">
+    <div class='title'>
       <%= ENV['TITLE'] %>
     </div>
 
-    <div class="slogan">
+    <div class='slogan'>
       <%= ENV['SLOGAN'] %>
     </div>
 
-    <div class="divider"></div>
+    <div class='divider'></div>
 
-    <div class="login-form">
+    <div class='login-form'>
 
       <%= form_tag login_authentication_path do %>
 
-        <div class="row">
-          <div class="input-field col s12">
-            <%= text_field_tag :username_email, "", autofocus: true, placeholder: "" %>
-            <%= label_tag :username_email, "Username / Email" %>
+        <div class='row'>
+          <div class='input-field col s12'>
+            <%= text_field_tag :username_email, '', autofocus: true, placeholder: '' %>
+            <%= label_tag :username_email, 'Username / Email' %>
           </div>
         </div>
 
-        <div class="row">
-          <div class="input-field col s12">
-            <%= password_field_tag :password, placeholder: "" %>
+        <div class='row'>
+          <div class='input-field col s12'>
+            <%= password_field_tag :password, placeholder: '' %>
             <%= label_tag :password %>
           </div>
         </div>
 
-        <% if flash[:alert] %>
-          <div class="row">
-            <div class="col s12">
-              <div class="login-refused"><%= flash[:alert] %></div>
+        <% if flash[:incorrect].present? %>
+          <div class='row'>
+            <div class='col s12'>
+              <div class='login-refused'><%= flash[:incorrect] %></div>
             </div>
           </div>
         <% end %>
 
-        <div class="row no-margin">
-          <div class="input-field col s12">
-            <%= content_tag :button, "Submit", type: :submit, class: "waves-effect waves-light btn" %>
+        <div class='row no-margin'>
+          <div class='input-field col s12'>
+            <%= content_tag :button, 'Submit', type: :submit, class: 'waves-effect waves-light btn' %>
           </div>
         </div>
 
       <% end %>
-
     </div>
   </div>
 </section>

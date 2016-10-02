@@ -13,7 +13,7 @@ var Students = React.createClass({
     );
   },
   search(params) {
-    $.getJSON('/users/search', params,
+    $.getJSON('/users', params,
       students => this.setState({ students })
     );
   },
@@ -132,9 +132,13 @@ Students.Index = React.createClass({
               </div>
               <div id='enroll-modal' className='modal' style={{ maxWidth: 400 }}>
                 <div className='modal-content'>
-                  <h4>Enrolled Classes</h4>
+                  <h4 className='center-align'>Enroll to Classes</h4>
                   <form onSubmit={this.enrollSubmit}>
                       <div className='row'>
+                        {
+                          this.props.klasses.length == 0 &&
+                          <h5 className='center-align grey-text'>No classes added yet.</h5>
+                        }
                         {
                           this.props.klasses.map(klass => {
                             return <div className='input-field col s12' key={klass.id}>
@@ -146,12 +150,16 @@ Students.Index = React.createClass({
                       </div>
                   </form>
                   <br/>
-                  <a href='#' onClick={this.enrollSubmit} style={{ width: '100%' }} className='btn modal-action modal-close waves-effect'>Save</a>
+                  {
+                    this.props.klasses.length == 0
+                    ? <a className='btn' style={{ width: '100%' }} href='/class/new'>Add Class</a>
+                    : <a href='#' onClick={this.enrollSubmit} style={{ width: '100%' }} className='btn modal-action modal-close waves-effect'>Save</a>
+                  }
                 </div>
               </div>
               <div id='parent-modal' className='modal' style={{ maxWidth: 400 }}>
                 <div className='modal-content'>
-                  <h4>Parents</h4>
+                  <h4 className='center-align'>Parents</h4>
                   {
                     parents && parents.length > 0 ?
                     <ul className='collection'>
@@ -161,7 +169,7 @@ Students.Index = React.createClass({
                         })
                       }
                     </ul> :
-                    <h5>No parents added yet.</h5>
+                    <h5 className='center-align grey-text'>No parents added yet.</h5>
                   }
                   <br/>
                   <a className='modal-action modal-close btn waves-effect' style={{ width: '100%' }} href={`/users/new?role=parent&student_id=${id}`}>Add Parent</a>

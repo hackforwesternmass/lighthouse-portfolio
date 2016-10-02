@@ -25,6 +25,17 @@ const Meetings = React.createClass({
     return (
       <div id='meetings'>
         {
+          !this.props.adminId &&
+          <div className='row'>
+            <div className='card blue darken-1 no-margin'>
+              <div className='card-content white-text center-align'>
+                <small style={{fontWeight: 300, fontSize: 13, display: 'block' }} >Meeting Time</small>
+                <h6>{this.props.meetingTime ? this.props.meetingTime : 'Anytime - Be Ready'}</h6>
+              </div>
+            </div>
+          </div>
+        }
+        {
           this.props.adminId && !newMeeting &&
           <a href='#' onClick={this.handleNewMeeting} className='hide-on-small-only'>
             <div className='row'>

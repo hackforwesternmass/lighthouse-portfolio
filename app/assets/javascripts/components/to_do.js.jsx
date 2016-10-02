@@ -1,6 +1,6 @@
 const ToDo = React.createClass({
   getInitialState() {
-    return { actionItems: [], loading: true, showArchived: false }
+    return { actionItems: [], archivedActionItems: [], loading: true, showArchived: false }
   },
   componentDidMount() {
     this.loadActionItems()
@@ -55,6 +55,7 @@ const ToDo = React.createClass({
           </div>
         }
         {
+          archivedActionItems.length > 0 &&
           <div className='btn btn-flat' onClick={this.toggleShowArchive}>
             { showArchived ? 'Hide archived action items...' : 'View archived action items...' }
           </div>

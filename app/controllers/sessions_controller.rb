@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to after_login_path
     else
-      redirect_to root_path, alert: "Your email or password were incorrect."
+      redirect_to root_path, flash: { incorrect: 'Your email or password were incorrect.' }
     end
   end
 
@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
   def login
     @background = BackgroundImage.first
     return redirect_to after_login_path if signed_in?
-    render layout: "public"
+    render layout: 'public'
   end
 
   def signed_in
@@ -42,28 +42,29 @@ class SessionsController < ApplicationController
     redirect_to root_path
   end
 
-private
+  private
 
-  def after_login_path
-    current_user.admin? ? admin_dashboard_path : user_portfolio_path(current_user)
-  end
+    def after_login_path
+      return admin_dashboard_path if current_user.admin?
+      return action_plan_user_path(current_user) if current_user.student? || current_user.parent?
+    end
 
-  def disconnect_user
-    session[:user_id] = nil
-    session[:admin_id] = nil
-  end
+    def disconnect_user
+      session[:user_id] = nil
+      session[:admin_id] = nil
+    end
 
-  def session_expiry
-    get_session_time_left
-    disconnect_user if @session_time_left <= 0
-  end
+    def session_expiry
+      get_session_time_left
+      disconnect_user if @session_time_left <= 0
+    end
 
-  def update_activity_time
-    session[:expires_at] = 24.hours.from_now
-  end
+    def update_activity_time
+      session[:expires_at] = 24.hours.from_now
+    end
 
-  def get_session_time_left
-    expire_time = session[:expires_at] || Time.now
-    @session_time_left = (expire_time.to_time - Time.now).to_i
-  end
+    def get_session_time_left
+      expire_time = session[:expires_at] || Time.now
+      @session_time_left = (expire_time.to_time - Time.now).to_i
+    end
 end

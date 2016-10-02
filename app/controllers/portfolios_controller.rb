@@ -1,8 +1,9 @@
 class PortfoliosController < ApplicationController
   load_and_authorize_resource :user
-  load_and_authorize_resource :portfolio, through: :user, :singleton => true
+  load_and_authorize_resource :portfolio, through: :user, :singleton => true, except: [:public, :unfound]
 
   def show
+    render layout: 'public' if current_user != @user && !current_user.try(:admin?)
   end
 
   def edit
@@ -17,7 +18,22 @@ class PortfoliosController < ApplicationController
     end
   end
 
+  def public
+    @user = User.joins(:portfolio).find_by(portfolios: { private: [nil, false] }, username: params[:username])
+    if @user
+      @portfolio = @user.portfolio
+      render action: :show, layout: 'public'
+    else
+      redirect_to action: :unfound, params: { username: params[:username] }
+    end
+  end
+
+  def unfound
+    render layout: 'public'
+  end
+
   private
+  
     def portfolio_params
       params.require(:portfolio).permit(
         :avatar,
@@ -25,7 +41,12 @@ class PortfoliosController < ApplicationController
         :description,
         :color,
         :private,
-        social_mediums_attributes: [:link, :name,:_destroy, :id]
+        social_mediums_attributes: [
+          :link,
+          :name,
+          :_destroy,
+          :id
+        ]
       )
     end
 end

@@ -3,42 +3,42 @@
   <%= f.hidden_field :role, value: (@user.role || params[:role]) %>
   <%= f.hidden_field :student_id, value: params[:student_id] if params[:student_id].present? %>
 
-  <div class="row">
-    <div class="input-field col m6 s12">
+  <div class='row'>
+    <div class='input-field col m6 s12'>
       <%= f.text_field :first_name %>
       <%= f.label :first_name %>
     </div>
 
-    <div class="input-field col m6 s12">
+    <div class='input-field col m6 s12'>
       <%= f.text_field :last_name %>
       <%= f.label :last_name %>
     </div>
   </div>
 
-  <div class="row">
-    <div class="input-field col s12 m6">
+  <div class='row'>
+    <div class='input-field col s12 m6'>
       <%= f.text_field :username %>
       <%= f.label :username  %>
     </div>
 
-    <div class="input-field col s12 m6">
+    <div class='input-field col s12 m6'>
       <%= f.email_field :email %>
       <%= f.label :email  %>
     </div>
   </div>
 
-  <div class="row">
-    <div class="input-field col m6 s12">
+  <div class='row'>
+    <div class='input-field col m6 s12'>
       <%= f.password_field :password %>
       <%= f.label :password %>
     </div>
 
-    <div class="input-field col m6 s12">
+    <div class='input-field col m6 s12'>
       <%= f.password_field :password_confirmation %>
       <%= f.label :password_confirmation %>
     </div>
   </div>
 
-  <%= content_tag :button, "Save", type: :submit, class: "waves-effect waves-light btn teal" %>
+  <%= content_tag :button, 'Save', type: :submit, class: 'waves-effect waves-light btn teal' %>
 
 <% end %>
