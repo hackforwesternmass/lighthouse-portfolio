@@ -97,12 +97,15 @@ Meetings.MeetingShow = React.createClass({
     });
   },
   toggleCheck(e) {
-    const { userId, meeting } = this.props;
+    const { userId, meeting, parent } = this.props;
     $.ajax({
       url: `/users/${userId}/action_items/${e.currentTarget.dataset.id}`,
       type: 'PATCH',
       dataType: 'JSON',
       data: { action_item: { completed: e.currentTarget.checked } },
+      success: () => {
+        parent.loadMeetings();
+      },
       error: error => {
         Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-4');
       }
@@ -136,7 +139,7 @@ Meetings.MeetingShow = React.createClass({
                   return(
                     <div className='row body' key={actionItem.id}>
                       <div className='col s9 m10'>
-                        <input type='checkbox' className='blue-check' data-id={actionItem.id} id={`meeting-check-${actionItem.id}`} onChange={this.toggleCheck} defaultChecked={actionItem.completed && 'checked'}/>
+                        <input type='checkbox' className='blue-check' data-id={actionItem.id} id={`meeting-check-${actionItem.id}`} onChange={this.toggleCheck} checked={actionItem.completed && 'checked'}/>
                         <label htmlFor={`meeting-check-${actionItem.id}`}><span className='blue-text text-lighten-2'>{actionItem.user_id && 'Advisor task: ' }</span>{actionItem.description}</label>
                       </div>
                       <div className='col s3 m2 capitalize'>{ actionItem.due_date ? moment(actionItem.due_date).fromNow() : '∞' }</div>
@@ -237,7 +240,7 @@ Meetings.MeetingForm = React.createClass({
               </div>
 
               <div className='row'>
-                <textarea name='meeting[notes]' id={`meeting-notes-${id}`} class='meeting-notes' defaultValue={notes}></textarea>
+                <textarea name='meeting[notes]' id={`meeting-notes-${id}`} defaultValue={notes}></textarea>
                 {(error && errorMessages.notes) && <div className='error-message'>{errorMessages.notes}</div>}
               </div>
 
@@ -309,7 +312,7 @@ Meetings.ActionItem = React.createClass({
     const { id, description, due_date, completed, user_id, index, adminId, newActionItem } = this.props;
     const { adminAssigned, removed } = this.state;
     return(
-      <li className='collection-item' style={removed ? { display: 'none' } : {}} >
+      <li className='collection-item' style={removed ? { display: 'none' } : {}}>
         {!newActionItem && <input type='hidden' value={id} name={`meeting[action_items_attributes][${index}][id]`} />}
         {removed && <input type='hidden' value='1' name={`meeting[action_items_attributes][${index}][_destroy]`} />}
         <div className='row'>

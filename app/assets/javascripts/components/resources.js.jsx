@@ -47,7 +47,7 @@ const Resources = React.createClass({
                           editing={editing}
                           resources={generalResources[category]}
                           categoryName={category}
-                          key={i}
+                          key={category}
                           userId={this.props.userId}
                           general={true}
                         />
@@ -62,7 +62,7 @@ const Resources = React.createClass({
                           resources={resources[category]}
                           categoryName={category}
                           userId={this.props.userId}
-                          key={i}
+                          key={category}
                           general={false}
                         />
               })

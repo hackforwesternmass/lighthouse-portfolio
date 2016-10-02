@@ -1,6 +1,6 @@
 const ToDo = React.createClass({
   getInitialState() {
-    return { actionItems: [], loading: true }
+    return { actionItems: [], loading: true, showArchived: false }
   },
   componentDidMount() {
     this.loadActionItems()
@@ -9,13 +9,15 @@ const ToDo = React.createClass({
   loadActionItems() {
     if(this.isMounted()){
       $.getJSON(`/users/${this.props.userId}/action_items`,
-        data => this.setState({ actionItems: data.all, loading: false })
+        data => this.setState({ actionItems: data.action_items, archivedActionItems: data.archived_action_items, loading: false })
       )
     }
-    EventSystem.publish('meetings.updated')
+  },
+  toggleShowArchive(e) {
+    this.setState({ showArchived: !this.state.showArchived });
   },
   render() {
-    const { actionItems, loading } = this.state;
+    const { actionItems, loading, showArchived, archivedActionItems } = this.state;
     return(
       <div id='to-do'>
         <div className='row'>
@@ -30,14 +32,33 @@ const ToDo = React.createClass({
         <div className='card'>
           <div className='card-content'>
             { loading && <div className='center-align'><i className='fa fa-spinner fa-pulse fa-3x fa-fw no-padding'></i></div> }
-            { !loading && actionItems.length === 0 && <h4 className='center-align'>You currently have no action items to complete.</h4> }
+            { !loading && actionItems.length === 0 && <h5 className='center-align'>You currently have no action items to complete.</h5> }
             {
-              this.state.actionItems.map(actionItem => {
+              actionItems.map(actionItem => {
                 return <ToDo.ActionItem {...this.props} key={actionItem.id} actionItem={actionItem} parent={this} />
               })
             }
           </div>
         </div>
+
+        {
+          showArchived &&
+          <div className='card'>
+            <div className='card-content'>
+              <h6 className='center-align'>Archived</h6>
+              {
+                archivedActionItems.map(actionItem => {
+                  return <ToDo.ActionItem {...this.props} key={actionItem.id} actionItem={actionItem} parent={this} />
+                })
+              }
+            </div>
+          </div>
+        }
+        {
+          <div className='btn btn-flat' onClick={this.toggleShowArchive}>
+            { showArchived ? 'Hide archived action items...' : 'View archived action items...' }
+          </div>
+        }
       </div>
     );
   }
@@ -45,7 +66,7 @@ const ToDo = React.createClass({
 
 
 ToDo.ActionItem = React.createClass({
-  toggleComplete() {
+  toggleComplete(e) {
     const { actionItem, userId } = this.props;
     $.ajax({
       url: `/users/${this.props.userId}/action_items/${actionItem.id}`,
@@ -54,6 +75,7 @@ ToDo.ActionItem = React.createClass({
       data: { action_item: { completed: !actionItem.completed } },
       success: () => {
         this.props.parent.loadActionItems();
+        EventSystem.publish('meetings.updated');
       },
       error: function() {
         Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-4');
@@ -67,7 +89,7 @@ ToDo.ActionItem = React.createClass({
       url: `/users/${this.props.userId}/action_items/${actionItem.id}`,
       dataType: 'JSON',
       type: 'PATCH',
-      data: { action_item: { archive: true } },
+      data: { action_item: { archive: !actionItem.archive } },
       success: () => {
         this.props.parent.loadActionItems();
       },
@@ -77,7 +99,7 @@ ToDo.ActionItem = React.createClass({
     });
   },
   render() {
-    const { id, completed, description, due_date } = this.props.actionItem;
+    const { id, completed, description, due_date, archive } = this.props.actionItem;
     return(
       <div className='item'>
         <div className='text'>
@@ -87,9 +109,7 @@ ToDo.ActionItem = React.createClass({
             {description}
           </label>
         </div>
-        <div className='secondary-icons'>
-          <i className='fa fa-times' onClick={this.archive}/>
-        </div>
+        {!archive && <div className='secondary-icons'><span onClick={this.archive}>×</span></div> }
       </div>
     );
   }

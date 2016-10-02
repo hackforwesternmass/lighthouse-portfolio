@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resource :portfolio, only: [:edit, :update, :show]
     resources :resume_entries, except: [:new, :edit]
     resources :meetings, except: [:new, :edit]
+    resources :goals, except: [:new, :edit]
     resources :action_items, only: [:index, :update]
     resources :resources do
       post :change_category, on: :collection
@@ -32,7 +33,6 @@ Rails.application.routes.draw do
   end
 
   resources :class_periods
-  resources :goals
   resources :klasses, path: :class do
     get :user_index, on: :collection
     get :search, on: :collection

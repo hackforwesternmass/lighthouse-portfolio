@@ -14,15 +14,15 @@
   <%= react_component 'KlassesDisplay' %>
 
   <section class='action-plan-container' id='todo-action-plan'>
-    <%= react_component 'ToDo', { userId: @user.id, meetingTime: @user.meeting_time, authenticityToken: form_authenticity_token } %>
+    <%= react_component 'ToDo', { userId: @user.id, meetingTime: @user.meeting_time } %>
   </section>
 
   <section class='action-plan-container' id='meetings-action-plan'>
-    <%= react_component 'Meetings', { userId: @user.id, authenticityToken: form_authenticity_token, adminId: session[:admin_id] } %>
+    <%= react_component 'Meetings', { userId: @user.id, adminId: session[:admin_id] } %>
   </section>
 
   <section class='action-plan-container' id='goals-action-plan'>
-    <%= react_component 'Goals', { userId: @user.id, authenticityToken: form_authenticity_token} %>
+    <%= react_component 'Goals', { userId: @user.id } %>
   </section>
 
 </section>

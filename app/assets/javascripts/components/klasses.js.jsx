@@ -1,54 +1,56 @@
-var Klasses = React.createClass({
-  getInitialState: function(){
+const Klasses = React.createClass({
+  getInitialState() {
     return { klasses: [] };
   },
-  componentDidMount: function(){
-    $.getJSON("/class", function(data){
-      this.setState({ klasses: data });
-    }.bind(this));
+  componentDidMount() {
+    $.getJSON('/class', klasses => {
+      this.setState({ klasses });
+    });
   },
-  search: function(params){
-    $.getJSON("/class/search", params).done(function(data){
-      this.setState({klasses: data });
-    }.bind(this));
+  search(params) {
+    $.getJSON('/class/search', params, klasses => {
+      this.setState({ klasses });
+    });
   },
-  render: function(){
-    return  <section id="klass" className="section-container">
-      <Klasses.Search search={this.search}/>
-      <Klasses.Index klasses={this.state.klasses}/>
-    </section>;
+  render() {
+    return(
+      <div id='klass' className='section-container'>
+        <Klasses.Search search={this.search}/>
+        <Klasses.Index klasses={this.state.klasses}/>
+      </div>
+    );
   }
 });
 
 Klasses.Search = React.createClass({
-  getInitialState: function(){
-    return { q: "", year: "", season: "", type: "" };
+  getInitialState() {
+    return { q: '', year: '', season: '', type: '' };
   },
-  componentDidMount: function(){
+  componentDidMount() {
     $('select').material_select();
 
-    $(ReactDOM.findDOMNode(this)).find('select.filter-year').change(function(e){
+    $(ReactDOM.findDOMNode(this)).find('select.filter-year').change(e => {
       this.props.search({ q: this.state.q, year: e.target.value, season: this.state.season, type: this.state.type });
       this.setState({ year: e.target.value });
-    }.bind(this));
+    });
 
-    $(ReactDOM.findDOMNode(this)).find('select.filter-season').change(function(e){
+    $(ReactDOM.findDOMNode(this)).find('select.filter-season').change(e => {
       this.props.search({ q: this.state.q, year: this.state.year, season: e.target.value, type: this.state.type });
       this.setState({ season: e.target.value });
-    }.bind(this));
+    });
 
-    $(ReactDOM.findDOMNode(this)).find('select.filter-type').change(function(e){
+    $(ReactDOM.findDOMNode(this)).find('select.filter-type').change(e => {
       this.props.search({ q: this.state.q, year: this.state.year, season: this.state.season, type: e.target.value });
       this.setState({ type: e.target.value });
-    }.bind(this));
+    });
 
   },
-  searchText: function(e){
+  searchText(e) {
     this.props.search({ q: e.target.value, year: this.state.year, season: this.state.season });
     this.setState({ q: e.target.value });
   },
-  render: function(){
-    return  <div className="row grey-text text-darken-2">
+  render() {
+    return  <div className='row grey-text text-darken-2'>
       <div className="input-field col s12 m5 l5">
         <i className="fa fa-search prefix"></i>
         <input id="class-search" className="search" type="text" onChange={this.searchText}/>
@@ -93,14 +95,10 @@ Klasses.Search = React.createClass({
   });
 
   Klasses.Index = React.createClass({
-    componentDidUpdate: function(){
+    componentDidUpdate() {
       $('.tooltipped').tooltip();
     },
-    studentNames: function(){
-      var studentNames = "";
-
-    },
-    klass: function(){
+    klass() {
       var klassNodes = this.props.klasses.map(function(klass){
         var studentNames = [];
         klass.users.forEach(function(student){
@@ -140,7 +138,7 @@ Klasses.Search = React.createClass({
 
       return klassNodes;
     },
-    render: function(){
+    render() {
       return  <table className="bordered z-depth-1">
         <thead className="grey darken-4 white-text">
           <tr>

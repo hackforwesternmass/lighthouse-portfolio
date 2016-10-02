@@ -1,35 +1,35 @@
 <nav>
-  <div class="nav-wrapper">
-    <%= link_to "Admin Dashboard", admin_dashboard_path, class: "breadcrumb" %>
-    <span class="breadcrumb">Manage Background Image</span>
+  <div class='nav-wrapper'>
+    <%= link_to 'Admin Dashboard', admin_dashboard_path, class: 'breadcrumb' %>
+    <span class='breadcrumb'>Manage Background Image</span>
   </div>
 </nav>
 
-<section id="dashboard" class="section-container">
+<section id='dashboard' class='section-container'>
 
-  <div class="row">
-    <h3 class="teal-text col s12">Manage Background Image</h3>
+  <div class='row'>
+    <h3 class='teal-text col s12'>Manage Background Image</h3>
   </div>
 
 
   <%= form_for @background_image, url: background_image_path, html: { class: 'one-page' } do |f| %>
 
-  <div class="row">
-    <div class="file-field input-field col s12 ">
-      <div class="btn teal darken-4">
+  <div class='row'>
+    <div class='file-field input-field col s12 '>
+      <div class='btn teal darken-4'>
         <span>Image</span>
         <%= f.file_field :image %>
       </div>
-      <div class="file-path-wrapper">
-        <input class="file-path" type="text"
-          placeholder="Upload backgroung image" value="<%= @background_image.image.original_filename %>">
+      <div class='file-path-wrapper'>
+        <input class='file-path' type='text'
+          placeholder='Upload backgroung image' value=<%= @background_image.image.original_filename %>>
       </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col s12">
-    <%= content_tag :button, "Save", type: :submit, class: "waves-effect waves-light btn teal" %>
+  <div class='row'>
+    <div class='col s12'>
+      <%= f.button 'Save', class: 'waves-effect waves-light btn teal' %>
     </div>
   </div>
 
