@@ -26,7 +26,7 @@ const Meetings = React.createClass({
     return (
       <div id='meetings'>
         {
-          !adminId && editable &&
+          !adminId &&
           <div className='row'>
             <div className='card blue darken-1 no-margin'>
               <div className='card-content white-text center-align'>
@@ -53,6 +53,14 @@ const Meetings = React.createClass({
           meetings.map(meeting => {
             return <Meetings.Meeting {...this.props} parent={this} key={meeting.id} meeting={meeting} />
           })
+        }
+        {
+          meetings.length == 0 &&
+          <div className='card'>
+            <div className='card-content'>
+              <h5 className='center-align'>You currently have no meeting notes.</h5>
+            </div>
+          </div>
         }
       </div>
     );

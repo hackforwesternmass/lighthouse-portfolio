@@ -9,6 +9,7 @@ class Ability
     can :show, Portfolio, private: [false, nil]
     can [:read, :download], Project
     can :read, ResumeEntry
+    can :read, ClassPeriod
 
     if user.admin?
       can :manage, :all

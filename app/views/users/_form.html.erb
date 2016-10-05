@@ -1,5 +1,6 @@
 <%= form_for @user, html: { class: 'one-page' } do |f| %>
 
+  <%= hidden_field_tag :student_id, params[:student_id] %>
   <%= hidden_field_tag :role, (@user.role || params[:role]) %>
   <%= f.hidden_field :role, value: (@user.role || params[:role]) %>
   <%= f.hidden_field :student_id, value: params[:student_id] if params[:student_id].present? %>

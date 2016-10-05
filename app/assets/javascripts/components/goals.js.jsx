@@ -39,6 +39,14 @@ const Goals = React.createClass({
             return <Goals.Goal {...this.props} parent={this} key={goal.id} goal={goal} />
           })
         }
+        {
+          goals.length == 0 &&
+          <div className='card'>
+            <div className='card-content'>
+              <h5 className='center-align'>You currently have no goals.</h5>
+            </div>
+          </div>
+        }
       </div>
     );
   }

@@ -44,7 +44,7 @@ class SessionsController < ApplicationController
     def after_login_path
       return admin_dashboard_path if current_user.admin?
       return action_plan_user_path(current_user) if current_user.student?
-      return parents_dashboard_path if current_user.parent?
+      return dashboard_parents_path if current_user.parent?
     end
 
     def disconnect_user
@@ -65,5 +65,5 @@ class SessionsController < ApplicationController
       expire_time = session[:expires_at] || Time.now
       @session_time_left = (expire_time.to_time - Time.now).to_i
     end
-    
+
 end
