@@ -48,7 +48,10 @@ class ResourcesController < SessionsController
 
   def destroy
     @resource.destroy
-    render json: {}
+    respond_to do |format|
+      format.html { redirect_to user_resources_path(@user), flash: { notice: "Resource successfully deleted." } }
+      format.json { head :no_content }
+    end
   end
 
   private
@@ -62,5 +65,5 @@ class ResourcesController < SessionsController
         :general
       )
     end
-    
+
 end

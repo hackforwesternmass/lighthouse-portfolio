@@ -42,7 +42,7 @@ class ProjectsController < SessionsController
 
   def destroy
     @project.destroy
-    redirect_to user_projects_path(@user), flash: { notice: 'Portfolio piece deleted' }
+    redirect_to user_portfolio_path(@user), flash: { notice: 'Portfolio piece deleted' }
   end
 
   private
@@ -69,5 +69,5 @@ class ProjectsController < SessionsController
       ]
     )
   end
-  
+
 end
