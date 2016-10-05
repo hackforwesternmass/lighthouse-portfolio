@@ -4,10 +4,10 @@ class GoalsController < SessionsController
 
   def index
   end
-  
+
   def create
     if @goal.save
-      render json: :show, status: 200
+      render json: :show, status: 201
     else
       render json: @goal.errors, status: 422
     end
@@ -46,4 +46,5 @@ class GoalsController < SessionsController
         ]
       )
     end
+
 end

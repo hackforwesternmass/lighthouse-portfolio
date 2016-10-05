@@ -7,7 +7,7 @@ class ResumeEntriesController < SessionsController
 
   def create
     if @resume_entry.save
-      render :show, status: 200
+      render :show, status: 201
     else
       render json: @resume_entry.errors, status: 422
     end
@@ -30,7 +30,7 @@ class ResumeEntriesController < SessionsController
   end
 
   private
-  
+
     def resume_entry_params
       params.require(:resume_entry).permit(
         :id,
@@ -40,4 +40,5 @@ class ResumeEntriesController < SessionsController
         :date
       )
     end
+
 end

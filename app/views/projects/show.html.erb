@@ -7,7 +7,7 @@
     <% end %>
 
     <div class='project-content'>
-      <div class='container'>
+      <div class='thin-container'>
 
         <div class='menu'></div>
 
@@ -21,7 +21,7 @@
 
         <hr>
 
-        <div class='center-align thin' style='color: <%= @project.user.profile_color %>'>
+        <div class='center-align thin' style='color: <%= @project.user.portfolio.color %>'>
           <%= @project.date_completed.strftime('%B %d, %Y / ') if @project.date_completed.present? %>
           <%= "By <span class='normal'>#{@project.user.full_name}</span>".html_safe %>
         </div>
@@ -36,7 +36,7 @@
 
         <br>
 
-        <div class='flow-text center-align '><i><%= @project.description %></i></div>
+        <div class='flow-text center-align'><%= @project.description %></div>
 
         <% if @project.photo.present? %>
           <div class='show-display-image'>

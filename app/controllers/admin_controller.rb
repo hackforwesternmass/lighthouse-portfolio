@@ -4,4 +4,5 @@ class AdminController < SessionsController
     authorize! :access, :admin
     @user = current_user
   end
+  
 end

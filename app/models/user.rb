@@ -17,10 +17,10 @@ class User < ActiveRecord::Base
   has_many :resume_entries, dependent: :destroy
   has_many :projects, dependent: :destroy
   has_many :tags, through: :projects
-  has_many :guardians, class_name: 'Parent'
-  has_many :students, through: :guardians
-  has_many :children, foreign_key: 'student_id', class_name: 'Parent'
-  has_many :parents, through: :children, source: :user
+  has_many :children, class_name: 'Parent'
+  has_many :students, through: :children
+  has_many :guardians, foreign_key: 'student_id', class_name: 'Parent'
+  has_many :parents, through: :guardians, source: :user
   after_create :create_portfolio
 
   validates :first_name,

@@ -4,7 +4,6 @@ class UsersController < SessionsController
   def index
     @users = @users.students
     @highlight_sidebar = 'Admin'
-
     @users = @users.default_search(params[:q]) if params[:q].present?
 
     respond_to do |format|
@@ -30,7 +29,7 @@ class UsersController < SessionsController
 
   def create
     if @user.save
-      @user.guardians.create(student_id: params[:user][:student_id]) if @user.parent?
+      @user.children.create(student_id: params[:user][:student_id]) if @user.parent?
       redirect_to redirect_to_path, notice: "#{@user.role.capitalize} account successfully created."
     else
       render 'new'
@@ -62,7 +61,7 @@ class UsersController < SessionsController
   end
 
   private
-  
+
     def redirect_to_path
       return admin_dashboard_path if @user.admin? || @user.student?
       return users_path if @user.parent?
@@ -86,4 +85,5 @@ class UsersController < SessionsController
         ]
       )
     end
+
 end

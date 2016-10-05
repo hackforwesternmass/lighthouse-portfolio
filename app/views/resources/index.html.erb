@@ -1,1 +1,1 @@
-<%= react_component 'Resources', { isAdmin: @user.admin?, userId: @user.id } %>
+<%= react_component 'Resources', { isAdmin: @user.admin?, userId: @user.id, editable: can?(:update, Resource) } %>

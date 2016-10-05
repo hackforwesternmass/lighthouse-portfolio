@@ -21,6 +21,7 @@ class Ability
       can :manage, ActionItem, meeting: { user_id: user.id }
       can :manage, Goal, user_id: user.id
     elsif user.parent?
+      can :access, :parent
       can [:show, :action_plan], User do |student|
         student.parents.include?(user)
       end
@@ -29,6 +30,7 @@ class Ability
       end
       can :read, Resource
       can :read, ResumeEntry
+      can :read, ActionItem
       can [:read, :download], Project
       can :read, Meeting
       can :read, Goal

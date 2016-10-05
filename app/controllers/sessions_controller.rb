@@ -12,16 +12,13 @@ class SessionsController < ApplicationController
   end
 
   def access_student
-    session[:admin_id] = session[:user_id]
-    session[:user_id] = params[:student_id]
-    redirect_to action_plan_user_path(session[:user_id])
+    session[:student_id] = params[:student_id]
+    redirect_to action_plan_user_path(params[:student_id])
   end
 
-  def access_admin
-    session[:user_id] = session[:admin_id]
-    session[:admin_id] = nil
-    current_user
-    redirect_to admin_dashboard_path
+  def exit_student
+    session[:student_id] = nil
+    redirect_to after_login_path
   end
 
   def login
@@ -46,12 +43,13 @@ class SessionsController < ApplicationController
 
     def after_login_path
       return admin_dashboard_path if current_user.admin?
-      return action_plan_user_path(current_user) if current_user.student? || current_user.parent?
+      return action_plan_user_path(current_user) if current_user.student?
+      return parents_dashboard_path if current_user.parent?
     end
 
     def disconnect_user
       session[:user_id] = nil
-      session[:admin_id] = nil
+      session[:student_id] = nil
     end
 
     def session_expiry
@@ -67,4 +65,5 @@ class SessionsController < ApplicationController
       expire_time = session[:expires_at] || Time.now
       @session_time_left = (expire_time.to_time - Time.now).to_i
     end
+    
 end

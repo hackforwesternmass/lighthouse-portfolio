@@ -27,9 +27,9 @@ describe ProjectsController, type: :controller do
           expect(assigns(:project)).to be_persisted
         end
 
-        it 'for user redirects to the dashboard' do
+        it 'for user redirects to the project show' do
           post :create, user_id: project.user.id, project: attributes_for(:project)
-          expect(response).to redirect_to(user_projects_path(project.user))
+          expect(response).to redirect_to(user_project_path(user_id: project.user.id, id: assigns(:project).id))
         end
       end
 
@@ -72,6 +72,7 @@ describe ProjectsController, type: :controller do
 
         it 'assigns the requested project as @project' do
           patch :update, user_id: project.user.id, id: project.id, project: valid_attributes
+          project.reload
           expect(assigns(:project)).to eq(project)
         end
 
@@ -133,20 +134,6 @@ describe ProjectsController, type: :controller do
 
   shared_examples('a user who can view a project') do
 
-    describe 'GET #index' do
-      it 'populates an array of projects' do
-        get :index, user_id: project.user.id
-        expect(assigns(:projects)).to match_array [project]
-      end
-    end
-
-    describe 'GET #index' do
-      it 'renders index page' do
-        get :index, user_id: project.user.id
-        expect(response).to render_template :index
-      end
-    end
-
     describe 'GET #show' do
       it 'assigns the requested project as @project' do
         get :show, user_id: project.user.id, id: project.id
@@ -170,13 +157,6 @@ describe ProjectsController, type: :controller do
         expect(response).to redirect_to(root_path)
       end
     end
-
-    describe 'GET #index' do
-      it 'denies access' do
-        get :index, user_id: private_project.user.id
-        expect(response).to redirect_to(root_path)
-      end
-    end
   end
 
   context 'when not signed in' do
@@ -192,14 +172,6 @@ describe ProjectsController, type: :controller do
       project.user.parents << @parent
       sign_in(@parent)
     end
-
-    # describe 'GET #show' do
-    #   it 'renders show page' do
-    #     private_project.user.parents << @parent
-    #     get :show, user_id: private_project.user.id, id: private_project
-    #     expect(response).to render_template :show
-    #   end
-    # end
 
     it_behaves_like 'a user who can\'t create a project'
     it_behaves_like 'a user who can view a project'

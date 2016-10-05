@@ -7,7 +7,7 @@ class MeetingsController < SessionsController
 
   def create
     if @meeting.save
-      render :show, status: 200
+      render :show, status: 201
     else
       render json: @meeting.errors, status: 422
     end
@@ -30,7 +30,7 @@ class MeetingsController < SessionsController
   end
 
   private
-  
+
     def meeting_params
       params.require(:meeting).permit(
         :notes,
@@ -45,4 +45,5 @@ class MeetingsController < SessionsController
         ]
       )
     end
+
 end

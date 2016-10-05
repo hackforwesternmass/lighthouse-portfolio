@@ -31,6 +31,7 @@ const ToDo = React.createClass({
 
         <div className='card'>
           <div className='card-content'>
+            <h6 className='center-align blue-grey-text text-lighten-1'>Action Items</h6>
             { loading && <div className='center-align'><i className='fa fa-spinner fa-pulse fa-3x fa-fw no-padding'></i></div> }
             { !loading && actionItems.length === 0 && <h5 className='center-align'>You currently have no action items to complete.</h5> }
             {
@@ -45,7 +46,7 @@ const ToDo = React.createClass({
           showArchived &&
           <div className='card'>
             <div className='card-content'>
-              <h6 className='center-align'>Archived</h6>
+              <h6 className='center-align blue-grey-text text-lighten-1'>Archived</h6>
               {
                 archivedActionItems.map(actionItem => {
                   return <ToDo.ActionItem {...this.props} key={actionItem.id} actionItem={actionItem} parent={this} />
@@ -78,8 +79,12 @@ ToDo.ActionItem = React.createClass({
         this.props.parent.loadActionItems();
         EventSystem.publish('meetings.updated');
       },
-      error: function() {
-        Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-4');
+      error: () => {
+        if(this.props.editable) {
+          Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-4');
+        } else {
+          Materialize.toast('You have viewing privilege only.', 3500, 'red darken-1');
+        }
       }
     });
   },
@@ -104,7 +109,7 @@ ToDo.ActionItem = React.createClass({
     return(
       <div className='item'>
         <div className='text'>
-          <input type='checkbox' className='blue-check' id={`check-${id}`} onChange={this.toggleComplete} checked={completed && 'checked'}/>
+          <input type='checkbox' className='blue-check filled-in' id={`check-${id}`} onChange={this.toggleComplete} checked={completed && 'checked'}/>
           <label htmlFor={`check-${id}`}>
             {due_date && <span className='blue-text text-darken-1' >Due {moment(due_date).fromNow()}: </span>}
             {description}

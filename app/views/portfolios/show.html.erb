@@ -64,7 +64,7 @@
       <div id='portfolio-piece-grid' data-columns class='row'>
         <% if can? :edit, @portfolio %>
         <div class='col s12'>
-          <div class='card-panel project-wrapper hoverable' style='border-color: <%= @portfolio.color%>'>
+          <div class='card-panel project-wrapper hoverable' style='border-color: <%= @portfolio.color %>'>
             <div class='card-content'>
               <%= link_to '', new_user_project_path(@user), class: 'project-link' %>
               <div class='add-project'>
@@ -78,7 +78,7 @@
 
         <% @user.projects.each do |project| %>
           <div class='col s12'>
-            <div class='card project-wrapper hoverable' style='border-color: <%= @user.profile_color%>'>
+            <div class='card project-wrapper hoverable' style='border-color: <%= @portfolio.color %>'>
               <div class='card-image'>
                 <%= image_tag project.photo if project.photo.present? %>
               </div>

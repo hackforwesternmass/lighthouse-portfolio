@@ -7,7 +7,7 @@ class ClassPeriodsController < SessionsController
 
   def create
     if @class_period.save
-      render json: {}, status: 200
+      render json: {}, status: 201
     else
       render json: @class_period.errors, status: 400
     end
@@ -35,4 +35,5 @@ class ClassPeriodsController < SessionsController
         :end_time
       )
     end
+
 end

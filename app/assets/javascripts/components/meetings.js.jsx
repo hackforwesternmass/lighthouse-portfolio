@@ -22,21 +22,22 @@ const Meetings = React.createClass({
   },
   render() {
     const { newMeeting, meetings, activeMeeting } = this.state;
+    const { adminId, editable, meetingTime } = this.props;
     return (
       <div id='meetings'>
         {
-          !this.props.adminId &&
+          !adminId && editable &&
           <div className='row'>
             <div className='card blue darken-1 no-margin'>
               <div className='card-content white-text center-align'>
                 <small style={{fontWeight: 300, fontSize: 13, display: 'block' }} >Meeting Time</small>
-                <h6>{this.props.meetingTime ? this.props.meetingTime : 'Anytime - Be Ready'}</h6>
+                <h6>{ meetingTime || 'Anytime - Be Ready' }</h6>
               </div>
             </div>
           </div>
         }
         {
-          this.props.adminId && !newMeeting &&
+          adminId && !newMeeting && editable &&
           <a href='#' onClick={this.handleNewMeeting} className='hide-on-small-only'>
             <div className='row'>
               <div className='card blue darken-1 no-margin hoverable'>
@@ -117,20 +118,25 @@ Meetings.MeetingShow = React.createClass({
       success: () => {
         parent.loadMeetings();
       },
-      error: error => {
-        Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-4');
+      error: () => {
+        if(this.props.editable) {
+          Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-4');
+        } else {
+          Materialize.toast('You have viewing privilege only.', 3500, 'red darken-1');
+        }
       }
     });
   },
   render() {
     const { created_at, action_items, notes } = this.props.meeting;
+    const { editable } = this.props;
     return(
       <div className='row'>
         <div className='card'>
           <div className='card-date'>
             {moment(created_at).format('MMMM D YYYY')}
-            <a href='#' className='right white-text' onClick={this.deleteMeeting}><i className='fa fa-times'></i></a>
-            <a href='#' className='right white-text hide-on-small-only' onClick={this.props.toggleEdit} ><i className='fa fa-edit'></i></a>
+            {editable && <a href='#' className='right white-text' onClick={this.deleteMeeting}><i className='fa fa-times'></i></a>}
+            {editable && <a href='#' className='right white-text hide-on-small-only' onClick={this.props.toggleEdit} ><i className='fa fa-edit'></i></a>}
           </div>
           <div className='card-content action-items'>
 
@@ -150,7 +156,7 @@ Meetings.MeetingShow = React.createClass({
                   return(
                     <div className='row body' key={actionItem.id}>
                       <div className='col s9 m10'>
-                        <input type='checkbox' className='blue-check' data-id={actionItem.id} id={`meeting-check-${actionItem.id}`} onChange={this.toggleCheck} checked={actionItem.completed && 'checked'}/>
+                        <input type='checkbox' className='blue-check filled-in' data-id={actionItem.id} id={`meeting-check-${actionItem.id}`} onChange={this.toggleCheck} checked={actionItem.completed && 'checked'}/>
                         <label htmlFor={`meeting-check-${actionItem.id}`}><span className='blue-text text-lighten-2'>{actionItem.user_id && 'Advisor task: ' }</span>{actionItem.description}</label>
                       </div>
                       <div className='col s3 m2 capitalize'>{ actionItem.due_date ? moment(actionItem.due_date).fromNow() : '∞' }</div>
@@ -329,7 +335,7 @@ Meetings.ActionItem = React.createClass({
         <div className='row'>
           {adminId && <i data-position='top' data-delay='50' data-tooltip={adminAssigned ? 'Unassign advisor' : 'Assign advisor' } className={`fa fa-user advisor-btn tooltipped ${adminAssigned ? 'blue-text' : 'grey-text text-darken-2'}`} onClick={this.toggleAssignedAdmin}></i>}
           <a className='action-item close grey-text text-darken-2' onClick={this.handleClose}>×</a>
-          <input type='hidden' value={adminAssigned ? adminId : '' } name={`meeting[action_items_attributes][${index}][user_id]`} />
+          <input type='hidden' value={adminAssigned ? (adminId || user_id) : ''} name={`meeting[action_items_attributes][${index}][user_id]`} />
           <div className='input-field col s9'>
             <input type='text' name={`meeting[action_items_attributes][${index}][description]`} placeholder='Description' defaultValue={description} />
           </div>

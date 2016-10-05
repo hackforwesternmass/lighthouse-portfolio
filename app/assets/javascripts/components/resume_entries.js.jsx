@@ -21,23 +21,24 @@ const ResumeEntries = React.createClass({
   },
   addnewResumeEntry(e){
     e.preventDefault();
-    this.setState({ newResumeEntry: true });
+    this.setState({ newResumeEntry: true, activeResumeEntry: 'newResumeEntry' });
   },
   render(){
+    const { resumeEntries, newResumeEntry, activeResumeEntry } = this.state;
     return(
       <div className='thin-container'>
         {
-          this.state.resumeEntries.map((resumeEntry, i) => {
-            return <ResumeEntries.ResumeEntry {...this.props} resumeEntry={resumeEntry} key={resumeEntry.id} save={this.save} />
+          resumeEntries.map((resumeEntry, i) => {
+            return <ResumeEntries.ResumeEntry {...this.props} parent={this} resumeEntry={resumeEntry} key={resumeEntry.id} save={this.save} />
           })
         }
         {
-          !this.props.editable && this.state.resumeEntries.length == 0 &&
+          !this.props.editable && resumeEntries.length == 0 &&
           <h4 className='center-align'>Resume has not been created yet.</h4>
         }
         {
-          this.state.newResumeEntry
-          ? <ResumeEntries.ResumeEntryForm {...this.props} resumeEntry={{}} save={this.save} close={this.close} newResumeEntry={this.state.newResumeEntry}/>
+          newResumeEntry && activeResumeEntry == 'newResumeEntry'
+          ? <ResumeEntries.ResumeEntryForm {...this.props} resumeEntry={{}} save={this.save} close={this.close} newResumeEntry={newResumeEntry}/>
           : this.props.editable && <a href='#' onClick={this.addnewResumeEntry} className='btn'>Add Resume Entry</a>
         }
       </div>
@@ -51,13 +52,15 @@ ResumeEntries.ResumeEntry = React.createClass({
   },
   toggleEdit(e){
     e && e.preventDefault();
+    this.props.parent.setState({ activeResumeEntry: this.props.resumeEntry.id, newResumeEntry: false });
     this.setState({ editing: !this.state.editing });
   },
   render(){
+    const { resumeEntry, parent } = this.props;
     return(
       <div>
         {
-          this.state.editing
+          this.state.editing && parent.state.activeResumeEntry == resumeEntry.id
           ? <ResumeEntries.ResumeEntryForm {...this.props} toggleEdit={this.toggleEdit} />
           : <ResumeEntries.ResumeEntryShow {...this.props} toggleEdit={this.toggleEdit} />
         }
@@ -76,7 +79,7 @@ ResumeEntries.ResumeEntryShow = React.createClass({
     }
 
     $.ajax({
-      url: `/users/${this.props.user_id}/resume_entries${this.props.resumeEntry.id}`,
+      url: `/users/${this.props.user_id}/resume_entries/${this.props.resumeEntry.id}`,
       dataType: 'JSON',
       type: 'DELETE',
       success: () => {

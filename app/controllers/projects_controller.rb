@@ -4,7 +4,6 @@ class ProjectsController < SessionsController
   before_action :set_sidebar_highlight
 
   def new
-    @project.project_attachments.build
     @project.tags.build
   end
 
@@ -28,7 +27,7 @@ class ProjectsController < SessionsController
 
   def tags
     @tags = @user.tags
-    @tags = @tags.where('name like ?', '%#{params[:q]}%') if params[:q].present?
+    @tags = @tags.where('name like ?', "%#{params[:q]}%") if params[:q].present?
   end
 
   def edit; end
@@ -70,4 +69,5 @@ class ProjectsController < SessionsController
       ]
     )
   end
+  
 end

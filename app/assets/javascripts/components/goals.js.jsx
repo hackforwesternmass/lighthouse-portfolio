@@ -18,10 +18,11 @@ const Goals = React.createClass({
   },
   render(){
     const { goals, newGoal } = this.state;
+    const { editable } = this.props;
     return (
       <div id='goals'>
         {
-          !newGoal &&
+          !newGoal && editable &&
           <a href='#' onClick={this.handleNewGoal} className='hide-on-small-only'>
             <div className='row'>
               <div className='card grey darken-3 no-margin hoverable'>
@@ -77,7 +78,11 @@ Goals.GoalShow = React.createClass({
         parent.loadGoals();
       },
       error: error => {
-        Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-4');
+        if(this.props.editable) {
+          Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-4');
+        } else {
+          Materialize.toast('You have viewing privilege only.', 3500, 'red darken-1');
+        }
       }
     });
   },
@@ -94,7 +99,11 @@ Goals.GoalShow = React.createClass({
         parent.loadGoals();
       },
       error: () => {
-        Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-4');
+        if(this.props.editable) {
+          Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-4');
+        } else {
+          Materialize.toast('You have viewing privilege only.', 3500, 'red darken-1');
+        }
       }
     });
   },
@@ -130,12 +139,14 @@ Goals.GoalShow = React.createClass({
     return (counter/action_items.length * 100).toFixed(0);
   },
   render() {
+    const { editable } = this.props;
     const { action_items, created_at, due_date, title, is_completed } = this.props.goal;
     return(
       <div className='card'>
         <div className='card-content'>
-          <a href='#' className='right' onClick={this.deleteGoal}><i className='fa fa-times'></i></a>
-          <a href='#' className='right hide-on-small-only' onClick={this.props.toggleEdit} ><i className='fa fa-edit'></i></a>
+
+          {editable && <a href='#' className='right' onClick={this.deleteGoal}><i className='fa fa-times'></i></a>}
+          {editable && <a href='#' className='right hide-on-small-only' onClick={this.props.toggleEdit} ><i className='fa fa-edit'></i></a>}
           <div className='goal-title'>
             {title}
           </div>
@@ -174,7 +185,7 @@ Goals.GoalShow = React.createClass({
                   action_items.map(actionItem => {
                     return(
                       <div className='col s12' key={actionItem.id}>
-                        <input type='checkbox' className='blue-check' id={`action-item-check-${actionItem.id}`} data-id={actionItem.id} onChange={this.toggleCheck} checked={actionItem.completed && 'checked'}/>
+                        <input type='checkbox' className='blue-check filled-in' id={`action-item-check-${actionItem.id}`} data-id={actionItem.id} onChange={this.toggleCheck} checked={actionItem.completed && 'checked'}/>
                         <label htmlFor={`action-item-check-${actionItem.id}`}>{actionItem.description}</label>
                       </div>
                     )

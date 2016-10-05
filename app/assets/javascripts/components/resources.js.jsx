@@ -21,20 +21,23 @@ const Resources = React.createClass({
         <nav>
           <div className='nav-wrapper'>
             <span><a className='breadcrumb' href={`/users/${this.props.userId}/resources`}>Resources</a></span>
-            <div className='dropdown-wrapper hide-on-small-only'>
-              <a className='right ellipsis-link' href='#'><i className='fa fa-ellipsis-h'></i></a>
-              <ul className='dropdown z-depth-1'>
-                <li><a href={`/users/${this.props.userId}/resources/new`}>Create resource</a></li>
-                {
-                  (Object.keys(generalResources).length > 0 || Object.keys(resources).length > 0) &&
-                  <li>
-                    <a href='#' onClick={this.toggleEdit}>
-                      {editing ? 'Finished editing' : 'Edit resources'}
-                    </a>
-                  </li>
-                }
-              </ul>
-            </div>
+            {
+              this.props.editable &&
+              <div className='dropdown-wrapper hide-on-small-only'>
+                <a className='right ellipsis-link' href='#'><i className='fa fa-ellipsis-h'></i></a>
+                <ul className='dropdown z-depth-1'>
+                  <li><a href={`/users/${this.props.userId}/resources/new`}>Create resource</a></li>
+                  {
+                    (Object.keys(generalResources).length > 0 || Object.keys(resources).length > 0) &&
+                    <li>
+                      <a href='#' onClick={this.toggleEdit}>
+                        {editing ? 'Finished editing' : 'Edit resources'}
+                      </a>
+                    </li>
+                  }
+                </ul>
+              </div>
+            }
           </div>
         </nav>
         <section className='section-container'>

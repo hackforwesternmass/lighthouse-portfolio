@@ -3,6 +3,8 @@ require 'rails_helper'
 describe PortfoliosController, type: :controller do
   let(:valid_attributes) { attributes_for(:portfolio) }
   let(:portfolio) { create(:portfolio) }
+  let(:student) { create(:student) }
+  let(:admin) { create(:admin) }
   let(:private_portfolio) { create(:portfolio, private: true) }
 
   shared_examples('a user who can edit a portfolio') do
@@ -26,6 +28,7 @@ describe PortfoliosController, type: :controller do
 
         it 'assigns the requested portfolio as @portfolio' do
           patch :update, user_id: portfolio.user.id, portfolio: valid_attributes
+          portfolio.reload
           expect(assigns(:portfolio)).to eq(portfolio)
         end
 
@@ -90,7 +93,7 @@ describe PortfoliosController, type: :controller do
   end
 
   context 'when signed in as portfolio owners parent' do
-    before do
+    before :each do
       @parent = create(:parent)
       portfolio.user.parents << @parent
       sign_in(@parent)
@@ -109,7 +112,9 @@ describe PortfoliosController, type: :controller do
   end
 
   context 'when signed in as another student' do
-    before { sign_in(create(:student)) }
+    before :each do
+      sign_in student
+    end
 
     it_behaves_like 'a user who can view a portfolio'
     it_behaves_like 'a user who can\'t view a private portfolio'
@@ -117,14 +122,18 @@ describe PortfoliosController, type: :controller do
   end
 
   context 'when signed in as a portfolio owner student' do
-    before { sign_in(portfolio.user) }
+    before :each do
+      sign_in portfolio.user
+    end
 
     it_behaves_like 'a user who can view a portfolio'
     it_behaves_like 'a user who can edit a portfolio'
   end
 
   context 'when signed in as admin' do
-    before { sign_in(create(:admin)) }
+    before :each do
+      sign_in admin
+    end
 
     it_behaves_like 'a user who can view a portfolio'
     it_behaves_like 'a user who can edit a portfolio'

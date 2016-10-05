@@ -30,4 +30,5 @@ class BackgroundImagesController < SessionsController
     def background_image_params
       params.require(:background_image).permit(:image)
     end
+    
 end

@@ -3,7 +3,7 @@ class ResourcesController < SessionsController
   load_and_authorize_resource :resource, through: :user
 
   def index
-    @resources = current_user.resources.where(general: [nil, false]).group_by(&:category)
+    @resources = @user.resources.where(general: [nil, false]).group_by(&:category)
     @general_resources = Resource.where(general: true).group_by(&:category)
 
     respond_to do |format|
@@ -18,7 +18,7 @@ class ResourcesController < SessionsController
 
   def create
     if @resource.save
-      redirect_to user_resources_path(current_user), flash: { notice: 'Resource created successfully!' }
+      redirect_to user_resources_path(@user), flash: { notice: 'Resource created successfully!' }
     else
       render :new
     end
@@ -26,7 +26,7 @@ class ResourcesController < SessionsController
 
   def update
     if @resource.update(resource_params)
-      redirect_to user_resources_path(current_user), flash: { notice: 'Resource updated successfully!' }
+      redirect_to user_resources_path(@user), flash: { notice: 'Resource updated successfully!' }
     else
       flash.now[:alert] = 'Failed to update resource.'
       render :edit
@@ -62,4 +62,5 @@ class ResourcesController < SessionsController
         :general
       )
     end
+    
 end

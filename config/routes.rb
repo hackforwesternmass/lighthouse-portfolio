@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   namespace :enrolls do
     post :bulk_create
   end
-  
+
   resource :calendar, except: [:new, :edit, :show, :destroy] do
     get :manage
     get '/', action: :calendar
@@ -42,6 +42,10 @@ Rails.application.routes.draw do
     get :dashboard
   end
 
+  resources :parents, only: [:index, :create] do
+    get :dashboard, on: :collection
+  end
+
   namespace :project_attachments do
     get 'download/:id', action: :download
   end
@@ -49,7 +53,7 @@ Rails.application.routes.draw do
   namespace :sessions, path: '/', as: nil do
     post :login_authentication
     get  :access_student
-    get  :access_admin
+    get  :exit_student
     get  :login
     get  :logout
   end

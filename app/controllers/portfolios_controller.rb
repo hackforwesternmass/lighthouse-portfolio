@@ -3,7 +3,7 @@ class PortfoliosController < ApplicationController
   load_and_authorize_resource :portfolio, through: :user, :singleton => true, except: [:public, :unfound]
 
   def show
-    render layout: 'public' if current_user != @user && !current_user.try(:admin?)
+    render layout: 'public' if current_user != @user && session[:student_id].blank?
   end
 
   def edit
@@ -33,7 +33,7 @@ class PortfoliosController < ApplicationController
   end
 
   private
-  
+
     def portfolio_params
       params.require(:portfolio).permit(
         :avatar,
@@ -49,4 +49,5 @@ class PortfoliosController < ApplicationController
         ]
       )
     end
+    
 end

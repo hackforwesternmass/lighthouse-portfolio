@@ -12,7 +12,7 @@ class KlassesController < SessionsController
   end
 
   def user_index
-    render json: current_user.klasses
+    render json: User.find(active_id).klasses
   end
 
   def search
@@ -91,4 +91,5 @@ class KlassesController < SessionsController
         :google_drive_url
       )
     end
+    
 end

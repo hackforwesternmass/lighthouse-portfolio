@@ -1,9 +1,5 @@
 #action-plan{
 
-  h6 {
-    padding-left: 10px;
-  }
-
   .card-date{
     background-color: color("blue", "lighten-4");
     padding: 3px 20px;
@@ -180,10 +176,9 @@
 
   }
 
-
-  .blue-check[type="checkbox"]:checked + label:before{
-    border-right-color: color("blue", "darken-1");
-    border-bottom-color: color("blue", "darken-1");
+  [type="checkbox"].filled-in:checked + label:after {
+    border: 2px solid color("blue", "lighten-3");
+    background-color: color("blue", "lighten-3");
   }
 
   .add-checklist{

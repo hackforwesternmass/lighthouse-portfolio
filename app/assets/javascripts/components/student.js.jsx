@@ -142,7 +142,7 @@ Students.Index = React.createClass({
                         {
                           this.props.klasses.map(klass => {
                             return <div className='input-field col s12' key={klass.id}>
-                                     <input type='checkbox' id={`check-${klass.id}`} value={klass.id} onChange={this.addKlassId} checked={klassIds.indexOf(String(klass.id)) > -1 && 'checked'}/>
+                                     <input type='checkbox' id={`check-${klass.id}`} className='filled-in' value={klass.id} onChange={this.addKlassId} checked={klassIds.indexOf(String(klass.id)) > -1 && 'checked'}/>
                                      <label htmlFor={`check-${klass.id}`}>{klass.name}</label>
                                    </div>
                           })
@@ -161,18 +161,23 @@ Students.Index = React.createClass({
                 <div className='modal-content'>
                   <h4 className='center-align'>Parents</h4>
                   {
-                    parents && parents.length > 0 ?
-                    <ul className='collection'>
-                      {
-                        parents.map(parent => {
-                          return <a className='collection-item' key={parent.id} href={`/users/${parent.id}/edit`}>{parent.full_name}</a>;
-                        })
-                      }
-                    </ul> :
-                    <h5 className='center-align grey-text'>No parents added yet.</h5>
+                    parents && parents.length > 0
+                    ? <ul className='collection'>
+                        {
+                          parents.map(parent => {
+                            return <a className='collection-item' key={parent.id} href={`/users/${parent.id}/edit`}>{parent.full_name}</a>;
+                          })
+                        }
+                      </ul>
+                    : <h5 className='center-align grey-text'>No parents added yet.</h5>
                   }
                   <br/>
-                  <a className='modal-action modal-close btn waves-effect' style={{ width: '100%' }} href={`/users/new?role=parent&student_id=${id}`}>Add Parent</a>
+                  <div className='row'>
+                    <a className='modal-action btn btn-flat waves-effect' style={{ width: '100%' }} href={`/parents?student_id=${id}`}>Add Existing Parent</a>
+                  </div>
+                  <div className='row'>
+                    <a className='modal-action modal-close btn waves-effect' style={{ width: '100%' }} href={`/users/new?role=parent&student_id=${id}`}>Add Parent</a>
+                  </div>
                 </div>
               </div>
             </div>;

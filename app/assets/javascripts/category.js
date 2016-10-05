@@ -23,7 +23,6 @@ $(document).on('page:change', function(){
 		  data: { q: $input.val() }
 		})
 		.done(function(data) {
-      console.log(data);
 			populateCategoryDropdown( $.unique(Object.keys(data.resources).concat(Object.keys(data.general_resources))), $input);
 		});
 

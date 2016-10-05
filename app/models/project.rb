@@ -2,9 +2,6 @@ class Project < ActiveRecord::Base
 	default_scope { order(priority: :desc, date_completed: :desc) }
 
   belongs_to :user
-	has_many :project_attachments, dependent: :destroy
-	accepts_nested_attributes_for :project_attachments, allow_destroy: true
-
   has_many :tags, dependent: :destroy
   accepts_nested_attributes_for :tags, allow_destroy: true
 

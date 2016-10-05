@@ -36,9 +36,8 @@ group :development, :test do
 end
 
 group :test do
-  gem 'rspec-rails', '~> 3.3'
-  gem 'factory_girl_rails', '~> 4.2.1'
-  gem 'capybara', '~> 2.2.0'
+  gem 'rspec-rails', '~> 3.5.2'
+  gem 'factory_girl_rails', '~> 4.7.0'
   gem 'database_cleaner'
   gem 'faker'
 end

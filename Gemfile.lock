@@ -53,12 +53,6 @@ GEM
     byebug (5.0.0)
       columnize (= 0.9.0)
     cancancan (1.15.0)
-    capybara (2.2.1)
-      mime-types (>= 1.16)
-      nokogiri (>= 1.3.3)
-      rack (>= 1.0.0)
-      rack-test (>= 0.5.4)
-      xpath (~> 2.0)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.7)
@@ -85,10 +79,10 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.7)
     execjs (2.7.0)
-    factory_girl (4.2.0)
+    factory_girl (4.7.0)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.2.1)
-      factory_girl (~> 4.2.0)
+    factory_girl_rails (4.7.0)
+      factory_girl (~> 4.7.0)
       railties (>= 3.0.0)
     faker (1.6.3)
       i18n (~> 0.5)
@@ -190,23 +184,23 @@ GEM
       execjs
       railties (>= 3.2)
       tilt
-    rspec-core (3.4.4)
-      rspec-support (~> 3.4.0)
-    rspec-expectations (3.4.0)
+    rspec-core (3.5.4)
+      rspec-support (~> 3.5.0)
+    rspec-expectations (3.5.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.4.0)
-    rspec-mocks (3.4.1)
+      rspec-support (~> 3.5.0)
+    rspec-mocks (3.5.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.4.0)
-    rspec-rails (3.4.2)
-      actionpack (>= 3.0, < 4.3)
-      activesupport (>= 3.0, < 4.3)
-      railties (>= 3.0, < 4.3)
-      rspec-core (~> 3.4.0)
-      rspec-expectations (~> 3.4.0)
-      rspec-mocks (~> 3.4.0)
-      rspec-support (~> 3.4.0)
-    rspec-support (3.4.1)
+      rspec-support (~> 3.5.0)
+    rspec-rails (3.5.2)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
+      rspec-support (~> 3.5.0)
+    rspec-support (3.5.0)
     sass (3.4.22)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
@@ -247,8 +241,6 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
-    xpath (2.0.0)
-      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
@@ -258,10 +250,9 @@ DEPENDENCIES
   bcrypt
   byebug
   cancancan
-  capybara (~> 2.2.0)
   database_cleaner
   dotenv-rails
-  factory_girl_rails (~> 4.2.1)
+  factory_girl_rails (~> 4.7.0)
   faker
   font-awesome-rails
   handlebars_assets (~> 0.23.1)
@@ -279,7 +270,7 @@ DEPENDENCIES
   rails (~> 4.2.1)
   rails_12factor
   react-rails (~> 1.8.2)
-  rspec-rails (~> 3.3)
+  rspec-rails (~> 3.5.2)
   sass-rails (~> 5.0.6)
   sdoc (~> 0.4.0)
   spring (~> 1.3.4)

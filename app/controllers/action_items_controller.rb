@@ -19,7 +19,7 @@ class ActionItemsController < SessionsController
   end
 
   private
-  
+
     def action_item_params
       params.require(:action_item).permit(
         :id,
@@ -30,4 +30,5 @@ class ActionItemsController < SessionsController
         :archive
       )
     end
+
 end

@@ -40,7 +40,7 @@ describe ResumeEntriesController, type: :controller do
 
       it 'returns successfully' do
         post :create, user_id: resume_entry.user, resume_entry: valid_attributes, format: :json
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(201)
       end
     end
 

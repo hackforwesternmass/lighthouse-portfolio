@@ -5,8 +5,12 @@ module SessionHelper
     @current_user ||= User.new
   end
 
+  def active_id
+    session[:student_id] || session[:user_id]
+  end
+
   def signed_in?
     session[:user_id].present?
   end
-  
+
 end

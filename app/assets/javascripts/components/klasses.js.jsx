@@ -112,7 +112,8 @@ Klasses.Search = React.createClass({
               {!!klass.google_drive_url ? <small><a href={klass.google_drive_url} target="_blank"><i className="fa fa-folder-open"></i></a></small> : null}
               <small><a data-confirm="Are you positive that you want to delete this class?" rel="nofollow" data-method="delete" href={"/class/" + klass.id}><i className="fa fa-trash"></i></a></small>
             </div>
-            {klass.description}
+            <br/>
+            {klass.description && <div dangerouslySetInnerHTML={{ __html: klass.description.replace(/\n\r?/g, '<br>') }} />}
           </td>
           <td className="hide-on-small-only">
             {klass.instructor ? <div>{klass.instructor}</div> : null}

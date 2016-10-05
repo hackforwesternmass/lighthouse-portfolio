@@ -27,15 +27,15 @@ const KlassesDisplay = React.createClass({
 
         <div id='klass-modal' className='modal'>
           <div className='modal-content'>
-            <h4 className='align-center'>{this.state.name}</h4>
-            <h6>
+            <h4 className='align-center'><strong>{this.state.name}</strong></h4>
+            <h6 style={{fontWeight: 400}} className='grey-text text-darken-1' >
               {this.state.instructor}
               {this.state.instructor_email && <small><br/><a href={'mailto:' + this.state.instructor_email}>{this.state.instructor_email}</a></small>}<br/>
               <small>{`${this.state.weekday} ${this.state.time}`}</small><br/>
               <small>{this.state.location}</small>
             </h6>
             <br/>
-            <div>{this.state.description}</div>
+            {this.state.description && <div dangerouslySetInnerHTML={{ __html: this.state.description.replace(/\n\r?/g, '<br>') }} />}
             {this.state.google_drive_url && <div><br/><a href={this.state.google_drive_url}><i className='fa fa-folder-open'></i>Google Drive</a></div>}
           </div>
         </div>
