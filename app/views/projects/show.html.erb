@@ -1,5 +1,4 @@
 <section class='section-container no-padding project-show'>
-
     <% if @user.projects.size > 1 %>
     <div class='hide-on-small-only project-nav left-arrow'>
       <%= link_to fa_icon('angle-left'), [@user, @project.previous], class: 'nav-left' %>
@@ -66,5 +65,4 @@
       </div>
     <% end %>
   </div>
-
 </section>

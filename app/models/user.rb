@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+
   include BCrypt
   include PgSearch
   pg_search_scope :default_search, :against => [:first_name, :last_name, :username], :using => {:tsearch => {:prefix => true} }
@@ -23,27 +24,19 @@ class User < ActiveRecord::Base
   has_many :parents, through: :guardians, source: :user
   after_create :create_portfolio
 
-  validates :first_name,
-    presence: { message: 'First name is required' }
-
-  validates :last_name,
-    presence: { message: 'Last name is required' }
-
+  validates :first_name, presence: { message: 'First name is required' }
+  validates :last_name, presence: { message: 'Last name is required' }
   validates :username,
     presence: { message: 'Username is required' },
     uniqueness: { message: 'is already in use.' },
     format: { with: /\A[\w]+\z/, message: 'Letters and numbers only' }
-
   validates :email,
     presence: { message: 'Email is required.' },
     uniqueness: { message: 'is already in use.' }
-
   validates :password,
     presence: { message: 'Password is required.', on: :create },
     confirmation: {message: 'Passwords do not match.'}
-
-  validates :role,
-    presence: { message: 'Role is required.' }
+  validates :role, presence: { message: 'Role is required.' }
 
 
   has_attached_file :avatar, :default_url => 'default-avatar.png'

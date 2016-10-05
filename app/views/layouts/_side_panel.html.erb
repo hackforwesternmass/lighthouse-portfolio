@@ -3,7 +3,6 @@
 </a>
 
 <ul id='slide-out' class='side-nav fixed grey darken-4' data-no-turbolink>
-
   <%= image_tag ENV['LOGO_LINK'], class: 'logo' %>
 
   <%= side_panel_link(admin_dashboard_path, 'user', 'Admin') if current_user.admin? %>
@@ -17,5 +16,4 @@
   </li>
 
   <%= link_to (current_user.admin? ? 'Back to Admin Account' : 'Dashboard'), exit_student_path, class: 'btn white-text' if session[:student_id].present? %>
-
 </ul>

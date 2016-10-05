@@ -22,7 +22,7 @@
                 </div>
               </div>
               <div class='social-media row hide-on-small-only'>
-                <% @user.social_mediums.first(3).each do |sm| %>
+                <% @portfolio.social_mediums.first(3).each do |sm| %>
                     <div class='item white-text thin med-opacity'>
                       <%= link_to sm.link, target: '_blank', title: sm.name do %>
                         <%= fa_icon(sm.icon) %> <br/><%= sm.name %>
@@ -34,7 +34,7 @@
           </div>
 
             <div class='social-media row hide-on-med-and-up'>
-              <% @user.social_mediums.first(3).each do |sm| %>
+              <% @portfolio.social_mediums.first(3).each do |sm| %>
                 <div class='col s4 center-align'>
                   <span class='white-text thin med-opacity truncate'>
                     <%= link_to fa_icon(sm.icon), sm.link, title: sm.name %>

@@ -6,13 +6,9 @@
 </nav>
 
 <section  class='section-container'>
-
   <%= form_for [@user, @portfolio], html: { class: 'col s12 edit-student' } do |f| %>
-
     <div class='row'>
-
       <div class='col s12 m4'>
-
         <div class='row'>
           <div class='avatar-column'>
             <%= image_tag @portfolio.avatar.url, class: 'edit-avatar' %>
@@ -23,22 +19,20 @@
             <%= fa_icon 'camera', text: 'CHANGE' %>
           </label>
         </div>
-
       </div>
 
       <div class='col s12 m8'>
-
         <div class='row'>
           <div class='input-field col s12'>
-          <%= f.text_area :description, placeholder: '140 characters maximum', length: '140', class: 'materialize-textarea'  %>
-          <%= f.label :description, 'SHORT BIO' %>
+            <%= f.text_area :description, placeholder: '140 characters maximum', length: '140', class: 'materialize-textarea'  %>
+            <%= f.label :description, 'SHORT BIO' %>
           </div>
         </div>
 
         <div class='row'>
           <div class='col s12'>
-          <%= f.label :color %><br/><br/>
-          <%= color_field(:portfolio, :color) %>
+            <%= f.label :color %><br/><br/>
+            <%= color_field(:portfolio, :color) %>
           </div>
         </div>
 
@@ -50,7 +44,7 @@
             </div>
             <div class='file-path-wrapper'>
               <input class='file-path' type='text'
-                placeholder='Upload backgroung image' value='<%= @portfolio.background.original_filename %>'>
+              placeholder='Upload backgroung image' value='<%= @portfolio.background.original_filename %>'>
             </div>
           </div>
         </div>
@@ -59,23 +53,23 @@
           <div class='switch col s12'>
             <label style='font-size: 1rem; margin-bottom: 15px; display: block;'>Make portfolio private</label>
             <%= f.label :private do %>
-              No
-              <%= f.check_box :private %>
-              <span class='lever'></span>
-              Yes
+            No
+            <%= f.check_box :private %>
+            <span class='lever'></span>
+            Yes
             <% end %>
           </div>
         </div>
-    </div>
-  </div>
-
-  <div class='row'>
-    <div class='col s12 m8 offset-m4'>
-      <div class='row teal-text'>
-        <h5 class='col s12'>You on the web</h5>
       </div>
+    </div>
 
-      <%= f.nested_fields_for :social_mediums do |ff| %>
+    <div class='row'>
+      <div class='col s12 m8 offset-m4'>
+        <div class='row teal-text'>
+          <h5 class='col s12'>You on the web</h5>
+        </div>
+
+        <%= f.nested_fields_for :social_mediums do |ff| %>
         <div class='row'>
           <div class='input-field col s12 m5'>
             <%= ff.url_field :link %>
@@ -86,25 +80,23 @@
             <%= ff.label :name, 'SHORT TITLE'%>
           </div>
           <div class='input-field col s12 m1'>
-          <%= ff.remove_nested_fields_link fa_icon('trash-o', class: 'no-padding'),
+            <%= ff.remove_nested_fields_link fa_icon('trash-o', class: 'no-padding'),
             class: 'red-text' %>
           </div>
         </div>
-      <% end %>
-      <div class='row'>
-        <div class='col s12'>
-          <%= f.add_nested_fields_link :social_mediums, fa_icon('plus-circle', text: 'Add Link'), class: 'waves-effect waves-light btn cyan' %>
+        <% end %>
+        <div class='row'>
+          <div class='col s12'>
+            <%= f.add_nested_fields_link :social_mediums, fa_icon('plus-circle', text: 'Add Link'), class: 'waves-effect waves-light btn cyan' %>
+          </div>
+        </div>
+
+        <div class='row'>
+          <div class='col s12'>
+            <%= f.button 'Save', class: 'waves-effect waves-light btn teal' %>
+          </div>
         </div>
       </div>
-
-      <div class='row'>
-        <div class='col s12'>
-          <%= f.button 'Save', class: 'waves-effect waves-light btn teal' %>
-        </div>
-      </div>
-
     </div>
-  </div>
-
   <% end %>
 </section>

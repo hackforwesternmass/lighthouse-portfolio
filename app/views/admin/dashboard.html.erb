@@ -5,11 +5,8 @@
 </nav>
 
 <section id='dashboard' class='section-container'>
-
   <div class='row'>
-
     <div class='manager'>
-
       <div class='box'>
         <%= link_to users_path, class: 'flow-text' do %>
           <%= fa_icon('angle-double-right', text: ' Manage students') %>
@@ -53,8 +50,6 @@
         <% end %>
       </div>
     </div>
-
     <%= react_component 'AdminToDoList', { userId: @user.id } %>
   </div>
-
 </section>

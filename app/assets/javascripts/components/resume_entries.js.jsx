@@ -186,7 +186,7 @@ ResumeEntries.ResumeEntryForm = React.createClass({
         <div className='row'>
           <div className='input-field col s12'>
             <label htmlFor='resume_entry_title' className='active'>Title</label>
-            <input defaultValue={title} type='text' name='resume_entry[title]' id='resume_entry_title' placeholder='Web Developer'/>
+            <input defaultValue={title} type='text' name='resume_entry[title]' id='resume_entry_title' placeholder='Cashier'/>
             {error && errorMessages.title && <div className='error-message'> {errorMessages.title} </div>}
           </div>
         </div>
@@ -194,7 +194,7 @@ ResumeEntries.ResumeEntryForm = React.createClass({
         <div className='row'>
           <div className='input-field col s12 m6'>
             <label htmlFor='resume_entry_subtitle' className='active'>Organization</label>
-            <input defaultValue={subtitle} type='text' name='resume_entry[subtitle]' id='resume_entry_subtitle' placeholder='BiteSite'/>
+            <input defaultValue={subtitle} type='text' name='resume_entry[subtitle]' id='resume_entry_subtitle' placeholder='Costco'/>
             {error && errorMessages.subtitle && <div className='error-message'> {errorMessages.subtitle} </div>}
           </div>
 

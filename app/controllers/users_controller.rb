@@ -55,7 +55,7 @@ class UsersController < SessionsController
     name = @user.full_name.capitalize
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_path, flash: { notice: "#{name} account was successfully deleted." } }
+      format.html { redirect_to redirect_to_path, flash: { notice: "#{name} account was successfully deleted." } }
       format.json { head :no_content }
     end
   end
@@ -63,8 +63,8 @@ class UsersController < SessionsController
   private
 
     def redirect_to_path
-      return admin_dashboard_path if @user.admin? || @user.student?
-      return users_path if @user.parent?
+      return admin_dashboard_path if @user.admin?
+      return users_path if @user.parent? || @user.student?
     end
 
     def user_params

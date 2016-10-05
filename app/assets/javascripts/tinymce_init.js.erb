@@ -31,7 +31,7 @@ $(document).on('page:change', function(){
       ],
       content_css: "<%= stylesheet_path 'customize_tinymce.css' %>",
       preview_styles: false,
-      toolbar: ["undo redo | styleselect bold underline italic | alignleft aligncenter alignright | numlist outdent indent | link image media preview"],
+      toolbar: ["undo redo | styleselect bold underline italic | alignleft aligncenter alignright | bullist numlist outdent indent | link image media preview"],
       plugins: "image, link, preview, media, paste",
       setup: function(ed) {
           ed.on('keydown', function(event) {
@@ -60,7 +60,7 @@ $(document).on('page:change', function(){
       height: 300,
       content_css: "<%= stylesheet_path 'customize_tinymce.css' %>",
       preview_styles: false,
-      toolbar: ["undo redo | bold underline italic | numlist outdent indent link"],
+      toolbar: ["undo redo | bold underline italic | bullist numlist outdent indent link"],
       plugins: "image, link, preview, media, paste",
       setup: function(ed) {
           ed.on('keydown', function(event) {
@@ -94,7 +94,7 @@ function initTiny(selector){
       height: 200,
       content_css: "<%= stylesheet_path 'customize_tinymce.css' %>",
       preview_styles: false,
-      toolbar: ["undo redo | bold underline italic | numlist outdent indent link"],
+      toolbar: ["undo redo | bold underline italic | bullist numlist outdent indent link"],
       plugins: "image, link, preview, media, paste",
       setup: function(ed) {
           ed.on('keydown', function(event) {

@@ -113,26 +113,26 @@ Klasses.Search = React.createClass({
               <small><a data-confirm="Are you positive that you want to delete this class?" rel="nofollow" data-method="delete" href={"/class/" + klass.id}><i className="fa fa-trash"></i></a></small>
             </div>
             <br/>
-            {klass.description && <div dangerouslySetInnerHTML={{ __html: klass.description.replace(/\n\r?/g, '<br>') }} />}
+            {klass.description && <div className='secondary' dangerouslySetInnerHTML={{ __html: klass.description.replace(/\n\r?/g, '<br>') }} />}
           </td>
           <td className="hide-on-small-only">
-            {klass.instructor ? <div>{klass.instructor}</div> : null}
-            {klass.instructor_email ? <div><a href={"mailto:" + klass.instructor_email}>{klass.instructor_email}</a></div> : null}
-            {klass.instructor_phone ? <div>{klass.instructor_phone}</div> : null}
+            {klass.instructor && <div><strong>{klass.instructor}</strong></div>}
+            {klass.instructor_email && <div><a className='secondary' href={"mailto:" + klass.instructor_email}>{klass.instructor_email}</a></div>}
+            {klass.instructor_phone && <div className='secondary' >{klass.instructor_phone}</div>}
           </td>
           <td className="hide-on-small-only">
             <div>
               <b>
-                {klass.season ? <span>{klass.season} </span> : null}
-                {klass.year ? <span> {klass.year}</span> : null}
+                {klass.season && <span>{klass.season} </span>}
+                {klass.year && <span> {klass.year}</span>}
               </b>
             </div>
-            {klass.location ? <div>{klass.location}</div> : null}
-            {klass.weekday ? <div>{klass.weekday}</div> : null}
-            {klass.time ? <div>{klass.time}</div> : null}
+            {klass.location && <div className='secondary'>{klass.location}</div>}
+            {klass.weekday && <div className='secondary'>{klass.weekday}</div>}
+            {klass.time && <div className='secondary'>{klass.time}</div>}
           </td>
           <td className="hide-on-small-only">
-            <div className="tooltipped" data-position="left" data-delay="50" data-tooltip={studentNames.join(', ')}>{klass.enrolled}</div>
+            <div className={studentNames.length > 0 ? "tooltipped center-align" : 'center-align'} data-position="left" data-delay="50" data-tooltip={studentNames.join(', ')}>{klass.enrolled}</div>
           </td>
         </tr>;
       }.bind(this));
@@ -146,7 +146,7 @@ Klasses.Search = React.createClass({
             <th className="name-desc">CLASS AND DESCRIPTION</th>
             <th className="hide-on-small-only">INSTRUCTOR</th>
             <th className="hide-on-small-only">WHERE AND WHEN</th>
-            <th className="hide-on-small-only"># OF STUDENTS</th>
+            <th className="hide-on-small-only">STUDENTS</th>
           </tr>
         </thead>
 

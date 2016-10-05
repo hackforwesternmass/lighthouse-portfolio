@@ -1,4 +1,5 @@
 class Ability
+
   include CanCan::Ability
 
   def initialize(user)
@@ -36,4 +37,5 @@ class Ability
       can :read, Goal
     end
   end
+
 end

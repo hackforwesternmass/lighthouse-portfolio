@@ -1,5 +1,6 @@
 <%= form_for @user, html: { class: 'one-page' } do |f| %>
 
+  <%= hidden_field_tag :role, (@user.role || params[:role]) %>
   <%= f.hidden_field :role, value: (@user.role || params[:role]) %>
   <%= f.hidden_field :student_id, value: params[:student_id] if params[:student_id].present? %>
 
@@ -39,6 +40,10 @@
     </div>
   </div>
 
-  <%= content_tag :button, 'Save', type: :submit, class: 'waves-effect waves-light btn teal' %>
+  <div class='row'>
+    <div class='col s12'>
+      <%= f.submit 'Save', class: 'waves-effect waves-light btn teal' %>
+    </div>
+  </div>
 
 <% end %>

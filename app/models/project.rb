@@ -1,4 +1,5 @@
 class Project < ActiveRecord::Base
+
 	default_scope { order(priority: :desc, date_completed: :desc) }
 
   belongs_to :user
@@ -12,11 +13,8 @@ class Project < ActiveRecord::Base
   validates_attachment_size :document, less_than: 25.megabytes
   do_not_validate_attachment_file_type :document
 
-  validates :title,
-    presence: { message: 'Title is required' }
-
-  validates :description,
-    length: { maximum: 200, too_long: '%{count} characters is the maximum allowed' }
+  validates :title, presence: { message: 'Title is required' }
+  validates :description, length: { maximum: 200, too_long: '%{count} characters is the maximum allowed' }
 
   def download_url
     s3 = AWS::S3.new.buckets[ENV['S3_BUCKET_NAME']]

@@ -16,6 +16,10 @@ main{
 
 }
 
+a[href^="mailto:"]:hover {
+  text-decoration: underline;
+}
+
 .mce-container {
   border-radius: 3px;
 }
