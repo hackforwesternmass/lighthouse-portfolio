@@ -173,7 +173,7 @@ Students.Index = React.createClass({
                   }
                   <br/>
                   <div className='row'>
-                    <a className='modal-action btn btn-flat waves-effect' style={{ width: '100%' }} href={`/parents?student_id=${id}`}>Add Existing Parent</a>
+                    <a className='modal-action btn btn-flat waves-effect' style={{ width: '100%' }} href={`/parents?student_id=${id}`}>Add/Remove Existing Parent</a>
                   </div>
                   <div className='row'>
                     <a className='modal-action modal-close btn waves-effect' style={{ width: '100%' }} href={`/users/new?role=parent&student_id=${id}`}>Add Parent</a>

@@ -99,8 +99,12 @@ ToDo.ActionItem = React.createClass({
       success: () => {
         this.props.parent.loadActionItems();
       },
-      error: function() {
-        Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-4');
+      error: () => {
+        if(this.props.editable) {
+          Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-4');
+        } else {
+          Materialize.toast('You have viewing privilege only.', 3500, 'red darken-1');
+        }
       }
     });
   },

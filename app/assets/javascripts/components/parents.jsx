@@ -13,10 +13,12 @@ const Parents = React.createClass({
     });
   },
   toggleParentId(e) {
-    if(e.currentTarget.checked) {
-      this.setState({ studentParentIds: update(this.state.studentParentIds, { $push: [parseInt(e.currentTarget.value)]}) });
+    const { studentParentIds } = this.state;
+    const { value } = e.currentTarget;
+    if(studentParentIds.indexOf(parseInt(value)) > -1) {
+      this.setState({ studentParentIds: update(studentParentIds, { $splice: [[studentParentIds.indexOf(parseInt(value)), 1]]  }) });
     } else {
-      this.setState({ studentParentIds: update(this.state.studentParentIds, { $splice: [[this.state.studentParentIds.indexOf(e.currentTarget.value), 1]]  }) });
+      this.setState({ studentParentIds: update(studentParentIds, { $push: [parseInt(value)]}) });
     }
   },
   submit(e) {
