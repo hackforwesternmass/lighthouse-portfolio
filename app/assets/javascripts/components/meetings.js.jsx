@@ -148,7 +148,7 @@ Meetings.MeetingShow = React.createClass({
           </div>
           <div className='card-content action-items'>
 
-            <div className='row'>
+            <div className='row meeting-notes'>
               <div dangerouslySetInnerHTML={{ __html: notes }} />
             </div>
 
@@ -185,9 +185,6 @@ Meetings.MeetingForm = React.createClass({
     return { meeting: this.props.meeting };
   },
   componentDidMount() {
-    if(this.props.newMeeting) {
-      this.setState({ meeting: update(this.state.meeting, { action_items: { $push: [this.defaultActionItem()] } }) });
-    }
     tinymce.remove();
     $(ReactDOM.findDOMNode(this)).velocity('transition.expandIn', { complete: (el) => $(el).css('transform', 'initial') });
     window.initTiny(`#meeting-notes-${this.props.meeting.id}`);
