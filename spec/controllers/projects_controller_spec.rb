@@ -94,7 +94,7 @@ describe ProjectsController, type: :controller do
       it 'redirects to the projects list' do
         new_project = project.user.projects.create(valid_attributes)
         delete :destroy, user_id: project.user.id, id: new_project.id
-        expect(response).to redirect_to(user_projects_path(project.user))
+        expect(response).to redirect_to(user_portfolio_path(project.user))
       end
     end
 

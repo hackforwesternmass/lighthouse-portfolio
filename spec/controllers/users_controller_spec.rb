@@ -38,7 +38,7 @@ describe UsersController, type: :controller do
 
         it 'for student redirects to the dashboard' do
           post :create, user: attributes_for(:user)
-          expect(response).to redirect_to(admin_dashboard_path)
+          expect(response).to redirect_to(users_path)
         end
 
         it 'for admin redirects to the dashboard' do
@@ -82,7 +82,7 @@ describe UsersController, type: :controller do
 
         it 'redirects to the dashboard' do
           patch :update, id: user.id, user: valid_attributes
-          expect(response).to redirect_to(admin_dashboard_path)
+          expect(response).to redirect_to(users_path)
         end
       end
 
