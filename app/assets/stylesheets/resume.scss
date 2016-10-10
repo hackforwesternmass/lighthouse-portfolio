@@ -24,6 +24,18 @@
 
   .description{
     padding-top: 10px;
+
+    ul {
+      display: block;
+      list-style-type: disc !important;
+      margin-top: 1em;
+      margin-bottom: 1em;
+      padding-left: 40px;
+
+      li {
+        list-style-type: disc !important;
+      }
+    }
   }
 
   .secondary-content{

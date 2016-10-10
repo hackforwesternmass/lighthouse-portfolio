@@ -79,6 +79,18 @@ a.project-link{
 .project-body{
   font-size: 1.2rem;
   font-weight: 300;
+
+  ul {
+    display: block;
+    list-style-type: disc !important;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding-left: 40px;
+
+    li {
+      list-style-type: disc !important;
+    }
+  }
 }
 
 .project-content{
