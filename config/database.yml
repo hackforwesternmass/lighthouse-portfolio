@@ -1,6 +1,5 @@
 default: &default
   adapter: postgresql
-  database: compass
   username: postgres
   password: postgres
   host: localhost
@@ -8,10 +7,15 @@ default: &default
 development:
   <<: *default
   port: 5432
+  database: compass_development
 
 test:
   <<: *default
+  database: compass_test
 
 production:
   <<: *default
+  database: compass_production
+  username: compass
+  password: <%= ENV['COMPASS_DATABASE_PASSWORD'] %>
   port: 5432

@@ -1,53 +1,37 @@
 class SessionsController < ApplicationController
   before_action :session_expiry, except: [:login_authentication]
   before_action :update_activity_time
-  before_action :current_user
 
   def login_authentication
-
-    email = params[:user][:email]
-    password = params[:user][:password]
-
-    @user = User.authenticate(email, password)
-
-    if @user
-      session[:user_id] = @user.id
-      @user.admin? ? redirect_to(admin_dashboard_path) : redirect_to(projects_path)
+    if user = User.authenticate(params[:username_email], params[:password])
+      session[:user_id] = user.id
+      redirect_to after_login_path
     else
-      flash[:alert] = "Your email or password were incorrect."
-      redirect_to root_path
+      redirect_to root_path, flash: { incorrect: 'Your email or password were incorrect.' }
     end
-
-    rescue
-      flash[:alert] = "Oops, something went wrong. Try again."
-      redirect_to root_path
   end
 
   def access_student
-    session[:admin_id] = session[:user_id]
-    session[:user_id] = params[:student_id]
-
-    redirect_to action_plan_path
+    session[:student_id] = params[:student_id]
+    redirect_to action_plan_user_path(params[:student_id])
   end
 
-  def access_admin
-    session[:user_id] = session[:admin_id]
-    session[:admin_id] = nil
-    current_user
-
-    redirect_to admin_dashboard_path
+  def exit_student
+    session[:student_id] = nil
+    redirect_to after_login_path
   end
 
   def login
     @background = BackgroundImage.first
-    if signed_in?
-      return @user.admin? ? redirect_to(admin_dashboard_path) : redirect_to(projects_path)
-    end
-    render layout: "public"
+    return redirect_to after_login_path if signed_in?
+    render layout: 'public'
   end
 
   def signed_in
-    return redirect_to root_path unless signed_in?
+    unless signed_in?
+      redirect_to root_path
+      return
+    end
   end
 
   def logout
@@ -55,25 +39,31 @@ class SessionsController < ApplicationController
     redirect_to root_path
   end
 
-  def disconnect_user
-    session[:user_id] = nil
-    session[:admin_id] = nil
-  end
+  private
 
-  def session_expiry
-    get_session_time_left
-    disconnect_user if @session_time_left <= 0
-  end
+    def after_login_path
+      return admin_dashboard_path if current_user.admin?
+      return action_plan_user_path(current_user) if current_user.student?
+      return dashboard_parents_path if current_user.parent?
+    end
 
-  def update_activity_time
-    session[:expires_at] = 24.hours.from_now
-  end
+    def disconnect_user
+      session[:user_id] = nil
+      session[:student_id] = nil
+    end
 
-private
+    def session_expiry
+      get_session_time_left
+      disconnect_user if @session_time_left <= 0
+    end
 
-  def get_session_time_left
-    expire_time = session[:expires_at] || Time.now
-    @session_time_left = (expire_time.to_time - Time.now).to_i
-  end
+    def update_activity_time
+      session[:expires_at] = 24.hours.from_now
+    end
+
+    def get_session_time_left
+      expire_time = session[:expires_at] || Time.now
+      @session_time_left = (expire_time.to_time - Time.now).to_i
+    end
 
 end

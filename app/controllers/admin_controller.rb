@@ -1,8 +1,8 @@
 class AdminController < SessionsController
-  before_action :signed_in
-  before_action :admin_only
 
   def dashboard
+    authorize! :access, :admin
+    @user = current_user
   end
   
 end

@@ -1,9 +1,3 @@
-.category-autocomplete{
-  input{
-    margin: 0;
-  }
-}
-
 .autocomplete-dropdown{
   @extend .z-depth-1;
 
@@ -13,11 +7,10 @@
   overflow-y: auto;
   position: absolute;
   z-index: 999;
-  margin: 0;
   float: right;
 
   li{
-    @include transition(100ms);
+    transition: 100ms;
     font-size: 0.85rem;
     padding: 0.75rem;
     background-color: #fff;
@@ -27,7 +20,7 @@
       float: right;
       color: #aaa;
     }
-    
+
     &.selected{
       background-color: #eee;
     }

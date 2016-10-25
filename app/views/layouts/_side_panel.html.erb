@@ -1,21 +1,19 @@
-<a href="#" data-activates="slide-out" class="button-collapse hide-on-large-only">
-  <i class="mdi-navigation-menu grey-text "></i>
+<a href='#' data-activates='slide-out' class='button-collapse hide-on-large-only'>
+  <i class='material-icons grey-text'>menu</i>
 </a>
 
-<ul id="slide-out" class="side-nav fixed grey darken-4" data-no-turbolink>
+<ul id='slide-out' class='side-nav fixed grey darken-4' data-no-turbolink>
+  <%= image_tag ENV['LOGO_LINK'], class: 'logo' %>
 
-  <%= image_tag ENV['LOGO_LINK'], class: "logo" %>
-
-  <%= side_panel_link(admin_dashboard_path, "user", "Admin") if current_user.admin? %>
-  <%= side_panel_link(action_plan_path, "desktop", "Action Plan") unless current_user.admin? %>
-  <%= side_panel_link(calendar_path, "calendar-o", "Class Calendar") if (Calendar.first.try(:show) && Calendar.first.try(:calendar_id) != "") %>
-  <%= side_panel_link(resources_path, "bookmark", "Resources") %>
-  <%= side_panel_link(projects_path, "user", "Portfolio") %>
+  <%= side_panel_link(admin_dashboard_path, 'user', 'Admin') if current_user.admin? %>
+  <%= side_panel_link(action_plan_user_path(active_id), 'desktop', 'Action Plan') if current_user.student? || session[:student_id].present? %>
+  <%= side_panel_link(calendar_path, 'calendar-o', 'Class Calendar') if (Calendar.first.try(:show) && Calendar.first.try(:calendar_id) != '') %>
+  <%= side_panel_link(user_resources_path(active_id), 'bookmark', 'Resources') %>
+  <%= side_panel_link(user_portfolio_path(active_id), 'user', 'Portfolio') %>
 
   <li>
-    <%= link_to fa_icon("sign-out", text: "Sign Out"), logout_path, class: "grey-text text-darken-1" %>
+    <%= link_to fa_icon('sign-out', text: 'Sign Out'), logout_path, class: 'grey-text text-darken-1' %>
   </li>
 
-  <%= link_to "Back to Admin Account", access_admin_path, class: "btn white-text" if session[:admin_id].present? %>
-
+  <%= link_to (current_user.admin? ? 'Back to Admin Account' : 'Dashboard'), exit_student_path, class: 'btn white-text' if session[:student_id].present? %>
 </ul>

@@ -1,54 +1,56 @@
-var Klasses = React.createClass({
-  getInitialState: function(){
+const Klasses = React.createClass({
+  getInitialState() {
     return { klasses: [] };
   },
-  componentDidMount: function(){
-    $.getJSON("/class", function(data){
-      this.setState({ klasses: data });
-    }.bind(this));
+  componentDidMount() {
+    $.getJSON('/class', klasses => {
+      this.setState({ klasses });
+    });
   },
-  search: function(params){
-    $.getJSON("/class/search", params).done(function(data){
-      this.setState({klasses: data });
-    }.bind(this));
+  search(params) {
+    $.getJSON('/class/search', params, klasses => {
+      this.setState({ klasses });
+    });
   },
-  render: function(){
-    return  <section id="klass" className="section-container">
-      <Klasses.Search search={this.search}/>
-      <Klasses.Index klasses={this.state.klasses}/>
-    </section>;
+  render() {
+    return(
+      <div id='klass' className='section-container'>
+        <Klasses.Search search={this.search}/>
+        <Klasses.Index klasses={this.state.klasses}/>
+      </div>
+    );
   }
 });
 
 Klasses.Search = React.createClass({
-  getInitialState: function(){
-    return { q: "", year: "", season: "", type: "" };
+  getInitialState() {
+    return { q: '', year: '', season: '', type: '' };
   },
-  componentDidMount: function(){
+  componentDidMount() {
     $('select').material_select();
 
-    $(ReactDOM.findDOMNode(this)).find('select.filter-year').change(function(e){
+    $(ReactDOM.findDOMNode(this)).find('select.filter-year').change(e => {
       this.props.search({ q: this.state.q, year: e.target.value, season: this.state.season, type: this.state.type });
       this.setState({ year: e.target.value });
-    }.bind(this));
+    });
 
-    $(ReactDOM.findDOMNode(this)).find('select.filter-season').change(function(e){
+    $(ReactDOM.findDOMNode(this)).find('select.filter-season').change(e => {
       this.props.search({ q: this.state.q, year: this.state.year, season: e.target.value, type: this.state.type });
       this.setState({ season: e.target.value });
-    }.bind(this));
+    });
 
-    $(ReactDOM.findDOMNode(this)).find('select.filter-type').change(function(e){
+    $(ReactDOM.findDOMNode(this)).find('select.filter-type').change(e => {
       this.props.search({ q: this.state.q, year: this.state.year, season: this.state.season, type: e.target.value });
       this.setState({ type: e.target.value });
-    }.bind(this));
+    });
 
   },
-  searchText: function(e){
+  searchText(e) {
     this.props.search({ q: e.target.value, year: this.state.year, season: this.state.season });
     this.setState({ q: e.target.value });
   },
-  render: function(){
-    return  <div className="row grey-text text-darken-2">
+  render() {
+    return  <div className='row grey-text text-darken-2'>
       <div className="input-field col s12 m5 l5">
         <i className="fa fa-search prefix"></i>
         <input id="class-search" className="search" type="text" onChange={this.searchText}/>
@@ -93,14 +95,10 @@ Klasses.Search = React.createClass({
   });
 
   Klasses.Index = React.createClass({
-    componentDidUpdate: function(){
+    componentDidUpdate() {
       $('.tooltipped').tooltip();
     },
-    studentNames: function(){
-      var studentNames = "";
-
-    },
-    klass: function(){
+    klass() {
       var klassNodes = this.props.klasses.map(function(klass){
         var studentNames = [];
         klass.users.forEach(function(student){
@@ -114,40 +112,41 @@ Klasses.Search = React.createClass({
               {!!klass.google_drive_url ? <small><a href={klass.google_drive_url} target="_blank"><i className="fa fa-folder-open"></i></a></small> : null}
               <small><a data-confirm="Are you positive that you want to delete this class?" rel="nofollow" data-method="delete" href={"/class/" + klass.id}><i className="fa fa-trash"></i></a></small>
             </div>
-            {klass.description}
+            <br/>
+            {klass.description && <div className='secondary' dangerouslySetInnerHTML={{ __html: klass.description.replace(/\n\r?/g, '<br>') }} />}
           </td>
           <td className="hide-on-small-only">
-            {klass.instructor ? <div>{klass.instructor}</div> : null}
-            {klass.instructor_email ? <div><a href={"mailto:" + klass.instructor_email}>{klass.instructor_email}</a></div> : null}
-            {klass.instructor_phone ? <div>{klass.instructor_phone}</div> : null}
+            {klass.instructor && <div><strong>{klass.instructor}</strong></div>}
+            {klass.instructor_email && <div><a className='secondary' href={"mailto:" + klass.instructor_email}>{klass.instructor_email}</a></div>}
+            {klass.instructor_phone && <div className='secondary' >{klass.instructor_phone}</div>}
           </td>
           <td className="hide-on-small-only">
             <div>
               <b>
-                {klass.season ? <span>{klass.season} </span> : null}
-                {klass.year ? <span> {klass.year}</span> : null}
+                {klass.season && <span>{klass.season} </span>}
+                {klass.year && <span> {klass.year}</span>}
               </b>
             </div>
-            {klass.location ? <div>{klass.location}</div> : null}
-            {klass.weekday ? <div>{klass.weekday}</div> : null}
-            {klass.time ? <div>{klass.time}</div> : null}
+            {klass.location && <div className='secondary'>{klass.location}</div>}
+            {klass.weekday && <div className='secondary'>{klass.weekday}</div>}
+            {klass.time && <div className='secondary'>{klass.time}</div>}
           </td>
           <td className="hide-on-small-only">
-            <div className="tooltipped" data-position="left" data-delay="50" data-tooltip={studentNames.join(', ')}>{klass.enrolled}</div>
+            <div className={studentNames.length > 0 ? "tooltipped center-align" : 'center-align'} data-position="left" data-delay="50" data-tooltip={studentNames.join(', ')}>{klass.enrolled}</div>
           </td>
         </tr>;
       }.bind(this));
 
       return klassNodes;
     },
-    render: function(){
+    render() {
       return  <table className="bordered z-depth-1">
         <thead className="grey darken-4 white-text">
           <tr>
             <th className="name-desc">CLASS AND DESCRIPTION</th>
             <th className="hide-on-small-only">INSTRUCTOR</th>
             <th className="hide-on-small-only">WHERE AND WHEN</th>
-            <th className="hide-on-small-only"># OF STUDENTS</th>
+            <th className="hide-on-small-only">STUDENTS</th>
           </tr>
         </thead>
 

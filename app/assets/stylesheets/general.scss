@@ -16,9 +16,42 @@ main{
 
 }
 
+a[href^="mailto:"]:hover {
+  text-decoration: underline;
+}
+
+.mce-container {
+  border-radius: 3px;
+}
+
+.card {
+  border-radius: 4px;
+}
+
+.collection {
+  overflow: visible !important;
+  border-radius: 3px;
+  margin: 0 !important;
+}
+
+.collection-item:last-child {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+fieldset{
+  border: none !important;
+  padding: 0;
+  margin: 0;
+}
+
+form.one-page {
+  max-width: 700px;
+}
+
 .section-container{
   overflow: hidden;
-  padding: 2rem 20px 3rem;
+  padding: 20px;
   min-height: 50vh;
   background-color: $background-color;
   width: 100%;
@@ -61,27 +94,15 @@ a, button{
   &::visited{
     color: #789;
   }
-
-  &:focus{
-    outline-style: none;
-  }
 }
 
 input, textarea{
   margin-bottom: 0px !important;
 }
 
-input:focus, textarea:focus, select:focus{
-  outline: none;
-}
-
 label{
   font-weight: 300;
   text-transform: uppercase;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 300;
 }
 
 h6{
@@ -118,10 +139,11 @@ hr{
   font-size: 12px;
   padding: 20px;
 }
-      
+
 .error-message{
   color: #f44336;
-  font-size: 0.75rem;
+  font-size: 0.95rem;
+  padding-top: 5px;
 }
 
 .thin{
@@ -195,7 +217,15 @@ i.fa{
   }
 
   nav{
-    padding: 0 15px;
+    padding: 0 15px !important;
+
+    .breadcrumb {
+      font-size: 14px;
+
+      &:before {
+        margin: 0;
+      }
+    }
   }
 
   nav .brand-logo{
@@ -213,11 +243,6 @@ i.fa{
 
   h2 {
     font-size: 2.25rem;
-  }
-
-  .section-container{
-    padding-left: 0px;
-    padding-right: 0px;
   }
 
 }

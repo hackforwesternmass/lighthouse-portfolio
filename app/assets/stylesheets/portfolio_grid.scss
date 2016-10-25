@@ -1,23 +1,16 @@
-#portfolio{
-	padding: 1rem 1.5rem 2rem;
-}
-
 @media screen and (max-width: $small-screen){
-	#portfolio-piece-grid[data-columns]::before, 
-		#category-grid[data-columns]::before {
+	#portfolio-piece-grid[data-columns]::before{
 		content: '1 .column.size-1of1';
 	}
 }
 
 @media screen and (min-width: $small-screen) and (max-width: $medium-screen) {
-	#portfolio-piece-grid[data-columns]::before, 
-		#category-grid[data-columns]::before {
+	#portfolio-piece-grid[data-columns]::before{
 		content: '2 .column.size-1of2';
 	}
 }
 @media screen and (min-width: $medium-screen) {
-	#portfolio-piece-grid[data-columns]::before, 
-		#category-grid[data-columns]::before {
+	#portfolio-piece-grid[data-columns]::before{
 		content: '3 .column.size-1of3';
 	}
 }

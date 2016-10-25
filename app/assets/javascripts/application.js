@@ -15,16 +15,15 @@
 //= require turbolinks
 //= require react
 //= require react_ujs
-//= require components
 //= require tinymce-jquery
 //= require nested_form_fields
 //= require handlebars.runtime
 //= require moment
 //= require_tree ./helpers
 //= require_tree ./templates
+//= require_tree ./components
 //= require_tree .
 
 $(document).on('page:receive',function(){
 	tinymce.remove();
 });
-

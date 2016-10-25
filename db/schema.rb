@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608113755) do
+ActiveRecord::Schema.define(version: 20160918222608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,6 +106,34 @@ ActiveRecord::Schema.define(version: 20160608113755) do
   end
 
   add_index "meetings", ["user_id"], name: "index_meetings_on_user_id", using: :btree
+
+  create_table "parents", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "student_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "parents", ["user_id"], name: "index_parents_on_user_id", using: :btree
+
+  create_table "portfolios", force: :cascade do |t|
+    t.text     "description"
+    t.string   "color"
+    t.boolean  "private"
+    t.string   "background_file_name"
+    t.string   "background_content_type"
+    t.integer  "background_file_size"
+    t.datetime "background_updated_at"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.integer  "user_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "portfolios", ["user_id"], name: "index_portfolios_on_user_id", using: :btree
 
   create_table "project_attachments", force: :cascade do |t|
     t.integer  "project_id"
@@ -219,6 +247,8 @@ ActiveRecord::Schema.define(version: 20160608113755) do
   add_foreign_key "enrolls", "klasses"
   add_foreign_key "enrolls", "users"
   add_foreign_key "meetings", "users"
+  add_foreign_key "parents", "users"
+  add_foreign_key "portfolios", "users"
   add_foreign_key "project_attachments", "projects"
   add_foreign_key "resources", "users"
   add_foreign_key "resume_entries", "users"

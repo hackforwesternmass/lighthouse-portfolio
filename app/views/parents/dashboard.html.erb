@@ -1,0 +1,27 @@
+<div class='parent-dashboard'>
+  <nav>
+    <div class='nav-wrapper'>
+      <ul class='right'>
+        <li><%= link_to fa_icon('sign-out', text: 'Sign Out'), logout_path %></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class='container'>
+    <% child_or_children = (@user.students.length > 1 ? 'children are' : 'child is')  %>
+    <h2 class='center-align thin flow-text'>Check out what your <%= child_or_children %> up too!</h2>
+  </div>
+
+  <div class="children">
+    <% @user.students.each do |student| %>
+    <div class="card">
+      <div class="card-image">
+        <%= image_tag student.portfolio.avatar %>
+      </div>
+      <div class="card-action">
+        <%= link_to student.full_name, access_student_path(student_id: student.id), class: 'teal-text' %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

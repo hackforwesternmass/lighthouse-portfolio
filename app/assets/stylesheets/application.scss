@@ -3,16 +3,19 @@
 $primary-color: color("grey", "darken-2") !default;
 $primary-color-light: color("grey", "base") !default;
 $primary-color-dark: color("grey", "darken-4") !default;
-$secondary-color: color("orange", "darken-3") !default;
+$secondary-color: color("deep-orange", "darken-3") !default;
+$button-background-focus: lighten($secondary-color, 15%) !default;
 $success-color: color("teal", "base") !default;
 $error-color: color("red", "lighten-1") !default;
 $link-color: color("orange", "darken-1") !default;
 $background-color: color("grey", "lighten-3") !default;
+$white: #fff;
 @import "materialize";
 @import "action_plan";
 @import "calendar";
 @import "category";
-@import "grid";
+@import "portfolio_grid";
+@import "portfolio";
 @import "general";
 @import "layouts";
 @import "projects";
@@ -21,5 +24,4 @@ $background-color: color("grey", "lighten-3") !default;
 @import "sessions";
 @import "dashboard";
 @import "klass";
-
-
+@import "resume";

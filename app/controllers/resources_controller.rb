@@ -1,56 +1,46 @@
 class ResourcesController < SessionsController
-  before_action :signed_in
-  before_action :set_resource, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource :user
+  load_and_authorize_resource :resource, through: :user
 
   def index
-    @resources = current_user.resources.where(general: [nil, false]).group_by(&:category)
+    @resources = @user.resources.where(general: [nil, false]).group_by(&:category)
     @general_resources = Resource.where(general: true).group_by(&:category)
 
     respond_to do |format|
+      format.html
       format.json { render json: { general_resources: @general_resources, resources: @resources } }
-      format.html 
     end
-
   end
 
   def new
-    @resource = Resource.new
-    params[:general].nil? ? @highlight_sidebar = "Resources" : @highlight_sidebar = "Admin"
+    params[:general].nil? ? @highlight_sidebar = 'Resources' : @highlight_sidebar = 'Admin'
   end
 
   def create
-    @resource = current_user.resources.build(resource_params)
-      if @resource.save
-        redirect_to resources_path, flash: { notice: 'Resource created' }
-      else
-        # flash.now[:alert] = 'Could not create your resource, try again!'
-        render :new
-      end
+    if @resource.save
+      redirect_to user_resources_path(@user), flash: { notice: 'Resource created successfully!' }
+    else
+      render :new
+    end
   end
 
   def update
-    if @resource.update_attributes(resource_params)
-      redirect_to resources_path, flash: { notice: "Resource updated" }
+    if @resource.update(resource_params)
+      redirect_to user_resources_path(@user), flash: { notice: 'Resource updated successfully!' }
     else
-      flash.now[:alert] = "Could not update resource"
+      flash.now[:alert] = 'Failed to update resource.'
       render :edit
     end
   end
 
   def change_category
     resources = Resource.where(category: params[:old_category])
-
-    resources.each do |r|
-      r.category = params[:new_category]
-      r.save
-    end
-
-    render json: {category: params[:new_category] }
-
+    resources.update_all({ category: params[:new_category] })
+    render json: { category: params[:new_category] }
   end
-  
+
   def edit
-    @highlight_sidebar = "Resources"
+    @highlight_sidebar = 'Resources'
   end
 
   def show
@@ -58,17 +48,22 @@ class ResourcesController < SessionsController
 
   def destroy
     @resource.destroy
-    render json: {}
+    respond_to do |format|
+      format.html { redirect_to user_resources_path(@user), flash: { notice: "Resource successfully deleted." } }
+      format.json { head :no_content }
+    end
   end
 
   private
 
-    def set_resource
-      @resource = Resource.find(params[:id])
-    end
-
     def resource_params
-      params.require(:resource).permit(:link, :category, :title, :description, :general)
+      params.require(:resource).permit(
+        :link,
+        :category,
+        :title,
+        :description,
+        :general
+      )
     end
 
 end

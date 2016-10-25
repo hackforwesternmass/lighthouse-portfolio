@@ -1,23 +1,24 @@
 <nav>
-  <div class="nav-wrapper">
-    <span class="brand-logo">Class Calendar</span>
-    <%= link_to "Source Calendar", Calendar.first.try(:calendar_url), class: 'btn right', target: "_blank", style: 'position:absolute;top:12px;right:0px;' if Calendar.first.try(:calendar_url).present? %>
+  <div class='nav-wrapper'>
+
+    <div><span class='breadcrumb'>Class Calendar</span></div>
+    <%= link_to 'Source Calendar', Calendar.first.try(:calendar_url), class: 'btn right', target: '_blank', style: 'position:absolute;top:12px;right:0px;' if Calendar.first.try(:calendar_url).present? %>
   </div>
 </nav>
 
 <% unless Calendar.first.try(:hide_week_view) %>
-  <ul class="tabs z-depth-1">
-    <li class="tab col s6"><a href="#week-calendar">Week</a></li>
-    <li class="tab col s6"><a href="#agenda-calendar">Agenda</a></li>
+  <ul class='tabs z-depth-1'>
+    <li class='tab col s6'><a href='#week-calendar'>Week</a></li>
+    <li class='tab col s6'><a href='#agenda-calendar'>Agenda</a></li>
   </ul>
 <% end %>
 
-<section class="section-container" id="agenda-calendar"></section>
+<section class='section-container' id='agenda-calendar'></section>
 
 <% unless Calendar.first.try(:hide_week_view) %>
-  <section id="week-calendar">
-    <%= react_component "Week", { calendarId: Calendar.first.try(:calendar_id) } %>
+  <section id='week-calendar'>
+    <%= react_component 'Week', { calendarId: Calendar.first.try(:calendar_id) } %>
   </section>
 <% end %>
 
-<div id="calendar-id" style="display: none;" data-calendar-id=<%= Calendar.first.try(:calendar_id) %>></div>
+<div id='calendar-id' style='display: none;' data-calendar-id=<%= Calendar.first.try(:calendar_id) %>></div>

@@ -19,7 +19,7 @@
 }
 
 .resource-item{
-	min-height: 325px;
+	min-height: 325px !important;
 	font-size: 1.1rem;
 
     @media #{$small-and-down} {
@@ -38,7 +38,7 @@
 		padding: 0.5rem 0;
 
 		.right{
-	    @include transition(200ms);
+	    transition: 200ms;
 			font-size: 0.9rem;
 			color: #777;
 
@@ -56,4 +56,3 @@
 		}
 	}
 }
-

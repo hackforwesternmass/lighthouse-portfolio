@@ -4,29 +4,30 @@ ruby '2.2.2'
 gem 'rails', '~> 4.2.1'
 gem 'thin'
 gem 'bcrypt'
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 5.0.6'
 gem 'pg'
-gem 'tinymce-rails'
-gem 'nested_form_fields'
 gem 'paperclip', '~> 4.2'
 gem 'aws-sdk', '< 2.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'font-awesome-rails'
-gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'rabl'
 gem 'oj'
 gem 'momentjs-rails'
 gem 'pg_search'
 gem 'dotenv-rails'
-gem 'jquery-ui-rails'
 gem 'pry', '~> 0.10.1'
 gem 'turbolinks'
-gem 'materialize-sass'
-gem 'react-rails'
-gem 'handlebars_assets'
+gem 'react-rails', '~> 1.8.2'
 gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'email_validator'
+gem 'cancancan'
+
+gem 'tinymce-rails', '~> 4.4.3'
+gem 'nested_form_fields'
+gem 'jquery-ui-rails'
+gem 'materialize-sass'
+gem 'handlebars_assets', '~> 0.23.1'
+
 
 group :development, :test do
   gem 'byebug'
@@ -35,11 +36,10 @@ group :development, :test do
 end
 
 group :test do
-  gem 'rspec-rails', '~> 3.3'
-  gem 'factory_girl_rails', '~> 4.2.1'
-  gem 'capybara', '~> 2.2.0'
+  gem 'rspec-rails', '~> 3.5.2'
+  gem 'factory_girl_rails', '~> 4.7.0'
   gem 'database_cleaner'
-  gem 'ffaker'
+  gem 'faker'
 end
 
 gem 'rails_12factor', group: :production

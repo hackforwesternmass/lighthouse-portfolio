@@ -1,19 +1,18 @@
 class KlassesController < SessionsController
-  before_action :signed_in
-  before_action :set_klass, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource :klass, except: :user_index
 
   def index
     @klasses = Klass.where(year: 2016..Float::INFINITY)
-    @highlight_sidebar = "Admin"
+    @highlight_sidebar = 'Admin'
 
     respond_to do |format|
-      format.json { render json: @klasses.to_json(methods: :enrolled, include: :users) }
       format.html
+      format.json { render json: @klasses.to_json(methods: :enrolled, include: :users) }
     end
   end
 
   def user_index
-    render json: current_user.klasses
+    render json: User.find(active_id).klasses
   end
 
   def search
@@ -23,17 +22,17 @@ class KlassesController < SessionsController
       klasses =  Klass.default_search(params[:q])
     end
 
-    if params[:year].present? && params[:year] != "All"
+    if params[:year].present? && params[:year] != 'All'
       klasses = klasses.where(year: params[:year])
     end
 
-    if params[:season].present? && params[:season] != "All"
+    if params[:season].present? && params[:season] != 'All'
       klasses = klasses.where(season: params[:season])
     end
 
-    if params[:type].present? && params[:type] == "Tutorial"
+    if params[:type].present? && params[:type] == 'Tutorial'
       klasses = klasses.where(one_on_one: true)
-    elsif params[:type].present? && params[:type] != "All"
+    elsif params[:type].present? && params[:type] != 'All'
       klasses = klasses.where(one_on_one: false)
     end
 
@@ -41,12 +40,10 @@ class KlassesController < SessionsController
   end
 
   def new
-    @klass = Klass.new
-    @highlight_sidebar = "Admin"
+    @highlight_sidebar = 'Admin'
   end
 
   def create
-    @klass = Klass.new(klass_params)
     if @klass.save
       redirect_to klasses_path, flash: { notice: 'Class successfully created!' }
     else
@@ -59,32 +56,40 @@ class KlassesController < SessionsController
     if @klass.update(klass_params)
       redirect_to klasses_path, flash: { notice: 'Class successfully updated!' }
     else
-      flash.now[:alert] = "Class unsuccessfully updated."
+      flash.now[:alert] = 'Class unsuccessfully updated.'
       render :edit
     end
   end
 
   def edit
-    @highlight_sidebar = "Admin"
-  end
-
-  def show
+    @highlight_sidebar = 'Admin'
   end
 
   def destroy
     @klass.destroy
-    redirect_to @klass, flash: { notice: "Class successfully deleted." }
+    respond_to do |format|
+      format.html { redirect_to klasses_path, flash: { notice: 'Class successfully deleted.' } }
+      format.json { head :no_content }
+    end
   end
 
   private
 
-    def set_klass
-      @klass = Klass.find(params[:id])
-    end
-
     def klass_params
-      params.require(:klass).permit(:name, :description, :time, :weekday, :year, :season,
-        :instructor, :instructor_email, :instructor_phone, :location, :one_on_one, :google_drive_url)
+      params.require(:klass).permit(
+        :name,
+        :description,
+        :time,
+        :weekday,
+        :year,
+        :season,
+        :instructor,
+        :instructor_email,
+        :instructor_phone,
+        :location,
+        :one_on_one,
+        :google_drive_url
+      )
     end
-
+    
 end

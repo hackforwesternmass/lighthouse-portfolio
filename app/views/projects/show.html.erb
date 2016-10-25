@@ -1,32 +1,33 @@
-<section class="section-container no-padding">
-
-    <div class="hide-on-small-only project-nav left-arrow">
-      <%= link_to fa_icon("angle-left"), @project.previous, class: "nav-left" %>
+<section class='section-container no-padding project-show'>
+    <% if @user.projects.size > 1 %>
+    <div class='hide-on-small-only project-nav left-arrow'>
+      <%= link_to fa_icon('angle-left'), [@user, @project.previous], class: 'nav-left' %>
     </div>
+    <% end %>
 
-    <div class="project-content">
-      <div class="container">
+    <div class='project-content'>
+      <div class='thin-container'>
 
-        <div class="menu"></div>
+        <div class='menu'></div>
 
-        <%= link_to fa_icon("pencil"), edit_project_path(@project),
-          class: "btn-floating btn-large waves-effect waves-light right", style: "background-color: #{@project.user.profile_color}" %>
+        <%= link_to fa_icon('pencil'), edit_user_project_path(user_id: @user.id, id: @project.id),
+          class: 'btn-floating btn-large waves-effect waves-light right', style: "background-color: #{@project.user.portfolio.color}" if can?(:edit, @project) %>
 
-        <%= link_to fa_icon("th"), projects_path,
-          class: "btn-floating btn-large waves-effect waves-light left", style: "background-color: #{@project.user.profile_color}" %>
+        <%= link_to fa_icon('th'), user_portfolio_path(@user),
+          class: 'btn-floating btn-large waves-effect waves-light left', style: "background-color: #{@project.user.portfolio.color}" %>
 
-        <h1 class="center-align thick"><%= @project.title %></h1>
+        <h1 class='center-align thick'><%= @project.title %></h1>
 
         <hr>
 
-        <div class="center-align thin" style="color: <%= @project.user.profile_color %>">
-          <%= @project.date_completed.strftime("%B %d, %Y / ") if @project.date_completed.present? %>
-          <%= " By <span class=\"normal\">#{@project.user.full_name}</span>".html_safe %>
+        <div class='center-align thin' style='color: <%= @project.user.portfolio.color %>'>
+          <%= @project.date_completed.strftime('%B %d, %Y / ') if @project.date_completed.present? %>
+          <%= "By <span class='normal'>#{@project.user.full_name}</span>".html_safe %>
         </div>
 
-        <div class="show-tag center-align thin teal-text text-darken-1 ">
+        <div class='show-tag center-align thin teal-text text-darken-1 '>
           <% @project.tags.each do |tag| %>
-            <div class="chip">
+            <div class='chip'>
               <span><%= tag.name %></span>
             </div>
           <% end %>
@@ -34,35 +35,34 @@
 
         <br>
 
-        <div class="flow-text center-align "><i><%= @project.description %></i></div>
+        <div class='flow-text center-align'><%= @project.description %></div>
 
         <% if @project.photo.present? %>
-          <div class="show-display-image">
-            <%= image_tag @project.photo.url, class: "responsive-img materialboxed" %>
+          <div class='show-display-image'>
+            <%= image_tag @project.photo.url, class: 'responsive-img materialboxed' %>
           </div>
         <% end %>
 
-        <div class="project-body">
+        <div class='project-body'>
         <%= @project.body.html_safe %>
         </div>
 
         <% if @project.document.present? %>
-          <h6 class="bold">Attachment</h6>
+          <h6 class='bold'>Attachment</h6>
             <ul>
-              <li><%= link_to @project.document.original_filename, download_project_path(@project) %></li>
+              <li><%= link_to @project.document.original_filename, download_user_project_path(user_id: @user.id, id: @project.id) %></li>
             </ul>
         <% end %>
 
         <br/>
         <br/>
       </div>
-
     </div>
 
-    <div class="hide-on-small-only project-nav right-arrow">
-      <%= link_to fa_icon("angle-right"), @project.next, class: "nav-right" %>
-    </div>
+    <% if @user.projects.size > 1 %>
+      <div class='hide-on-small-only project-nav right-arrow'>
+        <%= link_to fa_icon('angle-right'), [@user, @project.next], class: 'nav-right' %>
+      </div>
+    <% end %>
   </div>
-
-
 </section>

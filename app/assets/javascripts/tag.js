@@ -23,17 +23,16 @@ $(document).on('page:change', function(){
     }
 
     $.ajax({
-      url: "/projects/tags",
+      url: "/users/" + document.body.dataset.userId + "/projects/tags",
       dataType: "JSON",
       data: { q: $input.val() }
     })
     .done( function(data) {
-      data = removeTagDuplicates(data, $input);
       populateDropdown(data, $input);
     });
 
   });
-  
+
 
   $(".tagger input.tag").on("keydown blur", function(e){
 
@@ -62,7 +61,7 @@ $(document).on('page:change', function(){
     // ESC
     if(e.which === 27){
       closeAutoComplete();
-    } 
+    }
 
     // ARROW DOWN
     if(e.which === 40){
@@ -73,13 +72,13 @@ $(document).on('page:change', function(){
       $selected.next().toggleClass("selected");
       $selected.toggleClass("selected");
 
-    } 
+    }
 
     // ARROW UP
     if(e.which === 38){
       $selected.prev().toggleClass("selected");
       $selected.toggleClass("selected");
-    } 
+    }
 
 
   });
@@ -89,19 +88,6 @@ $(document).on('page:change', function(){
   });
 
 });
-
-function removeTagDuplicates(data, $input){
-  var $originalInput = $input.closest(".tagger").find("input.tag");
-  var value_array = $originalInput.val().split(",");
-  $.each( value_array, function(i, name){
-    $.each(data, function(){
-      if(this.name === name){
-        data.splice(data.indexOf(this),1);
-      }
-    });
-  });
-  return data;
-}
 
 function openAutoComplete($dropdown){
   $dropdown.slideDown(200);
@@ -125,13 +111,13 @@ function populateDropdown(data, $input){
 function removeChip(){
   var $chip = $(this).parent();
   var html = HandlebarsTemplates['tags/remove_tag']({index: $chip.data("index")});
-  $chip.prepend(html);  
+  $chip.prepend(html);
   $chip.hide();
 }
 
 function setTag($input, val){
   var html = HandlebarsTemplates['tags/tag']({name: val, index: tags.length});
-  $input.siblings(".tag-container").append(html); 
+  $input.siblings(".tag-container").append(html);
   tags.push($input.val());
   $input.val("");
 }

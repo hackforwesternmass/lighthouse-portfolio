@@ -53,6 +53,13 @@
 .event-description{
   padding-top: 30px;
   display: none;
+
+  a {
+    color: $secondary-color;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
 }
 
 .event-attachments{
@@ -156,7 +163,7 @@
     text-transform: uppercase;
 
     i{
-      @include transition(200ms);
+      transition: 200ms;
       vertical-align: middle;
       font-size: 2.5rem;
       padding: 1rem;

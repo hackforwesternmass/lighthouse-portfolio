@@ -1,108 +1,4 @@
-/* PROJECTS HEADER */
-
-#header{
-
-  .header-bg{
-    width: 100%;
-    background-color: #eee;
-    background-image: image-url('tibetan-mountains.jpg');
-    background-size: cover;
-
-    .dark-overlay{
-      background-color: rgba(0,0,0, 0.2);
-    }
-
-    .header-container{
-      position: relative;
-      width: 100%;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 7vh 30px;
-
-      h2{
-        margin-bottom: 0;
-      }
-    }
-
-    .description{
-      font-size: 1.2rem;
-    }
-
-    .student-avatar{
-      width: 100%;
-      position: relative;
-      max-width: 250px;
-      max-height: 250px;
-      margin: 0 auto;
-
-      &::before{
-        content: "";
-        display: block;
-        padding-top: 100%;
-      }
-
-      img{
-        height: 100%;
-        position:  absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        object-fit: cover;
-        border-radius: 10rem;
-        border: 5px solid #000;
-      }
-    }
-
-    .social-media{
-
-      text-align: center;
-
-      .item{
-        display:inline-block;
-        padding: 0 20px;
-      }
-
-      i{
-        font-size: 1.5rem;
-      }
-      a{
-        opacity: 0.8;
-      }
-      a:hover{
-        @include transition(200ms);
-        opacity: 1;
-      }
-    }
-
-    a.student-edit{
-      @include transition(200ms);
-      position: absolute;
-      right: 1rem;
-      font: 400 1.1rem 'Roboto', helvetica, sans-serif;
-      top: 1rem;
-      color: #eee;
-
-      i{
-        padding-left: 5px;
-      }
-
-      &:hover{
-        color: orange;
-      }
-    }
-
-  }
-
-}
-
-
 // FORM
-fieldset{
-  border: none !important;
-}
-
-
 .project-nav{
   display: block;
   position: fixed;
@@ -119,13 +15,9 @@ fieldset{
     width: 50px;
   }
 
-
   &.left-arrow{
-    left: 240px;
+    left: 0px;
     text-align: right;
-    @media #{$medium-and-down} {
-      left: 0px;
-    }
   }
 
   &.right-arrow{
@@ -147,7 +39,7 @@ a.project-link{
 }
 
 .add-project{
-  @include transition(100ms);
+  transition: 200ms;
   height: 150px;
   background-color: #fff;
   font-weight: 400;
@@ -174,14 +66,6 @@ a.project-link{
   }
 }
 
-/* NEW */
-
-form.new-project{
-  color: #444;
-}
-
-/* SHOW */
-
 .show-display-image{
   margin: 2.5rem 0;
 
@@ -195,6 +79,18 @@ form.new-project{
 .project-body{
   font-size: 1.2rem;
   font-weight: 300;
+
+  ul {
+    display: block;
+    list-style-type: disc !important;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding-left: 40px;
+
+    li {
+      list-style-type: disc !important;
+    }
+  }
 }
 
 .project-content{

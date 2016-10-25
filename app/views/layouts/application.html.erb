@@ -4,17 +4,17 @@
   <title><%= ENV['TITLE'] %></title>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-
   <link href='https://fonts.googleapis.com/css?family=Roboto:700,500,400,300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
 </head>
-<body>
-  <%= render "layouts/flash", :flash => flash %>
+<body data-user-id=<%= @user.id if @user.present? %>>
+  <%= render 'layouts/flash', :flash => flash %>
   <%= render 'layouts/side_panel' %>
   <main>
     <%= yield %>
   </main>
-  <%= javascript_include_tag "salvattore.min", :debug => false %>
+  <%= javascript_include_tag 'salvattore.min', :debug => false %>
 </body>
 </html>
