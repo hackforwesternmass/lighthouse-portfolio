@@ -2,26 +2,32 @@ const update = React.addons.update;
 
 const Meetings = React.createClass({
   getInitialState() {
-    return { newMeeting: false, meetings: [] };
+    return { showNewMeeting: false, meetings: [] };
   },
   componentDidMount() {
     this.loadMeetings();
-    EventSystem.subscribe('meetings.updated', this.loadMeetings);
+    EventSystem.subscribe('meetings:update', this.loadMeetings);
   },
-  loadMeetings(){
+  componentDidUpdate(prevProps, prevState) {
+    const { showNewMeeting } = this.state;
+    if(prevState.showNewMeeting && !this.state.showNewMeeting) {
+      $('.new-meeting').velocity('transition.slideUpOut', { duration: 250 });
+    }
+  },
+  loadMeetings() {
     if(this.isMounted()) {
       $.getJSON(`/users/${this.props.userId}/meetings`, meetings => {
-        EventSystem.publish('action_items_updated');
+        EventSystem.publish('action_items:update');
         this.setState({ meetings });
       });
     }
   },
   handleNewMeeting(e) {
     e.preventDefault();
-    this.setState({ newMeeting: true, activeMeeting: 'newMeeting' });
+    this.setState({ showNewMeeting: true, activeMeetingId: 'showNewMeeting' });
   },
   render() {
-    const { newMeeting, meetings, activeMeeting } = this.state;
+    const { showNewMeeting, meetings, activeMeetingId } = this.state;
     const { adminId, editable, meetingTime } = this.props;
     return (
       <div id='meetings'>
@@ -37,7 +43,7 @@ const Meetings = React.createClass({
           </div>
         }
         {
-          adminId && !newMeeting && editable &&
+          adminId && !showNewMeeting && editable &&
           <a href='#' onClick={this.handleNewMeeting} className='hide-on-small-only'>
             <div className='row'>
               <div className='card blue darken-1 no-margin hoverable'>
@@ -48,11 +54,9 @@ const Meetings = React.createClass({
             </div>
           </a>
         }
-        { newMeeting && activeMeeting == 'newMeeting' && <Meetings.MeetingForm {...this.props} parent={this} meeting={{action_items: []}} newMeeting={newMeeting} /> }
+        <Meetings.MeetingForm {...this.props} parent={this} meeting={{action_items: []}} showNewMeeting={showNewMeeting} newMeeting={true} />
         {
-          meetings.map(meeting => {
-            return <Meetings.Meeting {...this.props} parent={this} key={meeting.id} meeting={meeting} />
-          })
+          meetings.map(meeting => <Meetings.Meeting activeMeetingId={activeMeetingId} {...this.props} parent={this} key={meeting.id} meeting={meeting} />)
         }
         {
           meetings.length == 0 &&
@@ -71,18 +75,27 @@ Meetings.Meeting = React.createClass({
   getInitialState() {
     return { editing: false }
   },
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.activeMeetingId == prevProps.meeting.id && this.props.activeMeetingId != this.props.meeting.id) {
+      this.setState({ editing: false });
+    }
+
+    if(prevState.editing != this.state.editing && !this.state.editing) {
+      this.props.parent.loadMeetings();
+    }
+  },
   toggleEdit(e) {
     e && e.preventDefault();
-    this.props.parent.setState({ activeMeeting: this.props.meeting.id, newMeeting: false });
-    this.setState({ editing: !this.state.editing });
+    this.props.parent.setState({ activeMeetingId: this.props.meeting.id, showNewMeeting: false });
+    this.setState({ editing: !this.state.editing })
   },
   render(){
     const { editing } = this.state;
-    const { meeting, parent } = this.props;
+    const { meeting, parent, activeMeetingId } = this.props;
     return(
       <div>
         {
-          editing && parent.state.activeMeeting == meeting.id
+          editing && activeMeetingId == meeting.id
           ? <Meetings.MeetingForm {...this.props} toggleEdit={this.toggleEdit} />
           : <Meetings.MeetingShow {...this.props} toggleEdit={this.toggleEdit} />
         }
@@ -184,10 +197,41 @@ Meetings.MeetingForm = React.createClass({
   getInitialState() {
     return { meeting: this.props.meeting };
   },
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.showNewMeeting != this.props.showNewMeeting) {
+      if(this.props.showNewMeeting) {
+        window.initTiny(`#meeting-notes-${this.props.meeting.id}`);
+        $(this.refs.container).velocity('transition.expandIn', { complete: el => $(el).css('transform', 'initial') });
+      } else {
+        tinymce.remove();
+      }
+    }
+  },
   componentDidMount() {
     tinymce.remove();
-    $(ReactDOM.findDOMNode(this)).velocity('transition.expandIn', { complete: (el) => $(el).css('transform', 'initial') });
+    if(this.props.meeting.id) {
+      $(this.refs.container).velocity('transition.expandIn', { delay: 350, complete: el => $(el).css('transform', 'initial') });
+      this.autoSaveId = setInterval(this.autoSave, 7500);
+    }
     window.initTiny(`#meeting-notes-${this.props.meeting.id}`);
+  },
+  componentWillUnmount() {
+    tinymce.remove();
+    clearInterval(this.autoSaveId);
+  },
+  autoSave() {
+    const { newMeeting, userId, meeting } = this.props;
+    if(newMeeting) return;
+    tinymce.get(`meeting-notes-${meeting.id}`).save();
+
+    $.ajax({
+      url: `/users/${userId}/meetings/${meeting.id}`,
+      type: 'PATCH',
+      dataType: 'JSON',
+      contentType: false,
+      processData: false,
+      data: new FormData(this.refs.form)
+    });
   },
   defaultActionItem() {
     return { id: Materialize.guid(), description: '', due_date: '', completed: '', user_id: '', newActionItem: true };
@@ -200,19 +244,19 @@ Meetings.MeetingForm = React.createClass({
     e && e.preventDefault();
     const { parent, newMeeting } = this.props;
     if(newMeeting) {
-      parent.setState({ newMeeting: false });
+      parent.setState({ showNewMeeting: false });
     }else {
       this.props.toggleEdit();
     }
   },
   submitForm(e) {
     e.preventDefault();
-    const { newMeeting, userId, meeting, parent } = this.props;
-    tinymce.get(`meeting-notes-${this.props.meeting.id}`).save();
+    const { showNewMeeting, userId, meeting, parent } = this.props;
+    tinymce.get(`meeting-notes-${meeting.id}`).save();
 
     let url, type;
 
-    if(newMeeting){
+    if(showNewMeeting) {
         url = `/users/${userId}/meetings`;
         type = 'POST';
     } else {
@@ -224,13 +268,13 @@ Meetings.MeetingForm = React.createClass({
       url,
       type,
       dataType: 'JSON',
-      cache: false,
       contentType: false,
       processData: false,
-      data: new FormData(e.currentTarget),
-      success: data => {
+      data: new FormData(this.refs.form),
+      success: () => {
+        this.refs.form.reset();
         Materialize.toast('Meeting successfully saved!', 3500, 'teal');
-        this.setState({ sendingForm: false, error: false });
+        this.setState({ sendingForm: false, error: false, meeting: {action_items: []} });
         this.closeMeeting();
         parent.loadMeetings();
       },
@@ -249,14 +293,14 @@ Meetings.MeetingForm = React.createClass({
     const { created_at, notes, action_items, id } = this.state.meeting;
     const { userId, adminId, newMeeting } = this.props;
     return(
-      <div className='row'>
+      <div ref='container' className={`row meeting-form ${newMeeting ? 'new-meeting' : ''}`}>
         <div className='card'>
           <div className='card-date blue darken-1 white-text'>
             {created_at ? moment(created_at).format('MMMM D YYYY') : 'New Meeting'}
             <a className='right white-text' href='#' onClick={this.closeMeeting}><i className='fa fa-times'></i></a>
           </div>
           <div className='card-content'>
-            <form onSubmit={this.submitForm} >
+            <form ref='form' onSubmit={this.submitForm}>
               <div className='row'>
                 <h6 className='bold grey-text text-darken-2'>Notes</h6>
               </div>
@@ -315,7 +359,7 @@ Meetings.ActionItem = React.createClass({
   componentDidMount() {
     $(ReactDOM.findDOMNode(this)).find('.datepicker').pickadate();
     $(ReactDOM.findDOMNode(this)).find('.tooltipped').tooltip();
-    $(ReactDOM.findDOMNode(this)).velocity('transition.slideDownIn', { complete: (el) => $(el).css('transform', 'initial') });
+    $(ReactDOM.findDOMNode(this)).velocity('transition.fadeIn', { complete: (el) => $(el).css('transform', 'initial') });
   },
   toggleAssignedAdmin(e) {
     e.preventDefault();

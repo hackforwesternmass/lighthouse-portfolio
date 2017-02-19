@@ -4,7 +4,7 @@ const ToDo = React.createClass({
   },
   componentDidMount() {
     this.loadActionItems()
-    EventSystem.subscribe('action_items_updated', this.loadActionItems)
+    EventSystem.subscribe('action_items:update', this.loadActionItems)
   },
   loadActionItems() {
     if(this.isMounted()){
@@ -77,7 +77,7 @@ ToDo.ActionItem = React.createClass({
       data: { action_item: { completed: !actionItem.completed } },
       success: () => {
         this.props.parent.loadActionItems();
-        EventSystem.publish('meetings.updated');
+        EventSystem.publish('meetings:update');
       },
       error: () => {
         if(this.props.editable) {

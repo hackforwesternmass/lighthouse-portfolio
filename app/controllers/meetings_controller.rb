@@ -2,8 +2,7 @@ class MeetingsController < SessionsController
   load_and_authorize_resource :user
   load_and_authorize_resource :meeting, through: :user
 
-  def index
-  end
+  def index; end
 
   def create
     if @meeting.save
@@ -13,8 +12,7 @@ class MeetingsController < SessionsController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def update
     if @meeting.update(meeting_params)
@@ -31,19 +29,18 @@ class MeetingsController < SessionsController
 
   private
 
-    def meeting_params
-      params.require(:meeting).permit(
-        :notes,
-        :user_id,
-        action_items_attributes: [
-          :description,
-          :due_date,
-          :id,
-          :user_id,
-          :completed,
-          :_destroy
-        ]
-      )
-    end
-
+  def meeting_params
+    params.require(:meeting).permit(
+    :notes,
+    :user_id,
+    action_items_attributes: [
+      :id,
+      :description,
+      :due_date,
+      :user_id,
+      :completed,
+      :_destroy
+    ]
+    )
+  end
 end

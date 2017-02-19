@@ -1,5 +1,4 @@
 class ActionItem < ActiveRecord::Base
-
   default_scope { order(due_date: :asc, created_at: :asc) }
 
   belongs_to :meeting
@@ -12,5 +11,4 @@ class ActionItem < ActiveRecord::Base
   def owner_name
     owner.full_name
   end
-
 end
