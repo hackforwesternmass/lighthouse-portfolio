@@ -174,13 +174,14 @@ Meetings.MeetingShow = React.createClass({
                 </div>
 
                 {action_items.map(actionItem => {
+                  console.log(actionItem.due_date);
                   return(
                     <div className='row body' key={actionItem.id}>
                       <div className='col s9 m10'>
                         <input type='checkbox' className='blue-check filled-in' data-id={actionItem.id} id={`meeting-check-${actionItem.id}`} onChange={this.toggleCheck} checked={actionItem.completed && 'checked'}/>
                         <label htmlFor={`meeting-check-${actionItem.id}`}><span className='blue-text text-lighten-2'>{actionItem.user_id && 'Advisor task: ' }</span>{actionItem.description}</label>
                       </div>
-                      <div className='col s3 m2 capitalize'>{ actionItem.due_date ? moment(actionItem.due_date).fromNow() : '∞' }</div>
+                      <div className='col s3 m2 capitalize'>{ actionItem.due_date ? moment(actionItem.due_date).add(1, 'days').fromNow() : '∞' }</div>
                     </div>
                   )
                 })}
@@ -222,15 +223,12 @@ Meetings.MeetingForm = React.createClass({
   autoSave() {
     const { newMeeting, userId, meeting } = this.props;
     if(newMeeting) return;
-    tinymce.get(`meeting-notes-${meeting.id}`).save();
 
     $.ajax({
       url: `/users/${userId}/meetings/${meeting.id}`,
       type: 'PATCH',
       dataType: 'JSON',
-      contentType: false,
-      processData: false,
-      data: new FormData(this.refs.form)
+      data: { meeting: { notes: tinymce.get(`meeting-notes-${meeting.id}`).startContent } }
     });
   },
   defaultActionItem() {

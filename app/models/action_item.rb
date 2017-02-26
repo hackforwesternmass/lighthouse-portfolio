@@ -1,5 +1,5 @@
 class ActionItem < ActiveRecord::Base
-  default_scope { order(due_date: :asc, created_at: :asc) }
+  default_scope { order(created_at: :desc) }
 
   belongs_to :meeting
   belongs_to :goal

@@ -52,7 +52,7 @@ const AdminToDoList = React.createClass({
               return (
                 <div key={actionItem.id} className='card-action-item row no-margin' >
                   <div className='weekday'>
-                    {actionItem.due_date ? `Due ${moment(actionItem.due_date).fromNow()}` : ''}
+                    {actionItem.due_date ? `Due ${moment(actionItem.due_date).add(1, 'days').fromNow()}` : ''}
                     <a className='complete' href='#' data-id={actionItem.id} data-value={true} onClick={this.toggleComplete}>Complete</a>
                   </div>
                   <div className='action-item'>

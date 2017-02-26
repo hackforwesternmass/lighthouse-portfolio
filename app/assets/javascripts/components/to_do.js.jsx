@@ -115,7 +115,7 @@ ToDo.ActionItem = React.createClass({
         <div className='text'>
           <input type='checkbox' className='blue-check filled-in' id={`check-${id}`} onChange={this.toggleComplete} checked={completed && 'checked'}/>
           <label htmlFor={`check-${id}`}>
-            {due_date && <span className='blue-text text-darken-1' >Due {moment(due_date).fromNow()}: </span>}
+            {due_date && <span className='blue-text text-darken-1' >Due {moment(due_date).add(1, 'days').fromNow()}: </span>}
             {description}
           </label>
         </div>
