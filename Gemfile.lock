@@ -86,8 +86,8 @@ GEM
       railties (>= 3.0.0)
     faker (1.6.3)
       i18n (~> 0.5)
-    font-awesome-rails (4.4.0.0)
-      railties (>= 3.2, < 5.0)
+    font-awesome-rails (4.7.0.1)
+      railties (>= 3.2, < 5.1)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     handlebars_assets (0.23.1)
@@ -255,7 +255,7 @@ DEPENDENCIES
   dotenv-rails
   factory_girl_rails (~> 4.7.0)
   faker
-  font-awesome-rails
+  font-awesome-rails (~> 4.7.0.1)
   handlebars_assets (~> 0.23.1)
   jquery-rails
   jquery-ui-rails

@@ -13,7 +13,7 @@ class ResourcesController < SessionsController
   end
 
   def new
-    params[:general].nil? ? @highlight_sidebar = 'Resources' : @highlight_sidebar = 'Admin'
+    params[:general].nil? ? @highlight_sidebar = 'Resources' : @highlight_sidebar = 'Dashboard'
   end
 
   def create

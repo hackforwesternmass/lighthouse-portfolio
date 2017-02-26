@@ -3,7 +3,7 @@ class KlassesController < SessionsController
 
   def index
     @klasses = Klass.where(year: 2016..Float::INFINITY)
-    @highlight_sidebar = 'Admin'
+    @highlight_sidebar = 'Dashboard'
 
     respond_to do |format|
       format.html
@@ -40,7 +40,7 @@ class KlassesController < SessionsController
   end
 
   def new
-    @highlight_sidebar = 'Admin'
+    @highlight_sidebar = 'Dashboard'
   end
 
   def create
@@ -62,7 +62,7 @@ class KlassesController < SessionsController
   end
 
   def edit
-    @highlight_sidebar = 'Admin'
+    @highlight_sidebar = 'Dashboard'
   end
 
   def destroy

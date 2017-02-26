@@ -2,6 +2,7 @@ class FeedbacksController < SessionsController
   load_and_authorize_resource :feedback
 
   def index
+    @highlight_sidebar = 'Dashboard'
     @feedbacks = Feedback.paginate(page: params[:page], per_page: 10).order(created_at: :desc)
   end
 
@@ -11,6 +12,14 @@ class FeedbacksController < SessionsController
     else
       render 'new'
     end
+  end
+
+  def new
+    @highlight_sidebar = 'Dashboard'
+  end
+
+  def edit
+    @highlight_sidebar = 'Dashboard'
   end
 
   def show

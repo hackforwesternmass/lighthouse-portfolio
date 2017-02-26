@@ -8,6 +8,12 @@ $(document).on("click", 'tr[data-href]', function() {
 
 $(document).on('page:change', function() {
 
+  var studentName = document.body.dataset.studentName;
+
+  if (studentName) {
+    $('nav .nav-wrapper').prepend("<span class='breadcrumb'> " + studentName + "</span>")
+  }
+
   $('.lean-overlay').remove();
 
   if ($('#login').length) {

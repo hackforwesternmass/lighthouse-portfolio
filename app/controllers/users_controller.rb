@@ -3,7 +3,7 @@ class UsersController < SessionsController
 
   def index
     @users = @users.students
-    @highlight_sidebar = 'Admin'
+    @highlight_sidebar = 'Dashboard'
     @users = @users.default_search(params[:q]) if params[:q].present?
 
     respond_to do |format|
@@ -20,11 +20,11 @@ class UsersController < SessionsController
   end
 
   def new
-    @highlight_sidebar = 'Admin'
+    @highlight_sidebar = 'Dashboard'
   end
 
   def edit
-    @highlight_sidebar = 'Admin'
+    @highlight_sidebar = 'Dashboard'
   end
 
   def create
@@ -44,7 +44,7 @@ class UsersController < SessionsController
           format.html { redirect_to redirect_to_path, flash: { notice: 'Account successfully updated!' } }
           format.json { render :show }
       else
-        @highlight_sidebar = 'Admin'
+        @highlight_sidebar = 'Dashboard'
         format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
