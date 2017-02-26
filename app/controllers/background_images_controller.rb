@@ -3,7 +3,7 @@ class BackgroundImagesController < SessionsController
 
   def manage
     @background_image = BackgroundImage.first || BackgroundImage.new
-    @highlight_sidebar = "Admin"
+    @highlight_sidebar = "Dashboard"
   end
 
   def create

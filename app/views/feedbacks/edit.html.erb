@@ -1,14 +1,14 @@
 <nav>
   <div class='nav-wrapper'>
     <%= link_to 'Dashboard', admin_dashboard_path, class: 'breadcrumb' %>
-    <%= link_to 'Manage Classes', klasses_path, class: 'breadcrumb' %>
-    <span class='breadcrumb'>New Class</span>
+    <%= link_to 'Teacher Feedback', feedbacks_path, class: 'breadcrumb' %>
+    <span class='breadcrumb'>Edit</span>
   </div>
 </nav>
 
 <section class='section-container'>
   <div class='row'>
-    <h3 class='teal-text col s12'>New Class</h3>
+    <h3 class='teal-text col s12'>Edit Feedback</h3>
   </div>
   <div class='row'>
     <%= render 'form' %>

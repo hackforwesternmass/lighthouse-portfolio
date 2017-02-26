@@ -1,0 +1,27 @@
+<%= form_for @feedback, html: { class: 'one-page' } do |f| %>
+
+  <div class='row'>
+    <div class='input-field col s12 m6'>
+      <%= f.text_field :name %>
+      <%= f.label :name, 'name' %>
+    </div>
+
+    <div class='input-field col s12 m6'>
+      <%= f.text_field :subject %>
+      <%= f.label :subject %>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='input-field col s12'>
+      <%= f.text_area :text, class: 'feedback-text', value: @feedback.text %>
+    </div>
+  </div>
+
+  <div style='padding-left: 0.75rem; padding-top: 2rem;'>
+    <%= content_tag :button, 'Save', type: :submit, class: 'waves-effect waves-light btn teal' %>
+    <%= link_to 'Delete', @feedback, method: :delete, data: { confirm: 'Are you positive that you want to delete this feedback?' },
+      class: 'waves-effect waves-light btn red darken-2' unless @feedback.new_record? %>
+  </div>
+
+<% end %>

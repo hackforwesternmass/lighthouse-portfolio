@@ -1,7 +1,7 @@
 <nav>
   <div class='nav-wrapper'>
     <% if params[:general].present? %>
-      <%= link_to 'Admin Dashboard', admin_dashboard_path, class: 'breadcrumb' %>
+      <%= link_to 'Dashboard', admin_dashboard_path, class: 'breadcrumb' %>
     <% else %>
       <%= link_to 'Resources', user_resources_path(@user), class: 'breadcrumb' %>
     <% end %>

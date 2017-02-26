@@ -1,6 +1,6 @@
 <nav>
   <div class='nav-wrapper'>
-    <span class='breadcrumb'>Admin Dashboard</span>
+    <span class='breadcrumb'>Dashboard</span>
   </div>
 </nav>
 
@@ -49,6 +49,12 @@
           <%= fa_icon 'picture-o', class:  'icon no-padding' %>
         <% end %>
       </div>
+      <div class='box'>
+       <%= link_to feedbacks_path, class: 'flow-text' do %>
+         <%= fa_icon('angle-double-right', text: ' Teacher Feedback') %>
+         <%= fa_icon 'commenting-o', class:  'icon no-padding' %>
+       <% end %>
+     </div>
     </div>
     <%= react_component 'AdminToDoList', { userId: @user.id } %>
   </div>

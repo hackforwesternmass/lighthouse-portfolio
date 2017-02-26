@@ -17,8 +17,15 @@
     border-left-color: $secondary-color;
   }
 
-  .btn {
-    margin: 10px 0 !important;
+  .sign-out-student {
+    height: auto;
+    line-height: normal;
+    color: white;
+    background-color: $secondary-color !important;
+    margin-bottom: 25px;
+    padding: 20px 0;
+    text-align: center;
+    font-weight: 400;
   }
 
 	li{
@@ -34,6 +41,7 @@
 
 		  i{
         width: 30px;
+        height: auto;
         margin: 0;
         line-height: normal;
         color: inherit;

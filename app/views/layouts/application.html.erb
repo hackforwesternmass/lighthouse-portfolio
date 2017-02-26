@@ -9,7 +9,10 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <meta name='viewport' content='width=device-width, initial-scale=1.0' />
 </head>
-<body data-user-id=<%= @user.id if @user.present? %>>
+<body
+  data-user-id="<%= @user.id if @user.present? %>"
+  data-student-name="<%= active_user.full_name if active_student? %>"
+>
   <%= render 'layouts/flash', :flash => flash %>
   <%= render 'layouts/side_panel' %>
   <main>

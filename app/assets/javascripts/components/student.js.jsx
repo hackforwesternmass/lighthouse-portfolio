@@ -50,7 +50,7 @@ Students.Index = React.createClass({
     $(selector).openModal();
   },
   componentDidMount(){
-    $('.modal-trigger').leanModal();
+    $('.modal-trigger').modal();
   },
   changeMeetingTime(e){
     this.setState({ meeting_time: e.target.value });
