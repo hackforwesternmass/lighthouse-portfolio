@@ -38,6 +38,8 @@ Rails.application.routes.draw do
     get :search, on: :collection
   end
 
+  resources :feedbacks
+
   namespace :admin do
     get :dashboard
   end

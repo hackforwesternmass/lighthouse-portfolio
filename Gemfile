@@ -21,11 +21,12 @@ gem 'turbolinks'
 gem 'react-rails', '~> 1.8.2'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'cancancan'
+gem 'will_paginate', '~> 3.1.0'
 
 gem 'tinymce-rails', '~> 4.4.3'
 gem 'nested_form_fields'
 gem 'jquery-ui-rails'
-gem 'materialize-sass'
+gem 'materialize-sass', '~> 0.98.0'
 gem 'handlebars_assets', '~> 0.23.1'
 
 

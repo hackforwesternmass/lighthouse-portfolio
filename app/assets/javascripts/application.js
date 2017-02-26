@@ -24,6 +24,6 @@
 //= require_tree ./components
 //= require_tree .
 
-$(document).on('page:receive',function(){
-	tinymce.remove();
+$(document).on('page:receive', function() {
+  tinymce.remove();
 });

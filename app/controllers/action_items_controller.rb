@@ -20,15 +20,15 @@ class ActionItemsController < SessionsController
 
   private
 
-    def action_item_params
-      params.require(:action_item).permit(
-        :id,
-        :due_date,
-        :completed,
-        :description,
-        :user_id,
-        :archive
-      )
-    end
-
+  def action_item_params
+    params.require(:action_item).permit(
+      :id,
+      :due_date,
+      :completed,
+      :description,
+      :user_id,
+      :archive
+    )
+  end
+  
 end

@@ -1,48 +1,48 @@
-$(document).on("click", ".attachment-list a", function(e){
+$(document).on("click", ".attachment-list a", function(e) {
   e.stopPropagation();
 });
 
-$(document).on("click", 'tr[data-href]',function() {
+$(document).on("click", 'tr[data-href]', function() {
   Turbolinks.visit($(this).data('href'));
 });
 
-$(document).on('page:change', function(){
+$(document).on('page:change', function() {
 
   $('.lean-overlay').remove();
 
-  if($('#login').length){
-    $('label.active').css({ paddingBottom: '5px' })
+  if ($('#login').length) {
+    $('label.active').css({paddingBottom: '5px'})
   }
-
+  $('.collapsible').collapsible();
   $('.button-collapse').sideNav();
   $('select').material_select();
-  $('.modal-trigger').leanModal();
+  $('.modal-trigger').modal();
   $('.datepicker').pickadate();
 
-  if($('#notice').length){
+  if ($('#notice').length) {
     Materialize.toast($('#notice').data("notice"), 3500, "teal");
   }
 
-  if($('#alert').length){
+  if ($('#alert').length) {
     Materialize.toast($('#alert').data("alert"), 3500, "red darken-4");
   }
 
-  if( $("#calendar_calendar_id").val() == "" ){
+  if ($("#calendar_calendar_id").val() == "") {
     $("#calendar_show").attr("disabled", true);
   }
 
-  $("#calendar_calendar_id").bind( "propertychange change click keyup input paste" ,function(){
-    if( $("#calendar_calendar_id").val() == "" ){
+  $("#calendar_calendar_id").bind("propertychange change click keyup input paste", function() {
+    if ($("#calendar_calendar_id").val() == "") {
       $("#calendar_show").attr("disabled", true);
-    }else{
+    } else {
       $("#calendar_show").attr("disabled", false);
     }
   });
 
-  $(".ellipsis-link").click(function(e){
+  $(".ellipsis-link").click(function(e) {
     e.preventDefault();
-    $(".dropdown").show(200, function(){
-      $(document).on("click", function(){
+    $(".dropdown").show(200, function() {
+      $(document).on("click", function() {
         $(".dropdown").hide(200);
         $(document).off("click");
       });
@@ -52,7 +52,7 @@ $(document).on('page:change', function(){
 });
 
 $(document).ready(function() {
-  $.ajaxSetup({ cache: false });
+  $.ajaxSetup({cache: false});
 });
 
 function readURL(input) {
@@ -60,7 +60,7 @@ function readURL(input) {
     var reader = new FileReader();
     reader.readAsDataURL(input.files[0]);
 
-    reader.onload = function (e) {
+    reader.onload = function(e) {
       $('img.edit-avatar').attr('src', e.target.result);
 
     }

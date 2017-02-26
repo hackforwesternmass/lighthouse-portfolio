@@ -28,6 +28,10 @@ a[href^="mailto:"]:hover {
   border-radius: 4px;
 }
 
+.pagination {
+  text-align: center;
+}
+
 .collection {
   overflow: visible !important;
   border-radius: 3px;
@@ -55,6 +59,10 @@ form.one-page {
   min-height: 50vh;
   background-color: $background-color;
   width: 100%;
+
+  @media #{$small-and-down} {
+    padding: 10px;
+  }
 }
 
 .card .card-image img{
