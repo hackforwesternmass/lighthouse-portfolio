@@ -16,7 +16,7 @@ class MeetingsController < SessionsController
 
   def update
     if @meeting.update(meeting_params)
-      render json: :show, status: 200
+      render :show, status: 200
     else
       render json: @meeting.errors, status: 422
     end
