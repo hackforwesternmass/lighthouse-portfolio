@@ -87,7 +87,7 @@ Meetings.Meeting = React.createClass({
   toggleEdit(e) {
     e && e.preventDefault();
     this.props.parent.setState({ activeMeetingId: this.props.meeting.id, showNewMeeting: false });
-    this.setState({ editing: !this.state.editing })
+    this.setState({ editing: !this.state.editing });
   },
   render(){
     const { editing } = this.state;
@@ -227,7 +227,7 @@ Meetings.MeetingForm = React.createClass({
       url: `/users/${userId}/meetings/${meeting.id}`,
       type: 'PATCH',
       dataType: 'JSON',
-      data: { meeting: { notes: tinymce.get(`meeting-notes-${meeting.id}`).startContent } }
+      data: { meeting: { notes: tinymce.get(`meeting-notes-${meeting.id}`).getContent() } }
     });
   },
   defaultActionItem() {
