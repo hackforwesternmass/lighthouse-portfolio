@@ -4,10 +4,11 @@ class KlassesController < SessionsController
   def index
     @klasses = Klass.where(year: 2016..Float::INFINITY)
     @highlight_sidebar = 'Dashboard'
+    @klasses = @klasses.includes(:users)
 
     respond_to do |format|
       format.html
-      format.json { render json: @klasses.to_json(methods: :enrolled, include: :users) }
+      format.json
     end
   end
 
@@ -91,5 +92,5 @@ class KlassesController < SessionsController
         :google_drive_url
       )
     end
-    
+
 end

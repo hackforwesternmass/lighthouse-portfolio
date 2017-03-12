@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :meetings, except: [:new, :edit]
     resources :goals, except: [:new, :edit]
     resources :action_items, only: [:index, :update]
+    resources :klasses, path: :classes, only: [:index, :update], module: :users
     resources :resources do
       post :change_category, on: :collection
     end
@@ -19,9 +20,7 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :enrolls do
-    post :bulk_create
-  end
+  resources :enrolls, only: [:create, :update, :destroy]
 
   resource :calendar, except: [:new, :edit, :show, :destroy] do
     get :manage
@@ -34,7 +33,6 @@ Rails.application.routes.draw do
 
   resources :class_periods
   resources :klasses, path: :class do
-    get :user_index, on: :collection
     get :search, on: :collection
   end
 

@@ -11,7 +11,7 @@
     <li class='tab'><a href='#goals-action-plan'>Goals</a></li>
   </ul>
 
-  <%= react_component 'KlassesDisplay' %>
+  <%= react_component 'KlassesDisplay', { userId: @user.id } %>
 
   <section class='action-plan-container' id='todo-action-plan'>
     <%= react_component 'ToDo', { userId: @user.id, meetingTime: @user.meeting_time, editable: (can?(:update, ActionItem) || current_user.admin?) } %>

@@ -33,7 +33,7 @@ function loadUpcomingAgendaEvents(calendar_min_time, first_iteration){
                     +"/events?orderBy=startTime&singleEvents=true&timeMin="+calendar_min_time
                     +"&timeMax="+calendar_max_time+"&key=AIzaSyB-xMDC9mt9b1nj_df2pjVgHOlkIZzIxWs";
 
-  $.getJSON( calendar_url, function(events) {
+  $.getJSON(calendar_url, function(events) {
 
     if(events.items.length === 0){
       no_events = true;

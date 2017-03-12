@@ -1,4 +1,4 @@
-<%= form_for [@user, @resource], html: { multipart: true, class: 'one-page' } do |f| %>
+<%= form_for [@user, @resource], html: { multipart: true, class: 'one-page resource-form' } do |f| %>
 
   <div class='row'>
     <div class='col s12 m6 input-field'>
@@ -21,8 +21,8 @@
   </div>
 
   <div class='row'>
-    <div class='col s12 m6 input-field category-autocomplete'>
-      <%= f.text_field :category %>
+    <div class='col s12 m6 input-field'>
+      <%= f.text_field :category, class: 'category-autocomplete', autocomplete: 'off' %>
       <%= f.label :category %>
     </div>
   </div>

@@ -16,6 +16,10 @@ main{
 
 }
 
+.dropdown-content {
+  margin: 0 !important;
+}
+
 a[href^="mailto:"]:hover {
   text-decoration: underline;
 }

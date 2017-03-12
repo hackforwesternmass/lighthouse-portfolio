@@ -3,13 +3,21 @@ const KlassesDisplay = React.createClass({
     return { klasses: [] };
   },
   componentDidMount() {
-    $.getJSON('/class/user_index', klasses => {
-      this.setState({ klasses });
+    $('.modal').modal();
+    $.ajax({
+      url: `/users/${this.props.userId}/classes`,
+      data: { current: true },
+      success: klasses => {
+        this.setState({ klasses, loading: false });
+      },
+      error: () => {
+        Materialize.toast('An error has occured loading enrolled classes.', 3500, 'red darken-4');
+      }
     });
   },
-  openModal(state) {
-    this.setState(state);
-    $('#klass-modal').openModal();
+  openModal(klass) {
+    this.setState(klass);
+    $('#klass-modal').modal('open');
   },
   render() {
     return(

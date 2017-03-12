@@ -100,10 +100,7 @@ Klasses.Search = React.createClass({
     },
     klass() {
       var klassNodes = this.props.klasses.map(function(klass){
-        var studentNames = [];
-        klass.users.forEach(function(student){
-          studentNames.push( student.first_name + " " + student.last_name );
-        });
+        var studentNames = klass.users.map(user => user.full_name)
 
         return  <tr key={klass.id}>
           <td className="name-desc">
@@ -132,7 +129,7 @@ Klasses.Search = React.createClass({
             {klass.time && <div className='secondary'>{klass.time}</div>}
           </td>
           <td className="hide-on-small-only">
-            <div className={studentNames.length > 0 ? "tooltipped center-align" : 'center-align'} data-position="left" data-delay="50" data-tooltip={studentNames.join(', ')}>{klass.enrolled}</div>
+            <div className={studentNames.length > 0 ? "tooltipped center-align" : 'center-align'} data-position="left" data-delay="50" data-tooltip={studentNames.join(', ')}>{klass.enrolled_count}</div>
           </td>
         </tr>;
       }.bind(this));

@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   has_many :goals, dependent: :destroy
   has_many :enrolls, dependent: :destroy
   has_many :klasses, through: :enrolls
+  has_many :completed_klasses, -> { joins(:enrolls).where(enrolls: { completed: true}).uniq }, through: :enrolls, source: :klass
+  has_many :uncompleted_klasses, -> { joins(:enrolls).where(enrolls: { completed: [false, nil]}).uniq }, through: :enrolls, source: :klass
   has_many :action_items, -> { where(user_id: [nil, '']) }, through: :meetings
   has_many :social_mediums, dependent: :destroy
   has_many :admin_action_items, foreign_key: 'user_id', class_name: 'ActionItem'
@@ -79,6 +81,10 @@ class User < ActiveRecord::Base
     @pword = Password.create(new_password)
     self.password = @pword
     self.password_confirmation = @pword
+  end
+
+  def enroll_id(klass)
+    Enroll.find_by(klass_id: klass.id, user_id: id).try(:id)
   end
 
   before_create do

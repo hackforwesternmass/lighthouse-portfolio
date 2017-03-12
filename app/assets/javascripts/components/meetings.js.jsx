@@ -174,7 +174,6 @@ Meetings.MeetingShow = React.createClass({
                 </div>
 
                 {action_items.map(actionItem => {
-                  console.log(actionItem.due_date);
                   return(
                     <div className='row body' key={actionItem.id}>
                       <div className='col s9 m10'>

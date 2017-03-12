@@ -1,6 +1,6 @@
 class ResourcesController < SessionsController
   load_and_authorize_resource :user
-  load_and_authorize_resource :resource, through: :user
+  load_and_authorize_resource :resource
 
   def index
     @resources = @user.resources.where(general: [nil, false]).group_by(&:category)

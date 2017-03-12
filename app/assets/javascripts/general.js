@@ -58,7 +58,7 @@ $(document).on('page:change', function() {
 });
 
 $(document).ready(function() {
-  $.ajaxSetup({cache: false});
+  $.ajaxSetup({ cache: false, dataType: 'JSON' });
 });
 
 function readURL(input) {

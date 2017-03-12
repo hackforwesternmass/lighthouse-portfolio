@@ -1,0 +1,65 @@
+<nav>
+  <div class='nav-wrapper'>
+    <%= link_to 'Dashboard', admin_dashboard_path, class: 'breadcrumb' %>
+    <%= link_to 'Manage Students', users_path, class: 'breadcrumb' %>
+    <span class='breadcrumb'>Classes</span>
+  </div>
+</nav>
+
+<%= react_component 'UserKlasses', { userId: @user.id } %>
+<!--
+<section class='section-container'>
+  <h3 class='teal-text'>Classes</h3>
+
+  <u>
+    <h5>Currently enrolled</h5>
+  </u>
+
+  <ul class='collection'>
+    <% @user.uncompleted_klasses.uniq.each do |klass| %>
+      <li class='collection-item'>
+        <div>
+          <%= klass.name %>
+          <%= link_to enroll_path(@user.enroll_id(klass)),
+              class: 'secondary-content tooltipped',
+              remote: :true,
+              data: { tooltip: 'Archive', position: 'top', params: { enrolled: { completed: true } }.to_param  },
+              method: :patch do %>
+            <i class='material-icons'>archive</i>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+
+  <u>
+    <h5>Archive</h5>
+  </u>
+
+  <ul class='collection'>
+    <% @user.completed_klasses.uniq.each do |klass| %>
+      <li class='collection-item'>
+        <div>
+          <%= klass.name %> - <%= klass.season %> <%= klass.year %>
+          <a href='#!' class='secondary-content tooltipped' data-tooltip='Unarchive' data-position='top'><i class='material-icons'>unarchive</i></a>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+
+  <u>
+    <h5>All Classes</h5>
+  </u>
+
+  <ul class='collection'>
+    <% @klasses.each do |klass| %>
+      <li class='collection-item'>
+        <div>
+          <%= klass.name %> - <%= klass.season %> <%= klass.year %>
+          <a href='#!' class='secondary-content tooltipped' data-tooltip='Enroll' data-position='top'><i class='material-icons'>add_box</i></a>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+
+</section> -->
