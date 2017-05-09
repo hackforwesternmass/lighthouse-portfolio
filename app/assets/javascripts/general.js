@@ -58,7 +58,13 @@ $(document).on('page:change', function() {
 });
 
 $(document).ready(function() {
-  $.ajaxSetup({ cache: false, dataType: 'JSON' });
+  $.ajaxSetup({
+    cache: false,
+    dataType: 'JSON',
+    error: function() {
+      Materialize.toast('An error has occurred, try reloading the page.', 3500, 'red darken-4');
+    }
+   });
 });
 
 function readURL(input) {

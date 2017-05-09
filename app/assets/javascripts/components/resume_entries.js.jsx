@@ -80,7 +80,6 @@ ResumeEntries.ResumeEntryShow = React.createClass({
 
     $.ajax({
       url: `/users/${this.props.user_id}/resume_entries/${this.props.resumeEntry.id}`,
-      dataType: 'JSON',
       type: 'DELETE',
       success: () => {
         Materialize.toast('Resume entry successfully deleted!', 3500, 'teal');
@@ -153,9 +152,7 @@ ResumeEntries.ResumeEntryForm = React.createClass({
     this.setState({ sendingForm: true });
     $.ajax({
       url: url,
-      dataType: 'JSON',
       type: type,
-      cache: false,
       contentType: false,
       processData: false,
       data: new FormData(e.currentTarget),

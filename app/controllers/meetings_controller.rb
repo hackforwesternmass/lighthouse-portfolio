@@ -2,7 +2,9 @@ class MeetingsController < SessionsController
   load_and_authorize_resource :user
   load_and_authorize_resource :meeting, through: :user
 
-  def index; end
+  def index
+    @meetings = @meetings.where(draft: false).includes(:action_items, :user)
+  end
 
   def create
     if @meeting.save
@@ -33,6 +35,7 @@ class MeetingsController < SessionsController
     params.require(:meeting).permit(
       :notes,
       :user_id,
+      :draft,
       action_items_attributes: [
         :id,
         :description,

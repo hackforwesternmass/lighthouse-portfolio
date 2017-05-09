@@ -3,6 +3,7 @@ class GoalsController < SessionsController
   load_and_authorize_resource :goal, through: :user
 
   def index
+    @goals = @goals.includes(:action_items, :user)
   end
 
   def create

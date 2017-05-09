@@ -6,8 +6,6 @@ class ActionItem < ActiveRecord::Base
   belongs_to :user # Advisor
   has_one :owner, through: :meeting, source: :user # Student
 
-  validates :description, presence: { message: 'Description is required.' }
-
   def owner_name
     owner.full_name
   end

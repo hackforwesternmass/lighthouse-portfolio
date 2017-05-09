@@ -14,7 +14,6 @@ const AdminToDoList = React.createClass({
     e.preventDefault();
     $.ajax({
       url: `/users/${this.props.userId}/action_items/${e.target.dataset.id}`,
-      dataType: 'JSON',
       type: 'PATCH',
       data: { action_item: { archive: true } },
       success: () => {
@@ -29,7 +28,6 @@ const AdminToDoList = React.createClass({
     e.preventDefault();
     $.ajax({
       url: `/users/${this.props.userId}/action_items/${e.target.dataset.id}`,
-      dataType: 'JSON',
       type: 'PATCH',
       data: { action_item: { completed: e.target.dataset.value } },
       success: () => {

@@ -30,5 +30,5 @@ class ActionItemsController < SessionsController
       :archive
     )
   end
-  
+
 end

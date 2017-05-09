@@ -14,6 +14,7 @@ class UsersController < SessionsController
 
   def action_plan
     @highlight_sidebar = 'Action Plan'
+    @draft_meeting = active_user.meetings.where(draft: true).first
   end
 
   def show

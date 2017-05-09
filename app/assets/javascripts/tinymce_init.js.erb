@@ -87,7 +87,7 @@ $(document).on('page:change', function(){
 function initTiny(selector){
 
    if (typeof tinyMCE != 'undefined') {
-    tinyMCE.init({
+    return tinyMCE.init({
       selector: selector,
       menubar: false,
       statusbar: false,

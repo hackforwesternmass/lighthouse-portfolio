@@ -8,9 +8,12 @@ const ToDo = React.createClass({
   },
   loadActionItems() {
     if(this.isMounted()){
-      $.getJSON(`/users/${this.props.userId}/action_items`,
-        data => this.setState({ actionItems: data.action_items, archivedActionItems: data.archived_action_items, loading: false })
-      )
+      $.ajax({
+        url: `/users/${this.props.userId}/action_items`,
+        success: data => {
+          this.setState({ actionItems: data.action_items, archivedActionItems: data.archived_action_items, loading: false })
+        }
+      })
     }
   },
   toggleShowArchive(e) {
@@ -72,7 +75,6 @@ ToDo.ActionItem = React.createClass({
     const { actionItem, userId } = this.props;
     $.ajax({
       url: `/users/${this.props.userId}/action_items/${actionItem.id}`,
-      dataType: 'JSON',
       type: 'PATCH',
       data: { action_item: { completed: !actionItem.completed } },
       success: () => {
@@ -93,7 +95,6 @@ ToDo.ActionItem = React.createClass({
     const { actionItem } = this.props;
     $.ajax({
       url: `/users/${this.props.userId}/action_items/${actionItem.id}`,
-      dataType: 'JSON',
       type: 'PATCH',
       data: { action_item: { archive: !actionItem.archive } },
       success: () => {

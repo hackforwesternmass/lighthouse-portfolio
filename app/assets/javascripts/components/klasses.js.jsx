@@ -3,13 +3,20 @@ const Klasses = React.createClass({
     return { klasses: [] };
   },
   componentDidMount() {
-    $.getJSON('/class', klasses => {
-      this.setState({ klasses });
+    $.ajax({
+      url: '/class',
+      success: klasses => {
+        this.setState({ klasses });
+      }
     });
   },
-  search(params) {
-    $.getJSON('/class/search', params, klasses => {
-      this.setState({ klasses });
+  search(data) {
+    $.ajax({
+      url: '/class/search',
+      data,
+      success: klasses => {
+        this.setState({ klasses });
+      }
     });
   },
   render() {

@@ -4,6 +4,4 @@ class Meeting < ActiveRecord::Base
   belongs_to :user
   has_many :action_items, dependent: :destroy
   accepts_nested_attributes_for :action_items, allow_destroy: true
-
-  validates :notes, presence: { message: 'Notes is required.' }
 end

@@ -59,7 +59,6 @@ Students.Index = React.createClass({
     const { id, meeting_time } = this.state;
     $.ajax({
       url: `/users/${id}`,
-      dataType: 'JSON',
       type: 'PATCH',
       data: { user: { meeting_time } },
       success: () => {

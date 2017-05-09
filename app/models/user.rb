@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   has_many :klasses, through: :enrolls
   has_many :completed_klasses, -> { joins(:enrolls).where(enrolls: { completed: true}).uniq }, through: :enrolls, source: :klass
   has_many :uncompleted_klasses, -> { joins(:enrolls).where(enrolls: { completed: [false, nil]}).uniq }, through: :enrolls, source: :klass
-  has_many :action_items, -> { where(user_id: [nil, '']) }, through: :meetings
+  has_many :action_items, -> { joins(:meeting).where(user_id: [nil, ''], meetings: { draft: false }) }, through: :meetings
   has_many :social_mediums, dependent: :destroy
   has_many :admin_action_items, foreign_key: 'user_id', class_name: 'ActionItem'
   has_many :resume_entries, dependent: :destroy
@@ -55,6 +55,10 @@ class User < ActiveRecord::Base
   def self.username_or_email(username_email)
     a = self.arel_table
     user = self.where(a[:username].eq(username_email).or(a[:email].eq(username_email))).first
+  end
+
+  def draft_meeting
+    meetings.where(draft: true).first
   end
 
   def full_name

@@ -18,7 +18,7 @@
   </section>
 
   <section class='action-plan-container' id='meetings-action-plan'>
-    <%= react_component 'Meetings', { userId: @user.id, adminId: (current_user.admin? && current_user.id), editable: can?(:update, Meeting) } %>
+    <%= react_component 'Meetings', { userId: @user.id, draftMeetingId: active_user.draft_meeting.try(:id), adminId: (current_user.admin? && current_user.id), editable: can?(:update, Meeting) } %>
   </section>
 
   <section class='action-plan-container' id='goals-action-plan'>

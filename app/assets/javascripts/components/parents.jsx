@@ -25,7 +25,6 @@ const Parents = React.createClass({
     e.preventDefault();
     $.ajax({
       url: `/parents`,
-      dataType: 'JSON',
       type: 'POST',
       data: { student_id: this.props.student_id, student_parent_ids: this.state.studentParentIds },
       success: () => {

@@ -74,7 +74,6 @@ var ResourceCategories = React.createClass({
     e.preventDefault();
     $.ajax({
       url: `/users/${this.props.userId}/resources/change_category`,
-      dataType: 'JSON',
       type: 'POST',
       data: {
         old_category: this.state.categoryName,
@@ -92,7 +91,6 @@ var ResourceCategories = React.createClass({
 
     $.ajax({
       url: e.target.parentElement.pathname,
-      dataType: 'JSON',
       type: 'DELETE',
       success: () => {
         Materialize.toast('Resource successfully deleted!', 3500, 'teal')

@@ -60,7 +60,6 @@ ClassPeriods.ClassPeriodEntryShow = React.createClass({
     e.preventDefault();
     $.ajax({
       url: `/class_periods/${this.props.classPeriodEntry.id}`,
-      dataType: 'JSON',
       type: 'DELETE',
       success: () => {
         Materialize.toast('Class period successfully deleted!', 3500, 'teal');
@@ -120,8 +119,6 @@ ClassPeriods.ClassPeriodEntryForm = React.createClass({
     $.ajax({
       url,
       type,
-      dataType: 'JSON',
-      cache: false,
       contentType: false,
       processData: false,
       data: new FormData(e.currentTarget),

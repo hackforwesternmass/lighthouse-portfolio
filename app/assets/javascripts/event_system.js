@@ -12,7 +12,8 @@ var EventSystem = (function() {
       }
 
       for (var i = 0; i < queue.length; i++) {
-        (queue[i])();
+        var args = Array.from(arguments).splice(1)
+        queue[i].apply(this, args)
       }
 
       return true;
@@ -23,6 +24,13 @@ var EventSystem = (function() {
       }
 
       self.queue[event].push(callback);
+    },
+    unsubscribe: function(event) {
+      if (typeof self.queue[event] === 'undefined') {
+        return false;
+      }
+
+      delete self.queue[event];
     }
   };
 }());

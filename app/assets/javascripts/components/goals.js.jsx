@@ -2,23 +2,23 @@ const update = React.addons.update;
 
 const Goals = React.createClass({
   getInitialState() {
-    return {newGoal: false, goals: []};
+    return { newGoal: false, goals: [] };
   },
   componentDidMount() {
     this.loadGoals();
   },
   loadGoals() {
     $.getJSON(`/users/${this.props.userId}/goals`, goals => {
-      this.setState({goals});
+      this.setState({ goals });
     });
   },
   handleNewGoal(e) {
     e.preventDefault();
-    this.setState({newGoal: true});
+    this.setState({ newGoal: true });
   },
   render() {
-    const {goals, newGoal} = this.state;
-    const {editable} = this.props;
+    const { goals, newGoal } = this.state;
+    const { editable } = this.props;
     return (
       <div id='goals'>
         {!newGoal && editable && <a href='#' onClick={this.handleNewGoal} className='hide-on-small-only'>
@@ -27,25 +27,25 @@ const Goals = React.createClass({
               <div className='card-content white-text center-align'>
                 <h6>
                   <i className='fa fa-plus-circle'></i>
-                  ADD GOAL</h6>
+                ADD GOAL</h6>
               </div>
             </div>
           </div>
         </a>
-}
+        }
         {newGoal && <Goals.GoalForm {...this.props} parent={this} goal={{
           action_items: []
         }} newGoal={newGoal}/>}
         {goals.map(goal => {
           return <Goals.Goal {...this.props} parent={this} key={goal.id} goal={goal}/>
         })
-}
+        }
         {goals.length == 0 && <div className='card'>
           <div className='card-content'>
             <h5 className='center-align'>You currently have no goals.</h5>
           </div>
         </div>
-}
+        }
       </div>
     );
   }
@@ -76,11 +76,10 @@ Goals.Goal = React.createClass({
 
 Goals.GoalShow = React.createClass({
   toggleCheck(e) {
-    const {userId, meeting, parent} = this.props;
+    const { userId, meeting, parent } = this.props;
     $.ajax({
       url: `/users/${userId}/action_items/${e.currentTarget.dataset.id}`,
       type: 'PATCH',
-      dataType: 'JSON',
       data: {
         action_item: {
           completed: e.currentTarget.checked
@@ -100,11 +99,10 @@ Goals.GoalShow = React.createClass({
   },
   toggleComplete(e) {
     e.preventDefault();
-    const {userId, goal, parent} = this.props;
+    const { userId, goal, parent } = this.props;
 
     $.ajax({
       url: `/users/${userId}/goals/${goal.id}`,
-      dataType: 'JSON',
       type: 'PATCH',
       data: {
         goal: {
@@ -133,7 +131,6 @@ Goals.GoalShow = React.createClass({
 
     $.ajax({
       url: `/users/${userId}/goals/${goal.id}`,
-      dataType: 'JSON',
       type: 'DELETE',
       success: () => {
         Materialize.toast('Goal successfully deleted!', 3500, 'teal');
@@ -293,8 +290,6 @@ Goals.GoalForm = React.createClass({
     $.ajax({
       url,
       type,
-      dataType: 'JSON',
-      cache: false,
       contentType: false,
       processData: false,
       data: new FormData(e.currentTarget),
