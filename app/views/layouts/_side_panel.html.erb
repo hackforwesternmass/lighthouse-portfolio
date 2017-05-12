@@ -5,11 +5,11 @@
 <ul id='slide-out' class='side-nav fixed grey darken-4' data-no-turbolink>
   <%= image_tag ENV['LOGO_LINK'], class: 'logo' %>
 
-  <%= link_to (current_user.admin? ? "Sign out - #{active_user.full_name}" : 'Dashboard'), exit_student_path, class: 'sign-out-student' if session[:student_id].present? %>
+  <%= link_to (current_user.admin? ? 'RETURN TO ADMIN' : 'Dashboard'), exit_student_path, class: 'sign-out-student' if session[:student_id].present? %>
 
-  <%= side_panel_link(admin_dashboard_path, 'user-circle', 'Dashboard') if current_user.admin? %>
+  <%= side_panel_link(admin_dashboard_path, 'user-circle', 'Dashboard') if active_user.admin? %>
   <%= side_panel_link(action_plan_user_path(active_id), 'desktop', 'Action Plan') if current_user.student? || session[:student_id].present? %>
-  <%= side_panel_link(calendar_path, 'calendar', 'Class Calendar') if (Calendar.first.try(:show) && Calendar.first.try(:calendar_id) != '') %>
+  <%= side_panel_link(calendar_path, 'calendar', 'Class Calendar') if !application_settings.hide_calendar && application_settings.calendar_id.present? %>
   <%= side_panel_link(user_resources_path(active_id), 'bookmark', 'Resources') %>
   <%= side_panel_link(user_portfolio_path(active_id), 'user', 'Portfolio') %>
 

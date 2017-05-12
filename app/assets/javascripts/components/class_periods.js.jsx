@@ -6,8 +6,11 @@ const ClassPeriods = React.createClass({
     this.loadClassPeriods();
   },
   loadClassPeriods(){
-    $.getJSON( '/class_periods', classPeriodEntries => {
-      this.setState({ classPeriodEntries, newClassPeriodEntry: false });
+    $.ajax({
+      url: '/class_periods',
+      success: classPeriodEntries => {
+        this.setState({ classPeriodEntries, newClassPeriodEntry: false });
+      }
     });
   },
   close(e){
@@ -20,14 +23,14 @@ const ClassPeriods = React.createClass({
   },
   render(){
     return(
-      <div>
+      <div className='row'>
         {
           this.state.classPeriodEntries.map(classPeriodEntry => {
             return <ClassPeriods.ClassPeriodEntry {...this.props} classPeriodEntry={classPeriodEntry} key={classPeriodEntry.id} loadClassPeriods={this.loadClassPeriods} />
           })
         }
         <br/>
-        {!this.state.newClassPeriodEntry && <a href='#' onClick={this.addNewClassPeriodEntry} className='teal btn' style={{marginLeft: '0.75rem'}}>Add Period</a>}
+        {!this.state.newClassPeriodEntry && <a href='#' onClick={this.addNewClassPeriodEntry} className='btn' style={{marginLeft: '0.75rem'}}>Add Period</a>}
         {this.state.newClassPeriodEntry && <ClassPeriods.ClassPeriodEntryForm {...this.props} classPeriodEntry={{}} loadClassPeriods={this.loadClassPeriods} close={this.close} newClassPeriodEntry={this.state.newClassPeriodEntry}/>}
       </div>
     );
@@ -47,7 +50,7 @@ ClassPeriods.ClassPeriodEntry = React.createClass({
       <div>
         {
           this.state.editing
-          ? <ClassPeriods.ClassPeriodEntryForm {...this.props} toggleEdit={this.toggleEdit} />
+            ? <ClassPeriods.ClassPeriodEntryForm {...this.props} toggleEdit={this.toggleEdit} />
           : <ClassPeriods.ClassPeriodEntryShow {...this.props} toggleEdit={this.toggleEdit} />
         }
       </div>
@@ -62,26 +65,25 @@ ClassPeriods.ClassPeriodEntryShow = React.createClass({
       url: `/class_periods/${this.props.classPeriodEntry.id}`,
       type: 'DELETE',
       success: () => {
-        Materialize.toast('Class period successfully deleted!', 3500, 'teal');
         this.props.loadClassPeriods();
       },
       error: () => {
-        Materialize.toast('Failed to delete resume entry', 3500, 'red darken-4');
+        Materialize.toast('Failed to delete resume entry', 3500, 'red darken-3');
       }
     });
   },
   render(){
     const { start_time, end_time } = this.props.classPeriodEntry;
     return(
-      <div className='entry' style={{padding: '0 0.75rem', maxWidth: 500}}>
-        <div className='title'>
+      <div className='entry' style={{padding: '0 0.75rem', fontSize: 16, maxWidth: 500}}>
+        <div>
           {start_time} - {end_time}
           <span className='secondary-content'>
-            <a href='#' onClick={this.props.toggleEdit}><i className='fa fa-pencil-square-o teal-text'></i></a>
-            {' '}<a href='#' rel='nofollow' onClick={this.delete} ><i className='fa fa-trash teal-text'></i></a>
-        </span>
+            <a href='#' onClick={this.props.toggleEdit}><i className='fa fa-pencil-square-o'></i></a>
+            {' '}<a href='#' rel='nofollow' onClick={this.delete} ><i className='fa fa-trash'></i></a>
+          </span>
+        </div>
       </div>
-    </div>
     );
   }
 });
@@ -123,13 +125,12 @@ ClassPeriods.ClassPeriodEntryForm = React.createClass({
       processData: false,
       data: new FormData(e.currentTarget),
       success: () => {
-        Materialize.toast('Class period successfully saved!', 3500, 'teal');
         this.setState({ sendingForm: false, error: false });
         this.props.loadClassPeriods();
         this.closeForm();
       },
       error: (data) => {
-        Materialize.toast('Failed to update class period', 3500, 'red darken-4');
+        Materialize.toast('Failed to update class period', 3500, 'red darken-3');
         if(data.status === 422){
           this.setState({sendingForm: false, error: true, errorMessages: data.responseJSON });
         }else{
@@ -160,13 +161,13 @@ ClassPeriods.ClassPeriodEntryForm = React.createClass({
 
         <div className='row'>
           <div className='input-field col s12'>
-            <button name='commit' type='submit' className='teal btn'>{this.state.sendingForm ? <i className='fa fa-spinner fa-spin'></i> : 'Save' }</button>
+            <button name='commit' type='submit' className='btn'>{this.state.sendingForm ? <i className='fa fa-spinner fa-spin'></i> : 'Save' }</button>
             {' '}<button className='red darken-1 btn' onClick={this.closeForm} name='button' type='button' >Close</button>
             {this.state.error && <span className='error'>Period failed to update!</span>}
+          </div>
         </div>
-      </div>
 
-    </form>
+      </form>
     );
   }
 });

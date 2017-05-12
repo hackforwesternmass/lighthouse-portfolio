@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   scope :students, -> { where(role: 'student' ) }
   has_one :portfolio, dependent: :destroy
+  has_many :feedbacks, dependent: :destroy
   has_many :resources, dependent: :destroy
   has_many :meetings, dependent: :destroy
   has_many :goals, dependent: :destroy

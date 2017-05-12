@@ -5,14 +5,16 @@ var Students = React.createClass({
     return { students: [] };
   },
   componentDidMount() {
-    $.getJSON('/users',
-      students => this.setState({ students })
-    );
+    this.loadStudents();
   },
-  search(params) {
-    $.getJSON('/users', params,
-      students => this.setState({ students })
-    );
+  loadStudents(data = {}) {
+    $.ajax({
+      url: '/users',
+      data,
+      success: students => {
+        this.setState({ students });
+      }
+    });
   },
   searchText(e) {
     this.search({ q: e.target.value });
@@ -34,7 +36,7 @@ var Students = React.createClass({
             </a>
           </div>
         </div>
-        <Students.Index {...this.props} students={students} search={this.search} />
+        <Students.Index {...this.props} students={students} loadStudents={this.loadStudents} />
       </section>
     )
   }
@@ -63,10 +65,10 @@ Students.Index = React.createClass({
       data: { user: { meeting_time } },
       success: () => {
         $('#meeting-time-modal').modal('close');
-        this.props.search({}); // Re-renders students index
+        this.props.loadStudents(); // Re-renders students index
       },
       error: () => {
-        Materialize.toast('Failed to update meeting time.', 3500, 'red darken-4');
+        Materialize.toast('Failed to update meeting time.', 3500, 'red darken-3');
       }
     });
   },

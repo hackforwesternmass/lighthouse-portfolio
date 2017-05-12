@@ -1,8 +1,10 @@
 module ApplicationHelper
 
   def side_panel_link(url, icon, text)
-  	content_tag :li, class: ("active-tab" if current_page?(url) || @highlight_sidebar == text ) do
-  		link_to fa_icon(icon, text: text), url, class: "grey-text text-darken-1"
+  	content_tag :li, class: ('active-tab' if current_page?(url) || @highlight_sidebar == text ) do
+  		link_to url, class: 'grey-text' do
+  		  fa_icon(icon, text: text)
+  		end
   	end
   end
 
@@ -12,6 +14,10 @@ module ApplicationHelper
     else
       return "In #{distance_of_time_in_words(Time.now, time)}".capitalize
     end
+  end
+
+  def application_settings
+    ApplicationSetting.find_or_create_by id: 1
   end
 
 end

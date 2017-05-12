@@ -8,5 +8,5 @@ class ApplicationController < ActionController::Base
       format.json { render json: {}, status: 403 }
     end
   end
-  
+
 end

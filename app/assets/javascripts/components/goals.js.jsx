@@ -8,9 +8,12 @@ const Goals = React.createClass({
     this.loadGoals();
   },
   loadGoals() {
-    $.getJSON(`/users/${this.props.userId}/goals`, goals => {
-      this.setState({ goals });
-    });
+    $.ajax({
+      url: `/users/${this.props.userId}/goals`,
+      success: goals => {
+        this.setState({ goals });
+      }
+    })
   },
   handleNewGoal(e) {
     e.preventDefault();
@@ -21,30 +24,36 @@ const Goals = React.createClass({
     const { editable } = this.props;
     return (
       <div id='goals'>
-        {!newGoal && editable && <a href='#' onClick={this.handleNewGoal} className='hide-on-small-only'>
-          <div className='row'>
-            <div className='card grey darken-3 no-margin hoverable'>
-              <div className='card-content white-text center-align'>
-                <h6>
-                  <i className='fa fa-plus-circle'></i>
-                ADD GOAL</h6>
+        {!newGoal && editable &&
+          <a href='#' onClick={this.handleNewGoal} className='hide-on-small-only'>
+            <div className='row'>
+              <div className='card grey darken-3 no-margin hoverable'>
+                <div className='card-content white-text center-align'>
+                  <h6>
+                    <i className='fa fa-plus-circle'></i>
+                    ADD GOAL
+                  </h6>
+                </div>
               </div>
             </div>
-          </div>
-        </a>
+          </a>
         }
-        {newGoal && <Goals.GoalForm {...this.props} parent={this} goal={{
-          action_items: []
-        }} newGoal={newGoal}/>}
-        {goals.map(goal => {
-          return <Goals.Goal {...this.props} parent={this} key={goal.id} goal={goal}/>
-        })
+        {
+          newGoal &&
+            <Goals.GoalForm {...this.props} parent={this} goal={{ action_items: [] }} newGoal={newGoal}/>
         }
-        {goals.length == 0 && <div className='card'>
-          <div className='card-content'>
-            <h5 className='center-align'>You currently have no goals.</h5>
-          </div>
-        </div>
+        {
+          goals.map(goal => {
+            return <Goals.Goal {...this.props} parent={this} key={goal.id} goal={goal}/>
+          })
+        }
+        {
+          goals.length == 0 &&
+            <div className='card'>
+              <div className='card-content'>
+                <h5 className='center-align'>You currently have no goals.</h5>
+              </div>
+            </div>
         }
       </div>
     );
@@ -90,7 +99,7 @@ Goals.GoalShow = React.createClass({
       },
       error: error => {
         if (this.props.editable) {
-          Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-4');
+          Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-3');
         } else {
           Materialize.toast('You have viewing privilege only.', 3500, 'red darken-1');
         }
@@ -114,7 +123,7 @@ Goals.GoalShow = React.createClass({
       },
       error: () => {
         if (this.props.editable) {
-          Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-4');
+          Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-3');
         } else {
           Materialize.toast('You have viewing privilege only.', 3500, 'red darken-1');
         }
@@ -137,7 +146,7 @@ Goals.GoalShow = React.createClass({
         parent.loadGoals();
       },
       error: () => {
-        Materialize.toast('Failed to delete goal', 3500, 'red darken-4');
+        Materialize.toast('Failed to delete goal', 3500, 'red darken-3');
       }
     });
   },
@@ -300,7 +309,7 @@ Goals.GoalForm = React.createClass({
         parent.loadGoals();
       },
       error: error => {
-        Materialize.toast('Failed to save goal.', 3500, 'red darken-4');
+        Materialize.toast('Failed to save goal.', 3500, 'red darken-3');
         if (error.status === 422) {
           this.setState({error: true, errorMessages: error.responseJSON});
         } else {

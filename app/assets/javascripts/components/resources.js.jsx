@@ -1,6 +1,6 @@
 const Resources = React.createClass({
   getInitialState() {
-    return {generalResources: {}, resources: {}, editing: false}
+    return { generalResources: {}, resources: {}, editing: false }
   },
   componentDidMount() {
     this.updateResourceGroup()
@@ -12,8 +12,11 @@ const Resources = React.createClass({
     })
   },
   updateResourceGroup() {
-    $.getJSON(`/users/${this.props.userId}/resources`, data => {
-      this.setState({generalResources: data.general_resources, resources: data.resources});
+    $.ajax({
+      url: `/users/${this.props.userId}/resources`,
+      success: json => {
+        this.setState({ generalResources: json.general_resources, resources: json.resources });
+      }
     });
   },
   render() {
@@ -97,7 +100,7 @@ var ResourceCategories = React.createClass({
         this.props.updateResourceGroup()
       },
       error: () => {
-        Materialize.toast('Failed to delete resource', 3500, 'red darken-4')
+        Materialize.toast('Failed to delete resource', 3500, 'red darken-3')
       }
     });
   },
@@ -158,9 +161,7 @@ var ResourceCategories = React.createClass({
 
     return (
       <div className='resource-item col s12 m6 l4'>
-        <div className={'resource-category thick z-depth-1 ' + (this.state.general
-          ? 'general'
-          : '')}>
+        <div className={'resource-category thick z-depth-1 ' + (general ? 'general' : '')}>
           {categoryName}
         </div>
         <ul>

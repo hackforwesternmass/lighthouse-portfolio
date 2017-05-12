@@ -22,7 +22,6 @@ class SessionsController < ApplicationController
   end
 
   def login
-    @background = BackgroundImage.first
     return redirect_to after_login_path if signed_in?
     render layout: 'public'
   end

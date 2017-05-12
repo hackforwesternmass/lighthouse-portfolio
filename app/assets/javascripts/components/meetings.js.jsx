@@ -140,7 +140,7 @@ Meetings.MeetingShow = React.createClass({
         parent.loadMeetings();
       },
       error: () => {
-        Materialize.toast('Failed to delete meeting', 3500, 'red darken-4');
+        Materialize.toast('Failed to delete meeting', 3500, 'red darken-3');
       }
     });
   },
@@ -155,7 +155,7 @@ Meetings.MeetingShow = React.createClass({
       },
       error: () => {
         if(this.props.editable) {
-          Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-4');
+          Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-3');
         } else {
           Materialize.toast('You have viewing privilege only.', 3500, 'red darken-1');
         }
@@ -253,7 +253,7 @@ Meetings.MeetingForm = React.createClass({
           url: `/users/${userId}/meetings/${this.state.meeting.id}`,
           type: 'DELETE',
           error: () => {
-            Materialize.toast('Failed to delete meeting', 3500, 'red darken-4');
+            Materialize.toast('Failed to delete meeting', 3500, 'red darken-3');
           }
         });
       }
@@ -320,7 +320,7 @@ Meetings.MeetingForm = React.createClass({
       processData,
       data,
       success: meeting => success(meeting),
-      error: () => Materialize.toast('Failed to save meeting.', 3500, 'red darken-4')
+      error: () => Materialize.toast('Failed to save meeting.', 3500, 'red darken-3')
     });
   },
   render() {
@@ -414,7 +414,7 @@ Meetings.ActionItem = React.createClass({
       data: { meeting: { action_items_attributes: { '0': { id: this.props.id, _destroy: '1' } } } },
       success: meeting => this.props.parent.setState({ meeting }),
       error: () => {
-        Materialize.toast('Failed to delete action item', 3500, 'red darken-4');
+        Materialize.toast('Failed to delete action item', 3500, 'red darken-3');
       }
     });
   },

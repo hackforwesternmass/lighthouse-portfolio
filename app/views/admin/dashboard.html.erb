@@ -5,57 +5,48 @@
 </nav>
 
 <section id='dashboard' class='section-container'>
-  <div class='row'>
-    <div class='manager'>
-      <div class='box'>
-        <%= link_to users_path, class: 'flow-text' do %>
-          <%= fa_icon('angle-double-right', text: ' Manage students') %>
-          <%= fa_icon 'users', class:  'icon no-padding' %>
-        <% end %>
+  <ul class='collapsible' data-collapsible='accordion'>
+    <li>
+      <%= link_to users_path do %>
+      <div class='collapsible-header'>
+        <i class='material-icons deep-orange-text text-darken-4'>people</i>
+        Manage Students
       </div>
-      <div class='box'>
-        <%= link_to klasses_path, class: 'flow-text' do %>
-          <%= fa_icon('angle-double-right', text: ' Manage classes') %>
-          <%= fa_icon 'book', class:  'icon no-padding' %>
-        <% end %>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to klasses_path do %>
+      <div class='collapsible-header'>
+        <i class='material-icons deep-orange-text text-darken-4'>chrome_reader_mode</i>
+        Manage Classes
       </div>
-      <div class='box'>
-        <%= link_to manage_calendar_path, class: 'flow-text' do %>
-          <%= fa_icon('angle-double-right', text: ' Manage calendar') %>
-          <%= fa_icon 'calendar', class:  'icon no-padding' %>
-        <% end %>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to new_user_resource_path(user_id: @user, general: true) do %>
+      <div class='collapsible-header'>
+        <i class='material-icons deep-orange-text text-darken-4'>bookmark</i>
+        Create General Resources
       </div>
-      <div class='box'>
-        <%= link_to new_user_resource_path(user_id: @user, general: true), class: 'flow-text' do %>
-          <%= fa_icon('angle-double-right', text: ' Create general resource') %>
-          <%= fa_icon 'bookmark', class:  'icon no-padding' %>
-        <% end %>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to edit_user_path(role: 'admin', id: @user.id) do %>
+      <div class='collapsible-header'>
+        <i class='material-icons deep-orange-text text-darken-4'>account_circle</i>
+        Account Settings
       </div>
-      <div class='box'>
-        <%= link_to edit_user_path(role: 'admin', id: @user.id), class: 'flow-text' do %>
-          <%= fa_icon('angle-double-right', text: ' Account settings') %>
-          <%= fa_icon 'cogs', class:  'icon no-padding' %>
-        <% end %>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to edit_application_settings_path do %>
+      <div class='collapsible-header'>
+        <i class='material-icons deep-orange-text text-darken-4'>settings</i>
+        Application Settings
       </div>
-       <div class='box'>
-        <%= link_to new_user_path(role: :admin), class: 'flow-text' do %>
-          <%= fa_icon('angle-double-right', text: ' Create admin account') %>
-          <%= fa_icon 'dot-circle-o', class:  'icon no-padding' %>
-        <% end %>
-      </div>
-       <div class='box'>
-        <%= link_to manage_background_image_path, class: 'flow-text' do %>
-          <%= fa_icon('angle-double-right', text: ' Manage login screen background image') %>
-          <%= fa_icon 'picture-o', class:  'icon no-padding' %>
-        <% end %>
-      </div>
-      <div class='box'>
-       <%= link_to feedbacks_path, class: 'flow-text' do %>
-         <%= fa_icon('angle-double-right', text: ' Teacher Feedback') %>
-         <%= fa_icon 'commenting-o', class:  'icon no-padding' %>
-       <% end %>
-     </div>
-    </div>
-    <%= react_component 'AdminToDoList', { userId: @user.id } %>
-  </div>
+      <% end %>
+    </li>
+  </ul>
+
+  <%= react_component 'AdminToDoList', { userId: @user.id }, { class: 'things-to-do' } %>
 </section>

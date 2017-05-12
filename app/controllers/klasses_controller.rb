@@ -1,5 +1,5 @@
 class KlassesController < SessionsController
-  load_and_authorize_resource :klass, except: :user_index
+  load_and_authorize_resource :klass
 
   def index
     @klasses = Klass.where(year: 2016..Float::INFINITY)
@@ -10,10 +10,6 @@ class KlassesController < SessionsController
       format.html
       format.json
     end
-  end
-
-  def user_index
-    render json: User.find(active_id).klasses
   end
 
   def search

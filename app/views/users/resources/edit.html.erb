@@ -1,0 +1,13 @@
+<nav>
+  <div class='nav-wrapper'>
+    <%= link_to 'Resources', user_resources_path(@user), class: 'breadcrumb' %>
+    <span class='breadcrumb'>Edit Resource</span>
+  </div>
+</nav>
+
+<section class='section-container'>
+  <div class='row'>
+    <h4 class='col s12'>Edit Resource</h4>
+  </div>
+  <%= render 'form' %>
+</section>

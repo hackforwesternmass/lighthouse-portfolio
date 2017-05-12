@@ -1,8 +1,8 @@
-$(document).on("click", ".attachment-list a", function(e) {
+$(document).on('click', '.attachment-list a', function(e) {
   e.stopPropagation();
 });
 
-$(document).on("click", 'tr[data-href]', function() {
+$(document).on('click', 'tr[data-href]', function() {
   Turbolinks.visit($(this).data('href'));
 });
 
@@ -30,7 +30,7 @@ $(document).on('page:change', function() {
   }
 
   if ($('#alert').length) {
-    Materialize.toast($('#alert').data("alert"), 3500, "red darken-4");
+    Materialize.toast($('#alert').data("alert"), 3500, "red darken-3");
   }
 
   if ($("#calendar_calendar_id").val() == "") {
@@ -62,7 +62,7 @@ $(document).ready(function() {
     cache: false,
     dataType: 'JSON',
     error: function() {
-      Materialize.toast('An error has occurred, try reloading the page.', 3500, 'red darken-4');
+      Materialize.toast('An error has occurred, try reloading the page.', 3500, 'red darken-3');
     }
    });
 });

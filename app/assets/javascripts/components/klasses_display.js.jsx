@@ -11,7 +11,7 @@ const KlassesDisplay = React.createClass({
         this.setState({ klasses, loading: false });
       },
       error: () => {
-        Materialize.toast('An error has occured loading enrolled classes.', 3500, 'red darken-4');
+        Materialize.toast('An error has occured loading enrolled classes.', 3500, 'red darken-3');
       }
     });
   },

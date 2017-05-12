@@ -13,11 +13,19 @@ main{
   @media #{$medium-and-down} {
     padding-left: 0px;
   }
-
 }
 
 .dropdown-content {
   margin: 0 !important;
+}
+
+.col-padding {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+h4 {
+  color: $primary-color;
 }
 
 a[href^="mailto:"]:hover {

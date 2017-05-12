@@ -8,8 +8,11 @@ const ResumeEntries = React.createClass({
     this.loadResumeEntries();
   },
   loadResumeEntries(){
-    $.getJSON(`/users/${this.props.user_id}/resume_entries`, resumeEntries => {
-      this.setState({ resumeEntries, newResumeEntry: false });
+    $.ajax({
+      url: `/users/${this.props.user_id}/resume_entries`,
+      success: resumeEntries => {
+        this.setState({ resumeEntries, newResumeEntry: false });
+      }
     });
   },
   save(){
@@ -86,7 +89,7 @@ ResumeEntries.ResumeEntryShow = React.createClass({
         this.props.save();
       },
       error: () => {
-        Materialize.toast('Failed to delete resume entry', 3500, 'red darken-4');
+        Materialize.toast('Failed to delete resume entry', 3500, 'red darken-3');
       }
     });
   },
@@ -163,7 +166,7 @@ ResumeEntries.ResumeEntryForm = React.createClass({
         this.closeForm();
       },
       error: error => {
-        Materialize.toast('Failed to update resume entry', 3500, 'red darken-4');
+        Materialize.toast('Failed to update resume entry', 3500, 'red darken-3');
         if(error.status === 422){
           this.setState({ sendingForm: false, error: true, success: false, errorMessages: error.responseJSON });
         }else{

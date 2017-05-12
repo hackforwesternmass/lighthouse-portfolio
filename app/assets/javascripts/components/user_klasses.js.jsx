@@ -19,7 +19,7 @@ const UserKlasses = React.createClass({
         this.setState({ enrolledKlasses, loading: false });
       },
       error: () => {
-        Materialize.toast('An error has occured loading enrolled classes.', 3500, 'red darken-4');
+        Materialize.toast('An error has occured loading enrolled classes.', 3500, 'red darken-3');
       }
     });
   },
@@ -31,7 +31,7 @@ const UserKlasses = React.createClass({
         this.setState({ allKlasses, loading: false })
       },
       error: () => {
-        Materialize.toast('An error has occured loading all classes.', 3500, 'red darken-4');
+        Materialize.toast('An error has occured loading all classes.', 3500, 'red darken-3');
       }
     });
   },
@@ -48,7 +48,7 @@ const UserKlasses = React.createClass({
         this.loadAllKlasses();
       },
       error: () => {
-        Materialize.toast('An error occured. Reload the page and try toggling class checkbox again.', 3500, 'red darken-4');
+        Materialize.toast('An error occured. Reload the page and try toggling class checkbox again.', 3500, 'red darken-3');
       }
     });
   },
@@ -79,7 +79,7 @@ const UserKlasses = React.createClass({
         this.loadAllKlasses();
       },
       error: () => {
-        Materialize.toast('An error occured. Reload the page and try toggling class checkbox again.', 3500, 'red darken-4');
+        Materialize.toast('An error occured. Reload the page and try toggling class checkbox again.', 3500, 'red darken-3');
       }
     });
   },
@@ -87,7 +87,7 @@ const UserKlasses = React.createClass({
     const { enrolledKlasses, allKlasses, loading, showArchivedKlasses } = this.state;
     return(
       <div className='section-container'>
-        <h3 className='teal-text'>Enrolled Classes</h3>
+        <h4>Enrolled Classes</h4>
 
         <a href='#enroll-modal' className='btn'>Enroll to class</a>
 

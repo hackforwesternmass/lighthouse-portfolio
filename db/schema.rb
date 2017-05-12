@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170508155915) do
+ActiveRecord::Schema.define(version: 20170512125539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,20 @@ ActiveRecord::Schema.define(version: 20170508155915) do
   add_index "action_items", ["goal_id"], name: "index_action_items_on_goal_id", using: :btree
   add_index "action_items", ["meeting_id"], name: "index_action_items_on_meeting_id", using: :btree
   add_index "action_items", ["user_id"], name: "index_action_items_on_user_id", using: :btree
+
+  create_table "application_settings", force: :cascade do |t|
+    t.boolean  "hide_feedback",                      default: false
+    t.string   "calendar_id"
+    t.boolean  "hide_calendar",                      default: false
+    t.boolean  "hide_week_view",                     default: false
+    t.string   "calendar_url"
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.string   "home_background_image_file_name"
+    t.string   "home_background_image_content_type"
+    t.integer  "home_background_image_file_size"
+    t.datetime "home_background_image_updated_at"
+  end
 
   create_table "background_images", force: :cascade do |t|
     t.string   "image_file_name"
@@ -76,7 +90,10 @@ ActiveRecord::Schema.define(version: 20170508155915) do
     t.text     "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
+
+  add_index "feedbacks", ["user_id"], name: "index_feedbacks_on_user_id", using: :btree
 
   create_table "goals", force: :cascade do |t|
     t.string   "title"

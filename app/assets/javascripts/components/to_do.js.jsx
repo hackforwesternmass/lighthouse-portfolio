@@ -83,7 +83,7 @@ ToDo.ActionItem = React.createClass({
       },
       error: () => {
         if(this.props.editable) {
-          Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-4');
+          Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-3');
         } else {
           Materialize.toast('You have viewing privilege only.', 3500, 'red darken-1');
         }
@@ -102,7 +102,7 @@ ToDo.ActionItem = React.createClass({
       },
       error: () => {
         if(this.props.editable) {
-          Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-4');
+          Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-3');
         } else {
           Materialize.toast('You have viewing privilege only.', 3500, 'red darken-1');
         }
