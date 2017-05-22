@@ -45,12 +45,12 @@
 
   <div class='row'>
     <div class='input-field col s12 m6'>
-      <%= f.select :year, options_for_select(((Time.now.year - 1)..(Time.now.year + 4)), selected: @klass.year), include_blank: true %>
+      <%= f.select :years, options_for_select(((Time.now.year - 1)..(Time.now.year + 4)), selected: @klass.years), { include_blank: true }, { multiple: true }  %>
       <%= f.label :year %>
     </div>
 
     <div class='input-field col s12 m6'>
-      <%= f.select :season, options_for_select(Klass::VALID_SEASON_TYPES, selected: @klass.season), include_blank: true %>
+      <%= f.select :seasons, options_for_select(Klass::VALID_SEASON_TYPES, selected: @klass.seasons), { include_blank: true }, { multiple: true } %>
       <%= f.label :season %>
     </div>
   </div>

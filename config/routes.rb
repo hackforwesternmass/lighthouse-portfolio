@@ -60,6 +60,8 @@ Rails.application.routes.draw do
     get  :exit_student
     get  :login
     get  :logout
+    get  :forgot_password
+    post :forgot_password
   end
 
   get '/unfound', to: 'portfolios#unfound'

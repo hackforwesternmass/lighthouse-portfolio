@@ -95,53 +95,15 @@ Klasses.Search = React.createClass({
       <div className="input-field col s12 m2 l2">
         <a className="btn" href="/class/new" style={{fontSize: 10}}>
           <i className="fa fa-plus no-padding" style={{fontSize: 10}}></i> Create
-          </a>
-        </div>
-      </div>;
+        </a>
+      </div>
+    </div>;
     }
   });
 
   Klasses.Index = React.createClass({
     componentDidUpdate() {
       $('.tooltipped').tooltip();
-    },
-    klass() {
-      var klassNodes = this.props.klasses.map(function(klass){
-        var studentNames = klass.users.map(user => user.full_name)
-
-        return  <tr key={klass.id}>
-          <td className="name-desc">
-            <div className="name">
-              <a href={"/class/"+ klass.id +"/edit"}> {klass.name}</a>
-              {!!klass.google_drive_url ? <small><a href={klass.google_drive_url} target="_blank"><i className="fa fa-folder-open"></i></a></small> : null}
-              <small><a data-confirm="Are you positive that you want to delete this class?" rel="nofollow" data-method="delete" href={"/class/" + klass.id}><i className="fa fa-trash"></i></a></small>
-            </div>
-            <br/>
-            {klass.description && <div className='secondary' dangerouslySetInnerHTML={{ __html: klass.description.replace(/\n\r?/g, '<br>') }} />}
-          </td>
-          <td className="hide-on-small-only">
-            {klass.instructor && <div><strong>{klass.instructor}</strong></div>}
-            {klass.instructor_email && <div><a className='secondary' href={"mailto:" + klass.instructor_email}>{klass.instructor_email}</a></div>}
-            {klass.instructor_phone && <div className='secondary' >{klass.instructor_phone}</div>}
-          </td>
-          <td className="hide-on-small-only">
-            <div>
-              <b>
-                {klass.season && <span>{klass.season} </span>}
-                {klass.year && <span> {klass.year}</span>}
-              </b>
-            </div>
-            {klass.location && <div className='secondary'>{klass.location}</div>}
-            {klass.weekday && <div className='secondary'>{klass.weekday}</div>}
-            {klass.time && <div className='secondary'>{klass.time}</div>}
-          </td>
-          <td className="hide-on-small-only">
-            <div className={studentNames.length > 0 ? "tooltipped center-align" : 'center-align'} data-position="left" data-delay="50" data-tooltip={studentNames.join(', ')}>{klass.enrolled_count}</div>
-          </td>
-        </tr>;
-      }.bind(this));
-
-      return klassNodes;
     },
     render() {
       return  <table className="bordered z-depth-1">
@@ -155,7 +117,43 @@ Klasses.Search = React.createClass({
         </thead>
 
         <tbody>
-          {this.klass()}
+          {
+            this.props.klasses.map(klass => {
+              const studentNames = klass.users.map(user => user.full_name)
+              return(
+                <tr key={klass.id}>
+                  <td className="name-desc">
+                    <div className="name">
+                      <a href={`/class/${klass.id}/edit`}> {klass.name}</a>
+                      {!!klass.google_drive_url ? <small><a href={klass.google_drive_url} target="_blank"><i className="fa fa-folder-open"></i></a></small> : null}
+                      <small><a data-confirm="Are you positive that you want to delete this class?" rel="nofollow" data-method="delete" href={"/class/" + klass.id}><i className="fa fa-trash"></i></a></small>
+                    </div>
+                    <br/>
+                    {klass.description && <div className='secondary' dangerouslySetInnerHTML={{ __html: klass.description.replace(/\n\r?/g, '<br>') }} />}
+                  </td>
+                  <td className="hide-on-small-only">
+                    {klass.instructor && <div><strong>{klass.instructor}</strong></div>}
+                    {klass.instructor_email && <div><a className='secondary' href={`mailto:${klass.instructor_email}`}>{klass.instructor_email}</a></div>}
+                    {klass.instructor_phone && <div className='secondary' >{klass.instructor_phone}</div>}
+                  </td>
+                  <td className="hide-on-small-only">
+                    <div>
+                      <b>
+                        {klass.seasons.length > 0 && <span>{klass.seasons.join('/')} </span>}
+                        {klass.years.length > 0 && <span> {klass.years.join('/')}</span>}
+                      </b>
+                    </div>
+                    {klass.location && <div className='secondary'>{klass.location}</div>}
+                    {klass.weekday && <div className='secondary'>{klass.weekday}</div>}
+                    {klass.time && <div className='secondary'>{klass.time}</div>}
+                  </td>
+                  <td className="hide-on-small-only">
+                    <a href={`/class/${klass.id}.csv`} download={klass.name} className={studentNames.length > 0 ? "tooltipped center-align" : 'center-align'} data-position="left" data-delay="50" data-tooltip={studentNames.join(', ')}>{klass.enrolled_count}</a>
+                  </td>
+                </tr>
+              )
+            })
+          }
         </tbody>
       </table>
     }

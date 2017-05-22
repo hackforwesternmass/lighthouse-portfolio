@@ -38,6 +38,20 @@ class SessionsController < ApplicationController
     redirect_to root_path
   end
 
+  def forgot_password
+    if request.post?
+      user = User.find_by(email: params[:email])
+      unless user.present?
+        redirect_to forgot_password_path, { alert: 'Email does not exist' }
+        return
+      end
+      user.reset_password
+      redirect_to root_path, flash: { notice: 'Reset instructions have been sent' }
+    else
+      render layout: 'public'
+    end
+  end
+
   private
 
     def after_login_path

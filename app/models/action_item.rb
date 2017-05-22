@@ -1,4 +1,5 @@
 class ActionItem < ActiveRecord::Base
+  include ISODateMethods
   default_scope { order(created_at: :desc) }
 
   belongs_to :meeting
@@ -8,5 +9,9 @@ class ActionItem < ActiveRecord::Base
 
   def owner_name
     owner.full_name
+  end
+
+  def due_date_to_iso
+    convert_to_iso(due_date)
   end
 end

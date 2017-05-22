@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170512125539) do
+ActiveRecord::Schema.define(version: 20170522011905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 20170512125539) do
     t.text     "description"
     t.boolean  "is_completed", default: false
     t.integer  "progress"
-    t.datetime "due_date"
+    t.date     "due_date"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.integer  "user_id"
@@ -112,8 +112,8 @@ ActiveRecord::Schema.define(version: 20170512125539) do
     t.string   "weekday"
     t.string   "time"
     t.string   "instructor"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.string   "google_drive_url"
     t.string   "season"
     t.string   "year"
@@ -121,6 +121,8 @@ ActiveRecord::Schema.define(version: 20170512125539) do
     t.string   "instructor_phone"
     t.boolean  "one_on_one"
     t.string   "location"
+    t.text     "years",            default: [],              array: true
+    t.text     "seasons",          default: [],              array: true
   end
 
   create_table "meetings", force: :cascade do |t|

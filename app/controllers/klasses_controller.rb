@@ -12,6 +12,12 @@ class KlassesController < SessionsController
     end
   end
 
+  def show
+    respond_to do |format|
+      format.csv { send_data(@klass.to_csv, filename: "#{@klass.name}.csv") }
+    end
+  end
+
   def search
     klasses = Klass.all
 
@@ -20,11 +26,11 @@ class KlassesController < SessionsController
     end
 
     if params[:year].present? && params[:year] != 'All'
-      klasses = klasses.where(year: params[:year])
+      klasses = klasses.where('? = any (klasses.years)', params[:year])
     end
 
     if params[:season].present? && params[:season] != 'All'
-      klasses = klasses.where(season: params[:season])
+      klasses = klasses.where('? = any (klasses.seasons)', params[:season])
     end
 
     if params[:type].present? && params[:type] == 'Tutorial'
@@ -78,14 +84,14 @@ class KlassesController < SessionsController
         :description,
         :time,
         :weekday,
-        :year,
-        :season,
         :instructor,
         :instructor_email,
         :instructor_phone,
         :location,
         :one_on_one,
-        :google_drive_url
+        :google_drive_url,
+        years: [],
+        seasons: []
       )
     end
 

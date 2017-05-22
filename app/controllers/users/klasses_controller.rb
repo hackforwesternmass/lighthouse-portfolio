@@ -6,7 +6,7 @@ module Users
     def index
       @highlight_sidebar = 'Dashboard'
       @klasses = @user.uncompleted_klasses if params[:current].present?
-      # @klasses = @klasses.includes(:users, :enrolls)
+      @klasses = @user.completed_klasses if params[:past].present?
     end
 
     def update

@@ -17,6 +17,7 @@ const ToDo = React.createClass({
     }
   },
   toggleShowArchive(e) {
+    e.preventDefault();
     this.setState({ showArchived: !this.state.showArchived });
   },
   render() {
@@ -47,22 +48,22 @@ const ToDo = React.createClass({
 
         {
           showArchived &&
-          <div className='card'>
-            <div className='card-content'>
-              <h6 className='center-align blue-grey-text text-lighten-1'>Archived</h6>
-              {
-                archivedActionItems.map(actionItem => {
-                  return <ToDo.ActionItem {...this.props} key={actionItem.id} actionItem={actionItem} parent={this} />
-                })
-              }
+            <div className='card'>
+              <div className='card-content'>
+                <h6 className='center-align blue-grey-text text-lighten-1'>Archived</h6>
+                {
+                  archivedActionItems.map(actionItem => {
+                    return <ToDo.ActionItem {...this.props} key={actionItem.id} actionItem={actionItem} parent={this} />
+                  })
+                }
+              </div>
             </div>
-          </div>
         }
         {
           archivedActionItems.length > 0 &&
-          <div className='btn btn-flat' onClick={this.toggleShowArchive}>
-            { showArchived ? 'Hide archived action items...' : 'View archived action items...' }
-          </div>
+            <a href='#' className='btn btn-flat' onClick={this.toggleShowArchive}>
+              { showArchived ? 'Hide archived action items...' : 'View archived action items...' }
+            </a>
         }
       </div>
     );
@@ -120,7 +121,10 @@ ToDo.ActionItem = React.createClass({
             {description}
           </label>
         </div>
-        {!archive && <div className='secondary-icons'><span onClick={this.archive}>×</span></div> }
+        {
+          !archive &&
+            <a href='#' onClick={this.archive} className='secondary-icons'>×</a>
+        }
       </div>
     );
   }

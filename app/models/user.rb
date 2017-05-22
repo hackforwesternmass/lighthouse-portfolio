@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-
   include BCrypt
   include PgSearch
   pg_search_scope :default_search, :against => [:first_name, :last_name, :username], :using => {:tsearch => {:prefix => true} }
@@ -90,6 +89,13 @@ class User < ActiveRecord::Base
 
   def enroll_id(klass)
     Enroll.find_by(klass_id: klass.id, user_id: id).try(:id)
+  end
+
+  def reset_password
+    new_password = ('a'..'z').to_a.shuffle[0,12].join
+    self.pword= new_password
+    self.save
+    UserMailer.reset_password(self, new_password).deliver_now
   end
 
   before_create do

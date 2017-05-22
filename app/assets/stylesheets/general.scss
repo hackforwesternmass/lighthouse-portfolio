@@ -3,6 +3,8 @@ body{
   overflow-x: hidden;
   background-color: $background-color;
   font-family: 'Roboto', helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 

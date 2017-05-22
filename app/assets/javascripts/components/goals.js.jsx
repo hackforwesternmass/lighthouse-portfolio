@@ -74,10 +74,11 @@ Goals.Goal = React.createClass({
     const {editing} = this.state;
     return (
       <div>
-        {editing
-          ? <Goals.GoalForm {...this.props} toggleEdit={this.toggleEdit}/>
+        {
+          editing
+            ? <Goals.GoalForm {...this.props} toggleEdit={this.toggleEdit}/>
           : <Goals.GoalShow {...this.props} toggleEdit={this.toggleEdit}/>
-}
+        }
       </div>
     );
   }
@@ -165,6 +166,7 @@ Goals.GoalShow = React.createClass({
   render() {
     const {editable} = this.props;
     const {action_items, created_at, due_date, title, is_completed} = this.props.goal;
+
     return (
       <div className='card'>
         <div className='card-content'>
@@ -184,9 +186,13 @@ Goals.GoalShow = React.createClass({
           </div>
           <div className='row'>
             <div className='col s6'>{moment(created_at).format('MMMM D YYYY')}</div>
-            <div className='col s6 right right-align'>{due_date
+            <div className='col s6 right right-align'>
+              {
+                due_date
                 ? moment(due_date).format('MMMM D YYYY')
-                : '∞'}</div>
+                : '∞'
+              }
+            </div>
           </div>
 
           {action_items.length > 0 && <div>
@@ -336,7 +342,7 @@ Goals.GoalForm = React.createClass({
         <div className='card-date grey darken-3 white-text'>
           {created_at
             ? moment(created_at).format('MMMM D YYYY')
-            : 'New Goal'}
+          : 'New Goal'}
           <a className='right white-text' onClick={this.closeGoal}>
             <i className='fa fa-times'></i>
           </a>
@@ -350,37 +356,48 @@ Goals.GoalForm = React.createClass({
                 <label htmlFor='goal_title'>Title</label>
               </div>
               <div className='input-field col s12 m4'>
-                <input type='text' className='datepicker' name='goal[due_date]' id='goal_due_date' defaultValue={due_date
-                  ? moment(due_date).format('D MMMM, YYYY')
-                  : ''}/>
+                <input
+                  type='text'
+                  className='datepicker'
+                  name='goal[due_date]'
+                  id='goal_due_date'
+                  defaultValue={due_date ? moment(due_date).format('D MMMM, YYYY') : ''}/>
                 <label htmlFor='goal_due_date'>Due Date</label>
               </div>
             </div>
             <div className='row no-margin'>
               <div className='col s12'>
-                {!showChecklist && <a onClick={this.toggleChecklist} className='btn waves-effect waves-light grey darken-1'>{action_items.length > 0
-                    ? 'Open Checklist'
-                    : 'Add Checklist'}</a>}
-                {showChecklist && <div>
-                  <div className='row'>
-                    <h6 className='bold grey-text text-darken-2 col s12 m6'>
-                      Checklist
-                      <a onClick={this.closeList} className='add-checklist right'>Close list...</a>
-                    </h6>
-                  </div>
-                  {action_items.map((actionItem, i) => {
-                    return <Goals.ActionItem {...this.props} {...actionItem} index={i} key={actionItem.id} parent={this}/>
-                  })
-}
-                  <div className='row' style={{
-                    paddingLeft: '0.75rem'
-                  }}>
-                    <button name='button' type='button' className='btn waves-effect waves-light grey darken-1' onClick={this.addActionItem}>
-                      Add
-                    </button>
-                  </div>
-                </div>
-}
+                {
+                  !showChecklist &&
+                    <a onClick={this.toggleChecklist} className='btn waves-effect waves-light grey darken-1'>
+                      {
+                        action_items.length > 0
+                        ? 'Open Checklist'
+                        : 'Add Checklist'
+                      }
+                    </a>
+                }
+                {
+                  showChecklist &&
+                    <div>
+                      <div className='row'>
+                        <h6 className='bold grey-text text-darken-2 col s12 m6'>
+                          Checklist
+                          <a onClick={this.closeList} className='add-checklist right'>Close list...</a>
+                        </h6>
+                      </div>
+                      {
+                        action_items.map((actionItem, i) => {
+                          return <Goals.ActionItem {...this.props} {...actionItem} index={i} key={actionItem.id} parent={this}/>
+                        })
+                      }
+                      <div className='row' style={{paddingLeft: '0.75rem'}}>
+                        <button name='button' type='button' className='btn waves-effect waves-light grey darken-1' onClick={this.addActionItem}>
+                          Add
+                        </button>
+                      </div>
+                    </div>
+                }
                 <button name='button' type='submit' className='btn waves-effect waves-light right'>
                   Save
                 </button>

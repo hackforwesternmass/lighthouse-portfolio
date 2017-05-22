@@ -61,4 +61,12 @@
     font-size: 0.9rem;
   }
 
+	.forgot-password {
+		font-weight: 300;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
 }

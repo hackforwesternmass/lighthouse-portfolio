@@ -1,6 +1,5 @@
 <section id='login' style="<%= "background-image:url('#{application_settings.home_background_image.url}')" %>">
   <div>
-
     <div class='title'>
       <%= ENV['TITLE'] %>
     </div>
@@ -15,33 +14,37 @@
 
       <%= form_tag login_authentication_path do %>
 
-        <div class='row'>
-          <div class='input-field col s12'>
-            <%= text_field_tag :username_email, '', autofocus: true, placeholder: '' %>
-            <%= label_tag :username_email, 'Username or Email' %>
-          </div>
+      <div class='row'>
+        <div class='input-field col s12'>
+          <%= text_field_tag :username_email, '', autofocus: true, placeholder: '' %>
+          <%= label_tag :username_email, 'Username or Email' %>
         </div>
+      </div>
 
-        <div class='row'>
-          <div class='input-field col s12'>
-            <%= password_field_tag :password,'', placeholder: '' %>
-            <%= label_tag :password %>
-          </div>
+      <div class='row'>
+        <div class='input-field col s12'>
+          <%= password_field_tag :password,'', placeholder: '' %>
+          <%= label_tag :password %>
         </div>
+      </div>
 
-        <% if flash[:incorrect].present? %>
-          <div class='row'>
-            <div class='col s12'>
-              <div class='login-refused'><%= flash[:incorrect] %></div>
-            </div>
-          </div>
-        <% end %>
-
-        <div class='row no-margin'>
-          <div class='input-field col s12'>
-            <%= content_tag :button, 'Submit', type: :submit, class: 'waves-effect waves-light btn' %>
-          </div>
+      <% if flash[:incorrect].present? %>
+      <div class='row'>
+        <div class='col s12'>
+          <div class='login-refused'><%= flash[:incorrect] %></div>
         </div>
+      </div>
+      <% end %>
+
+      <div class='row'>
+        <div class='input-field col s12'>
+          <%= content_tag :button, 'Submit', type: :submit, class: 'waves-effect waves-light btn-large' %>
+        </div>
+      </div>
+
+      <div class="center-align action">
+        <%= link_to 'Forgot password?', forgot_password_path, class: 'forgot-password' %>
+      </div>
 
       <% end %>
     </div>

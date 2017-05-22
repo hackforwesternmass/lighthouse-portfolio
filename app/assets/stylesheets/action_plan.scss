@@ -14,18 +14,20 @@
 
   .klasses{
     width: 250px;
-    max-height: 400px;
-    overflow-y: scroll;
-    float: left;
     margin-top: 30px;
     background-color: rgb(245,245,245);
 
     .header{
       background-color: #fff;
-      border-left: 5px solid color("blue", "lighten-4");
+      border-left: 5px solid color('blue', 'lighten-4');
       padding: 15px 20px;
       box-sizing: border-box;
       color: #555;
+    }
+
+    ul {
+      max-height: 300px;
+      overflow-y: scroll;
     }
 
     li{
