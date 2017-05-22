@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "#{ENV['TITLE']} <no-reply@#{ENV['DOMAIN']}"
+  default from: "#{ENV['TITLE']} <no-reply@#{ENV['DOMAIN']}>"
   layout 'mailer'
 
   protected

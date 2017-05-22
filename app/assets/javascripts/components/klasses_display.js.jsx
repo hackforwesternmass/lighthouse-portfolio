@@ -75,7 +75,7 @@ const KlassesDisplay = React.createClass({
         </div>
         <div className='klasses hide-on-small-only' style={{marginBottom: 30}}>
           {
-            !this.state.loadingPastKlasses &&
+            !this.state.loadingPastKlasses && this.state.pastKlasses.length > 0 &&
               <div className='header'>
                 Past Classes
               </div>
