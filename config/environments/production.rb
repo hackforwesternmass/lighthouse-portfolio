@@ -78,7 +78,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.react.addons = true
-  config.action_mailer.default_url_options = { host: ENV['DOMAIN'] }
 
   config.paperclip_defaults = {
     :storage => :s3,
@@ -91,7 +90,7 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address              => 'smtp.sparkpostmail.com',
+    :address              => 'smtp.mailgun.org',
     :port                 => 587,
     :user_name            => ENV['SMTP_USERNAME'],
     :password             => ENV['SMTP_PASSWORD'],
