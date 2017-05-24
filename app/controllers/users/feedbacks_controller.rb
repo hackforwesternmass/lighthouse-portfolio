@@ -5,6 +5,7 @@ module Users
 
     def index
       @highlight_sidebar = 'Action Plan'
+      @feedbacks = @feedbacks.order(created_at: :desc)
     end
 
     def create

@@ -1,6 +1,6 @@
 class Klass < ActiveRecord::Base
   include PgSearch
-  pg_search_scope :default_search, :against => [:name, :description, :instructor, :weekday, :time, :years, :seasons], :using => {:tsearch => {:prefix => true}}
+  pg_search_scope :default_search, :against => [:name, :description, :instructor, :weekdays, :time, :years, :seasons], :using => {:tsearch => {:prefix => true}}
   default_scope { order(created_at: :desc) }
 
   VALID_WEEKDAYS_TYPES = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
@@ -40,6 +40,7 @@ class Klass < ActiveRecord::Base
   before_save do
     self.years.reject!(&:blank?)
     self.seasons.reject!(&:blank?)
+    self.weekdays.reject!(&:blank?)
   end
 
 end

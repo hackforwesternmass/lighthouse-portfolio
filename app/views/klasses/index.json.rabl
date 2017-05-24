@@ -2,12 +2,12 @@ collection @klasses
 
 attributes  :id,
             :description,
-            :weekday,
             :time,
             :name,
             :instructor,
             :created_at,
             :google_drive_url,
+            :weekdays,
             :seasons,
             :years,
             :instructor_email,

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170522011905) do
+ActiveRecord::Schema.define(version: 20170524022314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 20170522011905) do
     t.string   "location"
     t.text     "years",            default: [],              array: true
     t.text     "seasons",          default: [],              array: true
+    t.text     "weekdays",         default: [],              array: true
   end
 
   create_table "meetings", force: :cascade do |t|

@@ -2,7 +2,6 @@ class KlassesController < SessionsController
   load_and_authorize_resource :klass
 
   def index
-    @klasses = Klass.where(year: 2016..Float::INFINITY)
     @highlight_sidebar = 'Dashboard'
     @klasses = @klasses.includes(:users)
 
@@ -83,13 +82,13 @@ class KlassesController < SessionsController
         :name,
         :description,
         :time,
-        :weekday,
         :instructor,
         :instructor_email,
         :instructor_phone,
         :location,
         :one_on_one,
         :google_drive_url,
+        weekdays: [],
         years: [],
         seasons: []
       )

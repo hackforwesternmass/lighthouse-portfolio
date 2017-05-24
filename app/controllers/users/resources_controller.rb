@@ -50,7 +50,7 @@ module Users
     def destroy
       @resource.destroy
       respond_to do |format|
-        format.html { redirect_to user_resources_path(@user), flash: { notice: "Resource successfully deleted." } }
+        format.html { redirect_to user_resources_path(@user), flash: { notice: "Resource successfully deleted" } }
         format.json { head :no_content }
       end
     end

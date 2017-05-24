@@ -42,7 +42,7 @@
   <div class='row'>
     <div class='col s12'>
       <%= f.button 'Save', class: 'waves-effect waves-light btn' %>
-      <%= link_to 'Delete', [@user, @resource], method: :delete, data: { confirm: 'Are you positive that you want to delete this resource?' }, class: 'waves-effect waves-light btn red darken-2' unless @resource.new_record? %>
+      <%= link_to 'Delete', user_resource_path(@user, @resource), data: { confirm: 'Are you positive that you want to delete this resource?' }, method: :delete, class: 'waves-effect waves-light btn red darken-2' unless @resource.new_record? %>
     </div>
   </div>
 <% end %>

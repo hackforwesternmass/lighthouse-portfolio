@@ -139,7 +139,7 @@ var ResourceCategories = React.createClass({
           deleting = <a className='right' rel='nofollow' onClick={this.deleteResource} href={`/users/${this.props.userId}/resources/${resource.id}`}>
             <i className='fa fa-trash-o'></i>
           </a>;
-          editing = <a className='right' href={`/users/${this.props.userId}/resources/${resource.id}/edit`}>
+          editing = <a className='right' data-no-turbolink href={`/users/${this.props.userId}/resources/${resource.id}/edit`}>
             <i className='fa fa-pencil'></i>
           </a>;
         }

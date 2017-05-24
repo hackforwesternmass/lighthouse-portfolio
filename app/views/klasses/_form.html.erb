@@ -33,7 +33,7 @@
 
   <div class='row'>
     <div class='input-field col s12 m6'>
-      <%= f.select :weekday, options_for_select(Klass::VALID_WEEKDAYS_TYPES, selected: @klass.weekday), include_blank: true %>
+      <%= f.select :weekdays, options_for_select(Klass::VALID_WEEKDAYS_TYPES, selected: @klass.weekdays), { include_blank: true }, { multiple: true } %>
       <%= f.label :weekday %>
     </div>
 

@@ -144,7 +144,7 @@ Klasses.Search = React.createClass({
                       </b>
                     </div>
                     {klass.location && <div className='secondary'>{klass.location}</div>}
-                    {klass.weekday && <div className='secondary'>{klass.weekday}</div>}
+                    {klass.weekdays.length > 0 && <div className='secondary'>{klass.weekdays.join('/')}</div>}
                     {klass.time && <div className='secondary'>{klass.time}</div>}
                   </td>
                   <td className="hide-on-small-only">

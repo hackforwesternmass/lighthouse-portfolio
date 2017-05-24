@@ -31,9 +31,17 @@
       <% end %>
     </li>
     <li>
-      <%= link_to edit_user_path(role: 'admin', id: @user.id) do %>
+      <%= link_to new_user_path(role: :admin) do %>
       <div class='collapsible-header'>
         <i class='material-icons deep-orange-text text-darken-4'>account_circle</i>
+        Create Admin Account
+      </div>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to edit_user_path(role: 'admin', id: @user.id) do %>
+      <div class='collapsible-header'>
+        <i class='material-icons deep-orange-text text-darken-4'>accessibility</i>
         Account Settings
       </div>
       <% end %>
