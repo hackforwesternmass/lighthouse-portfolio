@@ -1,6 +1,6 @@
 const ApplicationSettings = React.createClass({
   getInitialState() {
-    return { applicationSettings: {} }
+    return { applicationSettings: {}, calendarId: '', calendarUrl: '' }
   },
   componentDidMount() {
     this.loadApplicationSettings();
@@ -9,13 +9,19 @@ const ApplicationSettings = React.createClass({
     $.ajax({
       url: '/application_settings',
       success: applicationSettings => {
-        this.setState({ applicationSettings }, () => {
+        this.setState({ applicationSettings, calendarId: applicationSettings.calendar_id, calendarUrl: applicationSettings.calendar_url }, () => {
           Materialize.updateTextFields();
         });
       },
       error: () => {
         Materialize.toast('An error has occured loading application settings.', 3500, 'red darken-3');
       }
+    });
+  },
+  handleInputChange(e) {
+    this.setState({[e.target.id]: e.target.value}, () => {
+      clearTimeout(this.saveTimeout);
+      this.saveTimeout = window.setTimeout(() => this.save(), 500);
     });
   },
   save() {
@@ -34,7 +40,7 @@ const ApplicationSettings = React.createClass({
     });
   },
   render() {
-    const { applicationSettings } = this.state;
+    const { applicationSettings, calendarId, calendarUrl } = this.state;
 
     return(
       <div>
@@ -107,14 +113,14 @@ const ApplicationSettings = React.createClass({
 
           <div className='row'>
             <div className='input-field col s12 m7'>
-              <input type='text' id='calendar_id' value={applicationSettings.calendar_id} name='application_settings[calendar_id]'/>
+              <input type='text' id='calendarId' onChange={this.handleInputChange} value={calendarId} name='application_settings[calendar_id]'/>
               <label htmlFor='calendar_id'>Calendar Id</label>
             </div>
           </div>
 
           <div className='row'>
             <div className='input-field col s12 m7'>
-              <input type='text' id='calendar_url' value={applicationSettings.calendar_url} name='application_settings[calendar_url]'/>
+              <input type='text' id='calendarUrl' onChange={this.handleInputChange} value={calendarUrl} name='application_settings[calendar_url]'/>
               <label htmlFor='calendar_url'>Calendar Url</label>
             </div>
           </div>
