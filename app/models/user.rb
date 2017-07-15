@@ -94,13 +94,13 @@ class User < ActiveRecord::Base
     UserMailer.reset_password(self, new_password).deliver_now
   end
 
-  before_save do
-    self.email.downcase! if self.email
-    if self.archive && self.archive_changed?
-      self.all_action_items.where('action_items.user_id is not null').destroy_all
-      self.enrolls.update_all(completed: true)
-    end
-  end
+  # before_save do
+  #   self.email.downcase! if self.email
+  #   if self.archive && self.archive_changed?
+  #     self.all_action_items.where('action_items.user_id is not null').destroy_all
+  #     self.enrolls.update_all(completed: true)
+  #   end
+  # end
 
   before_create do
     if valid?
