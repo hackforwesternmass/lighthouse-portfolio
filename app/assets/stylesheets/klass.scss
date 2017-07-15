@@ -4,7 +4,7 @@
 
     th{
       border-radius: 0;
-      font-weight: 300;
+      font-weight: 400;
     }
 
     td{
@@ -55,69 +55,4 @@
 
 #klasse-modal a:hover{
   text-decoration: underline;
-}
-
-#students{
-
-  table{
-
-    th{
-      text-align: center;
-      border-radius: 0;
-      font-weight: 300;
-      @media #{$medium-and-down} {
-        font-size: 8px;
-      }
-    }
-
-    td{
-      text-align: center;
-    }
-
-    .name-desc, .student-name{
-      text-align: left;
-      padding-left: 20px;
-      width: 600px;
-    }
-
-    .student-name{
-      width: auto;
-    }
-
-    i.fa {
-      padding: 0;
-    }
-
-    a.modal-trigger i {
-      padding-right: 10px;
-    }
-
-    .name{
-      font-weight: 500;
-      font-size: 1.25rem;
-
-      @media #{$medium-and-down} {
-        font-size: 12px;
-      }
-
-      &:hover a i{
-        opacity: 1;
-      }
-
-
-      a{
-        i.fa{
-          transition: 200ms;
-          opacity: 0;
-          color: #333;
-          padding-left: 10px;
-          &:hover{
-            color: $secondary-color;
-          }
-        }
-      }
-    }
-
-  }
-
 }

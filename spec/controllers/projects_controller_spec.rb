@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ProjectsController, type: :controller do
+describe Users::ProjectsController, type: :controller do
   let(:valid_attributes) { attributes_for(:project) }
   let(:invalid_attributes) { attributes_for(:project, title: nil) }
   let(:project) { create(:project) }

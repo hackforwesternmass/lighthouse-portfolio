@@ -26,6 +26,7 @@
     padding: 20px 0;
     text-align: center;
     font-weight: 400;
+    display: block;
   }
 
 	li{
@@ -37,7 +38,7 @@
 	    display: block;
 			padding: 15px !important;
 	    padding-left: 35px !important;
-		  font: 300 1.2rem 'Roboto', helvetica, sans-serif;
+		  font: 1.2rem 'Roboto', helvetica, sans-serif;
 
 		  i{
         width: 30px;
@@ -125,7 +126,6 @@ ul.dropdown{
     a{
       height: 35px;
       line-height: 35px;
-      font-weight: 300;
       color: #ddd;
       transition: 200ms;
 

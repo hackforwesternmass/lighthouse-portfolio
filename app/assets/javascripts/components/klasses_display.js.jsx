@@ -1,6 +1,11 @@
 const KlassesDisplay = React.createClass({
   getInitialState() {
-    return { currentKlasses: [], pastKlasses: [], loadingCurrentKlasses: true, loadingPastKlasses: true };
+    return {
+      currentKlasses: [],
+      pastKlasses: [],
+      loadingCurrentKlasses: true,
+      loadingPastKlasses: true,
+    };
   },
   componentDidMount() {
     $('.modal').modal();
@@ -41,7 +46,7 @@ const KlassesDisplay = React.createClass({
           <ul ref='currentKlasses'>
             {
               !this.state.loadingCurrentKlasses && this.state.currentKlasses.length === 0 &&
-                <li>You are currently not enrolled in any classes</li>
+              <li>You are currently not enrolled in any classes</li>
             }
             {
               this.state.currentKlasses.map(klass => {
@@ -50,69 +55,47 @@ const KlassesDisplay = React.createClass({
             }
           </ul>
 
-          <div id='klass-modal' className='modal'>
-            <div className='modal-content'>
-              <h4 className='align-center'><strong>{this.state.name}</strong></h4>
-              <h6 style={{fontWeight: 400}} className='grey-text text-darken-1' >
-                {this.state.instructor}
-                {this.state.instructor_email && <small><br/><a href={'mailto:' + this.state.instructor_email}>{this.state.instructor_email}</a></small>}<br/>
-                <small>{`${this.state.weekday} ${this.state.time}`}</small><br/>
-                <small>{this.state.location}</small>
-              </h6>
-              <br/>
-              {
-                this.state.description &&
-                  <div dangerouslySetInnerHTML={{ __html: this.state.description.replace(/\n\r?/g, '<br>') }} ></div>
-              }
-              {
-                this.state.google_drive_url &&
-                  <div style='padding-top: 20px;'>
-                    <a href={this.state.google_drive_url}><i className='fa fa-folder-open'></i>Google Drive</a>
-                  </div>
-              }
-            </div>
-          </div>
         </div>
         <div className='klasses hide-on-small-only' style={{marginBottom: 30}}>
           {
             !this.state.loadingPastKlasses && this.state.pastKlasses.length > 0 &&
-              <div className='header'>
-                Past Classes
-              </div>
+            <div className='header'>
+              Past Classes
+            </div>
           }
 
           {
             !this.state.loadingPastKlasses &&
-              <ul ref='pastKlasses'>
-                {
-                  this.state.pastKlasses.map(klass => {
-                    return <KlassesDisplay.Show klass={klass} key={klass.id} openModal={this.openModal}/>
-                  })
-                }
-              </ul>
+            <ul ref='pastKlasses'>
+              {
+                this.state.pastKlasses.map(klass => {
+                  return <KlassesDisplay.Show klass={klass} key={klass.id} openModal={this.openModal}/>
+                })
+              }
+            </ul>
           }
+        </div>
 
-          <div id='klass-modal' className='modal'>
-            <div className='modal-content'>
-              <h4 className='align-center'><strong>{this.state.name}</strong></h4>
-              <h6 style={{fontWeight: 400}} className='grey-text text-darken-1' >
-                {this.state.instructor}
-                {this.state.instructor_email && <small><br/><a href={'mailto:' + this.state.instructor_email}>{this.state.instructor_email}</a></small>}<br/>
-                <small>{`${this.state.weekday} ${this.state.time}`}</small><br/>
-                <small>{this.state.location}</small>
-              </h6>
-              <br/>
-              {
-                this.state.description &&
-                  <div dangerouslySetInnerHTML={{ __html: this.state.description.replace(/\n\r?/g, '<br>') }} ></div>
-              }
-              {
-                this.state.google_drive_url &&
-                  <div style='padding-top: 20px;'>
-                    <a href={this.state.google_drive_url}><i className='fa fa-folder-open'></i>Google Drive</a>
-                  </div>
-              }
-            </div>
+        <div id='klass-modal' className='modal'>
+          <div className='modal-content'>
+            <h4><strong>{this.state.name}</strong></h4>
+            <h6 style={{fontWeight: 400}} className='grey-text text-darken-1' >
+              <div>{this.state.instructor}</div>
+              <div>{this.state.instructor_email && <small><a href={'mailto:' + this.state.instructor_email}>{this.state.instructor_email}</a></small>}</div>
+              <small>{this.state.weekdays && this.state.weekdays.join('/')} {this.state.time}</small><br/>
+              <small>{this.state.location}</small>
+            </h6>
+            <br/>
+            {
+              this.state.description &&
+              <div dangerouslySetInnerHTML={{ __html: this.state.description.replace(/\n\r?/g, '<br>') }} ></div>
+            }
+            {
+              this.state.google_drive_url &&
+              <div style={{paddingTop: 20}}>
+                <a href={this.state.google_drive_url}><i className='fa fa-folder-open'></i>Google Drive</a>
+              </div>
+            }
           </div>
         </div>
       </div>

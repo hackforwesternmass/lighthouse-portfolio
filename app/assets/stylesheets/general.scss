@@ -17,6 +17,14 @@ main{
   }
 }
 
+.modal.small {
+  max-width: 400px;
+}
+
+.half-opacity {
+  opacity: 0.5;
+}
+
 .dropdown-content {
   margin: 0 !important;
 }
@@ -47,14 +55,32 @@ a[href^="mailto:"]:hover {
 }
 
 .collection {
-  overflow: visible !important;
-  border-radius: 3px;
+  border-radius: 5px;
   margin: 0 !important;
-}
+  overflow: visible !important;
 
-.collection-item:last-child {
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
+  .collection-item{
+    .title {
+      font-size: 20px !important;
+      font-weight: 500;
+    }
+
+    &.avatar {
+      .circle {
+        border: 1px solid #bbb;
+      }
+    }
+
+    &:first-child {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+
+    &:last-child {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+  }
 }
 
 fieldset{
@@ -123,7 +149,6 @@ input, textarea{
 }
 
 label{
-  font-weight: 300;
   text-transform: uppercase;
 }
 
@@ -242,8 +267,6 @@ i.fa{
     padding: 0 15px !important;
 
     .breadcrumb {
-      font-size: 14px;
-
       &:before {
         margin: 0;
       }

@@ -1,6 +1,6 @@
 collection @klasses
 
-attributes :id,
+attributes  :id,
             :description,
             :time,
             :name,
@@ -13,7 +13,8 @@ attributes :id,
             :instructor_email,
             :instructor_phone,
             :one_on_one,
-            :location
+            :location,
+            :archive
 
 node :enroll_id do |klass|
   klass.enroll_id(@user)

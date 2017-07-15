@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170524022314) do
+ActiveRecord::Schema.define(version: 20170715175150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,8 +112,8 @@ ActiveRecord::Schema.define(version: 20170524022314) do
     t.string   "weekday"
     t.string   "time"
     t.string   "instructor"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "google_drive_url"
     t.string   "season"
     t.string   "year"
@@ -121,9 +121,10 @@ ActiveRecord::Schema.define(version: 20170524022314) do
     t.string   "instructor_phone"
     t.boolean  "one_on_one"
     t.string   "location"
-    t.text     "years",            default: [],              array: true
-    t.text     "seasons",          default: [],              array: true
-    t.text     "weekdays",         default: [],              array: true
+    t.text     "years",            default: [],                 array: true
+    t.text     "seasons",          default: [],                 array: true
+    t.text     "weekdays",         default: [],                 array: true
+    t.boolean  "archive",          default: false
   end
 
   create_table "meetings", force: :cascade do |t|
@@ -252,8 +253,8 @@ ActiveRecord::Schema.define(version: 20170524022314) do
     t.string   "email"
     t.string   "password"
     t.string   "role"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
@@ -266,6 +267,7 @@ ActiveRecord::Schema.define(version: 20170524022314) do
     t.datetime "profile_background_updated_at"
     t.string   "profile_color"
     t.boolean  "private"
+    t.boolean  "archive",                         default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

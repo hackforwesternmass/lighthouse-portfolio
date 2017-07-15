@@ -87,7 +87,7 @@ const UserKlasses = React.createClass({
     const { enrolledKlasses, allKlasses, loading, showArchivedKlasses } = this.state;
     return(
       <div className='section-container'>
-        <h4>Enrolled Classes</h4>
+        <h4>{this.props.studentName} Classes</h4>
 
         <a href='#enroll-modal' className='btn'>Enroll to class</a>
 

@@ -1,7 +1,7 @@
 class Klass < ActiveRecord::Base
   include PgSearch
   pg_search_scope :default_search, :against => [:name, :description, :instructor, :weekdays, :time, :years, :seasons], :using => {:tsearch => {:prefix => true}}
-  default_scope { order(created_at: :desc) }
+  default_scope { order('klasses.archive asc, klasses.created_at desc') }
 
   VALID_WEEKDAYS_TYPES = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
   VALID_SEASON_TYPES = ['Fall', 'Winter', 'Spring', 'Block 1', 'Block 2', 'Block 3', 'Block 4', 'Block 5']
@@ -11,10 +11,6 @@ class Klass < ActiveRecord::Base
   accepts_nested_attributes_for :enrolls, allow_destroy: true
 
   validates :name, presence: { message: 'Title is required' }
-
-  def enrolled_count
-    self.enrolls.count
-  end
 
   def is_enrolled?(user)
     enrolls.find_by(user_id: user.id).present?
@@ -31,7 +27,7 @@ class Klass < ActiveRecord::Base
   def to_csv
     CSV.generate do |csv|
       csv << ['ID', 'Name', 'E-mail']
-      self.users.each do |student|
+      self.users.where(archive: [nil, false]).each do |student|
         csv << [student.id, student.full_name, student.email]
       end
     end
@@ -41,6 +37,10 @@ class Klass < ActiveRecord::Base
     self.years.reject!(&:blank?)
     self.seasons.reject!(&:blank?)
     self.weekdays.reject!(&:blank?)
+
+    if self.archive && self.archive_changed?
+      self.enrolls.update_all(completed: true)
+    end
   end
 
 end

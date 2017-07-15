@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ResumeEntriesController, type: :controller do
+describe Users::ResumeEntriesController, type: :controller do
   let(:valid_attributes) { attributes_for(:resume_entry) }
   let(:resume_entry) { create(:resume_entry) }
 

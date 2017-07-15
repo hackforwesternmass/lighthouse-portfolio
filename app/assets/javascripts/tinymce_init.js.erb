@@ -6,6 +6,7 @@ $(document).on('page:change', function(){
       menubar: false,
       statusbar: false,
       height: 300,
+      browser_spellcheck: true,
       style_formats: [
         { title: 'Headers', items: [
           { title: 'h1', block: 'h1' },
@@ -58,6 +59,7 @@ $(document).on('page:change', function(){
       menubar: false,
       statusbar: false,
       height: 300,
+      browser_spellcheck: true,
       content_css: "<%= stylesheet_path 'customize_tinymce.css' %>",
       preview_styles: false,
       toolbar: ["undo redo | bold underline italic | bullist numlist outdent indent link"],
@@ -92,6 +94,7 @@ function initTiny(selector){
       menubar: false,
       statusbar: false,
       height: 200,
+      browser_spellcheck: true,
       content_css: "<%= stylesheet_path 'customize_tinymce.css' %>",
       preview_styles: false,
       toolbar: ["undo redo | bold underline italic | bullist numlist outdent indent link"],

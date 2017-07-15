@@ -5,7 +5,7 @@ class UsersController < SessionsController
     @users = @users.students
     @highlight_sidebar = 'Dashboard'
     @users = @users.default_search(params[:q]) if params[:q].present?
-
+    @users = @users.reorder('archive asc, first_name asc')
     respond_to do |format|
       format.json
       format.html
@@ -78,6 +78,7 @@ class UsersController < SessionsController
         :password,
         :password_confirmation,
         :username,
+        :archive,
         social_mediums_attributes: [
           :link,
           :name,

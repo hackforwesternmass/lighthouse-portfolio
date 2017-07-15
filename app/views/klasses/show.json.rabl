@@ -1,4 +1,4 @@
-collection @klasses
+object @klass
 
 attributes  :id,
             :description,

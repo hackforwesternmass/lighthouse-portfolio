@@ -3,7 +3,7 @@ class KlassesController < SessionsController
 
   def index
     @highlight_sidebar = 'Dashboard'
-    @klasses = @klasses.includes(:users)
+    @klasses = @klasses.includes(:users, :enrolls)
 
     respond_to do |format|
       format.html
@@ -14,6 +14,7 @@ class KlassesController < SessionsController
   def show
     respond_to do |format|
       format.csv { send_data(@klass.to_csv, filename: "#{@klass.name}.csv") }
+      format.json
     end
   end
 
@@ -33,9 +34,15 @@ class KlassesController < SessionsController
     end
 
     if params[:type].present? && params[:type] == 'Tutorial'
-      klasses = klasses.where(one_on_one: true)
-    elsif params[:type].present? && params[:type] != 'All'
-      klasses = klasses.where(one_on_one: false)
+      klasses = klasses.where(one_on_one: true, archive: false)
+    elsif params[:type].present? && params[:type] == 'Archived'
+      klasses = klasses.where(archive: true)
+    elsif params[:type].present? && params[:type] == 'Regular'
+      klasses = klasses.where(one_on_one: false, archive: false)
+    elsif params[:type].present? && params[:type] == 'All'
+      # DO NOTHING
+    else
+      klasses = klasses.where(archive: false)
     end
 
     render json: klasses.to_json(methods: :enrolled, include: :users)
@@ -46,20 +53,32 @@ class KlassesController < SessionsController
   end
 
   def create
-    if @klass.save
-      redirect_to klasses_path, flash: { notice: 'Class successfully created!' }
-    else
-      flash.now[:alert] = 'Class unsuccessfully created.'
-      render :new
+    respond_to do |format|
+      if @klass.save
+        format.html { redirect_to klasses_path, flash: { notice: 'Class successfully created!' } }
+        format.json { render :show, status: 200 }
+      else
+        format.html do
+          flash.now[:alert] = 'Class unsuccessfully created.'
+          render :new
+        end
+        format.json { render json: @klass.errors, status: 422 }
+      end
     end
   end
 
   def update
-    if @klass.update(klass_params)
-      redirect_to klasses_path, flash: { notice: 'Class successfully updated!' }
-    else
-      flash.now[:alert] = 'Class unsuccessfully updated.'
-      render :edit
+    respond_to do |format|
+      if @klass.update(klass_params)
+        format.html { redirect_to klasses_path, flash: { notice: 'Class successfully updated!' } }
+        format.json { render :show, status: 200 }
+      else
+        format.html do
+          flash.now[:alert] = 'Class unsuccessfully updated.'
+          render :edit
+        end
+        format.json { render json: @klass.errors, status: 422 }
+      end
     end
   end
 
@@ -88,6 +107,7 @@ class KlassesController < SessionsController
         :location,
         :one_on_one,
         :google_drive_url,
+        :archive,
         weekdays: [],
         years: [],
         seasons: []

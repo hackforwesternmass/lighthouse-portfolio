@@ -4,6 +4,16 @@ const Resources = React.createClass({
   },
   componentDidMount() {
     this.updateResourceGroup()
+    $('.dropdown-button').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrainWidth: false, // Does not change width of dropdown to that of the activator
+      hover: true, // Activate on hover
+      gutter: 0, // Spacing from edge
+      belowOrigin: true, // Displays dropdown below the button
+      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+      stopPropagation: false // Stops event propagation
+    });
   },
   toggleEdit(e) {
     e.preventDefault()
@@ -28,37 +38,42 @@ const Resources = React.createClass({
             <span className='breadcrumb'>
               <a href={`/users/${this.props.userId}/resources`}>Resources</a>
             </span>
-            {this.props.editable && <div className='dropdown-wrapper hide-on-small-only'>
-              <a className='right ellipsis-link' href='#'>
-                <i className='fa fa-ellipsis-h'></i>
-              </a>
-              <ul className='dropdown z-depth-1'>
+            {
+              this.props.editable &&
+              <ul id='dropdown' className='dropdown-content'>
+                <li><a href={`/users/${this.props.userId}/resources/new`}>Create resource</a></li>
                 <li>
-                  <a href={`/users/${this.props.userId}/resources/new`}>Create resource</a>
+                  {
+                    (Object.keys(generalResources).length > 0 || Object.keys(resources).length > 0) &&
+                    <li>
+                      <a href='#' onClick={this.toggleEdit}>
+                        { editing ? 'Finished editing' : 'Edit resources' }
+                      </a>
+                    </li>
+                  }
                 </li>
-                {(Object.keys(generalResources).length > 0 || Object.keys(resources).length > 0) && <li>
-                  <a href='#' onClick={this.toggleEdit}>
-                    {editing
-                      ? 'Finished editing'
-                      : 'Edit resources'}
-                  </a>
-                </li>
-}
               </ul>
-            </div>
-}
+            }
+            {
+              this.props.editable &&
+              <ul className='right hide-on-small-only'>
+                <li><a className='dropdown-button' href='#' data-activates='dropdown'><i className='material-icons'>more_horiz</i></a></li>
+              </ul>
+            }
           </div>
         </nav>
         <section className='section-container'>
           <div id='category-grid' className='row'>
-            {Object.keys(generalResources).map((category, i) => {
-              return <ResourceCategories {...this.props} updateResourceGroup={this.updateResourceGroup} editing={editing} resources={generalResources[category]} categoryName={category} key={category} userId={this.props.userId} general={true}/>
-            })
-}
-            {Object.keys(resources).map((category, i) => {
-              return <ResourceCategories {...this.props} updateResourceGroup={this.updateResourceGroup} editing={editing} resources={resources[category]} categoryName={category} userId={this.props.userId} key={category} general={false}/>
-            })
-}
+            {
+              Object.keys(generalResources).map((category, i) => {
+                return <ResourceCategories {...this.props} updateResourceGroup={this.updateResourceGroup} editing={editing} resources={generalResources[category]} categoryName={category} key={category} userId={this.props.userId} general={true}/>
+              })
+            }
+            {
+              Object.keys(resources).map((category, i) => {
+                return <ResourceCategories {...this.props} updateResourceGroup={this.updateResourceGroup} editing={editing} resources={resources[category]} categoryName={category} userId={this.props.userId} key={category} general={false}/>
+              })
+            }
           </div>
         </section>
       </div>
@@ -123,52 +138,49 @@ var ResourceCategories = React.createClass({
     }
 
     const resourceNodes = this.state.resources.map((resource, i) => {
-      let editing,
-        deleting;
+      let editing, deleting;
       if (this.state.general) {
         if (this.state.editing && this.props.isAdmin) {
           deleting = <a className='right' rel='nofollow' onClick={this.deleteResource} href={`/users/${this.props.userId}/resources/${resource.id}`}>
             <i className='fa fa-trash-o'></i>
           </a>;
-          editing = <a className='right' href={`/users/${this.props.userId}/resources/${resource.id}/edit`}>
-            <i className='fa fa-pencil'></i>
-          </a>;
-        }
-      } else {
-        if (this.state.editing) {
-          deleting = <a className='right' rel='nofollow' onClick={this.deleteResource} href={`/users/${this.props.userId}/resources/${resource.id}`}>
-            <i className='fa fa-trash-o'></i>
-          </a>;
-          editing = <a className='right' data-no-turbolink href={`/users/${this.props.userId}/resources/${resource.id}/edit`}>
-            <i className='fa fa-pencil'></i>
-          </a>;
-        }
-      }
+        editing = <a className='right' href={`/users/${this.props.userId}/resources/${resource.id}/edit`}>
+          <i className='fa fa-pencil'></i>
+        </a>;
+    }
+  } else {
+    if (this.state.editing) {
+      deleting = <a className='right' rel='nofollow' onClick={this.deleteResource} href={`/users/${this.props.userId}/resources/${resource.id}`}>
+        <i className='fa fa-trash-o'></i>
+      </a>;
+    editing = <a className='right' data-no-turbolink href={`/users/${this.props.userId}/resources/${resource.id}/edit`}>
+      <i className='fa fa-pencil'></i>
+    </a>;
+}
+}
 
-      return (
-        <li key={i}>
-          <a className={'resource-link thick ' + (this.state.general
-            ? 'general'
-            : '')} target='_blank' href={resource.link}>{resource.title}</a>
-          {deleting}
-          {editing}
-          <p>{resource.description}</p>
-        </li>
-      )
-    })
+return (
+  <li key={i}>
+    <a className={'resource-link thick ' + (this.state.general ? 'general' : '')} target='_blank' href={resource.link}>{resource.title}</a>
+    {deleting}
+    {editing}
+    <p>{resource.description}</p>
+  </li>
+)
+})
 
-    const {general, resources, editing} = this.props;
+const {general, resources, editing} = this.props;
 
-    return (
-      <div className='resource-item col s12 m6 l4'>
-        <div className={'resource-category thick z-depth-1 ' + (general ? 'general' : '')}>
-          {categoryName}
-        </div>
-        <ul>
-          {resourceNodes}
-        </ul>
-      </div>
-    );
-  }
+return (
+  <div className='resource-item col s12 m6 l4'>
+    <div className={'resource-category thick z-depth-1 ' + (general ? 'general' : '')}>
+      {categoryName}
+    </div>
+    <ul>
+      {resourceNodes}
+    </ul>
+  </div>
+);
+}
 
 });
