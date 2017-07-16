@@ -5,16 +5,11 @@ const Klasses = React.createClass({
     return { klasses: [] };
   },
   componentDidMount() {
+    this.loadKlasses();
+  },
+  loadKlasses(data = {}) {
     $.ajax({
       url: '/class',
-      success: klasses => {
-        this.setState({ klasses });
-      }
-    });
-  },
-  search(data) {
-    $.ajax({
-      url: '/class/search',
       data,
       success: klasses => {
         this.setState({ klasses });
@@ -24,7 +19,7 @@ const Klasses = React.createClass({
   render() {
     return(
       <div id='klass' className='section-container'>
-        <Klasses.Search search={this.search}/>
+        <Klasses.Search loadKlasses={this.loadKlasses}/>
         <table className="bordered z-depth-1">
           <thead className="grey darken-4 white-text">
             <tr>
@@ -55,23 +50,23 @@ Klasses.Search = React.createClass({
     $('.tooltipped').tooltip({ position: 'left' });
 
     $(ReactDOM.findDOMNode(this)).find('select.filter-year').change(e => {
-      this.props.search({ q: this.state.q, year: e.target.value, season: this.state.season, type: this.state.type });
+      this.props.loadKlasses({ q: this.state.q, year: e.target.value, season: this.state.season, type: this.state.type });
       this.setState({ year: e.target.value });
     });
 
     $(ReactDOM.findDOMNode(this)).find('select.filter-season').change(e => {
-      this.props.search({ q: this.state.q, year: this.state.year, season: e.target.value, type: this.state.type });
+      this.props.loadKlasses({ q: this.state.q, year: this.state.year, season: e.target.value, type: this.state.type });
       this.setState({ season: e.target.value });
     });
 
     $(ReactDOM.findDOMNode(this)).find('select.filter-type').change(e => {
-      this.props.search({ q: this.state.q, year: this.state.year, season: this.state.season, type: e.target.value });
+      this.props.loadKlasses({ q: this.state.q, year: this.state.year, season: this.state.season, type: e.target.value });
       this.setState({ type: e.target.value });
     });
 
   },
   searchText(e) {
-    this.props.search({ q: e.target.value, year: this.state.year, season: this.state.season });
+    this.props.loadKlasses({ q: e.target.value, year: this.state.year, season: this.state.season });
     this.setState({ q: e.target.value });
   },
   render() {
@@ -89,6 +84,7 @@ Klasses.Search = React.createClass({
           <option value="2015">2015</option>
           <option value="2016">2016</option>
           <option value="2017">2017</option>
+          <option value="2018">2018</option>
         </select>
       </div>
 
@@ -156,7 +152,6 @@ Klasses.Search = React.createClass({
     render() {
       const { klass } = this.props;
       const studentNames = klass.users.filter(user => !user.archive).map(user => user.full_name);
-
       return(
         <tr className={klass.archive ? 'half-opacity' : ''}>
           <td className="name-desc">

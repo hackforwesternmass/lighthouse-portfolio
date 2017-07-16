@@ -23,19 +23,8 @@ Rails.application.routes.draw do
 
   resources :enrolls, only: [:create, :update, :destroy]
 
-  # resource :calendar, except: [:new, :edit, :show, :destroy] do
-  #   get :manage
-  #   get '/', action: :calendar
-  # end
-
-  # resource  :background_image, except: [:new, :edit, :show, :destroy] do
-  #   get :manage
-  # end
-
   resources :class_periods
-  resources :klasses, path: :class do
-    get :search, on: :collection
-  end
+  resources :klasses, path: :class
 
   namespace :admin do
     get :dashboard

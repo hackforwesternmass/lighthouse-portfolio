@@ -12,6 +12,34 @@ class Klass < ActiveRecord::Base
 
   validates :name, presence: { message: 'Title is required' }
 
+  def self.search(subset, params)
+    if params[:q].present?
+      subset =  Klass.default_search(params[:q])
+    end
+
+    if params[:year].present? && params[:year] != 'All'
+      subset.where!('? = any (klasses.years)', params[:year])
+    end
+
+    if params[:season].present? && params[:season] != 'All'
+      subset.where!('? = any (klasses.seasons)', params[:season])
+    end
+
+    if params[:type].present? && params[:type] == 'Tutorial'
+      subset.where!(one_on_one: true, archive: false)
+    elsif params[:type].present? && params[:type] == 'Archived'
+      subset.where!(archive: true)
+    elsif params[:type].present? && params[:type] == 'Regular'
+      subset.where!(one_on_one: false, archive: false)
+    elsif params[:type].present? && params[:type] == 'All'
+      # DO NOTHING
+    else
+      subset.where!(archive: false)
+    end
+
+    subset
+  end
+
   def is_enrolled?(user)
     enrolls.find_by(user_id: user.id).present?
   end

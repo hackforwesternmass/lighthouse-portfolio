@@ -3,7 +3,7 @@ class KlassesController < SessionsController
 
   def index
     @highlight_sidebar = 'Dashboard'
-    @klasses = @klasses.includes(:users, :enrolls)
+    @klasses = Klass.search(@klasses.includes(:users, :enrolls), params)
 
     respond_to do |format|
       format.html
@@ -16,36 +16,6 @@ class KlassesController < SessionsController
       format.csv { send_data(@klass.to_csv, filename: "#{@klass.name}.csv") }
       format.json
     end
-  end
-
-  def search
-    klasses = Klass.all
-
-    if params[:q].present?
-      klasses =  Klass.default_search(params[:q])
-    end
-
-    if params[:year].present? && params[:year] != 'All'
-      klasses = klasses.where('? = any (klasses.years)', params[:year])
-    end
-
-    if params[:season].present? && params[:season] != 'All'
-      klasses = klasses.where('? = any (klasses.seasons)', params[:season])
-    end
-
-    if params[:type].present? && params[:type] == 'Tutorial'
-      klasses = klasses.where(one_on_one: true, archive: false)
-    elsif params[:type].present? && params[:type] == 'Archived'
-      klasses = klasses.where(archive: true)
-    elsif params[:type].present? && params[:type] == 'Regular'
-      klasses = klasses.where(one_on_one: false, archive: false)
-    elsif params[:type].present? && params[:type] == 'All'
-      # DO NOTHING
-    else
-      klasses = klasses.where(archive: false)
-    end
-
-    render json: klasses.to_json(methods: :enrolled, include: :users)
   end
 
   def new
