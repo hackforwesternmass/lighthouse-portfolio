@@ -248,7 +248,7 @@ i.fa{
   padding: 0 0.75rem;
 }
 
-@media only screen and (max-width : 992px) {
+@media #{$medium-and-down} {
 
   nav .brand-logo{
     left: 0;
@@ -256,7 +256,7 @@ i.fa{
   }
 }
 
-@media only screen and (max-width : 590px){
+@media #{$small-and-down} {
 
   .small-input{
     width: 100% !important;
@@ -264,6 +264,12 @@ i.fa{
 
   nav{
     padding: 0 15px !important;
+
+    .nav-wrapper {
+      white-space: nowrap;
+      overflow: hidden !important;
+      text-overflow: ellipsis;
+    }
 
     .breadcrumb {
       &:before {

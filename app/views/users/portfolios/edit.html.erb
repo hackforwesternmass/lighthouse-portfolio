@@ -6,19 +6,17 @@
 </nav>
 
 <section  class='section-container'>
-  <%= form_for [@user, @portfolio], html: { class: 'col s12 edit-student' } do |f| %>
+  <%= form_for [@user, @portfolio], html: { class: 'edit-student' } do |f| %>
     <div class='row'>
       <div class='col s12 m4'>
-        <div class='row'>
-          <div class='avatar-column'>
-            <%= image_tag @portfolio.avatar.url, class: 'edit-avatar' %>
-          </div>
-
-          <label class='custom-file-upload waves-effect waves-light btn'>
-            <%= f.file_field :avatar %>
-            <%= fa_icon 'camera', text: 'CHANGE' %>
-          </label>
+        <div class='avatar-column'>
+          <%= image_tag @portfolio.avatar.url, class: 'edit-avatar' %>
         </div>
+
+        <label class='custom-file-upload waves-effect waves-light btn'>
+          <%= f.file_field :avatar %>
+          <%= fa_icon 'camera', text: 'CHANGE' %>
+        </label>
       </div>
 
       <div class='col s12 m8'>
