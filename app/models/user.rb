@@ -95,7 +95,8 @@ class User < ActiveRecord::Base
   end
 
   before_save do
-    self.email.downcase! if self.email
+    self.email.downcase! if self.email.present?
+    self.username.downcase! if self.username.present?
     if self.archive && self.archive_changed?
       self.all_action_items.where('action_items.user_id is not null').destroy_all
       self.enrolls.update_all(completed: true)
