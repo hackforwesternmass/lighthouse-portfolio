@@ -31,11 +31,11 @@ class User < ActiveRecord::Base
   validates :last_name, presence: { message: 'Last name is required' }
   validates :username,
     presence: { message: 'Username is required' },
-    uniqueness: { message: 'is already in use.' },
+    uniqueness: { message: 'Username is already in use.', case_sensitive: false },
     format: { with: /\A[\w]+\z/, message: 'Letters and numbers only' }
   validates :email,
     presence: { message: 'Email is required.' },
-    uniqueness: { message: 'is already in use.' }
+    uniqueness: { message: 'Email is already in use.', case_sensitive: false }
   validates :password,
     presence: { message: 'Password is required.', on: :create },
     confirmation: {message: 'Passwords do not match.'}
