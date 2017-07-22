@@ -17,9 +17,9 @@ attributes  :id,
             :archive
 
 child :enrolls do
-  attributes :id, :user_id, :klass_id
-end
+  attributes :id, :user_id, :klass_id, :completed
 
-child :users do |user|
-  attributes :id, :full_name, :archive
+  child :user do
+    attributes :id, :full_name, :archive
+  end
 end

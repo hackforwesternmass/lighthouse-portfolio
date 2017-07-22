@@ -151,7 +151,7 @@ Klasses.Search = React.createClass({
     },
     render() {
       const { klass } = this.props;
-      const studentNames = klass.users.filter(user => !user.archive).map(user => user.full_name);
+      const studentNames = klass.enrolls.filter(enrolly => !(enrolly.completed || enrolly.user.archive)).map(enrolly => enrolly.user.full_name);
       return(
         <tr className={klass.archive ? 'half-opacity' : ''}>
           <td className="name-desc">
