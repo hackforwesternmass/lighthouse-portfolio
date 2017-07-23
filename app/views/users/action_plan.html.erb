@@ -14,23 +14,23 @@
     <% end %>
   </ul>
 
-  <%= react_component 'KlassesDisplay', { userId: @user.id } %>
+  <%= react_component 'KlassesDisplay', { userArchived: @user.archive, userId: @user.id } %>
 
   <section class='action-plan-container' id='todo-action-plan'>
-    <%= react_component 'ToDo', { userId: @user.id, meetingTime: @user.meeting_time, editable: (can?(:update, ActionItem) || current_user.admin?) } %>
+    <%= react_component 'ToDo', { userArchived: @user.archive, userId: @user.id, meetingTime: @user.meeting_time, editable: (!@user.archive && can?(:update, ActionItem) || current_user.admin?) } %>
   </section>
 
   <section class='action-plan-container' id='meetings-action-plan'>
-    <%= react_component 'Meetings', { userId: @user.id, draftMeetingId: active_user.draft_meeting.try(:id), adminId: (current_user.admin? && current_user.id), editable: can?(:update, Meeting) } %>
+    <%= react_component 'Meetings', { userArchived: @user.archive, userId: @user.id, draftMeetingId: active_user.draft_meeting.try(:id), adminId: (current_user.admin? && current_user.id), editable: !@user.archive && can?(:update, Meeting) } %>
   </section>
 
   <section class='action-plan-container' id='goals-action-plan'>
-    <%= react_component 'Goals', { userId: @user.id, editable: can?(:update, Goal) } %>
+    <%= react_component 'Goals', { userArchived: @user.archive, userId: @user.id, editable: !@user.archive && can?(:update, Goal) } %>
   </section>
 
   <% unless application_settings.hide_feedback %>
-  <section class='action-plan-container' id='feedback-action-plan'>
-    <%= react_component 'Feedbacks', { userId: @user.id, editable: can?(:update, Feedback) } %>
-  </section>
+    <section class='action-plan-container' id='feedback-action-plan'>
+      <%= react_component 'Feedbacks', { userArchived: @user.archive, userId: @user.id, editable: !@user.archive && can?(:update, Feedback) } %>
+    </section>
   <% end %>
 </section>

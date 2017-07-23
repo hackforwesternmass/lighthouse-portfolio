@@ -39,23 +39,25 @@ const KlassesDisplay = React.createClass({
   render() {
     return(
       <div className='left'>
-        <div className='klasses hide-on-small-only'>
-          <div className='header'>
-            Classes
+        {
+          !this.props.userArchived &&
+          <div className='klasses hide-on-small-only'>
+            <div className='header'>
+              Classes
+            </div>
+            <ul ref='currentKlasses'>
+              {
+                !this.state.loadingCurrentKlasses && this.state.currentKlasses.length === 0 &&
+                <li>You are currently not enrolled in any classes</li>
+              }
+              {
+                this.state.currentKlasses.map(klass => {
+                  return <KlassesDisplay.Show klass={klass} key={klass.id} openModal={this.openModal}/>
+                })
+              }
+            </ul>
           </div>
-          <ul ref='currentKlasses'>
-            {
-              !this.state.loadingCurrentKlasses && this.state.currentKlasses.length === 0 &&
-              <li>You are currently not enrolled in any classes</li>
-            }
-            {
-              this.state.currentKlasses.map(klass => {
-                return <KlassesDisplay.Show klass={klass} key={klass.id} openModal={this.openModal}/>
-              })
-            }
-          </ul>
-
-        </div>
+        }
         <div className='klasses hide-on-small-only' style={{marginBottom: 30}}>
           {
             !this.state.loadingPastKlasses && this.state.pastKlasses.length > 0 &&

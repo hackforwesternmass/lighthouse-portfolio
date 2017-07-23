@@ -21,10 +21,11 @@ const Goals = React.createClass({
   },
   render() {
     const { goals, newGoal } = this.state;
-    const { editable } = this.props;
+    const { editable, userArchived } = this.props;
     return (
       <div id='goals'>
-        {!newGoal && editable &&
+        {
+          !newGoal && editable &&
           <a href='#' onClick={this.handleNewGoal} className='hide-on-small-only'>
             <div className='row'>
               <div className='card grey darken-3 no-margin hoverable'>
@@ -40,7 +41,7 @@ const Goals = React.createClass({
         }
         {
           newGoal &&
-            <Goals.GoalForm {...this.props} parent={this} goal={{ action_items: [] }} newGoal={newGoal}/>
+          <Goals.GoalForm {...this.props} parent={this} goal={{ action_items: [] }} newGoal={newGoal}/>
         }
         {
           goals.map(goal => {
@@ -49,11 +50,11 @@ const Goals = React.createClass({
         }
         {
           goals.length == 0 &&
-            <div className='card'>
-              <div className='card-content'>
-                <h5 className='center-align'>You currently have no goals.</h5>
-              </div>
+          <div className='card'>
+            <div className='card-content'>
+              <h5 className='center-align'>You currently have no goals.</h5>
             </div>
+          </div>
         }
       </div>
     );
@@ -77,7 +78,7 @@ Goals.Goal = React.createClass({
         {
           editing
             ? <Goals.GoalForm {...this.props} toggleEdit={this.toggleEdit}/>
-          : <Goals.GoalShow {...this.props} toggleEdit={this.toggleEdit}/>
+            : <Goals.GoalShow {...this.props} toggleEdit={this.toggleEdit}/>
         }
       </div>
     );
@@ -171,12 +172,16 @@ Goals.GoalShow = React.createClass({
       <div className='card'>
         <div className='card-content'>
 
-          {editable && <a href='#' className='right' onClick={this.deleteGoal}>
-            <i className='fa fa-times'></i>
-          </a>}
-          {editable && <a href='#' className='right hide-on-small-only' onClick={this.props.toggleEdit}>
-            <i className='fa fa-edit'></i>
-          </a>}
+          {
+            editable && <a href='#' className='right' onClick={this.deleteGoal}>
+              <i className='fa fa-times'></i>
+            </a>
+          }
+          {
+            editable && <a href='#' className='right hide-on-small-only' onClick={this.props.toggleEdit}>
+              <i className='fa fa-edit'></i>
+            </a>
+          }
           <div className='goal-title'>
             {title}
           </div>
@@ -189,52 +194,51 @@ Goals.GoalShow = React.createClass({
             <div className='col s6 right right-align'>
               {
                 due_date
-                ? moment(due_date).format('MMMM D YYYY')
-                : '∞'
+                  ? moment(due_date).format('MMMM D YYYY')
+                  : '∞'
               }
             </div>
           </div>
 
-          {action_items.length > 0 && <div>
-            <div className='row'>
-              <div className='grey-text col s12'>
-                PROGRESS
+          {
+            action_items.length > 0 && <div>
+              <div className='row'>
+                <div className='grey-text col s12'>
+                  PROGRESS
+                </div>
               </div>
-            </div>
-            <div className='row'>
-              <div className='progress-bar col s12'>
-                <div className='completed-progress-bar' style={{
-                  width: this.progress() + '%'
-                }}></div>
-                <div className='progress-bar-text'>{this.progress()}% Complete</div>
+              <div className='row'>
+                <div className='progress-bar col s12'>
+                  <div className='completed-progress-bar' style={{
+                    width: this.progress() + '%'
+                  }}></div>
+                  <div className='progress-bar-text'>{this.progress()}% Complete</div>
+                </div>
               </div>
-            </div>
 
-            <div className='row'>
-              <div className='grey-text add-checklist'>
-                CHECKLIST
+              <div className='row'>
+                <div className='grey-text add-checklist'>
+                  CHECKLIST
+                </div>
+              </div>
+
+              <div className='row'>
+                {action_items.map(actionItem => {
+                  return (
+                    <div className='col s12' key={actionItem.id}>
+                      <input type='checkbox' disabled={this.props.userArchived} className='blue-check filled-in' id={`action-item-check-${actionItem.id}`} data-id={actionItem.id} onChange={this.toggleCheck} checked={actionItem.completed && 'checked'}/>
+                      <label htmlFor={`action-item-check-${actionItem.id}`}>{actionItem.description}</label>
+                    </div>
+                  )
+                })
+                }
               </div>
             </div>
-
-            <div className='row'>
-              {action_items.map(actionItem => {
-                return (
-                  <div className='col s12' key={actionItem.id}>
-                    <input type='checkbox' className='blue-check filled-in' id={`action-item-check-${actionItem.id}`} data-id={actionItem.id} onChange={this.toggleCheck} checked={actionItem.completed && 'checked'}/>
-                    <label htmlFor={`action-item-check-${actionItem.id}`}>{actionItem.description}</label>
-                  </div>
-                )
-              })
-}
-            </div>
-          </div>
-}
+          }
         </div>
-        <a href='#' className={is_completed
-          ? 'complete-btn'
-          : 'incomplete-btn'} onClick={this.toggleComplete}>{this.props.goal.is_completed
-            ? 'Completed'
-            : 'Finished?'}</a>
+        <a href='#' className={is_completed ? 'complete-btn' : 'incomplete-btn'} onClick={this.toggleComplete}>
+          {this.props.goal.is_completed ? 'Completed' : 'Finished?'}
+        </a>
       </div>
     );
   }
@@ -242,11 +246,7 @@ Goals.GoalShow = React.createClass({
 
 Goals.GoalForm = React.createClass({
   getInitialState() {
-    const {goal} = this.props;
-    return {
-      showChecklist: goal.action_items.length > 0,
-      goal
-    };
+    return { showChecklist: this.props.goal.action_items.length > 0, goal: this.props.goal };
   },
   componentDidMount() {
     if (this.props.newGoal) {
@@ -291,8 +291,7 @@ Goals.GoalForm = React.createClass({
 
     const {newGoal, userId, goal, parent} = this.props;
 
-    let url,
-      type;
+    let url, type;
 
     if (newGoal) {
       url = `/users/${userId}/goals`;
@@ -342,7 +341,7 @@ Goals.GoalForm = React.createClass({
         <div className='card-date grey darken-3 white-text'>
           {created_at
             ? moment(created_at).format('MMMM D YYYY')
-          : 'New Goal'}
+            : 'New Goal'}
           <a className='right white-text' onClick={this.closeGoal}>
             <i className='fa fa-times'></i>
           </a>
@@ -361,7 +360,8 @@ Goals.GoalForm = React.createClass({
                   className='datepicker'
                   name='goal[due_date]'
                   id='goal_due_date'
-                  defaultValue={due_date ? moment(due_date).format('D MMMM, YYYY') : ''}/>
+                  defaultValue={due_date ? moment(due_date).format('D MMMM, YYYY') : ''}
+                />
                 <label htmlFor='goal_due_date'>Due Date</label>
               </div>
             </div>
@@ -369,34 +369,34 @@ Goals.GoalForm = React.createClass({
               <div className='col s12'>
                 {
                   !showChecklist &&
-                    <a onClick={this.toggleChecklist} className='btn waves-effect waves-light grey darken-1'>
-                      {
-                        action_items.length > 0
+                  <a onClick={this.toggleChecklist} className='btn waves-effect waves-light grey darken-1'>
+                    {
+                      action_items.length > 0
                         ? 'Open Checklist'
                         : 'Add Checklist'
-                      }
-                    </a>
+                    }
+                  </a>
                 }
                 {
                   showChecklist &&
-                    <div>
-                      <div className='row'>
-                        <h6 className='bold grey-text text-darken-2 col s12 m6'>
-                          Checklist
-                          <a onClick={this.closeList} className='add-checklist right'>Close list...</a>
-                        </h6>
-                      </div>
-                      {
-                        action_items.map((actionItem, i) => {
-                          return <Goals.ActionItem {...this.props} {...actionItem} index={i} key={actionItem.id} parent={this}/>
-                        })
-                      }
-                      <div className='row' style={{paddingLeft: '0.75rem'}}>
-                        <button name='button' type='button' className='btn waves-effect waves-light grey darken-1' onClick={this.addActionItem}>
-                          Add
-                        </button>
-                      </div>
+                  <div>
+                    <div className='row'>
+                      <h6 className='bold grey-text text-darken-2 col s12 m6'>
+                        Checklist
+                        <a onClick={this.closeList} className='add-checklist right'>Close list...</a>
+                      </h6>
                     </div>
+                    {
+                      action_items.map((actionItem, i) => {
+                        return <Goals.ActionItem {...this.props} {...actionItem} index={i} key={actionItem.id} parent={this}/>
+                      })
+                    }
+                    <div className='row' style={{paddingLeft: '0.75rem'}}>
+                      <button name='button' type='button' className='btn waves-effect waves-light grey darken-1' onClick={this.addActionItem}>
+                        Add
+                      </button>
+                    </div>
+                  </div>
                 }
                 <button name='button' type='submit' className='btn waves-effect waves-light right'>
                   Save

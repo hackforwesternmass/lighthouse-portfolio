@@ -36,8 +36,14 @@ const ToDo = React.createClass({
         <div className='card'>
           <div className='card-content'>
             <h6 className='center-align blue-grey-text text-lighten-1'>Action Items</h6>
-            { loading && <div className='center-align'><i className='fa fa-spinner fa-pulse fa-3x fa-fw no-padding'></i></div> }
-            { !loading && actionItems.length === 0 && <h5 className='center-align'>You currently have no action items to complete.</h5> }
+            {
+              loading &&
+              <div className='center-align'><i className='fa fa-spinner fa-pulse fa-3x fa-fw no-padding'></i></div>
+            }
+            {
+              !loading && actionItems.length === 0 &&
+              <h5 className='center-align'>You currently have no action items to complete.</h5>
+            }
             {
               actionItems.map(actionItem => {
                 return <ToDo.ActionItem {...this.props} key={actionItem.id} actionItem={actionItem} parent={this} />
@@ -115,15 +121,15 @@ ToDo.ActionItem = React.createClass({
     return(
       <div className='item'>
         <div className='text'>
-          <input type='checkbox' className='blue-check filled-in' id={`check-${id}`} onChange={this.toggleComplete} checked={completed && 'checked'}/>
+          <input type='checkbox' disabled={this.props.userArchived} className='blue-check filled-in' id={`check-${id}`} onChange={this.toggleComplete} checked={completed}/>
           <label htmlFor={`check-${id}`}>
             {due_date && <span className='blue-text text-darken-1' >Due {moment(due_date).add(1, 'days').fromNow()}: </span>}
             {description}
           </label>
         </div>
         {
-          !archive &&
-            <a href='#' onClick={this.archive} className='secondary-icons'>×</a>
+          !archive && !this.props.userArchived &&
+          <a href='#' onClick={this.archive} className='secondary-icons'><i className='material-icons tiny'>close</i> </a>
         }
       </div>
     );

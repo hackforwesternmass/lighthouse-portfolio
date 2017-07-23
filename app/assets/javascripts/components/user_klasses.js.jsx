@@ -102,12 +102,12 @@ const UserKlasses = React.createClass({
                     <li className='collection-item' key={klass.id}>
                       <div>{klass.name}
                         <a href='#'
-                           data-klass-id={klass.id}
-                           data-enroll-id={klass.enroll_id}
-                           data-value={true}
-                           onClick={this.toggleArchiveKlass}
-                           className='secondary-content'>
-                           <i className='material-icons'>archive</i>
+                          data-klass-id={klass.id}
+                          data-enroll-id={klass.enroll_id}
+                          data-value={true}
+                          onClick={this.toggleArchiveKlass}
+                        className='secondary-content'>
+                          <i className='material-icons'>archive</i>
                         </a>
                       </div>
                     </li>
@@ -128,29 +128,29 @@ const UserKlasses = React.createClass({
           <div>
             <h5>Archived Classes</h5>
 
-              <div style={{margin: '20px 0'}}>
-                <ul className='collection'>
-                  {
-                    enrolledKlasses.map(klass => {
-                      if(!klass.completed) return false;
-                      return(
-                        <li className='collection-item' key={klass.id}>
-                          <div>{klass.name}
-                            <a href='#'
-                               data-klass-id={klass.id}
-                               data-enroll-id={klass.enroll_id}
-                               data-value={false}
-                               onClick={this.toggleArchiveKlass}
-                               className='secondary-content'>
-                               <i className='material-icons'>unarchive</i>
-                            </a>
-                          </div>
-                        </li>
-                      )
-                    })
-                  }
-                </ul>
-              </div>
+            <div style={{margin: '20px 0'}}>
+              <ul className='collection'>
+                {
+                  enrolledKlasses.map(klass => {
+                    if(!klass.completed) return false;
+                    return(
+                      <li className='collection-item' key={klass.id}>
+                        <div>{klass.name}
+                          <a href='#'
+                            data-klass-id={klass.id}
+                            data-enroll-id={klass.enroll_id}
+                            data-value={false}
+                            onClick={this.toggleArchiveKlass}
+                          className='secondary-content'>
+                            <i className='material-icons'>unarchive</i>
+                          </a>
+                        </div>
+                      </li>
+                    )
+                  })
+                }
+              </ul>
+            </div>
           </div>
         }
 
@@ -163,28 +163,28 @@ const UserKlasses = React.createClass({
           <div className='modal-content'>
             <h4 className='center-align'>Enroll to Classes</h4>
             <form >
-                <div className='row'>
-                  {
+              <div className='row'>
+                {
                     allKlasses.length == 0 &&
-                    <h5 className='center-align grey-text'>No classes added yet.</h5>
-                  }
-                  {
-                    allKlasses.map(klass => {
+                  <h5 className='center-align grey-text'>No classes added yet.</h5>
+                }
+                {
+                  allKlasses.map(klass => {
                       const yearChange = klass.year !== this.previousYear;
                       this.previousYear = klass.year;
-                      const enrollId = klass.enrolls.reduce((enrolled, value) => enrolled || (value.user_id == this.props.userId && value.id), false)
-                      return(
-                        <div className='row' key={klass.id}>
-                          {yearChange && <h6 className='center-align'>{klass.year}</h6>}
-                          <div>
-                            <input type='checkbox' id={`check-${klass.id}`} data-enroll-id={enrollId} onChange={this.toggleEnrolledKlass} className='filled-in' value={klass.id} defaultChecked={enrollId && 'checked'}/>
-                            <label htmlFor={`check-${klass.id}`}>{klass.name}</label>
-                          </div>
+                    const enrollId = klass.enrolls.reduce((enrolled, value) => enrolled || (value.user_id == this.props.userId && value.id), false)
+                    return(
+                      <div className='row' key={klass.id}>
+                        {yearChange && <h6 className='center-align'>{klass.year}</h6>}
+                        <div>
+                          <input type='checkbox' disabled={this.props.userArchived} id={`check-${klass.id}`} data-enroll-id={enrollId} onChange={this.toggleEnrolledKlass} className='filled-in' value={klass.id} defaultChecked={enrollId && 'checked'}/>
+                          <label htmlFor={`check-${klass.id}`}>{klass.name}</label>
                         </div>
-                      )
-                    })
-                  }
-                </div>
+                      </div>
+                    )
+                  })
+                }
+              </div>
             </form>
             <br/>
             {

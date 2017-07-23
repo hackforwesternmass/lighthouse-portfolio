@@ -55,17 +55,17 @@ const Students = React.createClass({
       <section id='students' className='section-container'>
         <div className='row grey-text text-darken-2'>
           <div className='input-field col s12 m9 l6'>
-            <i className='fa fa-search prefix'></i>
+            <i className='material-icons prefix'>search</i>
             <input id='student-search' className='search' type='text' onChange={this.searchText}/>
             <label htmlFor='student-search'>Search</label>
           </div>
 
           <div className='input-field col s12 m3 l6'>
-            <a href='#' style={{marginLeft: 10}} onClick={this.toggleViewArchived} data-position='left' data-tooltip={viewArchived ? 'Hide Archived Students' : 'View Archived Students'}  className="right grey darken-1 tooltipped btn-floating waves-effect waves-light">
-              <i className="material-icons">{viewArchived ? 'visibility_off' : 'visibility'}</i>
+            <a href='#' style={{marginLeft: 10}} onClick={this.toggleViewArchived} data-position='left' data-tooltip={viewArchived ? 'Hide Archived Students' : 'View Archived Students'}  className='right grey darken-1 tooltipped btn-floating waves-effect waves-light'>
+              <i className='material-icons'>{viewArchived ? 'visibility_off' : 'visibility'}</i>
             </a>
-            <a href='/users/new?role=student' data-position='left' data-tooltip="Register New Student"  className="right tooltipped btn-floating waves-effect waves-light">
-              <i className="material-icons">add</i>
+            <a href='/users/new?role=student' data-position='left' data-tooltip='Register New Student'  className='right tooltipped btn-floating waves-effect waves-light'>
+              <i className='material-icons'>add</i>
             </a>
           </div>
         </div>
@@ -173,19 +173,41 @@ Students.Show = React.createClass({
         <a href={`/access_student?student_id=${student.id}`}>
           <img src={student.thumb_avatar_url} alt={`${student.full_name} avatar`} className='circle' />
         </a>
-        <a className='title' href={`/access_student?student_id=${student.id}`}>{student.full_name}</a>
-        {
-          student.meeting_time &&
-          <p>{student.meeting_time}</p>
-        }
+        <div className='row'>
+          <div className='col s12 m4'>
+            <a className='title' href={`/access_student?student_id=${student.id}`}>{student.full_name}</a>
+            {
+              student.meeting_time &&
+              <p className='hide-on-med-and-up'>{student.meeting_time}</p>
+            }
+          </div>
+          {
+            !student.archive &&
+            <div className='col s12 m4'><a className='subtitle hide-on-small-only' href={`/users/${student.id}/classes`}>Classes ({student.enrolls.filter(enroll => !enroll.completed).length})</a></div>
+          }
+          {
+            !student.archive &&
+            <div className='col s12 m4'><a className='subtitle hide-on-small-only' href='#' onClick={this.openMeetingTimeModal}>{student.meeting_time}</a></div>
+          }
+        </div>
+
         <a href='#' data-activates={`dropdown-${student.id}`} className='dropdown-button secondary-content'><i className='material-icons'>more_vert</i></a>
         <ul id={`dropdown-${student.id}`} className='dropdown-content'>
           <li><a href={`/users/${student.id}/edit`}>Edit Account</a></li>
-          <li><a href="#" onClick={this.openMeetingTimeModal}>Set Meeting Time</a></li>
-          <li><a href={`/users/${student.id}/classes`}>Manage Classes</a></li>
-          <li><a href="#" onClick={this.openParentsModal}>Manage Parents</a></li>
-          <li className="divider"></li>
-          <li><a href="#" onClick={this.toggleArchiveStudent}>{student.archive ? 'Unarchive' : 'Archive'}</a></li>
+          {
+            !student.archive &&
+            <li><a href='#' onClick={this.openMeetingTimeModal}>Set Meeting Time</a></li>
+          }
+          {
+            !student.archive &&
+            <li><a href={`/users/${student.id}/classes`}>Manage Classes</a></li>
+          }
+          {
+            !student.archive &&
+            <li><a href='#' onClick={this.openParentsModal}>Manage Parents</a></li>
+          }
+          <li className='divider'></li>
+          <li><a href='#' onClick={this.toggleArchiveStudent}>{student.archive ? 'Unarchive' : 'Archive'}</a></li>
         </ul>
       </div>
     )

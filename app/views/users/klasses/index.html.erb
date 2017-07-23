@@ -6,4 +6,4 @@
   </div>
 </nav>
 
-<%= react_component 'UserKlasses', { userId: @user.id, studentName: @user.full_name } %>
+<%= react_component 'UserKlasses', { userArchived: @user.archive, userId: @user.id, studentName: @user.full_name } %>

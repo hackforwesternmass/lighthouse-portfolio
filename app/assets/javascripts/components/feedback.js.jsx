@@ -22,26 +22,26 @@ const Feedbacks = React.createClass({
       <div id='feedbacks'>
         {
           editable &&
-            <a href={`/users/${this.props.userId}/feedbacks/new`}>
-              <div className='row'>
-                <div className='card grey darken-3 no-margin hoverable'>
-                  <div className='card-content white-text center-align'>
-                    <h6>
-                      <i className='fa fa-plus-circle' />
-                      ADD FEEDBACK
-                    </h6>
-                  </div>
+          <a href={`/users/${this.props.userId}/feedbacks/new`}>
+            <div className='row'>
+              <div className='card grey darken-3 no-margin hoverable'>
+                <div className='card-content white-text center-align'>
+                  <h6>
+                    <i className='fa fa-plus-circle' />
+                    ADD FEEDBACK
+                  </h6>
                 </div>
               </div>
-            </a>
+            </div>
+          </a>
         }
         {
           feedbacks.length === 0 &&
-            <div className='card'>
-              <div className='card-content'>
-                <h5 className='center-align'>You currently have no feedback.</h5>
-              </div>
+          <div className='card'>
+            <div className='card-content'>
+              <h5 className='center-align'>You currently have no feedback.</h5>
             </div>
+          </div>
         }
         {
           feedbacks.map(feedback => {
@@ -53,9 +53,12 @@ const Feedbacks = React.createClass({
                   <br />
                   <div className='grey-text text-darken-1' dangerouslySetInnerHTML={{ __html: feedback.text }}></div>
                 </div>
-                <div className='card-action'>
-                  <a className='blue-text text-darken-1' href={`/users/${this.props.userId}/feedbacks/${feedback.id}/edit`}>Edit</a>
-                </div>
+                {
+                  editable &&
+                  <div className='card-action'>
+                    <a className='blue-text text-darken-1' href={`/users/${this.props.userId}/feedbacks/${feedback.id}/edit`}>Edit</a>
+                  </div>
+                }
               </div>
             )
           })

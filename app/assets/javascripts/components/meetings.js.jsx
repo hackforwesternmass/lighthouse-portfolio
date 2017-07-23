@@ -40,47 +40,47 @@ const Meetings = React.createClass({
   },
   render() {
     const { showNewMeeting, meetings, activeMeetingId, draftMeeting, loadingDraft } = this.state;
-    const { adminId, editable, meetingTime, draftMeetingId } = this.props;
+    const { adminId, editable, meetingTime, draftMeetingId, userArchived } = this.props;
 
     return (
       <div id='meetings'>
         {
-          !adminId &&
+          (!adminId || userArchived) &&
+          <div className='row'>
+            <div className='card blue darken-1 no-margin'>
+              <div className='card-content white-text center-align'>
+                <small style={{fontWeight: 300, fontSize: 13, display: 'block' }} >Meeting Time</small>
+                <h6>{ meetingTime || 'Anytime - Be Ready' }</h6>
+              </div>
+            </div>
+          </div>
+        }
+        {
+          adminId && !showNewMeeting && editable && !userArchived &&
+          <a href='#' onClick={this.handleNewMeeting} className='hide-on-small-only'>
             <div className='row'>
-              <div className='card blue darken-1 no-margin'>
+              <div className='card blue darken-1 no-margin hoverable'>
                 <div className='card-content white-text center-align'>
-                  <small style={{fontWeight: 300, fontSize: 13, display: 'block' }} >Meeting Time</small>
-                  <h6>{ meetingTime || 'Anytime - Be Ready' }</h6>
+                  <h6>START MEETING</h6>
                 </div>
               </div>
             </div>
-        }
-        {
-          adminId && !showNewMeeting && editable &&
-            <a href='#' onClick={this.handleNewMeeting} className='hide-on-small-only'>
-              <div className='row'>
-                <div className='card blue darken-1 no-margin hoverable'>
-                  <div className='card-content white-text center-align'>
-                    <h6>START MEETING</h6>
-                  </div>
-                </div>
-              </div>
-            </a>
+          </a>
         }
         {
           showNewMeeting &&
-            <Meetings.MeetingForm {...this.props} parent={this} meeting={draftMeeting || {action_items: []}} showNewMeeting={showNewMeeting} newMeeting />
+          <Meetings.MeetingForm {...this.props} parent={this} meeting={draftMeeting || {action_items: []}} showNewMeeting={showNewMeeting} newMeeting />
         }
         {
           meetings.map(meeting => <Meetings.Meeting activeMeetingId={activeMeetingId} {...this.props} parent={this} key={meeting.id} meeting={meeting} />)
         }
         {
           meetings.length == 0 &&
-            <div className='card'>
-              <div className='card-content'>
-                <h5 className='center-align'>You currently have no meeting notes.</h5>
-              </div>
+          <div className='card'>
+            <div className='card-content'>
+              <h5 className='center-align'>You currently have no meeting notes.</h5>
             </div>
+          </div>
         }
       </div>
     );
@@ -112,8 +112,8 @@ Meetings.Meeting = React.createClass({
       <div>
         {
           editing && activeMeetingId == meeting.id
-          ? <Meetings.MeetingForm {...this.props} toggleEdit={this.toggleEdit} />
-          : <Meetings.MeetingShow {...this.props} toggleEdit={this.toggleEdit} />
+            ? <Meetings.MeetingForm {...this.props} toggleEdit={this.toggleEdit} />
+            : <Meetings.MeetingShow {...this.props} toggleEdit={this.toggleEdit} />
         }
       </div>
     );
@@ -164,14 +164,14 @@ Meetings.MeetingShow = React.createClass({
   },
   render() {
     const { created_at, action_items, notes } = this.props.meeting;
-    const { editable } = this.props;
+    const { editable, userArchived } = this.props;
     return(
       <div className='row'>
         <div className='card'>
           <div className='card-date'>
             {moment(created_at).format('MMMM D YYYY')}
-            {editable && <a href='#' className='right white-text' onClick={this.deleteMeeting}><i className='fa fa-times'></i></a>}
-            {editable && <a href='#' className='right white-text hide-on-small-only' onClick={this.props.toggleEdit} ><i className='fa fa-edit'></i></a>}
+            {editable && !userArchived && <a href='#' className='right white-text' onClick={this.deleteMeeting}><i className='fa fa-times'></i></a>}
+            {editable && !userArchived && <a href='#' className='right white-text hide-on-small-only' onClick={this.props.toggleEdit} ><i className='fa fa-edit'></i></a>}
           </div>
           <div className='card-content action-items'>
 
@@ -191,7 +191,7 @@ Meetings.MeetingShow = React.createClass({
                   return(
                     <div className='row body' key={actionItem.id}>
                       <div className='col s9 m10'>
-                        <input type='checkbox' className='blue-check filled-in' data-id={actionItem.id} id={`meeting-check-${actionItem.id}`} onChange={this.toggleCheck} checked={actionItem.completed && 'checked'}/>
+                        <input type='checkbox' disabled={userArchived} className='blue-check filled-in' data-id={actionItem.id} id={`meeting-check-${actionItem.id}`} onChange={this.toggleCheck} checked={actionItem.completed && 'checked'}/>
                         <label htmlFor={`meeting-check-${actionItem.id}`}><span className='blue-text text-lighten-2'>{actionItem.user_id && 'Advisor task: ' }</span>{actionItem.description}</label>
                       </div>
                       <div className='col s3 m2 capitalize'>{ actionItem.due_date ? moment(actionItem.due_date).add(1, 'days').fromNow() : '∞' }</div>
