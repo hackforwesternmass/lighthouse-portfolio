@@ -95,7 +95,7 @@ const KlassesDisplay = React.createClass({
             {
               this.state.google_drive_url &&
               <div style={{paddingTop: 20}}>
-                <a href={this.state.google_drive_url}><i className='fa fa-folder-open'></i>Google Drive</a>
+                <a href={this.state.google_drive_url} target='_blank'><i className='fa fa-folder-open'></i>Google Drive</a>
               </div>
             }
           </div>
