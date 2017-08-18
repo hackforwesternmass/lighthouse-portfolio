@@ -1,214 +1,215 @@
-var update = React.addons.update;
-
-var Students = React.createClass({
+const Students = React.createClass({
   getInitialState() {
-    return { students: [], klasses: [] };
+    return {
+      students: [],
+      currentStudentParents: [],
+      currentStudentId: '',
+      currentStudentMeetingTime: '',
+      viewArchived: false
+    };
   },
   componentDidMount() {
-    $.getJSON('/users',
-      students => this.setState({ students })
-    );
-    $.getJSON('/class',
-      klasses => this.setState({ klasses })
-    );
+    this.loadStudents();
+    $('.tooltipped').tooltip({ position: 'left', delay: 10 });
   },
-  search(params) {
-    $.getJSON('/users', params,
-      students => this.setState({ students })
-    );
+  loadStudents(data = {}) {
+    $.ajax({
+      url: '/users',
+      data,
+      success: students => {
+        this.setState({ students });
+      }
+    });
   },
   searchText(e) {
-    this.search({ q: e.target.value });
-  },
-  render() {
-    const { students, klasses } = this.state;
-    return  <section id='students' className='section-container'>
-              <div className='row grey-text text-darken-2'>
-                <div className='input-field col s12 m9'>
-                  <i className='fa fa-search prefix'></i>
-                  <input id='student-search' className='search' type='text' onChange={this.searchText}/>
-                  <label htmlFor='student-search'>Search</label>
-                </div>
-
-                <div className='input-field col s12 m3'>
-                  <a className='btn' href='/users/new?role=student' style={{fontSize: 10}}>
-                    <i className='fa fa-plus no-padding' style={{fontSize: 10}}></i> Register New
-                  </a>
-                  </div>
-                </div>
-              <Students.Index {...this.props} students={students} klasses={klasses} search={this.search} />
-            </section>;
-  }
-});
-
-Students.Index = React.createClass({
-  getInitialState(){
-    return { klassIds: [] }
-  },
-  openModal(selector, state){
-    this.setState(state);
-    $(selector).openModal();
-  },
-  componentDidMount(){
-    $('.modal-trigger').leanModal();
+    this.loadStudents({ q: e.target.value });
   },
   changeMeetingTime(e){
-    this.setState({ meeting_time: e.target.value });
+    this.setState({ currentStudentMeetingTime: e.target.value });
   },
   meetingTimeSubmit(e){
     e.preventDefault();
-    const { id, meeting_time } = this.state;
+    const { currentStudentId, currentStudentMeetingTime } = this.state;
     $.ajax({
-      url: `/users/${id}`,
-      dataType: 'JSON',
+      url: `/users/${currentStudentId}`,
       type: 'PATCH',
-      data: { user: { meeting_time } },
+      data: { user: { meeting_time: currentStudentMeetingTime } },
       success: () => {
-        $('#meeting-time-modal').closeModal();
-        this.props.search({}); // Re-renders students index
+        $('#meeting-time-modal').modal('close');
+        this.loadStudents(); // Re-renders students index
       },
       error: () => {
-        Materialize.toast('Failed to update meeting time.', 3500, 'red darken-4');
+        Materialize.toast('Failed to update meeting time.', 3500, 'red darken-3');
       }
     });
   },
-  enrollSubmit(e){
+  toggleViewArchived(e) {
     e.preventDefault();
-    const { id, klassIds } = this.state;
-    $.ajax({
-      url: '/enrolls/bulk_create',
-      dataType: 'JSON',
-      type: 'POST',
-      data: { user_id: id, klass_ids: klassIds },
-      success: () => {
-        $('#enroll-modal').closeModal();
-        this.props.search({}); // Re-renders students index
-      },
-      error: () => {
-        Materialize.toast('Failed to enroll student to class', 3500, 'red darken-4');
-      }
+    this.setState({ viewArchived: !this.state.viewArchived }, () => {
+      $('.tooltipped').tooltip({ position: 'left', delay: 10 });
     });
   },
-  addKlassId(e){
-    const value = e.currentTarget.value;
-    const index = this.state.klassIds.indexOf(value);
-    const obj = (index > -1) ? { $splice: [[index, 1]] } : { $push: [value] }
-    this.setState({ klassIds: update(this.state.klassIds, obj) });
-  },
-  render(){
-    const { id, meeting_time, klassIds, parents } = this.state;
-    return <div>
-             <table className='bordered z-depth-1'>
-               <thead className='grey darken-4 white-text'>
-                 <tr className='grey darken-4 white-text'>
-                   <th className='student-name'>NAME</th>
-                   <th>ACCOUNT</th>
-                   <th>ENROLL</th>
-                   <th>PARENTS</th>
-                   <th>WEEKLY MEETING TIME</th>
-                 </tr>
-               </thead>
-                <tbody>
+  render() {
+    const { students, currentStudentMeetingTime, currentStudentId, currentStudentParents, viewArchived } = this.state;
+    return(
+      <section id='students' className='section-container'>
+        <div className='row grey-text text-darken-2'>
+          <div className='input-field col s12 m9 l6'>
+            <i className='material-icons prefix'>search</i>
+            <input id='student-search' className='search' type='text' onChange={this.searchText}/>
+            <label htmlFor='student-search'>Search</label>
+          </div>
+
+          <div className='input-field col s12 m3 l6'>
+            <a href='#' style={{marginLeft: 10}} onClick={this.toggleViewArchived} data-position='left' data-tooltip={viewArchived ? 'Hide Archived Students' : 'View Archived Students'}  className='right grey darken-1 tooltipped btn-floating waves-effect waves-light'>
+              <i className='material-icons'>{viewArchived ? 'visibility_off' : 'visibility'}</i>
+            </a>
+            <a href='/users/new?role=student' data-position='left' data-tooltip='Register New Student'  className='right tooltipped btn-floating waves-effect waves-light'>
+              <i className='material-icons'>add</i>
+            </a>
+          </div>
+        </div>
+        <div className='collection'>
+          {students.map(student => <Students.Show parent={this} student={student} viewArchived={viewArchived} key={`student-${student.id}`} />)}
+        </div>
+        <div id='meeting-time-modal' className='modal small'>
+          <div className='modal-content'>
+            <h4>Set Meeting Time</h4>
+            <form onSubmit={this.meetingTimeSubmit}>
+              <div className='row'>
+                <div className='input-field col s12'>
+                  <input type='text' value={currentStudentMeetingTime} onChange={this.changeMeetingTime} name='user[meeting_time]' placeholder='ex. 1:30PM Friday' id='user_meeting_time'/>
+                  <label htmlFor='user_meeting_time' className='active'>Meeting time</label>
+                </div>
+              </div>
+            </form>
+            <a href='#' onClick={this.meetingTimeSubmit} style={{ width: '100%' }} className='btn modal-action waves-effect'>Set</a>
+          </div>
+        </div>
+        <div id='parent-modal' className='modal small'>
+          <div className='modal-content'>
+            <h4 className='center-align'>Parents</h4>
+            {
+              currentStudentParents.length > 0
+                ? <ul className='collection'>
                   {
-                    this.props.students.map(student => {
-                      return < Students.Show {...this.props} key={student.id} student={student} openModal={this.openModal} />;
+                    currentStudentParents.map(parent => {
+                      return <a className='collection-item' key={parent.id} href={`/users/${parent.id}/edit`}>{parent.full_name}</a>;
                     })
                   }
-                </tbody>
-              </table>
-              <div id='meeting-time-modal' className='modal' style={{ maxWidth: 400 }}>
-                <div className='modal-content'>
-                  <h4>Set Meeting Time</h4>
-                  <form onSubmit={this.meetingTimeSubmit}>
-                      <div className='row'>
-                        <div className='input-field col s12'>
-                          <input type='text' value={meeting_time || ''} onChange={this.changeMeetingTime} name='user[meeting_time]' placeholder='ex. 1:30PM Friday' id='user_meeting_time'/>
-                          <label htmlFor='user_meeting_time' className='active'>Meeting time</label>
-                        </div>
-                      </div>
-                  </form>
-                  <a href='#' onClick={this.meetingTimeSubmit} style={{ width: '100%' }} className='btn modal-action modal-close waves-effect'>Set</a>
-                </div>
-              </div>
-              <div id='enroll-modal' className='modal' style={{ maxWidth: 400 }}>
-                <div className='modal-content'>
-                  <h4 className='center-align'>Enroll to Classes</h4>
-                  <form onSubmit={this.enrollSubmit}>
-                      <div className='row'>
-                        {
-                          this.props.klasses.length == 0 &&
-                          <h5 className='center-align grey-text'>No classes added yet.</h5>
-                        }
-                        {
-                          this.props.klasses.map(klass => {
-                            return <div className='input-field col s12' key={klass.id}>
-                                     <input type='checkbox' id={`check-${klass.id}`} className='filled-in' value={klass.id} onChange={this.addKlassId} checked={klassIds.indexOf(String(klass.id)) > -1 && 'checked'}/>
-                                     <label htmlFor={`check-${klass.id}`}>{klass.name}</label>
-                                   </div>
-                          })
-                        }
-                      </div>
-                  </form>
-                  <br/>
-                  {
-                    this.props.klasses.length == 0
-                    ? <a className='btn' style={{ width: '100%' }} href='/class/new'>Add Class</a>
-                    : <a href='#' onClick={this.enrollSubmit} style={{ width: '100%' }} className='btn modal-action modal-close waves-effect'>Save</a>
-                  }
-                </div>
-              </div>
-              <div id='parent-modal' className='modal' style={{ maxWidth: 400 }}>
-                <div className='modal-content'>
-                  <h4 className='center-align'>Parents</h4>
-                  {
-                    parents && parents.length > 0
-                    ? <ul className='collection'>
-                        {
-                          parents.map(parent => {
-                            return <a className='collection-item' key={parent.id} href={`/users/${parent.id}/edit`}>{parent.full_name}</a>;
-                          })
-                        }
-                      </ul>
-                    : <h5 className='center-align grey-text'>No parents added yet.</h5>
-                  }
-                  <br/>
-                  <div className='row'>
-                    <a className='modal-action btn btn-flat waves-effect' style={{ width: '100%' }} href={`/parents?student_id=${id}`}>Add/Remove Existing Parent</a>
-                  </div>
-                  <div className='row'>
-                    <a className='modal-action modal-close btn waves-effect' style={{ width: '100%' }} href={`/users/new?role=parent&student_id=${id}`}>Add Parent</a>
-                  </div>
-                </div>
-              </div>
-            </div>;
+                </ul>
+                : <h5 className='center-align grey-text'>No parents added yet.</h5>
+            }
+            <br/>
+            <div className='row'>
+              <a className='modal-action btn btn-flat waves-effect' style={{ width: '100%' }} href={`/parents?student_id=${currentStudentId}`}>Add/Remove Existing Parent</a>
+            </div>
+            <div className='row'>
+              <a className='modal-action modal-close btn waves-effect' style={{ width: '100%' }} href={`/users/new?role=parent&student_id=${currentStudentId}`}>Add Parent</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
   }
 });
 
 Students.Show = React.createClass({
-  triggerMeetingModal(e) {
-    e.preventDefault();
-    const { id, meeting_time } = this.props.student;
-    this.props.openModal('#meeting-time-modal', { id, meeting_time });
+  componentDidMount() {
+    $('.dropdown-button').dropdown({
+      constrainWidth: false,
+    });
   },
-  triggerEnrollModal(e) {
-    e.preventDefault();
-    const { enrolls, id } = this.props.student;
-    const klassIds = enrolls.map(enroll => String(enroll.klass_id));
-    this.props.openModal('#enroll-modal', { id, klassIds });
+  componentDidUpdate() {
+    $('.dropdown-button').dropdown({
+      constrainWidth: false,
+    });
   },
-  triggerParentModal(e) {
+  openMeetingTimeModal(e) {
     e.preventDefault();
-    const { id, parents } = this.props.student;
-    this.props.openModal('#parent-modal', { id, parents });
+    const { student, parent } = this.props;
+    parent.setState({ currentStudentMeetingTime: student.meeting_time, currentStudentId: student.id }, () => {
+      $('#meeting-time-modal').modal('open', {});
+    });
+  },
+  openParentsModal(e) {
+    e.preventDefault();
+    const { student, parent } = this.props;
+    parent.setState({ currentStudentParents: student.parents, currentStudentId: student.id }, () => {
+      $('#parent-modal').modal('open', {});
+    });
+  },
+  toggleArchiveStudent(e) {
+    e.preventDefault();
+
+    if (!this.props.student.archive && !confirm('Classes that student is currently enrolled in will be moved to student\'s past classes list.')) {
+      return false;
+    }
+
+    $.ajax({
+      url: `/users/${this.props.student.id}`,
+      type: 'PATCH',
+      data: { user: { archive: !this.props.student.archive } },
+      success: () => {
+        this.props.parent.loadStudents(); // Re-renders students index
+      },
+      error: () => {
+        Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-3');
+      }
+    });
   },
   render() {
-    const { id, full_name, meeting_time } = this.props.student;
-    return <tr key={id}>
-              <td className='student-name name'><a href={`/access_student?student_id=${id}`}>{full_name}</a></td>
-              <td><a href={`/users/${id}/edit`}><i className='fa fa-pencil'></i></a></td>
-              <td><a href='#'><i className='fa fa-user modal-trigger' onClick={this.triggerEnrollModal}></i></a></td>
-              <td><a href='#'><i className='fa fa-users modal-trigger' onClick={this.triggerParentModal}></i></a></td>
-              <td><a href='#' className='modal-trigger' onClick={this.triggerMeetingModal}><i className='fa fa-calendar-o'></i>{meeting_time}</a></td>
-            </tr>;
+    const { student, viewArchived } = this.props;
+    if(!viewArchived && student.archive) {
+      return false
+    }
+
+    if(viewArchived && !student.archive) {
+      return false
+    }
+
+    return(
+      <div className='collection-item avatar'>
+        <a href={`/access_student?student_id=${student.id}`}>
+          <img src={student.thumb_avatar_url} alt={`${student.full_name} avatar`} className='circle' />
+        </a>
+        <div className='row'>
+          <div className='col s12 m4'>
+            <a className='title' href={`/access_student?student_id=${student.id}`}>{student.full_name}</a>
+            {
+              student.meeting_time &&
+              <p className='hide-on-med-and-up'>{student.meeting_time}</p>
+            }
+          </div>
+          {
+            !student.archive &&
+            <div className='col s12 m4'><a className='subtitle hide-on-small-only' href={`/users/${student.id}/classes`}>Classes ({student.enrolls.filter(enroll => !enroll.completed).length})</a></div>
+          }
+          {
+            !student.archive &&
+            <div className='col s12 m4'><a className='subtitle hide-on-small-only' href='#' onClick={this.openMeetingTimeModal}>{student.meeting_time}</a></div>
+          }
+        </div>
+
+        <a href='#' data-activates={`dropdown-${student.id}`} className='dropdown-button secondary-content'><i className='material-icons'>more_vert</i></a>
+        <ul id={`dropdown-${student.id}`} className='dropdown-content'>
+          <li><a href={`/users/${student.id}/edit`}>Edit Account</a></li>
+          {
+            !student.archive &&
+            <li><a href='#' onClick={this.openMeetingTimeModal}>Set Meeting Time</a></li>
+          }
+          {
+            !student.archive &&
+            <li><a href={`/users/${student.id}/classes`}>Manage Classes</a></li>
+          }
+          {
+            !student.archive &&
+            <li><a href='#' onClick={this.openParentsModal}>Manage Parents</a></li>
+          }
+          <li className='divider'></li>
+          <li><a href='#' onClick={this.toggleArchiveStudent}>{student.archive ? 'Unarchive' : 'Archive'}</a></li>
+        </ul>
+      </div>
+    )
   }
-});
+})

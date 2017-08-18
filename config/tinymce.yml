@@ -6,3 +6,4 @@ toolbar:
 plugins:
   - image
   - link
+  - spellchecker

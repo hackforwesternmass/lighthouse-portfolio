@@ -6,10 +6,16 @@ class Portfolio < ActiveRecord::Base
 
   validates :description, length: { maximum: 140, message: '140 character max' }
 
-  has_attached_file :avatar, :default_url => 'default-avatar.png'
+  has_attached_file :avatar,
+                    default_url: -> (avatar) { ActionController::Base.helpers.asset_url('default-avatar.png') },
+                    styles: { thumb: "100x100#", medium: '250x250#' }
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
-  has_attached_file :background, :default_url => 'tibetan-mountains.jpg'
+  has_attached_file :background,
+                    default_url: -> (background) { ActionController::Base.helpers.asset_path('tibetan-mountains.jpg') }
   validates_attachment_content_type :background, :content_type => /\Aimage\/.*\Z/
 
+  def thumb_avatar_url
+    avatar.url(:thumb)
+  end
 end

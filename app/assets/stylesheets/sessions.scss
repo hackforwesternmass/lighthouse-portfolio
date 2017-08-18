@@ -57,8 +57,14 @@
     width: 100%;
     padding: 15px 0;
     color: #777;
-    font-weight: 300;
-    font-size: 0.9rem;
+		border-right: 2px;
   }
+
+	.forgot-password {
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
 
 }

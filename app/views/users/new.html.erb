@@ -1,6 +1,6 @@
 <nav>
   <div class='nav-wrapper'>
-    <%= link_to 'Admin Dashboard', admin_dashboard_path, class: 'breadcrumb' %>
+    <%= link_to 'Dashboard', admin_dashboard_path, class: 'breadcrumb' %>
     <%= link_to 'Manage Students', users_path, class: 'breadcrumb' unless params[:role] == 'admin' || @user.admin? %>
     <span class='breadcrumb'><%= "Create #{params[:role].capitalize} Account" %></span>
   </div>
@@ -8,7 +8,7 @@
 
 <section  class='section-container'>
   <div class='row'>
-    <h3 class='teal-text col s12'><%= "Create #{params[:role].capitalize} Account" %> </h3>
+    <h4 class='col s12'><%= "Create #{params[:role].capitalize} Account" %> </h4>
   </div>
   <%= render 'form' %>
 </section>

@@ -5,15 +5,16 @@
 <ul id='slide-out' class='side-nav fixed grey darken-4' data-no-turbolink>
   <%= image_tag ENV['LOGO_LINK'], class: 'logo' %>
 
-  <%= side_panel_link(admin_dashboard_path, 'user', 'Admin') if current_user.admin? %>
+  <%= link_to (current_user.admin? ? 'RETURN TO ADMIN' : 'Dashboard'), exit_student_path, class: 'sign-out-student' if session[:student_id].present? %>
+
+  <%= side_panel_link(admin_dashboard_path, 'user-circle', 'Dashboard') if active_user.admin? %>
   <%= side_panel_link(action_plan_user_path(active_id), 'desktop', 'Action Plan') if current_user.student? || session[:student_id].present? %>
-  <%= side_panel_link(calendar_path, 'calendar-o', 'Class Calendar') if (Calendar.first.try(:show) && Calendar.first.try(:calendar_id) != '') %>
+  <%= side_panel_link(calendar_path, 'calendar', 'Class Calendar') if !application_settings.hide_calendar && application_settings.calendar_id.present? %>
   <%= side_panel_link(user_resources_path(active_id), 'bookmark', 'Resources') %>
   <%= side_panel_link(user_portfolio_path(active_id), 'user', 'Portfolio') %>
 
   <li>
-    <%= link_to fa_icon('sign-out', text: 'Sign Out'), logout_path, class: 'grey-text text-darken-1' %>
+    <%= link_to fa_icon('sign-out', text: 'Sign Out'), logout_path, class: 'grey-text' %>
   </li>
 
-  <%= link_to (current_user.admin? ? 'Back to Admin Account' : 'Dashboard'), exit_student_path, class: 'btn white-text' if session[:student_id].present? %>
 </ul>

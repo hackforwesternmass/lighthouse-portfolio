@@ -1,6 +1,6 @@
 collection @users
 
-attributes :id, :full_name, :meeting_time
+attributes :id, :full_name, :meeting_time, :thumb_avatar_url, :archive
 
 child :enrolls do
   attributes :id, :user_id, :klass_id, :completed

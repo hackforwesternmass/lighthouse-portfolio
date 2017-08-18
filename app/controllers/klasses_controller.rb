@@ -1,68 +1,59 @@
 class KlassesController < SessionsController
-  load_and_authorize_resource :klass, except: :user_index
+  load_and_authorize_resource :klass
 
   def index
-    @klasses = Klass.where(year: 2016..Float::INFINITY)
-    @highlight_sidebar = 'Admin'
+    @highlight_sidebar = 'Dashboard'
+    @klasses = Klass.search(@klasses.includes(:users, :enrolls), params)
 
     respond_to do |format|
       format.html
-      format.json { render json: @klasses.to_json(methods: :enrolled, include: :users) }
+      format.json
     end
   end
 
-  def user_index
-    render json: User.find(active_id).klasses
-  end
-
-  def search
-    klasses = Klass.all
-
-    if params[:q].present?
-      klasses =  Klass.default_search(params[:q])
+  def show
+    respond_to do |format|
+      format.csv { send_data(@klass.to_csv, filename: "#{@klass.name}.csv") }
+      format.json
     end
-
-    if params[:year].present? && params[:year] != 'All'
-      klasses = klasses.where(year: params[:year])
-    end
-
-    if params[:season].present? && params[:season] != 'All'
-      klasses = klasses.where(season: params[:season])
-    end
-
-    if params[:type].present? && params[:type] == 'Tutorial'
-      klasses = klasses.where(one_on_one: true)
-    elsif params[:type].present? && params[:type] != 'All'
-      klasses = klasses.where(one_on_one: false)
-    end
-
-    render json: klasses.to_json(methods: :enrolled, include: :users)
   end
 
   def new
-    @highlight_sidebar = 'Admin'
+    @highlight_sidebar = 'Dashboard'
   end
 
   def create
-    if @klass.save
-      redirect_to klasses_path, flash: { notice: 'Class successfully created!' }
-    else
-      flash.now[:alert] = 'Class unsuccessfully created.'
-      render :new
+    respond_to do |format|
+      if @klass.save
+        format.html { redirect_to klasses_path, flash: { notice: 'Class successfully created!' } }
+        format.json { render :show, status: 200 }
+      else
+        format.html do
+          flash.now[:alert] = 'Class unsuccessfully created.'
+          render :new
+        end
+        format.json { render json: @klass.errors, status: 422 }
+      end
     end
   end
 
   def update
-    if @klass.update(klass_params)
-      redirect_to klasses_path, flash: { notice: 'Class successfully updated!' }
-    else
-      flash.now[:alert] = 'Class unsuccessfully updated.'
-      render :edit
+    respond_to do |format|
+      if @klass.update(klass_params)
+        format.html { redirect_to klasses_path, flash: { notice: 'Class successfully updated!' } }
+        format.json { render :show, status: 200 }
+      else
+        format.html do
+          flash.now[:alert] = 'Class unsuccessfully updated.'
+          render :edit
+        end
+        format.json { render json: @klass.errors, status: 422 }
+      end
     end
   end
 
   def edit
-    @highlight_sidebar = 'Admin'
+    @highlight_sidebar = 'Dashboard'
   end
 
   def destroy
@@ -80,16 +71,17 @@ class KlassesController < SessionsController
         :name,
         :description,
         :time,
-        :weekday,
-        :year,
-        :season,
         :instructor,
         :instructor_email,
         :instructor_phone,
         :location,
         :one_on_one,
-        :google_drive_url
+        :google_drive_url,
+        :archive,
+        weekdays: [],
+        years: [],
+        seasons: []
       )
     end
-    
+
 end

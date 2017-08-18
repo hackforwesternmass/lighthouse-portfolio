@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-
   include BCrypt
   include PgSearch
   pg_search_scope :default_search, :against => [:first_name, :last_name, :username], :using => {:tsearch => {:prefix => true} }
@@ -7,12 +6,16 @@ class User < ActiveRecord::Base
 
   scope :students, -> { where(role: 'student' ) }
   has_one :portfolio, dependent: :destroy
+  has_many :feedbacks, dependent: :destroy
   has_many :resources, dependent: :destroy
   has_many :meetings, dependent: :destroy
   has_many :goals, dependent: :destroy
   has_many :enrolls, dependent: :destroy
   has_many :klasses, through: :enrolls
-  has_many :action_items, -> { where(user_id: [nil, '']) }, through: :meetings
+  has_many :completed_klasses, -> { joins(:enrolls).where(enrolls: { completed: true}).uniq }, through: :enrolls, source: :klass
+  has_many :uncompleted_klasses, -> { joins(:enrolls).where(enrolls: { completed: [false, nil]}).uniq }, through: :enrolls, source: :klass
+  has_many :all_action_items, through: :meetings, source: :action_items
+  has_many :action_items, -> { joins(:meeting).where(user_id: [nil, ''], meetings: { draft: false }) }, through: :meetings
   has_many :social_mediums, dependent: :destroy
   has_many :admin_action_items, foreign_key: 'user_id', class_name: 'ActionItem'
   has_many :resume_entries, dependent: :destroy
@@ -28,31 +31,30 @@ class User < ActiveRecord::Base
   validates :last_name, presence: { message: 'Last name is required' }
   validates :username,
     presence: { message: 'Username is required' },
-    uniqueness: { message: 'is already in use.' },
+    uniqueness: { message: 'Username is already in use.', case_sensitive: false },
     format: { with: /\A[\w]+\z/, message: 'Letters and numbers only' }
   validates :email,
     presence: { message: 'Email is required.' },
-    uniqueness: { message: 'is already in use.' }
+    uniqueness: { message: 'Email is already in use.', case_sensitive: false }
   validates :password,
     presence: { message: 'Password is required.', on: :create },
     confirmation: {message: 'Passwords do not match.'}
   validates :role, presence: { message: 'Role is required.' }
 
-
-  has_attached_file :avatar, :default_url => 'default-avatar.png'
-  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
-
   has_attached_file :profile_background, :default_url => 'tibetan-mountains.jpg'
   validates_attachment_content_type :profile_background, :content_type => /\Aimage\/.*\Z/
 
+  delegate :avatar, :thumb_avatar_url, to: :portfolio, allow_nil: true
+
+
   def self.authenticate(username_email, password)
-    user = User.username_or_email(username_email)
-    return user if user && user.pword == password
+    username_email.downcase!
+    user = User.where('email = ? or username = ?', username_email, username_email).first
+    user if user && user.pword == password
   end
 
-  def self.username_or_email(username_email)
-    a = self.arel_table
-    user = self.where(a[:username].eq(username_email).or(a[:email].eq(username_email))).first
+  def draft_meeting
+    meetings.where(draft: true).first
   end
 
   def full_name
@@ -79,6 +81,26 @@ class User < ActiveRecord::Base
     @pword = Password.create(new_password)
     self.password = @pword
     self.password_confirmation = @pword
+  end
+
+  def enroll_id(klass)
+    Enroll.find_by(klass_id: klass.id, user_id: id).try(:id)
+  end
+
+  def reset_password
+    new_password = ('a'..'z').to_a.shuffle[0,12].join
+    self.pword= new_password
+    self.save
+    UserMailer.reset_password(self, new_password).deliver_now
+  end
+
+  before_save do
+    self.email.downcase! if self.email.present?
+    self.username.downcase! if self.username.present?
+    if self.archive && self.archive_changed?
+      self.all_action_items.where('action_items.user_id is not null').destroy_all
+      self.enrolls.update_all(completed: true)
+    end
   end
 
   before_create do

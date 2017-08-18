@@ -1,5 +1,4 @@
 class Ability
-
   include CanCan::Ability
 
   def initialize(user)
@@ -10,6 +9,7 @@ class Ability
     can [:read, :download], Project
     can :read, ResumeEntry
     can :read, ClassPeriod
+    can :read, ApplicationSetting
 
     if user.admin?
       can :manage, :all
@@ -22,6 +22,8 @@ class Ability
       can :manage, Meeting, user_id: user.id
       can :manage, ActionItem, meeting: { user_id: user.id }
       can :manage, Goal, user_id: user.id
+      can [:index], Klass, user_id: user.id
+      can :read, Feedback
     elsif user.parent?
       can :access, :parent
       can [:show, :action_plan], User do |student|
@@ -36,7 +38,7 @@ class Ability
       can [:read, :download], Project
       can :read, Meeting
       can :read, Goal
+      can :read, Feedback
     end
   end
-
 end

@@ -2,31 +2,50 @@ const update = React.addons.update;
 
 const Meetings = React.createClass({
   getInitialState() {
-    return { newMeeting: false, meetings: [] };
+    return { showNewMeeting: false, loadingDraft: true, meetings: [] };
   },
   componentDidMount() {
     this.loadMeetings();
-    EventSystem.subscribe('meetings.updated', this.loadMeetings);
+    if(this.props.draftMeetingId) this.loadDraftMeeting();
+    EventSystem.subscribe('meetings:update', this.loadMeetings);
   },
-  loadMeetings(){
+  componentDidUpdate(prevProps, prevState) {
+    const { showNewMeeting } = this.state;
+    if(prevState.showNewMeeting && !showNewMeeting) {
+      $('.new-meeting').velocity('transition.slideUpOut', { duration: 250 });
+    }
+  },
+  loadMeetings() {
     if(this.isMounted()) {
-      $.getJSON(`/users/${this.props.userId}/meetings`, meetings => {
-        EventSystem.publish('action_items_updated');
-        this.setState({ meetings });
+      $.ajax({
+        url: `/users/${this.props.userId}/meetings`,
+        success: meetings => {
+          EventSystem.publish('action_items:update');
+          this.setState({ meetings });
+        }
       });
     }
   },
+  loadDraftMeeting() {
+    $.ajax({
+      url: `/users/${this.props.userId}/meetings/${this.props.draftMeetingId}`,
+      success: draftMeeting => {
+        this.setState({ draftMeeting, showNewMeeting: true, loadingDraft: false });
+      }
+    });
+  },
   handleNewMeeting(e) {
     e.preventDefault();
-    this.setState({ newMeeting: true, activeMeeting: 'newMeeting' });
+    this.setState({ showNewMeeting: true, activeMeetingId: 'showNewMeeting' });
   },
   render() {
-    const { newMeeting, meetings, activeMeeting } = this.state;
-    const { adminId, editable, meetingTime } = this.props;
+    const { showNewMeeting, meetings, activeMeetingId, draftMeeting, loadingDraft } = this.state;
+    const { adminId, editable, meetingTime, draftMeetingId, userArchived } = this.props;
+
     return (
       <div id='meetings'>
         {
-          !adminId &&
+          (!adminId || userArchived) &&
           <div className='row'>
             <div className='card blue darken-1 no-margin'>
               <div className='card-content white-text center-align'>
@@ -37,7 +56,7 @@ const Meetings = React.createClass({
           </div>
         }
         {
-          adminId && !newMeeting && editable &&
+          adminId && !showNewMeeting && editable && !userArchived &&
           <a href='#' onClick={this.handleNewMeeting} className='hide-on-small-only'>
             <div className='row'>
               <div className='card blue darken-1 no-margin hoverable'>
@@ -48,11 +67,12 @@ const Meetings = React.createClass({
             </div>
           </a>
         }
-        { newMeeting && activeMeeting == 'newMeeting' && <Meetings.MeetingForm {...this.props} parent={this} meeting={{action_items: []}} newMeeting={newMeeting} /> }
         {
-          meetings.map(meeting => {
-            return <Meetings.Meeting {...this.props} parent={this} key={meeting.id} meeting={meeting} />
-          })
+          showNewMeeting &&
+          <Meetings.MeetingForm {...this.props} parent={this} meeting={draftMeeting || {action_items: []}} showNewMeeting={showNewMeeting} newMeeting />
+        }
+        {
+          meetings.map(meeting => <Meetings.Meeting activeMeetingId={activeMeetingId} {...this.props} parent={this} key={meeting.id} meeting={meeting} />)
         }
         {
           meetings.length == 0 &&
@@ -71,20 +91,29 @@ Meetings.Meeting = React.createClass({
   getInitialState() {
     return { editing: false }
   },
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.activeMeetingId == prevProps.meeting.id && this.props.activeMeetingId != this.props.meeting.id) {
+      this.setState({ editing: false });
+    }
+
+    if(prevState.editing != this.state.editing && !this.state.editing) {
+      this.props.parent.loadMeetings();
+    }
+  },
   toggleEdit(e) {
     e && e.preventDefault();
-    this.props.parent.setState({ activeMeeting: this.props.meeting.id, newMeeting: false });
+    this.props.parent.setState({ activeMeetingId: this.props.meeting.id, showNewMeeting: false });
     this.setState({ editing: !this.state.editing });
   },
   render(){
     const { editing } = this.state;
-    const { meeting, parent } = this.props;
+    const { meeting, parent, activeMeetingId } = this.props;
     return(
       <div>
         {
-          editing && parent.state.activeMeeting == meeting.id
-          ? <Meetings.MeetingForm {...this.props} toggleEdit={this.toggleEdit} />
-          : <Meetings.MeetingShow {...this.props} toggleEdit={this.toggleEdit} />
+          editing && activeMeetingId == meeting.id
+            ? <Meetings.MeetingForm {...this.props} toggleEdit={this.toggleEdit} />
+            : <Meetings.MeetingShow {...this.props} toggleEdit={this.toggleEdit} />
         }
       </div>
     );
@@ -105,14 +134,13 @@ Meetings.MeetingShow = React.createClass({
 
     $.ajax({
       url: `/users/${userId}/meetings/${meeting.id}`,
-      dataType: 'JSON',
       type: 'DELETE',
       success: () => {
         Materialize.toast('Meeting successfully deleted!', 3500, 'teal');
         parent.loadMeetings();
       },
       error: () => {
-        Materialize.toast('Failed to delete meeting', 3500, 'red darken-4');
+        Materialize.toast('Failed to delete meeting', 3500, 'red darken-3');
       }
     });
   },
@@ -121,14 +149,13 @@ Meetings.MeetingShow = React.createClass({
     $.ajax({
       url: `/users/${userId}/action_items/${e.currentTarget.dataset.id}`,
       type: 'PATCH',
-      dataType: 'JSON',
       data: { action_item: { completed: e.currentTarget.checked } },
       success: () => {
         parent.loadMeetings();
       },
       error: () => {
         if(this.props.editable) {
-          Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-4');
+          Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-3');
         } else {
           Materialize.toast('You have viewing privilege only.', 3500, 'red darken-1');
         }
@@ -137,14 +164,14 @@ Meetings.MeetingShow = React.createClass({
   },
   render() {
     const { created_at, action_items, notes } = this.props.meeting;
-    const { editable } = this.props;
+    const { editable, userArchived } = this.props;
     return(
       <div className='row'>
         <div className='card'>
           <div className='card-date'>
             {moment(created_at).format('MMMM D YYYY')}
-            {editable && <a href='#' className='right white-text' onClick={this.deleteMeeting}><i className='fa fa-times'></i></a>}
-            {editable && <a href='#' className='right white-text hide-on-small-only' onClick={this.props.toggleEdit} ><i className='fa fa-edit'></i></a>}
+            {editable && !userArchived && <a href='#' className='right white-text' onClick={this.deleteMeeting}><i className='fa fa-times'></i></a>}
+            {editable && !userArchived && <a href='#' className='right white-text hide-on-small-only' onClick={this.props.toggleEdit} ><i className='fa fa-edit'></i></a>}
           </div>
           <div className='card-content action-items'>
 
@@ -164,10 +191,10 @@ Meetings.MeetingShow = React.createClass({
                   return(
                     <div className='row body' key={actionItem.id}>
                       <div className='col s9 m10'>
-                        <input type='checkbox' className='blue-check filled-in' data-id={actionItem.id} id={`meeting-check-${actionItem.id}`} onChange={this.toggleCheck} checked={actionItem.completed && 'checked'}/>
+                        <input type='checkbox' disabled={userArchived} className='blue-check filled-in' data-id={actionItem.id} id={`meeting-check-${actionItem.id}`} onChange={this.toggleCheck} checked={actionItem.completed && 'checked'}/>
                         <label htmlFor={`meeting-check-${actionItem.id}`}><span className='blue-text text-lighten-2'>{actionItem.user_id && 'Advisor task: ' }</span>{actionItem.description}</label>
                       </div>
-                      <div className='col s3 m2 capitalize'>{ actionItem.due_date ? moment(actionItem.due_date).fromNow() : '∞' }</div>
+                      <div className='col s3 m2 capitalize'>{ actionItem.due_date ? moment(actionItem.due_date).add(1, 'days').fromNow() : '∞' }</div>
                     </div>
                   )
                 })}
@@ -182,123 +209,177 @@ Meetings.MeetingShow = React.createClass({
 
 Meetings.MeetingForm = React.createClass({
   getInitialState() {
-    return { meeting: this.props.meeting };
+    return { meeting: this.props.meeting, draft: this.props.newMeeting };
+  },
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.showNewMeeting != this.props.showNewMeeting) {
+      if(this.props.showNewMeeting) {
+        window.initTiny(`#meeting-notes-${this.props.meeting.id}`);
+        tinymce.editors.length > 0 && tinymce.editors[0].on('change', () => this.handleChange());
+        $(this.refs.container).velocity('transition.expandIn', { complete: el => $(el).css('transform', 'initial') });
+      } else {
+        tinymce.remove();
+      }
+    }
   },
   componentDidMount() {
     tinymce.remove();
-    $(ReactDOM.findDOMNode(this)).velocity('transition.expandIn', { complete: (el) => $(el).css('transform', 'initial') });
+    $(this.refs.container).velocity('transition.expandIn', { delay: 350, complete: e => $(e).css('transform', 'initial') });
     window.initTiny(`#meeting-notes-${this.props.meeting.id}`);
+    tinymce.editors.length > 0 && tinymce.editors[0].on('change', () => this.handleChange());
   },
-  defaultActionItem() {
-    return { id: Materialize.guid(), description: '', due_date: '', completed: '', user_id: '', newActionItem: true };
+  componentWillUnmount() {
+    tinymce.remove();
   },
   addActionItem(e) {
     e.preventDefault();
-    this.setState({ meeting: update(this.state.meeting, { action_items: { $push: [this.defaultActionItem()] } }) });
+
+    this.saveMeeting(meeting => {
+      this.setState({ meeting });
+    }, {
+      meeting: {
+        id: this.state.meeting.id,
+        draft: this.state.draft,
+        action_items_attributes: { '0': { description: '' } }
+      }
+    });
   },
   closeMeeting(e) {
     e && e.preventDefault();
-    const { parent, newMeeting } = this.props;
+    const { parent, newMeeting, userId } = this.props;
     if(newMeeting) {
-      parent.setState({ newMeeting: false });
-    }else {
+      if(this.state.meeting.id) {
+        $.ajax({
+          url: `/users/${userId}/meetings/${this.state.meeting.id}`,
+          type: 'DELETE',
+          error: () => {
+            Materialize.toast('Failed to delete meeting', 3500, 'red darken-3');
+          }
+        });
+      }
+      this.refs.form.reset();
+      parent.setState({ showNewMeeting: false, draftMeeting: null });
+    } else {
       this.props.toggleEdit();
     }
   },
-  submitForm(e) {
+  handleChange() {
+    clearTimeout(this.changeTimeoutId);
+    this.changeTimeoutId = setTimeout(() => {
+      if(tinymce.editors.length === 0) return;
+
+      const { userId, newMeeting, parent } = this.props;
+      const { meeting } = this.state;
+      tinymce.editors[0].save();
+
+      this.saveMeeting(meeting => {
+        if(newMeeting) parent.setState({ draftMeeting: meeting });
+        this.setState({ meeting: update(this.state.meeting, { id: { $set: meeting.id } }) });
+      });
+
+    }, 2000)
+  },
+  finishMeeting(e) {
     e.preventDefault();
-    const { newMeeting, userId, meeting, parent } = this.props;
-    tinymce.get(`meeting-notes-${this.props.meeting.id}`).save();
+    this.setState({ draft: false }, () => {
+      tinymce.editors[0].save();
 
-    let url, type;
+      this.saveMeeting(() => {
+        this.refs.form.reset();
+        Materialize.toast('Meeting successfully saved!', 3500, 'teal');
+        this.setState({ meeting: {action_items: []} });
+        this.closeMeeting();
+        this.props.parent.loadMeetings();
+      });
+    })
+  },
+  saveMeeting(success, data) {
+    let url, type, contentType, processData;
 
-    if(newMeeting){
-        url = `/users/${userId}/meetings`;
-        type = 'POST';
+    if(this.state.meeting.id) {
+      url = `/users/${this.props.userId}/meetings/${this.state.meeting.id}`;
+      type = 'PATCH';
     } else {
-        url = `/users/${userId}/meetings/${meeting.id}`;
-        type = 'PATCH';
+      url = `/users/${this.props.userId}/meetings`;
+      type = 'POST';
+    }
+
+    if(data) {
+      contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
+      processData = true;
+    } else {
+      contentType = false;
+      processData = false;
+      data = new FormData(this.refs.form)
     }
 
     $.ajax({
       url,
       type,
-      dataType: 'JSON',
-      cache: false,
-      contentType: false,
-      processData: false,
-      data: new FormData(e.currentTarget),
-      success: data => {
-        Materialize.toast('Meeting successfully saved!', 3500, 'teal');
-        this.setState({ sendingForm: false, error: false });
-        this.closeMeeting();
-        parent.loadMeetings();
-      },
-      error: error => {
-        Materialize.toast('Failed to save meeting.', 3500, 'red darken-4');
-        if(error.status === 422){
-          this.setState({ error: true, errorMessages: error.responseJSON });
-        }else{
-          this.setState({ error: true });
-        }
-      }
+      contentType,
+      processData,
+      data,
+      success: meeting => success(meeting),
+      error: () => Materialize.toast('Failed to save meeting.', 3500, 'red darken-3')
     });
   },
   render() {
-    const { error, errorMessages } = this.state;
-    const { created_at, notes, action_items, id } = this.state.meeting;
+    const { draft, meeting } = this.state;
+    const { created_at, notes, action_items, id } = meeting;
     const { userId, adminId, newMeeting } = this.props;
     return(
-      <div className='row'>
+      <div ref='container' className='row meeting-form'>
         <div className='card'>
           <div className='card-date blue darken-1 white-text'>
-            {created_at ? moment(created_at).format('MMMM D YYYY') : 'New Meeting'}
+            {!newMeeting ? moment(created_at).format('MMMM D YYYY') : 'New Meeting'}
             <a className='right white-text' href='#' onClick={this.closeMeeting}><i className='fa fa-times'></i></a>
           </div>
           <div className='card-content'>
-            <form onSubmit={this.submitForm} >
+            <form ref='form'>
+              <input type='hidden' value={draft ? '1' : '0'} name='meeting[draft]' />
               <div className='row'>
                 <h6 className='bold grey-text text-darken-2'>Notes</h6>
               </div>
 
               <div className='row'>
-                <textarea name='meeting[notes]' id={`meeting-notes-${id}`} defaultValue={notes}></textarea>
-                {(error && errorMessages.notes) && <div className='error-message'>{errorMessages.notes}</div>}
+                <textarea name='meeting[notes]' id={`meeting-notes-${meeting.id}`} onChange={this.handleChange} defaultValue={notes}></textarea>
               </div>
 
               {
                 action_items.length > 0 &&
-                <div>
-                  <div className='row'>
-                    <h6 className='bold grey-text text-darken-2'>Action Items</h6>
-                  </div>
+                  <div>
+                    <div className='row'>
+                      <h6 className='bold grey-text text-darken-2'>Action Items</h6>
+                    </div>
 
-                  <div className='row action-items'>
-                    <ul className='collection with-header'>
-                      <li className='collection-header grey lighten-3'>
-                        <div className='row no-margin grey-text text-darken-2'>
-                          <div className='col s9'>Description</div>
-                          <div className='col s3'>Due Date</div>
-                        </div>
-                      </li>
-                      {
-                        action_items.map((actionItem, i) => {
-                          return <Meetings.ActionItem {...this.props} {...actionItem} index={i} key={actionItem.id} parent={this} />
-                        })
-                      }
-                    </ul>
-                    {(error && errorMessages['action_items.description']) && <div className='error-message'>{errorMessages['action_items.description']}</div>}
+                    <div className='row action-items'>
+                      <ul className='collection with-header'>
+                        <li className='collection-header grey lighten-3'>
+                          <div className='row no-margin grey-text text-darken-2'>
+                            <div className='col s9'>Description</div>
+                            <div className='col s3'>Due Date</div>
+                          </div>
+                        </li>
+                        {
+                          action_items.map((actionItem, i) => {
+                            return <Meetings.ActionItem {...this.props} {...actionItem} meeting={meeting} index={i} key={`action-item-${actionItem.id}`} parent={this} />
+                          })
+                        }
+                      </ul>
+                    </div>
                   </div>
-                </div>
               }
 
               <div className='row'>
                 <button name='button' type='button' style={{marginRight: 10}} className='btn waves-effect waves-light blue darken-1' onClick={this.addActionItem}>
                   Add Action Item
                 </button>
-                <button name='button' type='submit' className='btn waves-effect waves-light'>
-                  { newMeeting ? 'Meeting Finished' : 'Save' }
-                </button>
+                {
+                  newMeeting &&
+                    <a href='#' onClick={this.finishMeeting} className='btn waves-effect waves-light'>
+                      Meeting Finished
+                    </a>
+                }
               </div>
             </form>
           </div>
@@ -313,39 +394,45 @@ Meetings.ActionItem = React.createClass({
     return { adminAssigned: !!this.props.user_id };
   },
   componentDidMount() {
-    $(ReactDOM.findDOMNode(this)).find('.datepicker').pickadate();
+    $(ReactDOM.findDOMNode(this)).find('.datepicker').pickadate({
+      onSet: () => this.props.parent.handleChange()
+    });
     $(ReactDOM.findDOMNode(this)).find('.tooltipped').tooltip();
-    $(ReactDOM.findDOMNode(this)).velocity('transition.slideDownIn', { complete: (el) => $(el).css('transform', 'initial') });
+    $(ReactDOM.findDOMNode(this)).velocity('transition.fadeIn', { complete: (e) => $(e).css('transform', 'initial') });
   },
   toggleAssignedAdmin(e) {
     e.preventDefault();
-    this.setState({ adminAssigned: !this.state.adminAssigned });
+    this.setState({ adminAssigned: !this.state.adminAssigned }, () => {
+      this.props.parent.handleChange();
+    });
   },
-  handleClose(e) {
+  handleDelete(e) {
     e.preventDefault();
-    const { newActionItem, parent, index } = this.props;
-    if(newActionItem) {
-      parent.setState({ meeting: update(parent.state.meeting, { action_items: { $splice: [[index, 1]] } }) });
-    } else {
-      this.setState({ removed: true });
-    }
+    $.ajax({
+      url: `/users/${this.props.userId}/meetings/${this.props.meeting.id}`,
+      type: 'PATCH',
+      data: { meeting: { action_items_attributes: { '0': { id: this.props.id, _destroy: '1' } } } },
+      success: meeting => this.props.parent.setState({ meeting }),
+      error: () => {
+        Materialize.toast('Failed to delete action item', 3500, 'red darken-3');
+      }
+    });
   },
   render() {
-    const { id, description, due_date, completed, user_id, index, adminId, newActionItem } = this.props;
-    const { adminAssigned, removed } = this.state;
+    const { id, description, due_date, completed, user_id, index, adminId, newActionItem, parent } = this.props;
+    const { adminAssigned } = this.state;
     return(
-      <li className='collection-item' style={removed ? { display: 'none' } : {}}>
-        {!newActionItem && <input type='hidden' value={id} name={`meeting[action_items_attributes][${index}][id]`} />}
-        {removed && <input type='hidden' value='1' name={`meeting[action_items_attributes][${index}][_destroy]`} />}
+      <li className='collection-item'>
+        <input type='hidden' value={id} name={`meeting[action_items_attributes][${index}][id]`} />
         <div className='row'>
           {adminId && <i data-position='top' data-delay='50' data-tooltip={adminAssigned ? 'Unassign advisor' : 'Assign advisor' } className={`fa fa-user advisor-btn tooltipped ${adminAssigned ? 'blue-text' : 'grey-text text-darken-2'}`} onClick={this.toggleAssignedAdmin}></i>}
-          <a className='action-item close grey-text text-darken-2' onClick={this.handleClose}>×</a>
+          <a className='action-item close grey-text text-darken-2' onClick={this.handleDelete}>×</a>
           <input type='hidden' value={adminAssigned ? (adminId || user_id) : ''} name={`meeting[action_items_attributes][${index}][user_id]`} />
           <div className='input-field col s9'>
-            <input type='text' name={`meeting[action_items_attributes][${index}][description]`} placeholder='Description' defaultValue={description} />
+            <input type='text' onChange={parent.handleChange} name={`meeting[action_items_attributes][${index}][description]`} placeholder='Description' defaultValue={description} />
           </div>
           <div className='input-field col s3'>
-             <input type='text' className='datepicker' name={`meeting[action_items_attributes][${index}][due_date]`} placeholder='Due Date' defaultValue={due_date ? moment(due_date).format('D MMMM, YYYY') : ''} />
+            <input type='text' className='datepicker' name={`meeting[action_items_attributes][${index}][due_date]`} placeholder='Due Date' defaultValue={due_date ? moment(due_date).format('D MMMM, YYYY') : ''} />
           </div>
         </div>
       </li>

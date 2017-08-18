@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe PortfoliosController, type: :controller do
+describe Users::PortfoliosController, type: :controller do
   let(:valid_attributes) { attributes_for(:portfolio) }
   let(:portfolio) { create(:portfolio) }
   let(:student) { create(:student) }

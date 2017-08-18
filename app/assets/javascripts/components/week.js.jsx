@@ -1,8 +1,8 @@
-var Week = React.createClass({
-  getInitialState: function() {
+const Week = React.createClass({
+  getInitialState()  {
     return { classPeriods: [], events: [], weekStartDate: "", loading: true, hasEvents: false };
   },
-  componentDidMount: function(){
+  componentDidMount() {
     var weekStartDate, weekEndDate;
 
     if( moment().day() === (6 || 7) ){
@@ -11,46 +11,52 @@ var Week = React.createClass({
       weekStartDate = moment().startOf('week').add(1, 'days').format("YYYY-MM-DDT00:00:00Z");
     }
 
-    $.getJSON( "/class_periods", function(classPeriods){
-      this.setState({ classPeriods: classPeriods });
-    }.bind(this));
+    $.ajax({
+      url: '/class_periods',
+      success: classPeriods => {
+        this.setState({ classPeriods: classPeriods });
+      }
+    });
 
     this.setCalendar(weekStartDate);
   },
-  setCalendar: function(weekStartDate){
+  setCalendar(weekStartDate){
     var weekEndDate = moment(weekStartDate).add(5, 'days').format("YYYY-MM-DDT00:00:00Z");
     var calendarUrl = "https://www.googleapis.com/calendar/v3/calendars/"+ this.props.calendarId
                     +"/events?orderBy=startTime&singleEvents=true&timeMin="+ weekStartDate
                     +"&timeMax="+ weekEndDate +"&key=AIzaSyB-xMDC9mt9b1nj_df2pjVgHOlkIZzIxWs";
 
-    $.getJSON( calendarUrl, function(events) {
-      this.setState({ weekStartDate: weekStartDate, events: this.parseEvents(events.items), loading: false, hasEvents: events.length > 0  });
-    }.bind(this));
+    $.ajax({
+      url: calendarUrl,
+      success: events => {
+        this.setState({ weekStartDate: weekStartDate, events: this.parseEvents(events.items), loading: false, hasEvents: events.length > 0  });
+      }
+    });
   },
-  previousWeek: function(){
+  previousWeek() {
     this.setState({ loading: true });
     var weekStartDate = moment(this.state.weekStartDate).subtract(7, 'days').format("YYYY-MM-DDT00:00:00Z");
     this.setCalendar(weekStartDate);
   },
-  nextWeek: function(){
+  nextWeek() {
     this.setState({ loading: true });
     var weekStartDate = moment(this.state.weekStartDate).add(7, 'days').format("YYYY-MM-DDT00:00:00Z");
     this.setCalendar(weekStartDate);
   },
-  weekdayHeader: function(){
+  weekdayHeader() {
     if(this.state.weekStartDate === "") return;
-    var weekdayNodes = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].map(function(weekday, i){
+    var weekdayNodes = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].map((weekday, i) => {
       return <div className="col m-fifth" key={i}>
                 <h5 className="weekday truncate">{weekday}<br/>{moment(this.state.weekStartDate).add(i, 'days').format("MMMM D")}</h5>
               </div>;
-    }.bind(this));
+    });
     return weekdayNodes;
   },
-  parseEvents: function(events){
+  parseEvents(events){
     var parsedEvents = Array.apply(null, Array(5 * this.state.classPeriods.length)).map(function() { return [] });
     var startTime, endTime, weekday, timePeriod;
 
-    events.forEach(function(event){
+    events.forEach(event => {
 
       timePeriod = NaN;
 
@@ -71,11 +77,11 @@ var Week = React.createClass({
 
       parsedEvents[ (5 * timePeriod) + weekday ].push({ title: event.summary, startTime: startTime, endTime: endTime });
 
-    }.bind(this));
+    });
 
     return parsedEvents;
   },
-  weekItems: function(){
+  weekItems() {
     var weekItemNodes = this.state.events.map(function(event, i){
       var weekItemNodeEntries;
 
@@ -143,7 +149,7 @@ var Week = React.createClass({
     }.bind(this));
     return weekItemNodes;
   },
-  weekView: function(){
+  weekView() {
     return <div>
       <div className="row weekdays">
         {this.weekdayHeader()}
@@ -160,7 +166,7 @@ var Week = React.createClass({
       </div>
     </div>
   },
-  render: function(){
+  render() {
     return  <div>
               {!this.state.hasEvents ? this.weekView() : <h2 className="center-align">There's nothing on your calendar</h2> }
             </div>

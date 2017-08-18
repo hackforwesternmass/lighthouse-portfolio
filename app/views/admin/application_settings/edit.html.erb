@@ -1,0 +1,8 @@
+<nav>
+  <div class='nav-wrapper'>
+    <%= link_to 'Dashboard', admin_dashboard_path, class: 'breadcrumb' %>
+    <span class='breadcrumb'>Application Settings</span>
+  </div>
+</nav>
+
+<%= react_component 'ApplicationSettings', {}, { tag: 'section', class: 'section-container' } %>

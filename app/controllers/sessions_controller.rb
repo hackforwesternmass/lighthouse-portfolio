@@ -22,7 +22,6 @@ class SessionsController < ApplicationController
   end
 
   def login
-    @background = BackgroundImage.first
     return redirect_to after_login_path if signed_in?
     render layout: 'public'
   end
@@ -37,6 +36,20 @@ class SessionsController < ApplicationController
   def logout
     disconnect_user
     redirect_to root_path
+  end
+
+  def forgot_password
+    if request.post?
+      user = User.find_by(email: params[:email])
+      unless user.present?
+        redirect_to forgot_password_path, { alert: 'Email does not exist' }
+        return
+      end
+      user.reset_password
+      redirect_to root_path, flash: { notice: 'Reset instructions have been sent' }
+    else
+      render layout: 'public'
+    end
   end
 
   private

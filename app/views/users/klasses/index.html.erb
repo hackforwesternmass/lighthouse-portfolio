@@ -1,0 +1,9 @@
+<nav>
+  <div class='nav-wrapper'>
+    <%= link_to 'Dashboard', admin_dashboard_path, class: 'breadcrumb' %>
+    <%= link_to 'Manage Students', users_path, class: 'breadcrumb' %>
+    <span class='breadcrumb'><%= @user.full_name %> - Classes</span>
+  </div>
+</nav>
+
+<%= react_component 'UserKlasses', { userArchived: @user.archive, userId: @user.id, studentName: @user.full_name } %>

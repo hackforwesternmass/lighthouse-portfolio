@@ -5,42 +5,35 @@ Rails.application.routes.draw do
   resources :users do
     get :search, on: :collection
     get :action_plan, on: :member
-    resource :portfolio, only: [:edit, :update, :show]
-    resources :resume_entries, except: [:new, :edit]
-    resources :meetings, except: [:new, :edit]
-    resources :goals, except: [:new, :edit]
-    resources :action_items, only: [:index, :update]
-    resources :resources do
+    resource :portfolio, only: [:edit, :update, :show], module: :users
+    resources :resume_entries, except: [:new, :edit], module: :users
+    resources :meetings, except: [:new, :edit], module: :users
+    resources :goals, except: [:new, :edit], module: :users
+    resources :action_items, only: [:index, :update], module: :users
+    resources :klasses, path: :classes, only: [:index, :update], module: :users
+    resources :feedbacks, module: :users
+    resources :resources, module: :users do
       post :change_category, on: :collection
     end
-    resources :projects, except: [:index] do
+    resources :projects, except: [:index], module: :users do
       get :tags, on: :collection
       get :download, on: :member
     end
   end
 
-  namespace :enrolls do
-    post :bulk_create
-  end
-
-  resource :calendar, except: [:new, :edit, :show, :destroy] do
-    get :manage
-    get '/', action: :calendar
-  end
-
-  resource  :background_image, except: [:new, :edit, :show, :destroy] do
-    get :manage
-  end
+  resources :enrolls, only: [:create, :update, :destroy]
 
   resources :class_periods
-  resources :klasses, path: :class do
-    get :user_index, on: :collection
-    get :search, on: :collection
-  end
+  resources :klasses, path: :class
 
   namespace :admin do
     get :dashboard
   end
+
+  resource :application_settings, only: [:show, :edit, :update], module: :admin
+
+  get '/calendar', to: 'admin/application_settings#calendar'
+
 
   resources :parents, only: [:index, :create] do
     get :dashboard, on: :collection
@@ -56,6 +49,8 @@ Rails.application.routes.draw do
     get  :exit_student
     get  :login
     get  :logout
+    get  :forgot_password
+    post :forgot_password
   end
 
   get '/unfound', to: 'portfolios#unfound'

@@ -1,0 +1,102 @@
+<div class='portfolio'>
+  <div class='info'>
+    <div class='header-bg' style=<%= "background-image:url(#{@portfolio.background.url})" unless @portfolio.background.blank? %>>
+      <%= link_to fa_icon('cog', text: 'Edit', right: true), edit_user_portfolio_path(@user), class: 'student-edit' if can?(:edit, @portfolio) %>
+      <div class='dark-overlay'>
+      <div class='header-container'>
+
+          <div class='row'>
+            <div class='col s6 m3 l3'>
+              <div class='student-avatar'>
+                <%= image_tag @portfolio.avatar.url(:medium), class: 'responsive-img', style: "border-color: #{@portfolio.color}" %>
+              </div>
+            </div>
+
+            <div class='col s6 m9 l9'>
+              <div class='row'>
+                <div class='col s12'>
+                  <h2 class='center-align'><%= @user.full_name %></h2>
+                </div>
+                <div class='col s12 hide-on-small-only'>
+                  <div class='white-text thin med-opacity center-align description'><%= @portfolio.description %></div>
+                </div>
+              </div>
+              <div class='social-media row hide-on-small-only'>
+                <% @portfolio.social_mediums.first(3).each do |sm| %>
+                    <div class='item white-text thin med-opacity'>
+                      <%= link_to sm.link, target: '_blank', title: sm.name do %>
+                        <%= fa_icon(sm.icon) %> <br/><%= sm.name %>
+                      <% end %>
+                    </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+            <div class='social-media row hide-on-med-and-up'>
+              <% @portfolio.social_mediums.first(3).each do |sm| %>
+                <div class='col s4 center-align'>
+                  <span class='white-text thin med-opacity truncate'>
+                    <%= link_to fa_icon(sm.icon), sm.link, title: sm.name %>
+                  </span>
+                </div>
+              <% end %>
+            </div>
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='row z-depth-1'>
+    <ul class='tabs'>
+      <li class='tab col s6'><a href='#portfolio'>Portfolio</a></li>
+      <li class='tab col s6'><a href='#resume'>Resume</a></li>
+    </ul>
+  </div>
+  <div class='projects-and-resume'>
+    <div id='portfolio' class='section-container'>
+      <% if cannot?(:edit, @portfolio) && @user.projects.size == 0 %>
+        <h4 class='center-align'><%= @user.full_name %> has not created any projects yet.</h4>
+      <% end %>
+
+      <div id='portfolio-piece-grid' data-columns class='row'>
+        <% if can? :edit, @portfolio %>
+        <div class='col s12'>
+          <div class='card-panel project-wrapper hoverable' style='border-color: <%= @portfolio.color %>'>
+            <div class='card-content'>
+              <%= link_to '', new_user_project_path(@user), class: 'project-link' %>
+              <div class='add-project'>
+                <%= link_to fa_icon('plus-circle', style: "color: #{@portfolio.color}"), new_user_project_path(@user) %>
+                <br><br>Add portfolio piece
+              </div>
+            </div>
+          </div>
+        </div>
+        <% end %>
+
+        <% @user.projects.each do |project| %>
+          <div class='col s12'>
+            <div class='card project-wrapper hoverable' style='border-color: <%= @portfolio.color %>'>
+              <div class='card-image'>
+                <%= image_tag project.photo if project.photo.present? %>
+              </div>
+              <div class='card-content'>
+                <span class='card-title black-text truncate'><%= project.title %></span>
+
+                <p class='grey-text text-darken-1'>
+                <%= project.description %>
+                </p>
+              </div>
+              <%= link_to '', [@user, project], class: 'project-link', title: project.title %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div id='resume' class='section-container'>
+      <%= react_component 'ResumeEntries', { user_id: @user.id, editable: can?(:edit, @portfolio) } %>
+    </div>
+  </div>
+</div>

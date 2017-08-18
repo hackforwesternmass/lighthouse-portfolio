@@ -1,0 +1,17 @@
+<nav>
+  <div class='nav-wrapper'>
+    <% if params[:general].present? %>
+      <%= link_to 'Dashboard', admin_dashboard_path, class: 'breadcrumb' %>
+    <% else %>
+      <%= link_to 'Resources', user_resources_path(@user), class: 'breadcrumb' %>
+    <% end %>
+    <span class='breadcrumb'>New Resource</span>
+  </div>
+</nav>
+
+<section class='section-container'>
+  <div class='row'>
+    <h4 class='col s12'>New Resource</h4>
+  </div>
+  <%= render 'form' %>
+</section>

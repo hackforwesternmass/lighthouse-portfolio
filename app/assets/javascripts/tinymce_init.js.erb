@@ -6,11 +6,12 @@ $(document).on('page:change', function(){
       menubar: false,
       statusbar: false,
       height: 300,
+      browser_spellcheck: true,
       style_formats: [
         { title: 'Headers', items: [
           { title: 'h1', block: 'h1' },
           { title: 'h2', block: 'h2' },
-          { title: 'h3', block: 'h3' },
+          { title: 'h4', block: 'h4' },
           { title: 'h4', block: 'h4' }
         ] },
         {title: 'Inline', items: [
@@ -54,10 +55,11 @@ $(document).on('page:change', function(){
 
   if (typeof tinyMCE != 'undefined') {
     tinyMCE.init({
-      selector: "textarea.tinymce-meetings-notes",
+      selector: "textarea.feedback-text",
       menubar: false,
       statusbar: false,
       height: 300,
+      browser_spellcheck: true,
       content_css: "<%= stylesheet_path 'customize_tinymce.css' %>",
       preview_styles: false,
       toolbar: ["undo redo | bold underline italic | bullist numlist outdent indent link"],
@@ -87,11 +89,12 @@ $(document).on('page:change', function(){
 function initTiny(selector){
 
    if (typeof tinyMCE != 'undefined') {
-    tinyMCE.init({
+    return tinyMCE.init({
       selector: selector,
       menubar: false,
       statusbar: false,
       height: 200,
+      browser_spellcheck: true,
       content_css: "<%= stylesheet_path 'customize_tinymce.css' %>",
       preview_styles: false,
       toolbar: ["undo redo | bold underline italic | bullist numlist outdent indent link"],

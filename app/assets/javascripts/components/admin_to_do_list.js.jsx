@@ -6,22 +6,24 @@ const AdminToDoList = React.createClass({
     this.loadActionItems();
   },
   loadActionItems() {
-    $.getJSON(`/users/${this.props.userId}/action_items`, data => {
-      this.setState({ completeActionItems: data.complete, incompleteActionItems: data.incomplete });
+    $.ajax({
+      url: `/users/${this.props.userId}/action_items`,
+      success: json => {
+        this.setState({ completeActionItems: json.complete, incompleteActionItems: json.incomplete });
+      }
     });
   },
   handleClear(e) {
     e.preventDefault();
     $.ajax({
       url: `/users/${this.props.userId}/action_items/${e.target.dataset.id}`,
-      dataType: 'JSON',
       type: 'PATCH',
       data: { action_item: { archive: true } },
       success: () => {
         this.loadActionItems();
       },
       error: () => {
-        Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-4');
+        Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-3');
       }
     });
   },
@@ -29,21 +31,20 @@ const AdminToDoList = React.createClass({
     e.preventDefault();
     $.ajax({
       url: `/users/${this.props.userId}/action_items/${e.target.dataset.id}`,
-      dataType: 'JSON',
       type: 'PATCH',
       data: { action_item: { completed: e.target.dataset.value } },
       success: () => {
         this.loadActionItems();
       },
       error: () => {
-        Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-4');
+        Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-3');
       }
     });
   },
   render() {
     const { completeActionItems, incompleteActionItems } = this.state;
     return(
-      <div className='things-to-do'>
+      <div>
         <div className='card'>
           <div className='card-header'>To do list</div>
           { incompleteActionItems.length == 0 && <div className='empty-action-items'>You currently have no task to complete.</div>}
@@ -52,7 +53,7 @@ const AdminToDoList = React.createClass({
               return (
                 <div key={actionItem.id} className='card-action-item row no-margin' >
                   <div className='weekday'>
-                    {actionItem.due_date ? `Due ${moment(actionItem.due_date).fromNow()}` : ''}
+                    {actionItem.due_date ? `Due ${moment(actionItem.due_date).add(1, 'days').fromNow()}` : ''}
                     <a className='complete' href='#' data-id={actionItem.id} data-value={true} onClick={this.toggleComplete}>Complete</a>
                   </div>
                   <div className='action-item'>

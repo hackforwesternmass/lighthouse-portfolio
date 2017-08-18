@@ -1,0 +1,15 @@
+<nav>
+  <div class='nav-wrapper'>
+    <%= link_to 'Action Plan', "#{action_plan_user_url(active_id)}#feedback", class: 'breadcrumb' %>
+    <span class='breadcrumb'>New Feedback</span>
+  </div>
+</nav>
+
+<section class='section-container'>
+  <div class='row'>
+    <h4 class='col s12'>New Feedback</h4>
+  </div>
+  <div class='row'>
+    <%= render 'form' %>
+  </div>
+</section>

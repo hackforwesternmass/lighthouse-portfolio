@@ -4,16 +4,20 @@ const ToDo = React.createClass({
   },
   componentDidMount() {
     this.loadActionItems()
-    EventSystem.subscribe('action_items_updated', this.loadActionItems)
+    EventSystem.subscribe('action_items:update', this.loadActionItems)
   },
   loadActionItems() {
     if(this.isMounted()){
-      $.getJSON(`/users/${this.props.userId}/action_items`,
-        data => this.setState({ actionItems: data.action_items, archivedActionItems: data.archived_action_items, loading: false })
-      )
+      $.ajax({
+        url: `/users/${this.props.userId}/action_items`,
+        success: data => {
+          this.setState({ actionItems: data.action_items, archivedActionItems: data.archived_action_items, loading: false })
+        }
+      })
     }
   },
   toggleShowArchive(e) {
+    e.preventDefault();
     this.setState({ showArchived: !this.state.showArchived });
   },
   render() {
@@ -32,8 +36,14 @@ const ToDo = React.createClass({
         <div className='card'>
           <div className='card-content'>
             <h6 className='center-align blue-grey-text text-lighten-1'>Action Items</h6>
-            { loading && <div className='center-align'><i className='fa fa-spinner fa-pulse fa-3x fa-fw no-padding'></i></div> }
-            { !loading && actionItems.length === 0 && <h5 className='center-align'>You currently have no action items to complete.</h5> }
+            {
+              loading &&
+              <div className='center-align'><i className='fa fa-spinner fa-pulse fa-3x fa-fw no-padding'></i></div>
+            }
+            {
+              !loading && actionItems.length === 0 &&
+              <h5 className='center-align'>You currently have no action items to complete.</h5>
+            }
             {
               actionItems.map(actionItem => {
                 return <ToDo.ActionItem {...this.props} key={actionItem.id} actionItem={actionItem} parent={this} />
@@ -44,22 +54,22 @@ const ToDo = React.createClass({
 
         {
           showArchived &&
-          <div className='card'>
-            <div className='card-content'>
-              <h6 className='center-align blue-grey-text text-lighten-1'>Archived</h6>
-              {
-                archivedActionItems.map(actionItem => {
-                  return <ToDo.ActionItem {...this.props} key={actionItem.id} actionItem={actionItem} parent={this} />
-                })
-              }
+            <div className='card'>
+              <div className='card-content'>
+                <h6 className='center-align blue-grey-text text-lighten-1'>Archived</h6>
+                {
+                  archivedActionItems.map(actionItem => {
+                    return <ToDo.ActionItem {...this.props} key={actionItem.id} actionItem={actionItem} parent={this} />
+                  })
+                }
+              </div>
             </div>
-          </div>
         }
         {
           archivedActionItems.length > 0 &&
-          <div className='btn btn-flat' onClick={this.toggleShowArchive}>
-            { showArchived ? 'Hide archived action items...' : 'View archived action items...' }
-          </div>
+            <a href='#' className='btn btn-flat' onClick={this.toggleShowArchive}>
+              { showArchived ? 'Hide archived action items...' : 'View archived action items...' }
+            </a>
         }
       </div>
     );
@@ -72,16 +82,15 @@ ToDo.ActionItem = React.createClass({
     const { actionItem, userId } = this.props;
     $.ajax({
       url: `/users/${this.props.userId}/action_items/${actionItem.id}`,
-      dataType: 'JSON',
       type: 'PATCH',
       data: { action_item: { completed: !actionItem.completed } },
       success: () => {
         this.props.parent.loadActionItems();
-        EventSystem.publish('meetings.updated');
+        EventSystem.publish('meetings:update');
       },
       error: () => {
         if(this.props.editable) {
-          Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-4');
+          Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-3');
         } else {
           Materialize.toast('You have viewing privilege only.', 3500, 'red darken-1');
         }
@@ -93,7 +102,6 @@ ToDo.ActionItem = React.createClass({
     const { actionItem } = this.props;
     $.ajax({
       url: `/users/${this.props.userId}/action_items/${actionItem.id}`,
-      dataType: 'JSON',
       type: 'PATCH',
       data: { action_item: { archive: !actionItem.archive } },
       success: () => {
@@ -101,7 +109,7 @@ ToDo.ActionItem = React.createClass({
       },
       error: () => {
         if(this.props.editable) {
-          Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-4');
+          Materialize.toast('Something went wrong, try reloading the page.', 3500, 'red darken-3');
         } else {
           Materialize.toast('You have viewing privilege only.', 3500, 'red darken-1');
         }
@@ -113,13 +121,16 @@ ToDo.ActionItem = React.createClass({
     return(
       <div className='item'>
         <div className='text'>
-          <input type='checkbox' className='blue-check filled-in' id={`check-${id}`} onChange={this.toggleComplete} checked={completed && 'checked'}/>
+          <input type='checkbox' disabled={this.props.userArchived} className='blue-check filled-in' id={`check-${id}`} onChange={this.toggleComplete} checked={completed}/>
           <label htmlFor={`check-${id}`}>
-            {due_date && <span className='blue-text text-darken-1' >Due {moment(due_date).fromNow()}: </span>}
+            {due_date && <span className='blue-text text-darken-1' >Due {moment(due_date).add(1, 'days').fromNow()}: </span>}
             {description}
           </label>
         </div>
-        {!archive && <div className='secondary-icons'><span onClick={this.archive}>×</span></div> }
+        {
+          !archive && !this.props.userArchived &&
+          <a href='#' onClick={this.archive} className='secondary-icons'><i className='material-icons tiny'>close</i> </a>
+        }
       </div>
     );
   }

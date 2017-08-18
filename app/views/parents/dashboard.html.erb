@@ -19,7 +19,7 @@
         <%= image_tag student.portfolio.avatar %>
       </div>
       <div class="card-action">
-        <%= link_to student.full_name, access_student_path(student_id: student.id), class: 'teal-text' %>
+        <%= link_to student.full_name, access_student_path(student_id: student.id) %>
       </div>
     </div>
     <% end %>

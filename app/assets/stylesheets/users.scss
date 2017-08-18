@@ -13,13 +13,6 @@ form.edit-student{
 	}
 }
 
-#login-signup-container form{
-  width: 90%;
-  margin: 0 auto;
-  color: #bbb;
-  font-weight: 300;
-}
-
 .avatar-column{
   width: 180px;
 	padding: 10px;
@@ -32,7 +25,7 @@ form.edit-student{
     width: 150px;
     object-fit: cover;
     border-radius: 10rem;
-    border: 5px solid teal;
+    border: 5px solid #757575;
   }
 
 }
@@ -40,7 +33,6 @@ form.edit-student{
 .delete-user{
   width: 100%;
   padding: 10px 0;
-  color: teal;
   font-size: 1.2rem;
 
   & span{

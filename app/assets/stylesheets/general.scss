@@ -3,6 +3,8 @@ body{
   overflow-x: hidden;
   background-color: $background-color;
   font-family: 'Roboto', helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 
@@ -13,7 +15,27 @@ main{
   @media #{$medium-and-down} {
     padding-left: 0px;
   }
+}
 
+.modal.small {
+  max-width: 400px;
+}
+
+.half-opacity {
+  opacity: 0.5;
+}
+
+.dropdown-content {
+  margin: 0 !important;
+}
+
+.col-padding {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+h4 {
+  color: $primary-color;
 }
 
 a[href^="mailto:"]:hover {
@@ -28,15 +50,43 @@ a[href^="mailto:"]:hover {
   border-radius: 4px;
 }
 
-.collection {
-  overflow: visible !important;
-  border-radius: 3px;
-  margin: 0 !important;
+.pagination {
+  text-align: center;
 }
 
-.collection-item:last-child {
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
+.collection {
+  border-radius: 5px;
+  margin: 0 !important;
+  overflow: visible !important;
+
+  .collection-item{
+    .title {
+      font-size: 20px !important;
+      font-weight: 500;
+    }
+
+    .subtitle {
+      font-size: 16px !important;
+      color: #555;
+      font-weight: 500;
+    }
+
+    &.avatar {
+      .circle {
+        border: 1px solid #bbb;
+      }
+    }
+
+    &:first-child {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+
+    &:last-child {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+  }
 }
 
 fieldset{
@@ -50,11 +100,14 @@ form.one-page {
 }
 
 .section-container{
-  overflow: hidden;
   padding: 20px;
   min-height: 50vh;
   background-color: $background-color;
   width: 100%;
+
+  @media #{$small-and-down} {
+    padding: 10px;
+  }
 }
 
 .card .card-image img{
@@ -101,7 +154,6 @@ input, textarea{
 }
 
 label{
-  font-weight: 300;
   text-transform: uppercase;
 }
 
@@ -202,7 +254,7 @@ i.fa{
   padding: 0 0.75rem;
 }
 
-@media only screen and (max-width : 992px) {
+@media #{$medium-and-down} {
 
   nav .brand-logo{
     left: 0;
@@ -210,7 +262,7 @@ i.fa{
   }
 }
 
-@media only screen and (max-width : 590px){
+@media #{$small-and-down} {
 
   .small-input{
     width: 100% !important;
@@ -219,9 +271,13 @@ i.fa{
   nav{
     padding: 0 15px !important;
 
-    .breadcrumb {
-      font-size: 14px;
+    .nav-wrapper {
+      white-space: nowrap;
+      overflow: hidden !important;
+      text-overflow: ellipsis;
+    }
 
+    .breadcrumb {
       &:before {
         margin: 0;
       }

@@ -1,52 +1,45 @@
 #dashboard{
+  display: flex;
+  justify-content: space-between;
+  min-height: auto;
 
-  .manager{
-    float: left;
-    width: calc(100% - 420px);
-    max-width: 100%;
-    margin-right: 20px;
+  @media #{$small-and-down} {
+    flex-direction: column;
   }
 
-  .box a{
-    position: relative;
-    display: block;
-    color: #fff;
-    background-color: $secondary-color;
-    font-weight: 300;
-    font-size: 1.25rem;
-    padding: 10px 20px;
-    margin-bottom: 20px;
-    border-radius: 4px;
+  .collapsible {
+    max-width: 650px;
+    width: 100%;
+    margin: 0;
+    margin-right: 50px;
+
+    .collapsible-header {
+      line-height: 4rem;
+      height: 4rem;
+      font-size: 1.15rem;
+      font-weight: 500;
+
+      i {
+        line-height: 4rem;
+        font-size: 2rem;
+      }
+    }
+
+    h6 {
+      font-weight: 500;
+    }
 
     @media #{$small-and-down} {
-      font-size: 1rem;
+      margin: 0;
+      margin-bottom: 25px;
     }
-
-    i{
-      transition: 200ms cubic-bezier(0.7,0,0.3,1);
-    }
-
-    .icon{
-      position: absolute;
-      right: 20px;
-      width: 40px;
-      text-align: center;
-      font-size: 1.5rem;
-    }
-
-    &:hover i:not(.icon){
-      padding-right: 20px;
-    }
-
   }
 
   .things-to-do{
-    float: left;
-    width: 400px;
+    width: 70%;
 
-    @media #{$medium-and-down} {
-      margin: 0 15px;
-      width: calc(100% - 30px);
+    @media #{$small-and-down} {
+      max-width: none;
     }
   }
 
@@ -114,7 +107,7 @@
 
   .card-header{
     font-weight: 500;
-    font-size: 1.5rem;
+    font-size: 1.15rem;
     padding: 15px;
     color: #333;
     border-bottom: 3px solid $background-color;

@@ -8,8 +8,12 @@ const Parents = React.createClass({
     this.loadParents();
   },
   loadParents() {
-    $.getJSON('/parents', { student_id: this.props.student_id }, json => {
-      this.setState({ parents: json.parents, studentParentIds: json.studentParentIds })
+    $.ajax({
+      url: '/parents',
+      data: { student_id: this.props.student_id },
+      success: json => {
+        this.setState({ parents: json.parents, studentParentIds: json.studentParentIds })
+      }
     });
   },
   toggleParentId(e) {
@@ -25,7 +29,6 @@ const Parents = React.createClass({
     e.preventDefault();
     $.ajax({
       url: `/parents`,
-      dataType: 'JSON',
       type: 'POST',
       data: { student_id: this.props.student_id, student_parent_ids: this.state.studentParentIds },
       success: () => {
@@ -38,7 +41,7 @@ const Parents = React.createClass({
     return(
       <div className='section-container'>
         <div className='row'>
-          <h3>Existing Parents</h3>
+          <h4>Existing Parents</h4>
         </div>
 
         <div className='parents'>

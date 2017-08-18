@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160918222608) do
+ActiveRecord::Schema.define(version: 20170717115903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,20 @@ ActiveRecord::Schema.define(version: 20160918222608) do
   add_index "action_items", ["goal_id"], name: "index_action_items_on_goal_id", using: :btree
   add_index "action_items", ["meeting_id"], name: "index_action_items_on_meeting_id", using: :btree
   add_index "action_items", ["user_id"], name: "index_action_items_on_user_id", using: :btree
+
+  create_table "application_settings", force: :cascade do |t|
+    t.boolean  "hide_feedback",                      default: false
+    t.string   "calendar_id"
+    t.boolean  "hide_calendar",                      default: false
+    t.boolean  "hide_week_view",                     default: false
+    t.string   "calendar_url"
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.string   "home_background_image_file_name"
+    t.string   "home_background_image_content_type"
+    t.integer  "home_background_image_file_size"
+    t.datetime "home_background_image_updated_at"
+  end
 
   create_table "background_images", force: :cascade do |t|
     t.string   "image_file_name"
@@ -70,14 +84,25 @@ ActiveRecord::Schema.define(version: 20160918222608) do
   add_index "enrolls", ["klass_id"], name: "index_enrolls_on_klass_id", using: :btree
   add_index "enrolls", ["user_id"], name: "index_enrolls_on_user_id", using: :btree
 
+  create_table "feedbacks", force: :cascade do |t|
+    t.string   "name"
+    t.string   "subject"
+    t.text     "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+  end
+
+  add_index "feedbacks", ["user_id"], name: "index_feedbacks_on_user_id", using: :btree
+
   create_table "goals", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
-    t.boolean  "is_completed"
+    t.boolean  "is_completed", default: false
     t.integer  "progress"
-    t.datetime "due_date"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.date     "due_date"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "user_id"
   end
 
@@ -87,8 +112,8 @@ ActiveRecord::Schema.define(version: 20160918222608) do
     t.string   "weekday"
     t.string   "time"
     t.string   "instructor"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "google_drive_url"
     t.string   "season"
     t.string   "year"
@@ -96,13 +121,18 @@ ActiveRecord::Schema.define(version: 20160918222608) do
     t.string   "instructor_phone"
     t.boolean  "one_on_one"
     t.string   "location"
+    t.text     "years",            default: [],                 array: true
+    t.text     "seasons",          default: [],                 array: true
+    t.text     "weekdays",         default: [],                 array: true
+    t.boolean  "archive",          default: false
   end
 
   create_table "meetings", force: :cascade do |t|
     t.text     "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "user_id"
+    t.boolean  "draft",      default: false
   end
 
   add_index "meetings", ["user_id"], name: "index_meetings_on_user_id", using: :btree
@@ -223,8 +253,8 @@ ActiveRecord::Schema.define(version: 20160918222608) do
     t.string   "email"
     t.string   "password"
     t.string   "role"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
@@ -237,6 +267,7 @@ ActiveRecord::Schema.define(version: 20160918222608) do
     t.datetime "profile_background_updated_at"
     t.string   "profile_color"
     t.boolean  "private"
+    t.boolean  "archive",                         default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
